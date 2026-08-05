@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/motion/index.tsx","./src/components/ui/index.tsx","./src/data/deck.ts","./src/lib/motion.ts","./src/sections/act1setup.tsx","./src/sections/act2forces.tsx","./src/sections/act3reveal.tsx","./src/sections/act4market.tsx","./vite.config.ts"],"version":"5.9.3"}
