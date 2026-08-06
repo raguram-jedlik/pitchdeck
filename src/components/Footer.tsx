@@ -2,9 +2,8 @@
 
 import { motion } from "framer-motion";
 import {
-  supportedBy,
+  supporters,
   buildPhotos,
-  supportersImage,
   contactInfo,
   close,
   brand,
@@ -12,11 +11,10 @@ import {
 
 /**
  * Close — black background, single red line, contact list, marquee build
- * photos (auto-scroll, no touch), supporter strip with a dedicated black
- * Anna Incubator mark. The red wordmark is the only colour on the page.
+ * photos (auto-scroll, no touch), supporter strip with uploaded Anna
+ * Incubator + 4 generated SVG marks for the other supporters.
  */
 export default function Footer() {
-  // Duplicate the build photos so the marquee loops seamlessly.
   const marquee = [...buildPhotos, ...buildPhotos];
 
   return (
@@ -116,7 +114,7 @@ export default function Footer() {
           </li>
         </motion.ul>
 
-        {/* Build photos — auto-marquee, no touch interaction. */}
+        {/* Build photos — auto-marquee, no touch. */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -142,7 +140,7 @@ export default function Footer() {
           </div>
         </motion.div>
 
-        {/* Supporters */}
+        {/* Supporters — single white strip with uploaded Anna Incubator + 4 SVG marks */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -152,36 +150,27 @@ export default function Footer() {
         >
           <p className="eyebrow text-paper/60">Supported by</p>
           <ul className="mt-4 flex flex-wrap gap-x-8 gap-y-3 text-sm text-paper/80 md:text-base">
-            {supportedBy.map((s) => (
+            {supporters.map((s) => (
               <li
-                key={s}
+                key={s.name}
                 className="font-display text-xs font-semibold uppercase tracking-[0.16em]"
               >
-                {s}
+                {s.name}
               </li>
             ))}
           </ul>
-          <div className="mt-6 flex flex-wrap items-center gap-6">
-            {/* Uploaded Anna Incubator logo */}
-            <div className="inline-block bg-paper p-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+          {/* The white strip — composed of the uploaded Anna Incubator + 4 SVG logos */}
+          <div className="mt-6 inline-flex flex-wrap items-center gap-6 bg-paper p-4">
+            {supporters.map((s) => (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
-                src="/assets/anna-incubator-uploaded.png"
-                alt="Anna Incubator"
+                key={s.name}
+                src={s.src}
+                alt={s.alt}
                 loading="lazy"
-                className="h-10 w-auto md:h-12"
+                className="h-9 w-auto object-contain md:h-11"
               />
-            </div>
-            {/* Other supporters from the original strip */}
-            <div className="inline-block bg-paper p-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={supportersImage}
-                alt="Startup India, DPIIT, MAARG, NIDHI PRAYAS, EDII-TN, Startup India Seed Fund Scheme"
-                loading="lazy"
-                className="h-10 w-auto md:h-12"
-              />
-            </div>
+            ))}
           </div>
         </motion.div>
 

@@ -7,7 +7,8 @@ import { roadmap } from "@/data/jedlikData";
 /**
  * Funding roadmap. Mobile: horizontal snap-scroll row. Desktop: vertical
  * timeline with a single black rule that fills red as the user scrolls past
- * each milestone. Pre-Seed (FY2026) is the NOW raise.
+ * each milestone. Pre-Seed (FY2026) is the NOW raise — visibly marked with
+ * a red "Now" chip on both layouts.
  */
 export default function RoadmapScrolly() {
   const ref = useRef<HTMLDivElement>(null);
@@ -30,7 +31,7 @@ export default function RoadmapScrolly() {
         </h2>
 
         {/* Mobile: horizontal snap-scroll row */}
-        <div className="relative mt-12 -mx-6 overflow-x-auto pb-4 md:hidden">
+        <div className="relative mt-12 -mx-6 overflow-x-auto pb-6 md:hidden">
           <ol className="flex w-max snap-x snap-mandatory gap-4 px-6">
             {roadmap.map((m, i) => (
               <motion.li
@@ -39,12 +40,12 @@ export default function RoadmapScrolly() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: i * 0.04 }}
-                className={`relative w-[260px] shrink-0 snap-center border ${
+                className={`relative w-[260px] shrink-0 snap-center border bg-paper p-5 pt-6 ${
                   m.isNow ? "border-red" : "border-rule"
-                } bg-paper p-4`}
+                }`}
               >
                 {m.isNow && (
-                  <span className="absolute -top-3 left-3 inline-block bg-red px-2 py-0.5 font-display text-[0.6rem] font-bold uppercase tracking-wider text-paper">
+                  <span className="absolute -top-3 left-4 z-10 inline-block bg-red px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper shadow-sm">
                     Now
                   </span>
                 )}
@@ -78,7 +79,7 @@ export default function RoadmapScrolly() {
             className="absolute top-0 left-2 w-px bg-red md:left-3"
           />
 
-          <ol className="flex flex-col gap-8">
+          <ol className="flex flex-col gap-10">
             {roadmap.map((m, i) => (
               <motion.li
                 key={`${m.year}-${m.label}-${i}`}
@@ -88,11 +89,18 @@ export default function RoadmapScrolly() {
                 transition={{ duration: 0.5, delay: i * 0.04 }}
                 className="relative pl-10 md:pl-14"
               >
-                <span
-                  className={`absolute top-2 left-2 -translate-x-1/2 h-2 w-2 rounded-full md:left-3 ${
-                    m.isNow ? "bg-red" : "bg-ink"
-                  }`}
-                />
+                {/* Marker on the rule — big red disc for NOW, small black for others */}
+                {m.isNow ? (
+                  <>
+                    <span className="absolute top-2 left-2 -translate-x-1/2 h-3 w-3 rounded-full bg-red shadow-[0_0_0_4px_rgba(229,9,30,0.2)] md:left-3" />
+                    <span className="absolute top-2 left-6 ml-1 inline-flex items-center bg-red px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper">
+                      Now
+                    </span>
+                  </>
+                ) : (
+                  <span className="absolute top-2 left-2 -translate-x-1/2 h-2 w-2 rounded-full bg-ink md:left-3" />
+                )}
+
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6">
                   <span
                     className={`font-display text-2xl font-bold tracking-tight md:text-3xl ${
@@ -106,7 +114,6 @@ export default function RoadmapScrolly() {
                       m.isNow ? "text-red" : "text-muted"
                     }`}
                   >
-                    {m.isNow && "Now · "}
                     {m.label}
                   </span>
                 </div>

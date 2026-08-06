@@ -7,7 +7,14 @@ import { quadrantPoints, brand } from "@/data/jedlikData";
  * Positioning map — true 4-quadrant scatter graph with vehicle images for
  * rivals and a question-mark silhouette for Jedlik. Optimised for mobile:
  * the chart scales down cleanly and Jedlik's silhouette is positioned in
- * the only empty quadrant (top-right).
+ * the only empty quadrant (top-right, the highest comfort / lowest
+ * maneuverability quadrant).
+ *
+ * Quadrant labels (screen reading order: TL, TR, BL, BR):
+ *   Q1 TL — High Maneuver, Low Comfort
+ *   Q2 TR — High Comfort, Low Maneuver   ← Jedlik
+ *   Q3 BR — Low Maneuver, High Comfort
+ *   Q4 BL — Low Maneuver, Low Comfort
  */
 export default function QuadrantChart() {
   const rivals = quadrantPoints.filter((p) => !p.isJedlik);
@@ -41,29 +48,29 @@ export default function QuadrantChart() {
             Low Maneuver
           </span>
 
-          {/* quadrant corner labels */}
-          <span className="absolute left-1 top-1 font-display text-[0.5rem] font-semibold uppercase tracking-[0.14em] text-muted md:text-[0.55rem]">
+          {/* Quadrant corner labels (screen reading order: TL, TR, BL, BR) */}
+          <span className="absolute left-1 top-1 font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:text-[0.55rem]">
             High Maneuver
             <br />
             Low Comfort
           </span>
-          <span className="absolute right-1 top-1 text-right font-display text-[0.5rem] font-semibold uppercase tracking-[0.14em] text-muted md:text-[0.55rem]">
+          <span className="absolute right-1 top-1 text-right font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-red md:text-[0.55rem]">
             High Comfort
             <br />
-            High Maneuver
+            Low Maneuver
           </span>
-          <span className="absolute bottom-1 left-1 font-display text-[0.5rem] font-semibold uppercase tracking-[0.14em] text-muted md:text-[0.55rem]">
+          <span className="absolute bottom-1 left-1 font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:text-[0.55rem]">
             Low Maneuver
             <br />
             Low Comfort
           </span>
-          <span className="absolute bottom-1 right-1 text-right font-display text-[0.5rem] font-semibold uppercase tracking-[0.14em] text-muted md:text-[0.55rem]">
+          <span className="absolute bottom-1 right-1 text-right font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:text-[0.55rem]">
             Low Maneuver
             <br />
             High Comfort
           </span>
 
-          {/* rivals — image above, name below */}
+          {/* rivals — small image above, name below */}
           {rivals.map((p, i) => {
             const left = `${(p.comfort / 100) * 100}%`;
             const top = `${100 - p.maneuverability}%`;
@@ -83,10 +90,10 @@ export default function QuadrantChart() {
                     src={p.image}
                     alt={p.name}
                     loading="lazy"
-                    className="h-10 w-auto object-contain md:h-14"
+                    className="h-6 w-auto object-contain md:h-8"
                   />
                 )}
-                <span className="mt-1 whitespace-nowrap text-center font-display text-[0.55rem] font-semibold text-ink md:text-[0.65rem]">
+                <span className="mt-0.5 whitespace-nowrap text-center font-display text-[0.5rem] font-semibold leading-tight text-ink md:text-[0.55rem]">
                   {p.name}
                 </span>
               </motion.div>
@@ -105,18 +112,18 @@ export default function QuadrantChart() {
               top: `${100 - jedlik.maneuverability}%`,
             }}
           >
-            <div className="relative h-12 w-16 md:h-16 md:w-24">
+            <div className="relative h-10 w-14 md:h-14 md:w-20">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={brand.silhouette}
                 alt="E-POD silhouette"
                 className="h-full w-full object-contain"
               />
-              <span className="absolute inset-0 flex items-center justify-center font-display text-2xl font-extrabold text-paper drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] md:text-3xl">
+              <span className="absolute inset-0 flex items-center justify-center font-display text-xl font-extrabold text-paper drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] md:text-2xl">
                 ?
               </span>
             </div>
-            <span className="mt-1 whitespace-nowrap text-center font-display text-[0.6rem] font-bold uppercase text-red md:text-[0.7rem]">
+            <span className="mt-0.5 whitespace-nowrap text-center font-display text-[0.6rem] font-bold uppercase text-red md:text-[0.65rem]">
               {jedlik.name}
             </span>
           </motion.div>
@@ -124,7 +131,8 @@ export default function QuadrantChart() {
 
         <p className="mx-auto mt-8 max-w-xl text-center text-sm text-muted md:text-base">
           Seven serious attempts at an enclosed commuter. None of them sit in the
-          top-right quadrant.
+          top-right quadrant — the only one with both high comfort and low
+          maneuverability, where Jedlik lives.
         </p>
       </div>
     </section>

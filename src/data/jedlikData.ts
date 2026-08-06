@@ -168,7 +168,8 @@ export const productSpecs = {
     "Range 200 km",
     "Pushback Seats",
   ],
-  image: "/assets/epod-reveal.jpg",
+  // Uploaded PNG with transparent background, sized to fit on mobile + desktop
+  image: "/assets/epod-reveal-uploaded.png",
   blurImage: "/assets/epod-blur.jpg",
 };
 
@@ -265,11 +266,11 @@ export interface GeoExpansion {
 }
 
 export const geoExpansion: GeoExpansion[] = [
-  { region: "India",            value: 517, display: "$517M",  mapX: 69.5, mapY: 47.0 },
-  { region: "Vietnam + Thailand", value: 86,  display: "$86M",   mapX: 76.5, mapY: 49.0 },
-  { region: "Indonesia",        value: 63,  display: "$63M",   mapX: 79.0, mapY: 60.5 },
-  { region: "EU-5 + USA",       value: 40,  display: "$40M+",  mapX: 50.5, mapY: 32.0 },
-  { region: "Brazil",           value: 8,   display: "$8M",    mapX: 35.5, mapY: 65.5 },
+  { region: "India",            value: 517, display: "$517M",  mapX: 68.5, mapY: 46.5 },
+  { region: "Vietnam + Thailand", value: 86,  display: "$86M",   mapX: 78.5, mapY: 53.0 },
+  { region: "Indonesia",        value: 63,  display: "$63M",   mapX: 81.0, mapY: 64.0 },
+  { region: "EU-5 + USA",       value: 40,  display: "$40M+",  mapX: 49.5, mapY: 30.5 },
+  { region: "Brazil",           value: 8,   display: "$8M",    mapX: 33.0, mapY: 64.0 },
 ];
 
 // ---------- Section 9: Personas ----------
@@ -330,12 +331,32 @@ export const personas: Persona[] = [
 ];
 
 // ---------- Footer ----------
-export const supportedBy = [
-  "Anna Incubator",
-  "Startup India (DPIIT)",
-  "Startup TN",
-  "MAARG",
-  "NIDHI PRAYAS",
+export const supporters: { name: string; src: string; alt: string }[] = [
+  {
+    name: "Anna Incubator",
+    src: "/assets/supporters/anna-incubator.png",
+    alt: "Anna Incubator",
+  },
+  {
+    name: "Startup India (DPIIT)",
+    src: "/assets/supporters/startup-india-dpiit.svg",
+    alt: "Startup India — DPIIT",
+  },
+  {
+    name: "Startup TN",
+    src: "/assets/supporters/startup-tn.svg",
+    alt: "Startup Tamil Nadu",
+  },
+  {
+    name: "MAARG",
+    src: "/assets/supporters/maarg.svg",
+    alt: "MAARG — Mentorship, Advisory, Assistance, Resilience, Growth",
+  },
+  {
+    name: "NIDHI PRAYAS",
+    src: "/assets/supporters/nidhi-prayas.svg",
+    alt: "NIDHI PRAYAS — DST India",
+  },
 ];
 
 export const buildPhotos = [
@@ -348,7 +369,7 @@ export const buildPhotos = [
   "/assets/build-7.jpg",
 ];
 
-export const supportersImage = "/assets/supporters.png";
+
 
 export const contactInfo = {
   website: "www.jedlik.in",

@@ -1,0 +1,7 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" fill="none">
+  <circle cx="24" cy="28" r="18" fill="none" stroke="#000000" stroke-width="2"/>
+  <path d="M16 28 L22 34 L34 22" fill="none" stroke="#E5091E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="52" y="26" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="700" fill="#000000">NIDHI</text>
+  <text x="52" y="42" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="700" fill="#000000">PRAYAS</text>
+</svg>

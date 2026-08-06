@@ -188,7 +188,9 @@ export default function MarketSize() {
             />
             <div className="absolute inset-0">
               {geoExpansion.map((g, i) => {
-                const size = 8 + (g.value / maxGeo) * 14; // 8–22px
+                // sqrt-scaled radius: 6–16px so India dominates but small
+                // markets stay legible without crowding neighbours.
+                const size = 6 + Math.sqrt(g.value / maxGeo) * 10;
                 return (
                   <motion.div
                     key={g.region}
@@ -208,7 +210,7 @@ export default function MarketSize() {
                       className="rounded-full border-2 border-paper bg-red shadow-sm"
                       style={{ width: size, height: size }}
                     />
-                    <span className="mt-1 whitespace-nowrap rounded bg-paper/95 px-1.5 py-0.5 font-display text-[0.55rem] font-bold text-ink shadow-sm md:text-[0.65rem]">
+                    <span className="mt-1 whitespace-nowrap rounded bg-paper/95 px-1.5 py-0.5 font-display text-[0.55rem] font-bold leading-tight text-ink shadow-sm md:text-[0.65rem]">
                       {g.display}
                     </span>
                   </motion.div>
