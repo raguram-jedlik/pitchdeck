@@ -4,83 +4,85 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { roadmap } from "@/data/jedlikData";
 
+/**
+ * Funding roadmap. Single black vertical rule with a red fill that grows as
+ * the user scrolls past each milestone. NOW is the active raise — marked with
+ * a red dot and red label.
+ */
 export default function RoadmapScrolly() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end end"],
+    offset: ["start end", "end start"],
   });
 
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const fillHeight = useTransform(scrollYProgress, [0.1, 0.9], ["0%", "100%"]);
 
   return (
-    <section ref={ref} className="relative bg-slate-950 px-6 py-28 md:px-10">
-      <div className="mx-auto max-w-4xl">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-6 text-center font-display text-3xl font-bold sm:text-4xl md:text-5xl"
-        >
-          The Fuel Needed to{" "}
-          <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-            Bring Jedlik Alive
-          </span>
-        </motion.h2>
+    <section
+      ref={ref}
+      className="relative bg-paper px-6 py-20 md:px-10 md:py-32"
+    >
+      <div className="mx-auto max-w-deck">
+        <p className="eyebrow">Section 04 — The Fuel</p>
+        <h2 className="display-lg mt-4 max-w-[18ch] text-ink">
+          The fuel needed to bring Jedlik alive.
+        </h2>
 
-        <div className="relative mt-20 pl-10 sm:pl-16">
-          {/* connecting line */}
-          <div className="absolute left-3 top-0 bottom-0 w-px bg-slate-800 sm:left-6" />
+        <div className="relative mt-16">
+          {/* base rule */}
+          <div className="absolute top-0 bottom-0 left-2 w-px bg-rule md:left-3" />
+          {/* red fill */}
           <motion.div
-            style={{ height: lineHeight }}
-            className="absolute left-3 top-0 w-px bg-gradient-to-b from-cyan-400 to-emerald-400 sm:left-6"
+            style={{ height: fillHeight }}
+            className="absolute top-0 left-2 w-px bg-red md:left-3"
           />
 
-          <div className="flex flex-col gap-16">
+          <ol className="flex flex-col gap-10">
             {roadmap.map((m, i) => (
-              <motion.div
-                key={`${m.year}-${m.label}`}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5 }}
-                className="relative"
+              <motion.li
+                key={`${m.year}-${m.label}-${i}`}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.04 }}
+                className="relative pl-10 md:pl-14"
               >
                 <span
-                  className={`absolute -left-10 top-1 h-4 w-4 rounded-full border-2 sm:-left-16 ${
-                    m.isNow
-                      ? "border-emerald-400 bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.8)]"
-                      : "border-cyan-400 bg-slate-950"
+                  className={`absolute top-2 left-2 -translate-x-1/2 h-2 w-2 rounded-full md:left-3 ${
+                    m.isNow ? "bg-red" : "bg-ink"
                   }`}
                 />
-                <div className="glass sticky top-24 rounded-2xl p-6">
-                  <div className="mb-2 flex flex-wrap items-baseline gap-3">
-                    <span className="font-display text-2xl font-bold text-glow-cyan text-cyan-300">
-                      {m.year}
-                    </span>
-                    <span
-                      className={`rounded-full px-3 py-1 text-xs font-medium uppercase tracking-wide ${
-                        m.isNow
-                          ? "bg-emerald-400/20 text-emerald-300"
-                          : "bg-slate-800 text-slate-300"
-                      }`}
-                    >
-                      {m.isNow ? "NOW · " : ""}
-                      {m.label}
-                    </span>
-                  </div>
-                  <ul className="mt-3 space-y-1.5">
-                    {m.points.map((pt) => (
-                      <li key={pt} className="text-sm text-slate-300 sm:text-base">
-                        {pt}
-                      </li>
-                    ))}
-                  </ul>
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6">
+                  <span
+                    className={`font-display text-2xl font-bold tracking-tight md:text-3xl ${
+                      m.isNow ? "text-red" : "text-ink"
+                    }`}
+                  >
+                    {m.year}
+                  </span>
+                  <span
+                    className={`font-display text-xs font-semibold uppercase tracking-[0.16em] ${
+                      m.isNow ? "text-red" : "text-muted"
+                    }`}
+                  >
+                    {m.isNow && "Now · "}
+                    {m.label}
+                  </span>
                 </div>
-              </motion.div>
+                <ul className="mt-3 space-y-1 text-sm leading-relaxed text-ink md:text-base">
+                  {m.points.map((p) => (
+                    <li key={p} className="flex gap-3">
+                      <span className="text-muted" aria-hidden="true">
+                        —
+                      </span>
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.li>
             ))}
-          </div>
+          </ol>
         </div>
       </div>
     </section>

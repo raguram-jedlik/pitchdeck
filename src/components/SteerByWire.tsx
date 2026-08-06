@@ -1,123 +1,124 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { steerByWire, crabWalk } from "@/data/jedlikData";
-import { Cog, Zap, CircleDot } from "lucide-react";
+import { motion } from "framer-motion";
+import { steerByWire, crabWalk, type CrabMode } from "@/data/jedlikData";
+
+/**
+ * Steer-by-wire + Crab-walk. No tabs, no glass, no glow. The crab-walk
+ * diagrams are inline SVG with wheels that hold their resting angle — so the
+ * three modes read as three different geometries even with animation off.
+ */
+function CrabDiagram({ front, rear }: { front: number; rear: number }) {
+  return (
+    <svg viewBox="0 0 90 150" className="h-32 w-auto md:h-40" aria-hidden="true">
+      {/* chassis */}
+      <rect x="24" y="18" width="42" height="114" rx="10" fill="#F4F4F4" />
+      {/* front wheel */}
+      <g
+        style={{ transform: `rotate(${front}deg)`, transformOrigin: "45px 19px" }}
+      >
+        <rect x="36" y="2" width="18" height="34" rx="7" fill="#000000" />
+      </g>
+      {/* rear wheel */}
+      <g
+        style={{ transform: `rotate(${rear}deg)`, transformOrigin: "45px 131px" }}
+      >
+        <rect x="36" y="114" width="18" height="34" rx="7" fill="#000000" />
+      </g>
+    </svg>
+  );
+}
+
+function CrabModeBlock({ mode }: { mode: CrabMode }) {
+  return (
+    <div className="flex flex-col items-center">
+      <CrabDiagram front={mode.front} rear={mode.rear} />
+      <span className="mt-3 text-center font-display text-xs font-semibold uppercase tracking-tight text-ink md:text-sm">
+        {mode.name}
+      </span>
+    </div>
+  );
+}
 
 export default function SteerByWire() {
-  const [active, setActive] = useState<"steer" | "crab">("steer");
-
   return (
-    <section className="relative bg-slate-950 px-6 py-28 md:px-10">
-      <div className="mx-auto max-w-5xl">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-10 text-center font-display text-3xl font-bold sm:text-4xl md:text-5xl"
-        >
-          The Trick with{" "}
-          <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-            Two Wheels
-          </span>
-        </motion.h2>
+    <section className="relative bg-paper px-6 py-20 md:px-10 md:py-32">
+      <div className="mx-auto max-w-deck">
+        <p className="eyebrow">Section 06 — The Trick</p>
+        <h2 className="display-lg mt-4 max-w-[16ch] text-ink">
+          The trick with two wheels.
+        </h2>
 
-        <div className="mb-10 flex justify-center gap-3">
-          {(["steer", "crab"] as const).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActive(tab)}
-              className={`rounded-full px-6 py-2 text-sm font-medium tracking-wide transition ${
-                active === tab
-                  ? "bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950"
-                  : "glass text-slate-300 hover:border-cyan-400/50"
-              }`}
-            >
-              {tab === "steer" ? "Steer-by-Wire" : "Crab-Walk Steering"}
-            </button>
-          ))}
+        <div className="mt-14 grid grid-cols-1 gap-12 border-t border-rule pt-14 md:grid-cols-2">
+          {/* Steer by wire */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col"
+          >
+            <span className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-red">
+              {steerByWire.heading}
+            </span>
+            <p className="mt-4 text-base leading-relaxed text-ink md:text-lg">
+              {steerByWire.description}
+            </p>
+
+            <div className="mt-8 overflow-hidden border border-rule">
+              <img
+                src={steerByWire.image}
+                alt="Mechanical steering column compared with steer-by-wire"
+                loading="lazy"
+                className="w-full"
+              />
+            </div>
+
+            <ul className="mt-6 space-y-2 text-sm text-ink md:text-base">
+              {steerByWire.benefits.map((b) => (
+                <li key={b} className="flex gap-3">
+                  <span className="text-red" aria-hidden="true">
+                    ·
+                  </span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Crab walk */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex flex-col"
+          >
+            <span className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-red">
+              {crabWalk.heading}
+            </span>
+            <p className="mt-4 text-base leading-relaxed text-ink md:text-lg">
+              {crabWalk.description}
+            </p>
+
+            <div className="mt-8 grid grid-cols-3 gap-4 border border-rule p-4 md:p-6">
+              {crabWalk.modes.map((mode) => (
+                <CrabModeBlock key={mode.name} mode={mode} />
+              ))}
+            </div>
+
+            <ul className="mt-6 space-y-2 text-sm text-ink md:text-base">
+              {crabWalk.benefits.map((b) => (
+                <li key={b} className="flex gap-3">
+                  <span className="text-red" aria-hidden="true">
+                    ·
+                  </span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
         </div>
-
-        <AnimatePresence mode="wait">
-          {active === "steer" ? (
-            <motion.div
-              key="steer"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="grid grid-cols-1 gap-6 sm:grid-cols-2"
-            >
-              <div className="glass rounded-2xl p-8">
-                <Cog className="mb-4 h-8 w-8 text-slate-400" />
-                <p className="font-display text-lg font-semibold text-slate-200">
-                  {steerByWire.mechanical.title}
-                </p>
-                <p className="mt-2 text-sm text-slate-400">{steerByWire.mechanical.description}</p>
-              </div>
-              <div className="glass rounded-2xl border-cyan-400/40 p-8">
-                <Zap className="mb-4 h-8 w-8 text-cyan-400" />
-                <p className="font-display text-lg font-semibold text-glow-cyan text-cyan-300">
-                  {steerByWire.steerByWireCard.title}
-                </p>
-                <p className="mt-2 text-sm text-slate-300">
-                  {steerByWire.steerByWireCard.description}
-                </p>
-              </div>
-              <div className="glass rounded-2xl p-8 sm:col-span-2">
-                <p className="mb-3 text-xs uppercase tracking-widest text-emerald-400">Benefits</p>
-                <div className="flex flex-wrap gap-3">
-                  {steerByWire.benefits.map((b) => (
-                    <span
-                      key={b}
-                      className="rounded-full bg-emerald-400/10 px-4 py-2 text-sm text-emerald-300"
-                    >
-                      {b}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="crab"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="grid grid-cols-1 gap-6 sm:grid-cols-2"
-            >
-              <div className="glass rounded-2xl p-8">
-                <p className="mb-4 flex items-center gap-2 text-xs uppercase tracking-widest text-cyan-400">
-                  <CircleDot className="h-4 w-4" /> Modes
-                </p>
-                <div className="flex flex-col gap-2">
-                  {crabWalk.modes.map((m) => (
-                    <span
-                      key={m}
-                      className="rounded-lg bg-slate-800/60 px-4 py-2 text-sm text-slate-200"
-                    >
-                      {m}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="glass rounded-2xl border-emerald-400/40 p-8">
-                <p className="mb-4 text-xs uppercase tracking-widest text-emerald-400">Benefits</p>
-                <ul className="space-y-3 text-sm text-slate-300">
-                  {crabWalk.benefits.map((b) => (
-                    <li key={b} className="flex gap-2">
-                      <span className="text-emerald-400">&#8226;</span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </section>
   );

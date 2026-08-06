@@ -13,9 +13,19 @@ npm run dev
 Then open http://localhost:3000.
 
 ```bash
-npm run build      # production build
+npm run build      # typecheck + production build
 npm run start      # serve the production build
 ```
+
+## Design
+
+A strict black, white, and red palette — nothing else. Three values do the
+whole job: `#000000`, `#FFFFFF`, and `#E5091E`. No glow, no glass, no parallax
+orbs, no gradient text, no decorative icons. Just type, hairline rules, and
+photography from the deck.
+
+Section eyebrows (`Section 01 — The Need`) and the red wordmark at the reveal
+are the only colour accents.
 
 ## Editing content
 
@@ -27,20 +37,22 @@ or number change is a one-line edit in one file.
 
 ```
 app/
-  layout.tsx           fonts, metadata, root HTML shell
+  layout.tsx            fonts, metadata, root HTML shell
   page.tsx              composes every section in order
-  globals.css           Tailwind entrypoint + shared glass/glow utilities
+  globals.css           Tailwind entrypoint + display/eyebrow tokens
 src/
-  data/jedlikData.ts     all content — the only file you edit for copy changes
-  components/            one component per section (Hero, CommuterNeeds,
-                          QuadrantChart, TeamForces, RoadmapScrolly,
-                          ProductReveal, SteerByWire, MarketSize, Personas,
-                          Footer) plus a shared Nav/scroll-progress bar
+  data/jedlikData.ts    all content — the only file you edit for copy changes
+  components/           one component per section (Hero, CommuterNeeds,
+                        QuadrantChart, TeamForces, RoadmapScrolly,
+                        ProductReveal, SteerByWire, MarketSize, Personas,
+                        Footer) plus the shared Nav
+public/assets/          e-POD render, build photos, team portraits,
+                        rivals, supporters, steer-by-wire diagram
 ```
 
 ## Motion
 
-Built with Framer Motion's `useScroll` / `useTransform` for scroll-linked
-parallax, sticky-pinned sections, staggered card reveals, and count-up
-numbers. No external images are used — all visuals are CSS gradients, SVG
-silhouettes, and glow effects.
+Framer Motion is used for *subtle* scroll-driven entrances — staggered reveals
+on view, a count-up on the market figures, a single red bar that grows down
+the funding timeline. No parallax transforms, no 3D tilt, no scroll-jacking.
+`prefers-reduced-motion` collapses everything to its final state.

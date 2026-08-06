@@ -1,5 +1,9 @@
 import type { Config } from "tailwindcss";
 
+/**
+ * Strict black / white / red. Three values. No cyan, no emerald, no glass,
+ * no glow. The site must read as a printed prospectus, not a tech-bro dashboard.
+ */
 const config: Config = {
   darkMode: "class",
   content: [
@@ -9,21 +13,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cyan: {
-          400: "#22d3ee",
-          500: "#06b6d4",
-        },
-        emerald: {
-          400: "#34d399",
-          500: "#10b981",
+        ink: "#000000",
+        paper: "#FFFFFF",
+        muted: "#6B6B6B",
+        rule: "#E5E5E5",
+        red: {
+          DEFAULT: "#E5091E",
+          deep: "#9C0614",
+          soft: "#FBD9DC",
         },
       },
       fontFamily: {
         display: ["var(--font-display)"],
         body: ["var(--font-body)"],
       },
-      backgroundImage: {
-        grid: "linear-gradient(rgba(34,211,238,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.08) 1px, transparent 1px)",
+      maxWidth: {
+        deck: "1180px",
+      },
+      letterSpacing: {
+        tightest: "-0.04em",
+        tighter: "-0.02em",
       },
     },
   },

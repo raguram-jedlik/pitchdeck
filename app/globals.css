@@ -7,50 +7,83 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background-color: #020617;
-  color: #f8fafc;
+  background-color: #ffffff;
+  color: #000000;
   overflow-x: hidden;
 }
 
 ::selection {
-  background-color: rgba(34, 211, 238, 0.35);
-  color: #fff;
+  background-color: #000000;
+  color: #ffffff;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
+/* A hairline rule used between sections in the body of the document. */
+hr.rule {
+  border: 0;
+  border-top: 1px solid #e5e5e5;
 }
 
-::-webkit-scrollbar-track {
-  background: #020617;
+/* A single accent for the red call-out dot / NOW badge. */
+.dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: #e5091e;
+  border-radius: 9999px;
 }
 
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(#22d3ee, #34d399);
-  border-radius: 8px;
+/* The eyebrow / section-label style — uppercase, tight tracking, small. */
+.eyebrow {
+  font-family: var(--font-body), system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: #6b6b6b;
 }
 
-.glass {
-  backdrop-filter: blur(20px);
-  background-color: rgba(15, 23, 42, 0.5);
-  border: 1px solid rgba(34, 211, 238, 0.2);
+/* Display headline scale — tight, all-caps, sharp. */
+.display-xl {
+  font-family: var(--font-display), system-ui, sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  font-size: clamp(2.75rem, 8vw, 6.5rem);
 }
 
-.text-glow-cyan {
-  text-shadow: 0 0 20px rgba(34, 211, 238, 0.6), 0 0 40px rgba(34, 211, 238, 0.3);
+.display-lg {
+  font-family: var(--font-display), system-ui, sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  font-size: clamp(2rem, 5.5vw, 4rem);
 }
 
-.text-glow-emerald {
-  text-shadow: 0 0 20px rgba(52, 211, 153, 0.6), 0 0 40px rgba(52, 211, 153, 0.3);
+.display-md {
+  font-family: var(--font-display), system-ui, sans-serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  font-size: clamp(1.125rem, 2.4vw, 1.5rem);
 }
 
-.bg-grid {
-  background-image:
-    linear-gradient(rgba(34, 211, 238, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 211, 238, 0.08) 1px, transparent 1px);
-  background-size: 48px 48px;
+/* Disable motion gracefully. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

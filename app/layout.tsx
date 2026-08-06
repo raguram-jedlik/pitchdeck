@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
+import { brand } from "@/data/jedlikData";
 import "./globals.css";
 
 const displayFont = Space_Grotesk({
@@ -17,9 +18,14 @@ const bodyFont = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Jedlik Motors — Redefine the Class",
-  description:
-    "Jedlik Motors is redefining the way the world commutes in cities. Explore the vision, product, market, and team behind the Jedlik E-Pod.",
+  metadataBase: new URL("https://www.jedlik.in"),
+  title: `${brand.name} — ${brand.tagline}`,
+  description: `${brand.name} is redefining the way the world commutes in cities. Introducing the E-POD — a fully enclosed, two-wheeled electric vehicle with car-grade safety.`,
+  openGraph: {
+    title: `${brand.name} — ${brand.tagline}`,
+    description: "The investor pitch for the E-POD.",
+    images: ["/assets/epod-reveal.jpg"],
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +33,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
-      <body className="font-body bg-slate-950 text-slate-50 antialiased">
+      <body className="font-body bg-paper text-ink antialiased">
         {children}
       </body>
     </html>
