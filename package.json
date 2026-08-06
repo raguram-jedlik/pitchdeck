@@ -12,15 +12,19 @@
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.1.0",
     "@fontsource/poppins": "^5.1.0",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
     "gsap": "^3.12.5",
     "lenis": "^1.1.18",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "three": "^0.160.0"
   },
   "devDependencies": {
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.160.0",
     "@vitejs/plugin-react-swc": "^3.7.2",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",

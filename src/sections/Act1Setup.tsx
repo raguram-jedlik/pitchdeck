@@ -1,48 +1,17 @@
 import { CountUp, Reveal, RevealText } from '@/components/motion'
-import { DeckFrame, NeedIcon, SectionHeading, Silhouette } from '@/components/ui'
+import { NeedIcon, SectionHeading, Silhouette } from '@/components/ui'
+import { Hero3D } from '@/components/three/Hero3D'
 import { needs, positioning, title } from '@/data/deck'
 import { gsap, useGsap, useReducedMotion } from '@/lib/motion'
 
-/** Beat 1 — the sketched city, and who we are. */
+/** Beat 1 — a 3D shape standing in for the vehicle, and who we are. */
 export function TitleSection() {
-  const reduced = useReducedMotion()
-  const ref = useGsap(
-    ({ self }) => {
-      if (reduced) return
-      // The sketch drifts and lightens as you scroll off it.
-      gsap.to(self.querySelector('[data-sketch]'), {
-        scale: 1.12,
-        opacity: 0.35,
-        ease: 'none',
-        scrollTrigger: { trigger: self, start: 'top top', end: 'bottom top', scrub: true },
-      })
-    },
-    [reduced],
-  )
-
   return (
     <section
       id="title"
-      ref={ref}
-      className="ground relative flex min-h-[100svh] items-center justify-center overflow-hidden px-5 py-24"
+      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-white px-5 py-24"
     >
-      <img
-        data-sketch
-        src="/assets/street-sketch.png"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-[1]"
-        style={{
-          background:
-            'radial-gradient(45% 40% at 50% 42%, rgba(214,40,40,0.16) 0%, rgba(214,40,40,0) 72%)',
-          animation: reduced ? 'none' : 'ambient-breathe 6s ease-in-out infinite',
-        }}
-      />
-      <DeckFrame />
+      <Hero3D className="pointer-events-none absolute inset-0 h-full w-full" />
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <h1 className="display-hero text-crimson">
@@ -74,7 +43,6 @@ export function NeedsSection() {
       id="needs"
       className="ground ground-vignette relative overflow-hidden px-5 py-24 sm:py-32"
     >
-      <DeckFrame />
       <div className="relative z-10 mx-auto max-w-deck pt-12 sm:pt-16">
         <SectionHeading>{needs.heading}</SectionHeading>
         <p className="display-md mt-4 text-center text-navy">{needs.subheading}</p>
@@ -134,7 +102,6 @@ export function PositioningSection() {
       id="positioning"
       className="ground ground-vignette relative overflow-hidden px-5 py-24 sm:py-32"
     >
-      <DeckFrame />
       <div ref={ref} className="relative z-10 mx-auto max-w-deck pt-12 sm:pt-16">
         <SectionHeading>{positioning.heading}</SectionHeading>
 

@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { CountUp, Reveal } from '@/components/motion'
-import { ContactIcon, DeckFrame, SectionHeading } from '@/components/ui'
+import { ContactIcon, SectionHeading } from '@/components/ui'
 import { brand, close, market, personas } from '@/data/deck'
 import { gsap, useGsap, useReducedMotion } from '@/lib/motion'
 
@@ -26,7 +26,6 @@ export function MarketSection() {
 
   return (
     <section id="market" className="ground ground-vignette relative overflow-hidden px-5 py-24 sm:py-32">
-      <DeckFrame />
       <div ref={ref} className="relative z-10 mx-auto max-w-deck pt-12 sm:pt-16">
         <SectionHeading>{market.heading}</SectionHeading>
         <p className="mt-3 text-center font-display text-sm font-bold text-navy sm:text-lg">
@@ -152,7 +151,6 @@ function ShareDonut({ share, accent }: { share: number; accent: string }) {
 export function PersonasSection() {
   return (
     <section id="personas" className="ground ground-vignette relative overflow-hidden px-5 py-24 sm:py-32">
-      <DeckFrame />
       <div className="relative z-10 mx-auto max-w-deck pt-12 sm:pt-16">
         <SectionHeading>{personas.heading}</SectionHeading>
 
@@ -207,7 +205,6 @@ export function CloseSection() {
       id="close"
       className="relative overflow-hidden bg-black px-5 py-24 sm:py-32"
     >
-      <DeckFrame dark />
 
       <div className="relative z-10 mx-auto max-w-deck pt-12 sm:pt-16">
         <Reveal stagger={0.14}>

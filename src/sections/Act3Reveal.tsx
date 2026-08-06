@@ -1,5 +1,5 @@
 import { Reveal } from '@/components/motion'
-import { DeckFrame, SectionHeading } from '@/components/ui'
+import { SectionHeading } from '@/components/ui'
 import { reveal, tease, tech } from '@/data/deck'
 import { gsap, useGsap, useReducedMotion } from '@/lib/motion'
 
@@ -37,7 +37,6 @@ export function TeaseSection() {
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         style={{ filter: 'blur(14px)' }}
       />
-      <DeckFrame />
 
       <Reveal className="relative z-10 mx-auto w-full max-w-4xl space-y-4 sm:space-y-6" stagger={0.18}>
         <p className="display-lg text-navy">{tease.line1}</p>
@@ -84,7 +83,6 @@ export function RevealSection() {
 
   return (
     <section id="reveal" ref={ref} className="relative overflow-hidden bg-white">
-      <DeckFrame />
 
       <div className="relative">
         <img
@@ -186,7 +184,6 @@ function WheelMode({ name, front, rear }: { name: string; front: number; rear: n
 export function TechSection() {
   return (
     <section id="tech" className="ground ground-vignette relative overflow-hidden px-5 py-24 sm:py-32">
-      <DeckFrame />
       <div className="relative z-10 mx-auto max-w-deck pt-12 sm:pt-16">
         <SectionHeading>{tech.heading}</SectionHeading>
 

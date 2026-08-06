@@ -1,5 +1,5 @@
 import { Reveal } from '@/components/motion'
-import { DeckFrame, SilhouetteHeading } from '@/components/ui'
+import { SilhouetteHeading } from '@/components/ui'
 import { funding, team, type FundingStage } from '@/data/deck'
 import { gsap, useGsap, useReducedMotion } from '@/lib/motion'
 
@@ -27,7 +27,6 @@ function Portrait({
 export function TeamSection() {
   return (
     <section id="team" className="ground ground-vignette relative overflow-hidden px-5 py-24 sm:py-32">
-      <DeckFrame />
       <div className="relative z-10 mx-auto max-w-deck pt-12 sm:pt-16">
         <SilhouetteHeading lead={team.heading} tail={team.headingTail} />
 
@@ -181,7 +180,6 @@ export function FundingSection() {
   return (
     <section id="funding" className="ground ground-vignette relative md:h-[420vh]">
       <div className="sticky top-0 flex min-h-[100svh] flex-col justify-center overflow-hidden py-20 md:h-[100svh]">
-        <DeckFrame />
         <div className="relative z-10 px-5 pt-10">
           <SilhouetteHeading lead={funding.heading} tail={funding.headingTail} />
         </div>
