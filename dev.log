@@ -3,9 +3,38 @@
 > vite
 
 
-  VITE v5.4.21  ready in 299 ms
+  VITE v5.4.21  ready in 303 ms
 
   ➜  Local:   http://localhost:5173/
   ➜  Network: use --host to expose
   ➜  press h + enter to show help
-11:54:04 am [vite] hmr update /src/components/three/Hero3D.tsx, /src/styles/index.css
+4:10:07 pm [vite] page reload tailwind.config.ts
+4:10:10 pm [vite] vite.config.ts changed, restarting server...
+4:10:10 pm [vite] page reload index.html
+4:10:10 pm [vite] hmr update /src/sections/Act1Setup.tsx, /src/styles/index.css
+4:10:10 pm [vite] hmr update /src/sections/Act2Forces.tsx, /src/styles/index.css
+4:10:10 pm [vite] hmr update /src/sections/Act3Reveal.tsx, /src/styles/index.css
+4:10:10 pm [vite] hmr update /src/sections/Act4Market.tsx, /src/styles/index.css
+4:10:10 pm [vite] hmr update /src/App.tsx, /src/styles/index.css
+4:10:10 pm [vite] page reload src/main.tsx
+Re-optimizing dependencies because vite config has changed
+4:10:10 pm [vite] server restarted.
+(!) Could not auto-determine entry point from rollupOptions or html files and there are no explicit optimizeDeps.include patterns. Skipping dependency pre-bundling.
+4:10:12 pm [vite] page reload src/components/motion/index.tsx
+4:10:12 pm [vite] page reload src/components/ui/index.tsx
+4:10:12 pm [vite] page reload src/components/ui/Nav.tsx
+4:10:12 pm [vite] page reload src/lib/motion.ts
+4:10:12 pm [vite] hmr update /src/styles/index.css
+4:10:12 pm [vite] page reload src/data/deck.ts
+4:14:48 pm [vite] page reload .next/export/404.html
+4:14:48 pm [vite] page reload .next/server/app/_not-found.html
+4:14:48 pm [vite] page reload .next/export/500.html
+4:14:48 pm [vite] page reload .next/server/app/index.html
+4:14:48 pm [vite] page reload .next/server/pages/404.html
+4:14:48 pm [vite] page reload .next/server/pages/500.html
+4:14:49 pm [vite] page reload .next/export/500.html
+4:14:49 pm [vite] page reload .next/export/404.html
+4:15:13 pm [vite] page reload .next/server/app/index.html
+4:15:13 pm [vite] page reload .next/server/pages/404.html
+4:15:13 pm [vite] page reload .next/server/pages/500.html
+4:15:13 pm [vite] page reload .next/server/app/_not-found.html

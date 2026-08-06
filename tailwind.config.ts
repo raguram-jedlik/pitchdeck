@@ -1,25 +1,33 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss";
 
-export default {
-  content: ['./index.html', './src/**/*.{ts,tsx}'],
+const config: Config = {
+  darkMode: "class",
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
-        // Strict black / white / red system. These keys are kept so every
-        // existing utility class (text-crimson, bg-navy, etc.) still works —
-        // only the hex values changed.
-        crimson: { DEFAULT: '#E5091E', deep: '#9C0614', soft: '#FBD9DC' },
-        navy: { DEFAULT: '#0A0A0A', soft: '#6B6B6B' },
-        ink: '#000000',
-        lime: { DEFAULT: '#E5091E', soft: '#FBD9DC' },
-        mist: { DEFAULT: '#FFFFFF', warm: '#F4F4F4' },
+        cyan: {
+          400: "#22d3ee",
+          500: "#06b6d4",
+        },
+        emerald: {
+          400: "#34d399",
+          500: "#10b981",
+        },
       },
       fontFamily: {
-        display: ['Poppins', 'system-ui', 'sans-serif'],
-        body: ['"DM Sans Variable"', 'system-ui', 'sans-serif'],
+        display: ["var(--font-display)"],
+        body: ["var(--font-body)"],
       },
-      maxWidth: { deck: '1280px' },
+      backgroundImage: {
+        grid: "linear-gradient(rgba(34,211,238,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.08) 1px, transparent 1px)",
+      },
     },
   },
   plugins: [],
-} satisfies Config
+};
+
+export default config;
