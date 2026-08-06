@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" fill="none">
+  <text x="0" y="56"
+        font-family="Inter, system-ui, sans-serif"
+        font-size="44" font-weight="800"
+        letter-spacing="-0.02em"
+        fill="#000000">JEDLIK</text>
+  <circle cx="218" cy="50" r="10" fill="#E5091E"/>
+</svg>

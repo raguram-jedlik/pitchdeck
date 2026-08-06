@@ -4,18 +4,21 @@ import { motion } from "framer-motion";
 import { founders, mentors, teamHighlight } from "@/data/jedlikData";
 
 /**
- * Founders + mentors. Real portraits, hairline rules, no glass / glow.
+ * Founders + mentors. Real portraits in colour (no grayscale), hairline rules.
+ * Founder row is a static grid; mentor row is a right-to-left marquee so all
+ * three mentors are visible without crowding.
  */
 export default function TeamForces() {
   return (
-    <section className="relative bg-paper px-6 py-20 md:px-10 md:py-32">
+    <section className="relative bg-paper px-6 py-16 md:px-10 md:py-24">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 03 — The Forces</p>
         <h2 className="display-lg mt-4 max-w-[16ch] text-ink">
           The team that will bring Jedlik alive.
         </h2>
 
-        <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-3">
+        {/* Founders — static grid, large portraits */}
+        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6">
           {founders.map((f, i) => (
             <motion.figure
               key={f.name}
@@ -27,11 +30,12 @@ export default function TeamForces() {
             >
               {f.image && (
                 <div className="aspect-[4/5] w-full overflow-hidden bg-rule">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={f.image}
                     alt={f.name}
                     loading="lazy"
-                    className="h-full w-full object-cover grayscale"
+                    className="h-full w-full object-cover"
                   />
                 </div>
               )}
@@ -45,39 +49,52 @@ export default function TeamForces() {
           ))}
         </div>
 
-        <p className="mt-14 max-w-3xl border-l-2 border-red pl-5 text-sm font-medium leading-relaxed text-ink md:text-base">
+        <p className="mt-12 max-w-3xl border-l-2 border-red pl-5 text-sm font-medium leading-relaxed text-ink md:text-base">
           {teamHighlight}
         </p>
 
-        <div className="mt-20">
+        {/* Mentors — right-to-left marquee so the row scrolls naturally */}
+        <div className="mt-16">
           <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Mentors &amp; Advisors
           </h3>
-          <ul className="mt-6 divide-y divide-rule border-t border-rule">
-            {mentors.map((m, i) => (
-              <motion.li
-                key={m.name}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="grid grid-cols-1 gap-1 py-5 sm:grid-cols-[1fr_1.5fr] sm:gap-8"
-              >
-                <span className="font-display text-sm font-semibold uppercase tracking-tight text-ink md:text-base">
-                  {m.name}
-                </span>
-                <span className="text-sm leading-relaxed text-muted md:text-base">
-                  <span className="text-ink">{m.role}</span>
-                  {m.detail && (
-                    <>
-                      <span className="mx-2 text-muted">·</span>
-                      {m.detail}
-                    </>
+          <div className="relative mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+            <div className="flex w-max animate-marquee gap-6 motion-reduce:animate-none motion-reduce:[transform:none]">
+              {[...mentors, ...mentors].map((m, i) => (
+                <motion.article
+                  key={`${m.name}-${i}`}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.4, delay: (i % mentors.length) * 0.08 }}
+                  className="flex w-[260px] shrink-0 flex-col md:w-[300px]"
+                >
+                  {m.image && (
+                    <div className="aspect-[4/5] w-full overflow-hidden bg-rule">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={m.image}
+                        alt={m.name}
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
                   )}
-                </span>
-              </motion.li>
-            ))}
-          </ul>
+                  <div className="mt-3 flex flex-col">
+                    <span className="font-display text-sm font-semibold uppercase tracking-tight text-ink md:text-base">
+                      {m.name}
+                    </span>
+                    <span className="mt-1 text-xs text-ink">{m.role}</span>
+                    {m.detail && (
+                      <span className="mt-1 text-xs leading-relaxed text-muted">
+                        {m.detail}
+                      </span>
+                    )}
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

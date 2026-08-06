@@ -7,23 +7,24 @@ export const brand = {
   sectionTitle: "We are redefining the way the world commutes in cities.",
 };
 
-// ---------- Section 1: Hero ----------
+// ---------- Section 2: Commuter Needs ----------
 export interface CommuterNeed {
   id: number;
   title: string;
+  icon: string;
 }
 
 export const commuterNeeds: CommuterNeed[] = [
-  { id: 1, title: "Higher Speed & Status" },
-  { id: 2, title: "Comfort & Air Conditioning" },
-  { id: 3, title: "Android Dashboard" },
-  { id: 4, title: "Boot Storage" },
-  { id: 5, title: "Weather Protection" },
-  { id: 6, title: "Fuel Efficiency" },
-  { id: 7, title: "Quick Pickup" },
-  { id: 8, title: "Helmet-Free Driving" },
-  { id: 9, title: "Highly Maneuverable" },
-  { id: 10, title: "Easy Parking" },
+  { id: 1, title: "Higher Speed & Status", icon: "/assets/needs/speed.svg" },
+  { id: 2, title: "Comfort & Air Conditioning", icon: "/assets/needs/comfort.svg" },
+  { id: 3, title: "Android Dashboard", icon: "/assets/needs/dashboard.svg" },
+  { id: 4, title: "Boot Storage", icon: "/assets/needs/storage.svg" },
+  { id: 5, title: "Weather Protection", icon: "/assets/needs/weather.svg" },
+  { id: 6, title: "Fuel Efficiency", icon: "/assets/needs/efficiency.svg" },
+  { id: 7, title: "Quick Pickup", icon: "/assets/needs/pickup.svg" },
+  { id: 8, title: "Helmet-Free Driving", icon: "/assets/needs/helmet.svg" },
+  { id: 9, title: "Highly Maneuverable", icon: "/assets/needs/maneuver.svg" },
+  { id: 10, title: "Easy Parking", icon: "/assets/needs/parking.svg" },
 ];
 
 // ---------- Section 3: Quadrant Chart ----------
@@ -67,16 +68,19 @@ export const mentors: TeamMember[] = [
     name: "Srikanthan Sridharan",
     role: "Electrical Mentor",
     detail: "Assistant Professor, Dept. of Engineering Design, IIT-M",
+    image: "/assets/team-srikanthan.jpg",
   },
   {
     name: "Swathi Thombarappu",
     role: "Mechanical Mentor",
     detail: "EE-Chassis Electronics & ADAS Expert, VinFast",
+    image: "/assets/team-swathi.jpg",
   },
   {
     name: "Shankar Subramanian",
     role: "Business Mentor",
     detail: "Strategic Advisor & Independent Director — Governance, Growth & Business Advisory",
+    image: "/assets/team-shankar.jpg",
   },
 ];
 
@@ -253,20 +257,26 @@ export interface GeoExpansion {
   region: string;
   value: number; // for bar width scaling in $M
   display: string;
+  /** Position on the world map (percentage of 950x620 viewBox). */
+  mapX: number;
+  mapY: number;
 }
 
 export const geoExpansion: GeoExpansion[] = [
-  { region: "India", value: 517, display: "$517M" },
-  { region: "EU-5 + USA", value: 40, display: "$40M+" },
-  { region: "Indonesia", value: 63, display: "$63M" },
-  { region: "Brazil", value: 8, display: "$8M" },
-  { region: "Vietnam + Thailand", value: 86, display: "$86M" },
+  { region: "India",            value: 517, display: "$517M",  mapX: 68.0, mapY: 47.0 },
+  { region: "Vietnam + Thailand", value: 86,  display: "$86M",   mapX: 75.5, mapY: 51.5 },
+  { region: "Indonesia",        value: 63,  display: "$63M",   mapX: 79.0, mapY: 60.5 },
+  { region: "EU-5 + USA",       value: 40,  display: "$40M+",  mapX: 30.5, mapY: 33.5 },
+  { region: "Brazil",           value: 8,   display: "$8M",    mapX: 35.5, mapY: 67.5 },
 ];
 
 // ---------- Section 9: Personas ----------
 export interface Persona {
   number: string;
   title: string;
+  profile: string;
+  share: number; // % of TAM
+  accent: string; // hex for donut stroke
   tam: string;
   age: string;
   income: string;
@@ -279,6 +289,9 @@ export const personas: Persona[] = [
   {
     number: "01",
     title: "Weather-Exposed Commuters",
+    profile: "Age 28–45 · Salaried",
+    share: 60,
+    accent: "#000000",
     tam: "60% of TAM",
     age: "28–45",
     income: "Salaried ($600–$2K/mo)",
@@ -289,6 +302,9 @@ export const personas: Persona[] = [
   {
     number: "02",
     title: "Family Buyer",
+    profile: "Age 30–45 · Family decision",
+    share: 25,
+    accent: "#6B6B6B",
     tam: "25% of TAM",
     age: "30–45",
     income: "$800–$2.5K/mo household",
@@ -299,6 +315,9 @@ export const personas: Persona[] = [
   {
     number: "03",
     title: "Premium Aspirant",
+    profile: "Age 30–50 · Tech-savvy",
+    share: 15,
+    accent: "#E5091E",
     tam: "15% of TAM",
     age: "30–50",
     income: "Tech-savvy ($2K–$5K/mo)",

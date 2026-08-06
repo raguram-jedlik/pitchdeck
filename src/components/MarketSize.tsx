@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, animate } from "framer-motion";
-import { marketMetrics, indiaStats, geoExpansion } from "@/data/jedlikData";
+import {
+  marketMetrics,
+  indiaStats,
+  geoExpansion,
+} from "@/data/jedlikData";
 
 function CountUpNumber({
   value,
@@ -38,11 +42,86 @@ function CountUpNumber({
   );
 }
 
+/**
+ * Inline donut chart for the TAM/SAM/SOM funnel. Pure SVG — no chart lib.
+ */
+function FunnelDonut({
+  value,
+  max,
+  label,
+  size = 140,
+}: {
+  value: number;
+  max: number;
+  label: string;
+  size?: number;
+}) {
+  const ref = useRef<SVGSVGElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const [draw, setDraw] = useState(0);
+  const radius = size / 2 - 12;
+  const circumference = 2 * Math.PI * radius;
+  const pct = Math.min(1, value / max);
+
+  useEffect(() => {
+    if (!inView) return;
+    const controls = animate(0, pct, {
+      duration: 1.6,
+      ease: "easeOut",
+      onUpdate: (v) => setDraw(v),
+    });
+    return () => controls.stop();
+  }, [inView, pct]);
+
+  return (
+    <svg
+      ref={ref}
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      className="-rotate-90"
+      aria-hidden="true"
+    >
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="none"
+        stroke="#E5E5E5"
+        strokeWidth="2"
+      />
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="none"
+        stroke="#E5091E"
+        strokeWidth="2"
+        strokeDasharray={circumference}
+        strokeDashoffset={circumference * (1 - draw)}
+        strokeLinecap="butt"
+      />
+      <text
+        x={size / 2}
+        y={size / 2 + 4}
+        textAnchor="middle"
+        fill="#000"
+        fontSize="14"
+        fontWeight="700"
+        transform={`rotate(90 ${size / 2} ${size / 2})`}
+        style={{ fontFamily: "var(--font-display), system-ui, sans-serif", textTransform: "uppercase", letterSpacing: "0.1em" }}
+      >
+        {label}
+      </text>
+    </svg>
+  );
+}
+
 export default function MarketSize() {
   const maxGeo = Math.max(...geoExpansion.map((g) => g.value));
 
   return (
-    <section className="relative bg-paper px-6 py-20 md:px-10 md:py-32">
+    <section className="relative bg-paper px-6 py-16 md:px-10 md:py-24">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 07 — The Market</p>
         <h2 className="display-lg mt-4 max-w-[20ch] text-ink">
@@ -52,31 +131,39 @@ export default function MarketSize() {
           India: $517M SAM · World: $1.6B SAM · 2030 forecast.
         </p>
 
-        {/* Funnel */}
-        <div className="mt-14 grid grid-cols-1 gap-px bg-rule sm:grid-cols-3">
-          {marketMetrics.map((m, i) => (
-            <motion.div
-              key={m.label}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="bg-paper p-6 md:p-8"
-            >
-              <p className="eyebrow">{m.label}</p>
-              <p className="mt-4 font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
-                <CountUpNumber
+        {/* Funnel — donut charts that size to TAM/SAM/SOM ratio */}
+        <div className="mt-12 grid grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-6">
+          {marketMetrics.map((m, i) => {
+            const maxForRatio = marketMetrics[0].numericValue;
+            return (
+              <motion.div
+                key={m.label}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="flex flex-col items-center text-center"
+              >
+                <FunnelDonut
                   value={m.numericValue}
-                  prefix={m.prefix ?? ""}
-                  suffix={m.suffix}
-                  decimals={m.numericValue % 1 !== 0 ? 1 : 0}
+                  max={maxForRatio}
+                  label={m.label}
+                  size={i === 0 ? 180 : i === 1 ? 140 : 100}
                 />
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                {m.description}
-              </p>
-            </motion.div>
-          ))}
+                <p className="mt-5 font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
+                  <CountUpNumber
+                    value={m.numericValue}
+                    prefix={m.prefix ?? ""}
+                    suffix={m.suffix}
+                    decimals={m.numericValue % 1 !== 0 ? 1 : 0}
+                  />
+                </p>
+                <p className="mt-3 max-w-[28ch] text-sm leading-relaxed text-muted">
+                  {m.description}
+                </p>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* India stats */}
@@ -105,59 +192,80 @@ export default function MarketSize() {
           </div>
         </div>
 
-        {/* Geo expansion */}
+        {/* World map — countries marked with red dots sized by $ */}
         <div className="mt-20">
           <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Where we go next
           </h3>
-          <div className="mt-6 space-y-5">
-            {geoExpansion.map((g, i) => (
-              <GeoBar
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6 }}
+            className="relative mt-6 overflow-hidden border border-rule"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/world-map.svg"
+              alt="World map"
+              className="block h-auto w-full"
+            />
+            {/* Markers positioned by percentages of the 950x620 viewBox */}
+            <div className="absolute inset-0">
+              {geoExpansion.map((g, i) => {
+                const size = 6 + (g.value / maxGeo) * 14; // 6–20px
+                const showLabel = g.value >= 60; // only label big markets
+                return (
+                  <motion.div
+                    key={g.region}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.2 + i * 0.08,
+                      type: "spring",
+                      stiffness: 240,
+                    }}
+                    className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
+                    style={{ left: `${g.mapX}%`, top: `${g.mapY}%` }}
+                  >
+                    <span
+                      className="rounded-full border-2 border-paper bg-red"
+                      style={{ width: size, height: size }}
+                    />
+                    {showLabel && (
+                      <span className="mt-1 whitespace-nowrap rounded bg-paper/90 px-1.5 py-0.5 font-display text-[0.55rem] font-bold text-ink shadow-sm md:text-[0.65rem]">
+                        {g.region} · {g.display}
+                      </span>
+                    )}
+                    {!showLabel && (
+                      <span className="mt-1 whitespace-nowrap rounded bg-paper/90 px-1.5 py-0.5 font-display text-[0.55rem] font-bold text-ink shadow-sm md:text-[0.65rem]">
+                        {g.display}
+                      </span>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* Region list under the map — keeps small markets legible */}
+          <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-5">
+            {geoExpansion.map((g) => (
+              <li
                 key={g.region}
-                region={g.region}
-                value={g.value}
-                display={g.display}
-                max={maxGeo}
-                index={i}
-              />
+                className="flex items-baseline justify-between border-b border-rule py-1.5"
+              >
+                <span className="font-display text-xs font-semibold text-ink">
+                  {g.region}
+                </span>
+                <span className="font-display text-xs text-red">{g.display}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </section>
-  );
-}
-
-function GeoBar({
-  region,
-  value,
-  display,
-  max,
-  index,
-}: {
-  region: string;
-  value: number;
-  display: string;
-  max: number;
-  index: number;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-
-  return (
-    <div ref={ref}>
-      <div className="mb-2 flex items-baseline justify-between text-sm md:text-base">
-        <span className="font-display font-semibold text-ink">{region}</span>
-        <span className="font-display font-semibold text-red">{display}</span>
-      </div>
-      <div className="h-[3px] w-full overflow-hidden bg-rule">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${(value / max) * 100}%` } : { width: 0 }}
-          transition={{ duration: 1, delay: index * 0.08, ease: "easeOut" }}
-          className="h-full bg-ink"
-        />
-      </div>
-    </div>
   );
 }

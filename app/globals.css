@@ -87,3 +87,21 @@ hr.rule {
     scroll-behavior: auto !important;
   }
 }
+
+/*
+ * Continuous wheel rotation for the crab-walk diagrams. Each wheel sits at
+ * its resting steering angle (--angle or inline transform), then the animation
+ * oscillates around that angle — so under prefers-reduced-motion the three
+ * modes still read as three genuinely different geometries.
+ */
+@keyframes steer {
+  0%, 18% {
+    transform: rotate(var(--angle, 0deg));
+  }
+  42%, 78% {
+    transform: rotate(calc(var(--angle, 0deg) + 8deg));
+  }
+  100% {
+    transform: rotate(var(--angle, 0deg));
+  }
+}

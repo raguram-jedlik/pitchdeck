@@ -34,6 +34,15 @@ const config: Config = {
         tightest: "-0.04em",
         tighter: "-0.02em",
       },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        marquee: "marquee 30s linear infinite",
+      },
     },
   },
   plugins: [],

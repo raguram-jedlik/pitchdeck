@@ -4,22 +4,62 @@ import { motion } from "framer-motion";
 import { quadrantPoints } from "@/data/jedlikData";
 
 /**
- * Positioning map. Black axes, hairline grid, single red dot for Jedlik,
- * the other seven vehicles are simple grey dots.
+ * Positioning map. Mobile: a clean ranked list (no scatter, no cramped dots).
+ * Desktop: scatter chart with axes, rivals as dots, Jedlik as the red dot.
  */
 export default function QuadrantChart() {
   const rivals = quadrantPoints.filter((p) => !p.isJedlik);
   const jedlik = quadrantPoints.find((p) => p.isJedlik)!;
 
   return (
-    <section className="relative bg-paper px-6 py-20 md:px-10 md:py-32">
+    <section className="relative bg-paper px-6 py-16 md:px-10 md:py-24">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 02 — The Map</p>
         <h2 className="display-lg mt-4 max-w-[18ch] text-ink">
           What&apos;s on the road today?
         </h2>
 
-        <div className="relative mt-14 aspect-[4/3] w-full">
+        {/* Mobile: ranked list — avoids the cramped scatter on small screens. */}
+        <div className="mt-12 md:hidden">
+          <ol className="border-t border-rule">
+            {[...rivals]
+              .sort((a, b) => b.maneuverability + b.comfort - (a.maneuverability + a.comfort))
+              .map((p, i) => (
+                <motion.li
+                  key={p.name}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.35, delay: i * 0.05 }}
+                  className="flex items-center justify-between border-b border-rule py-3"
+                >
+                  <span className="font-display text-sm font-semibold uppercase text-ink">
+                    {p.name}
+                  </span>
+                  <span className="font-display text-xs text-muted">
+                    C {p.comfort} · M {p.maneuverability}
+                  </span>
+                </motion.li>
+              ))}
+            <motion.li
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.35, delay: rivals.length * 0.05 }}
+              className="flex items-center justify-between border-b-2 border-red py-3"
+            >
+              <span className="font-display text-sm font-bold uppercase text-red">
+                {jedlik.name}
+              </span>
+              <span className="font-display text-xs text-red">
+                C {jedlik.comfort} · M {jedlik.maneuverability}
+              </span>
+            </motion.li>
+          </ol>
+        </div>
+
+        {/* Desktop: scatter chart */}
+        <div className="relative mt-12 hidden aspect-[4/3] w-full md:block">
           {/* axes */}
           <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink" />
           <div className="absolute top-1/2 left-0 h-px w-full bg-ink" />
@@ -31,10 +71,10 @@ export default function QuadrantChart() {
           <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-display text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-muted">
             Low Comfort
           </span>
-          <span className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 rotate-90 origin-center font-display text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ink">
+          <span className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 origin-center -rotate-90 font-display text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ink">
             Maneuverability
           </span>
-          <span className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 -rotate-90 origin-center font-display text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-muted">
+          <span className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 origin-center rotate-90 font-display text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-muted">
             Low Maneuver
           </span>
 

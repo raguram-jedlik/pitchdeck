@@ -4,35 +4,63 @@ import { motion } from "framer-motion";
 import { steerByWire, crabWalk, type CrabMode } from "@/data/jedlikData";
 
 /**
- * Steer-by-wire + Crab-walk. No tabs, no glass, no glow. The crab-walk
- * diagrams are inline SVG with wheels that hold their resting angle — so the
- * three modes read as three different geometries even with animation off.
+ * Steer-by-wire + Crab-walk. The crab-walk diagrams are inline SVG with
+ * wheels that hold their resting angle AND animate continuously. Under
+ * prefers-reduced-motion the animation halts but the resting angle is
+ * still set per-mode, so the three geometries remain distinct.
  */
-function CrabDiagram({ front, rear }: { front: number; rear: number }) {
+function CrabDiagram({ front, rear, index }: { front: number; rear: number; index: number }) {
   return (
     <svg viewBox="0 0 90 150" className="h-32 w-auto md:h-40" aria-hidden="true">
       {/* chassis */}
       <rect x="24" y="18" width="42" height="114" rx="10" fill="#F4F4F4" />
-      {/* front wheel */}
+      {/* front wheel — animates */}
       <g
-        style={{ transform: `rotate(${front}deg)`, transformOrigin: "45px 19px" }}
+        style={{
+          transformOrigin: "45px 19px",
+          transformBox: "fill-box",
+        }}
+        className="origin-center animate-[steer_3.4s_ease-in-out_infinite]"
+        // delay so the three modes don't pulse in lockstep
       >
-        <rect x="36" y="2" width="18" height="34" rx="7" fill="#000000" />
+        <rect
+          x="36"
+          y="2"
+          width="18"
+          height="34"
+          rx="7"
+          fill="#000000"
+          style={{
+            transformOrigin: "45px 19px",
+            transform: `rotate(${front}deg)`,
+            animation: `steer 3.4s ease-in-out infinite`,
+            animationDelay: `${index * 0.12}s`,
+          }}
+        />
       </g>
-      {/* rear wheel */}
-      <g
-        style={{ transform: `rotate(${rear}deg)`, transformOrigin: "45px 131px" }}
-      >
-        <rect x="36" y="114" width="18" height="34" rx="7" fill="#000000" />
-      </g>
+      {/* rear wheel — animates, opposite phase */}
+      <rect
+        x="36"
+        y="114"
+        width="18"
+        height="34"
+        rx="7"
+        fill="#000000"
+        style={{
+          transformOrigin: "45px 131px",
+          transform: `rotate(${rear}deg)`,
+          animation: `steer 3.4s ease-in-out infinite`,
+          animationDelay: `${index * 0.12 + 0.6}s`,
+        }}
+      />
     </svg>
   );
 }
 
-function CrabModeBlock({ mode }: { mode: CrabMode }) {
+function CrabModeBlock({ mode, index }: { mode: CrabMode; index: number }) {
   return (
     <div className="flex flex-col items-center">
-      <CrabDiagram front={mode.front} rear={mode.rear} />
+      <CrabDiagram front={mode.front} rear={mode.rear} index={index} />
       <span className="mt-3 text-center font-display text-xs font-semibold uppercase tracking-tight text-ink md:text-sm">
         {mode.name}
       </span>
@@ -42,14 +70,14 @@ function CrabModeBlock({ mode }: { mode: CrabMode }) {
 
 export default function SteerByWire() {
   return (
-    <section className="relative bg-paper px-6 py-20 md:px-10 md:py-32">
+    <section className="relative bg-paper px-6 py-16 md:px-10 md:py-24">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 06 — The Trick</p>
         <h2 className="display-lg mt-4 max-w-[16ch] text-ink">
           The trick with two wheels.
         </h2>
 
-        <div className="mt-14 grid grid-cols-1 gap-12 border-t border-rule pt-14 md:grid-cols-2">
+        <div className="mt-12 grid grid-cols-1 gap-12 border-t border-rule pt-12 md:grid-cols-2 md:gap-10">
           {/* Steer by wire */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -65,7 +93,8 @@ export default function SteerByWire() {
               {steerByWire.description}
             </p>
 
-            <div className="mt-8 overflow-hidden border border-rule">
+            <div className="mt-6 overflow-hidden border border-rule">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={steerByWire.image}
                 alt="Mechanical steering column compared with steer-by-wire"
@@ -76,12 +105,7 @@ export default function SteerByWire() {
 
             <ul className="mt-6 space-y-2 text-sm text-ink md:text-base">
               {steerByWire.benefits.map((b) => (
-                <li key={b} className="flex gap-3">
-                  <span className="text-red" aria-hidden="true">
-                    ·
-                  </span>
-                  <span>{b}</span>
-                </li>
+                <li key={b}>— {b}</li>
               ))}
             </ul>
           </motion.div>
@@ -101,20 +125,15 @@ export default function SteerByWire() {
               {crabWalk.description}
             </p>
 
-            <div className="mt-8 grid grid-cols-3 gap-4 border border-rule p-4 md:p-6">
-              {crabWalk.modes.map((mode) => (
-                <CrabModeBlock key={mode.name} mode={mode} />
+            <div className="mt-6 grid grid-cols-3 gap-4 border border-rule p-4 md:p-6">
+              {crabWalk.modes.map((mode, i) => (
+                <CrabModeBlock key={mode.name} mode={mode} index={i} />
               ))}
             </div>
 
             <ul className="mt-6 space-y-2 text-sm text-ink md:text-base">
               {crabWalk.benefits.map((b) => (
-                <li key={b} className="flex gap-3">
-                  <span className="text-red" aria-hidden="true">
-                    ·
-                  </span>
-                  <span>{b}</span>
-                </li>
+                <li key={b}>— {b}</li>
               ))}
             </ul>
           </motion.div>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" fill="none">
+  <text x="0" y="44"
+        font-family="Inter, system-ui, sans-serif"
+        font-size="32" font-weight="800"
+        letter-spacing="-0.01em"
+        fill="#000000">Anna</text>
+  <text x="92" y="44"
+        font-family="Inter, system-ui, sans-serif"
+        font-size="32" font-weight="300"
+        letter-spacing="-0.01em"
+        fill="#000000">Incubator</text>
+  <circle cx="84" cy="36" r="3" fill="#E5091E"/>
+</svg>

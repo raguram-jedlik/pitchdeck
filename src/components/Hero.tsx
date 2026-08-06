@@ -4,23 +4,15 @@ import { motion } from "framer-motion";
 import { brand } from "@/data/jedlikData";
 
 /**
- * Hero — street sketch ground, big red wordmark, single statement, no parallax
+ * Hero — clean white ground, big display type, single statement, no parallax
  * orbs, no fake 3D. The vehicle is still withheld; only the wordmark appears.
  */
 export default function Hero() {
   return (
     <section
       id="title"
-      className="relative flex min-h-[100svh] w-full flex-col justify-end overflow-hidden bg-paper px-6 pb-10 pt-28 md:px-10 md:pb-16 md:pt-40"
+      className="relative flex min-h-[100svh] w-full flex-col justify-end overflow-hidden bg-paper px-6 pb-12 pt-28 md:px-10 md:pb-20 md:pt-40"
     >
-      {/* Street sketch as the background — faintly visible behind the type. */}
-      <img
-        src="/assets/street-sketch.png"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover opacity-[0.18]"
-      />
-
       <div className="relative mx-auto w-full max-w-deck">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
