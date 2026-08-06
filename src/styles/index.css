@@ -10,7 +10,7 @@
 
 @layer base {
   :root {
-    --ground: linear-gradient(150deg, #dce3ea 0%, #e6e6e6 45%, #efeae4 100%);
+    --ground: #ffffff;
   }
 
   html {
@@ -53,14 +53,19 @@
     pointer-events: none;
     background: radial-gradient(
       60% 50% at 50% 55%,
-      rgba(90, 100, 114, 0.22) 0%,
-      rgba(90, 100, 114, 0) 70%
+      rgba(0, 0, 0, 0.05) 0%,
+      rgba(0, 0, 0, 0) 70%
     );
   }
 
   .display-xl {
     @apply font-display font-extrabold uppercase leading-[0.95] tracking-tight;
     font-size: clamp(2.5rem, 9vw, 6.5rem);
+  }
+
+  .display-hero {
+    @apply font-display font-extrabold uppercase leading-[0.92] tracking-tight;
+    font-size: clamp(3.25rem, 12vw, 9rem);
   }
 
   .display-lg {
@@ -111,6 +116,18 @@
   .crop-marks::after {
     bottom: -0.5rem;
     right: -0.5rem;
+  }
+}
+
+@keyframes ambient-breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
   }
 }
 

@@ -5,11 +5,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        crimson: { DEFAULT: '#D10A3C', deep: '#8E0526', soft: '#F5D3DC' },
-        navy: { DEFAULT: '#2B3340', soft: '#5A6472' },
-        ink: '#111417',
-        lime: { DEFAULT: '#B8E62E', soft: '#E4F7AC' },
-        mist: { DEFAULT: '#DCE3EA', warm: '#EFEAE4' },
+        // Strict black / white / red system. These keys are kept so every
+        // existing utility class (text-crimson, bg-navy, etc.) still works —
+        // only the hex values changed.
+        crimson: { DEFAULT: '#E5091E', deep: '#9C0614', soft: '#FBD9DC' },
+        navy: { DEFAULT: '#0A0A0A', soft: '#6B6B6B' },
+        ink: '#000000',
+        lime: { DEFAULT: '#E5091E', soft: '#FBD9DC' },
+        mist: { DEFAULT: '#FFFFFF', warm: '#F4F4F4' },
       },
       fontFamily: {
         display: ['Poppins', 'system-ui', 'sans-serif'],

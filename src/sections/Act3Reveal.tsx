@@ -192,7 +192,7 @@ export function TechSection() {
 
         <div className="mt-14 grid grid-cols-1 gap-12 md:mt-20 md:grid-cols-2 md:gap-10 md:divide-x-2 md:divide-ink">
           <Reveal className="flex flex-col items-center md:pr-10">
-            <span className="chip bg-lime">{tech.steerByWire.label}</span>
+            <span className="chip bg-lime text-white">{tech.steerByWire.label}</span>
             <div className="mt-8 w-full rounded-3xl border-2 border-ink bg-white p-4">
               <img
                 src="/assets/steer-by-wire.png"
@@ -212,7 +212,7 @@ export function TechSection() {
           </Reveal>
 
           <Reveal className="flex flex-col items-center md:pl-10">
-            <span className="chip bg-orange-300">{tech.crabWalk.label}</span>
+            <span className="chip bg-black text-white">{tech.crabWalk.label}</span>
             <div className="mt-8 grid w-full grid-cols-3 gap-2 rounded-3xl border-2 border-ink bg-mist-warm p-4">
               {tech.crabWalk.modes.map((mode) => (
                 <WheelMode key={mode.name} name={mode.name} front={mode.front} rear={mode.rear} />

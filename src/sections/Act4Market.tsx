@@ -40,10 +40,7 @@ export function MarketSection() {
         >
           {market.funnel.map((step, i) => (
             <Fragment key={step.key}>
-              <div
-                className="rounded-2xl border-2 border-ink p-5"
-                style={{ backgroundColor: '#D8F0AE' }}
-              >
+              <div className="rounded-2xl border-2 border-ink bg-mist-warm p-5">
                 <p className="font-display text-xs font-bold uppercase tracking-wide text-navy">
                   {step.key}
                 </p>
@@ -208,8 +205,7 @@ export function CloseSection() {
   return (
     <section
       id="close"
-      className="relative overflow-hidden px-5 py-24 sm:py-32"
-      style={{ background: 'linear-gradient(100deg, #4A0114 0%, #D10A3C 55%, #8E0526 100%)' }}
+      className="relative overflow-hidden bg-black px-5 py-24 sm:py-32"
     >
       <DeckFrame dark />
 

@@ -33,15 +33,24 @@ export function TitleSection() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70"
       />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          background:
+            'radial-gradient(45% 40% at 50% 42%, rgba(214,40,40,0.16) 0%, rgba(214,40,40,0) 72%)',
+          animation: reduced ? 'none' : 'ambient-breathe 6s ease-in-out infinite',
+        }}
+      />
       <DeckFrame />
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
-        <h1 className="display-xl text-crimson">
+        <h1 className="display-hero text-crimson">
           <RevealText text={title.heading} />
         </h1>
 
         <p className="display-md mx-auto mt-6 max-w-2xl text-navy sm:mt-8">
-          <RevealText text={title.subheading} delay={0.35} />
+          <RevealText text={title.subheading} delay={0.3} />
         </p>
 
         <Reveal className="mt-10 sm:mt-16" y={16}>
@@ -148,16 +157,16 @@ export function PositioningSection() {
           </span>
 
           {/* Quadrant labels */}
-          <span className="absolute left-0 top-[18%] w-20 break-words font-display text-[0.55rem] font-bold uppercase leading-tight text-orange-500 sm:w-auto sm:text-xs">
+          <span className="absolute left-0 top-[18%] w-20 break-words font-display text-[0.55rem] font-bold uppercase leading-tight text-crimson/70 sm:w-auto sm:text-xs">
             {positioning.quadrants.topLeft}
           </span>
-          <span className="absolute right-0 top-[18%] w-20 break-words text-right font-display text-[0.55rem] font-bold uppercase leading-tight text-orange-500 sm:w-auto sm:text-xs">
+          <span className="absolute right-0 top-[18%] w-20 break-words text-right font-display text-[0.55rem] font-bold uppercase leading-tight text-crimson/70 sm:w-auto sm:text-xs">
             {positioning.quadrants.topRight}
           </span>
-          <span className="absolute bottom-0 left-0 w-20 break-words font-display text-[0.55rem] font-bold uppercase leading-tight text-orange-500 sm:w-auto sm:text-xs">
+          <span className="absolute bottom-0 left-0 w-20 break-words font-display text-[0.55rem] font-bold uppercase leading-tight text-crimson/70 sm:w-auto sm:text-xs">
             {positioning.quadrants.bottomLeft}
           </span>
-          <span className="absolute bottom-0 right-0 w-20 break-words text-right font-display text-[0.55rem] font-bold uppercase leading-tight text-orange-500 sm:w-auto sm:text-xs">
+          <span className="absolute bottom-0 right-0 w-20 break-words text-right font-display text-[0.55rem] font-bold uppercase leading-tight text-crimson/70 sm:w-auto sm:text-xs">
             {positioning.quadrants.bottomRight}
           </span>
 

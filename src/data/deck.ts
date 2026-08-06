@@ -49,15 +49,15 @@ export const positioning = {
     bottomRight: 'Higher Maneuverability',
   },
   rivals: [
-    { name: 'MG Comet', x: 28, y: 78, dot: '#7C4DFF', image: '/assets/rival-mg-comet.png' },
-    { name: 'PMV Eas-E', x: 38, y: 66, dot: '#E040FB', image: '/assets/rival-pmv-ease.png' },
-    { name: 'Lit Motors C-1', x: 62, y: 62, dot: '#1A3A6B', image: '/assets/rival-lit-motors-c1.png' },
-    { name: 'Gensol EV/Ezio*', x: 46, y: 50, dot: '#A8CBEE', image: '/assets/rival-gensol-ezio.png' },
-    { name: 'Wings Robin', x: 57, y: 40, dot: '#8A5A12', image: '/assets/rival-wings-robin.png' },
-    { name: 'Sina Version-E', x: 69, y: 38, dot: '#4FA3F7', image: '/assets/rival-sina-version-e.png' },
-    { name: 'T-Shell Bad Boy', x: 61, y: 26, dot: '#9B0511', image: '/assets/rival-tshell-badboy.png' },
+    { name: 'MG Comet', x: 28, y: 78, dot: '#9A9A9A', image: '/assets/rival-mg-comet.png' },
+    { name: 'PMV Eas-E', x: 38, y: 66, dot: '#B5B5B5', image: '/assets/rival-pmv-ease.png' },
+    { name: 'Lit Motors C-1', x: 62, y: 62, dot: '#6B6B6B', image: '/assets/rival-lit-motors-c1.png' },
+    { name: 'Gensol EV/Ezio*', x: 46, y: 50, dot: '#CFCFCF', image: '/assets/rival-gensol-ezio.png' },
+    { name: 'Wings Robin', x: 57, y: 40, dot: '#8A8A8A', image: '/assets/rival-wings-robin.png' },
+    { name: 'Sina Version-E', x: 69, y: 38, dot: '#4D4D4D', image: '/assets/rival-sina-version-e.png' },
+    { name: 'T-Shell Bad Boy', x: 61, y: 26, dot: '#3A3A3A', image: '/assets/rival-tshell-badboy.png' },
   ],
-  jedlik: { name: 'Jedlik', x: 79, y: 86, dot: '#0E7A55' },
+  jedlik: { name: 'Jedlik', x: 79, y: 86, dot: '#E5091E' },
 } as const
 
 export const team = {
@@ -113,7 +113,7 @@ export const funding = {
       past: true,
       ask: '₹26L',
       milestones: ['Grants ₹26L INR', 'Prototype completed'],
-      dot: '#D48BEC',
+      dot: '#B5B5B5',
     },
     {
       fy: 'FY2026',
@@ -122,7 +122,7 @@ export const funding = {
       ask: '₹47L',
       valuation: '₹4.67 Cr',
       milestones: ['Angel round — ₹47L INR', 'Valuation: ₹4.67 Cr', 'MVP in progress'],
-      dot: '#7C4DFF',
+      dot: '#6B6B6B',
     },
     {
       fy: 'FY2026',
@@ -136,7 +136,7 @@ export const funding = {
         'Pilot production ready',
         'Road-legal homologation',
       ],
-      dot: '#0F2740',
+      dot: '#000000',
     },
     {
       fy: 'FY2027',
@@ -144,7 +144,7 @@ export const funding = {
       valuation: '₹114.6 Cr',
       returnMultiple: '24.5×',
       milestones: ['Own dark factory', 'Single city launch', 'OTA, stack + subsidy'],
-      dot: '#15537D',
+      dot: '#9C0614',
     },
     {
       fy: 'FY2028',
@@ -152,7 +152,7 @@ export const funding = {
       valuation: '₹286.5 Cr',
       returnMultiple: '61.4×',
       milestones: ['3× plant capacity', '3 metro expansion', 'In-house battery assembly'],
-      dot: '#1B7FC4',
+      dot: '#C40817',
     },
     {
       fy: 'FY2029',
@@ -160,7 +160,7 @@ export const funding = {
       valuation: '₹716.3 Cr',
       returnMultiple: '153.4×',
       milestones: ['Full automation', 'BLDC motor line', '8 city expansion'],
-      dot: '#4FB3F7',
+      dot: '#E5091E',
     },
     {
       fy: 'FY2030',
@@ -168,7 +168,7 @@ export const funding = {
       valuation: '₹1671.3 Cr',
       returnMultiple: '357.9×',
       milestones: ['Own battery cell sourcing', '16 city hub', 'Long range variant'],
-      dot: '#8ED4FB',
+      dot: '#F23346',
     },
   ] satisfies readonly FundingStage[],
 } as const
@@ -240,18 +240,18 @@ export const market = {
     },
   ],
   india: [
-    { value: 230, suffix: 'M', detail: '2-wheelers on Indian roads — the largest fleet in the world', fill: '#BFD0F7' },
-    { value: 18, suffix: 'M', detail: 'new 2-wheelers sold every year (SIAM 2024)', fill: '#D4C4F7' },
-    { value: 1.08, suffix: 'M', detail: 'of those were electric in 2024 — a 6% and rising share', fill: '#DFC0F0' },
-    { value: 517, prefix: '$', suffix: 'M', detail: "is India's enclosed e-2W opportunity by 2030 (17.8K units)", fill: '#F7C6D8' },
+    { value: 230, suffix: 'M', detail: '2-wheelers on Indian roads — the largest fleet in the world', fill: '#F4F4F4' },
+    { value: 18, suffix: 'M', detail: 'new 2-wheelers sold every year (SIAM 2024)', fill: '#F4F4F4' },
+    { value: 1.08, suffix: 'M', detail: 'of those were electric in 2024 — a 6% and rising share', fill: '#F4F4F4' },
+    { value: 517, prefix: '$', suffix: 'M', detail: "is India's enclosed e-2W opportunity by 2030 (17.8K units)", fill: '#FBD9DC' },
   ],
   nextHeading: 'Where we go next?',
   next: [
-    { country: 'India', value: 517, label: '$517M', fill: '#2418C8' },
-    { country: 'Vietnam + Thailand', value: 86, label: '$86M', fill: '#F4645C' },
-    { country: 'Indonesia', value: 63, label: '$63M', fill: '#F79A4C' },
-    { country: 'EU-5 + USA', value: 40, label: '$40M+', fill: '#6B3CE8' },
-    { country: 'Brazil', value: 8, label: '$8M', fill: '#F7D65C' },
+    { country: 'India', value: 517, label: '$517M', fill: '#E5091E' },
+    { country: 'Vietnam + Thailand', value: 86, label: '$86M', fill: '#000000' },
+    { country: 'Indonesia', value: 63, label: '$63M', fill: '#3A3A3A' },
+    { country: 'EU-5 + USA', value: 40, label: '$40M+', fill: '#6B6B6B' },
+    { country: 'Brazil', value: 8, label: '$8M', fill: '#B5B5B5' },
   ],
 } as const
 
@@ -261,8 +261,8 @@ export const personas = {
     {
       name: 'Weather Exposed Commuters',
       share: 60,
-      accent: '#4CAF3E',
-      fill: '#D8F0CE',
+      accent: '#000000',
+      fill: '#F4F4F4',
       profile: 'Age 28–45 · Salaried · $600–2K/mo',
       rows: [
         { k: 'Geography', v: 'Tier-1 metros' },
@@ -276,8 +276,8 @@ export const personas = {
     {
       name: 'Family Buyer',
       share: 25,
-      accent: '#D2691E',
-      fill: '#FBEFC8',
+      accent: '#6B6B6B',
+      fill: '#F4F4F4',
       profile: 'Age 30–45 (wife) · Family decision · $800–2.5K/mo household',
       rows: [
         { k: 'Geography', v: 'India + Indonesia + Vietnam' },
@@ -291,8 +291,8 @@ export const personas = {
     {
       name: 'Premium Aspirant',
       share: 15,
-      accent: '#D51023',
-      fill: '#FBDCE1',
+      accent: '#E5091E',
+      fill: '#FBD9DC',
       profile: 'Age 30–50 · Tech-savvy · $2–5K/mo',
       rows: [
         { k: 'Geography', v: 'Premium metros' },
