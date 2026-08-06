@@ -1,10 +1,11 @@
 // ---------- Brand ----------
 export const brand = {
   name: "Jedlik Motors",
-  tagline: "Redefine the class.",
   year: "2026",
   note: "Jedlik is named after Ányos Jedlik, who built the world's first electric motor in 1828. We are continuing that legacy on Indian roads.",
   sectionTitle: "We are redefining the way the world commutes in cities.",
+  logo: "/assets/logo-uploaded.png",
+  silhouette: "/assets/epod-silhouette.png",
 };
 
 // ---------- Section 2: Commuter Needs ----------
@@ -33,17 +34,18 @@ export interface QuadrantPoint {
   comfort: number; // 0-100 (x axis)
   maneuverability: number; // 0-100 (y axis)
   isJedlik?: boolean;
+  image?: string;
 }
 
 export const quadrantPoints: QuadrantPoint[] = [
-  { name: "MG Comet", comfort: 22, maneuverability: 78 },
-  { name: "PMV Eas-E", comfort: 28, maneuverability: 82 },
-  { name: "Gensol EV/Ezio*", comfort: 45, maneuverability: 42 },
-  { name: "Wings Robin", comfort: 50, maneuverability: 38 },
-  { name: "Sina Version-E", comfort: 40, maneuverability: 48 },
-  { name: "T-Shell Bad Boy", comfort: 55, maneuverability: 45 },
-  { name: "Lit Motors C-1", comfort: 48, maneuverability: 40 },
-  { name: "Jedlik", comfort: 85, maneuverability: 88, isJedlik: true },
+  { name: "MG Comet",         comfort: 22, maneuverability: 78, image: "/assets/rival-mg-comet.webp" },
+  { name: "PMV Eas-E",        comfort: 30, maneuverability: 70, image: "/assets/rival-pmv-ease.webp" },
+  { name: "Gensol EV/Ezio*",  comfort: 45, maneuverability: 50, image: "/assets/rival-gensol-ezio.webp" },
+  { name: "Wings Robin",      comfort: 50, maneuverability: 38, image: "/assets/rival-wings-robin.webp" },
+  { name: "Sina Version-E",   comfort: 58, maneuverability: 44, image: "/assets/rival-sina-version-e.webp" },
+  { name: "T-Shell Bad Boy",  comfort: 65, maneuverability: 28, image: "/assets/rival-tshell-badboy.webp" },
+  { name: "Lit Motors C-1",   comfort: 70, maneuverability: 34, image: "/assets/rival-lit-motors-c1.webp" },
+  { name: "Jedlik",           comfort: 88, maneuverability: 88, isJedlik: true },
 ];
 
 // ---------- Section 4: Team & Advisors ----------
@@ -263,11 +265,11 @@ export interface GeoExpansion {
 }
 
 export const geoExpansion: GeoExpansion[] = [
-  { region: "India",            value: 517, display: "$517M",  mapX: 68.0, mapY: 47.0 },
-  { region: "Vietnam + Thailand", value: 86,  display: "$86M",   mapX: 75.5, mapY: 51.5 },
+  { region: "India",            value: 517, display: "$517M",  mapX: 69.5, mapY: 47.0 },
+  { region: "Vietnam + Thailand", value: 86,  display: "$86M",   mapX: 76.5, mapY: 49.0 },
   { region: "Indonesia",        value: 63,  display: "$63M",   mapX: 79.0, mapY: 60.5 },
-  { region: "EU-5 + USA",       value: 40,  display: "$40M+",  mapX: 30.5, mapY: 33.5 },
-  { region: "Brazil",           value: 8,   display: "$8M",    mapX: 35.5, mapY: 67.5 },
+  { region: "EU-5 + USA",       value: 40,  display: "$40M+",  mapX: 50.5, mapY: 32.0 },
+  { region: "Brazil",           value: 8,   display: "$8M",    mapX: 35.5, mapY: 65.5 },
 ];
 
 // ---------- Section 9: Personas ----------

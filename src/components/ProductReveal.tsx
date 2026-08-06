@@ -5,12 +5,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { productSpecs } from "@/data/jedlikData";
 
 /**
- * The tease + reveal. Plain white background (consistent with the rest of
- * the page). Scroll-progress driven:
- *   - tease lines fade out as you scroll past
- *   - the e-POD render scales up from a faint blur to full colour
- *   - the red E-POD wordmark lands on top
- *   - below the sticky stage: the callouts as a numbered list
+ * The tease + reveal.
+ *   0 → ~50% : tease overlay (3 lines) fades out as user scrolls past
+ *   ~50% → ~85%: e-POD image lands centred, red E-POD wordmark stamps on top
+ *   ~85% → end : callout list scrolls into view AFTER the image reveal
  */
 export default function ProductReveal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -19,20 +17,24 @@ export default function ProductReveal() {
     offset: ["start start", "end end"],
   });
 
-  const blurAmount = useTransform(scrollYProgress, [0, 0.5], [20, 0]);
   const teaseOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
   const teaseY = useTransform(scrollYProgress, [0, 0.35], [0, -30]);
-  const wordmarkY = useTransform(scrollYProgress, [0.5, 0.75], [40, 0]);
-  const wordmarkOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
-  const renderOpacity = useTransform(scrollYProgress, [0.35, 0.55], [0, 1]);
+
+  const renderOpacity = useTransform(scrollYProgress, [0.35, 0.6], [0, 1]);
   const renderScale = useTransform(scrollYProgress, [0.35, 0.7], [0.95, 1]);
 
+  const wordmarkY = useTransform(scrollYProgress, [0.55, 0.75], [40, 0]);
+  const wordmarkOpacity = useTransform(scrollYProgress, [0.55, 0.7], [0, 1]);
+
+  const calloutsOpacity = useTransform(scrollYProgress, [0.75, 0.9], [0, 1]);
+  const calloutsY = useTransform(scrollYProgress, [0.75, 0.9], [30, 0]);
+
   return (
-    <section ref={ref} className="relative h-[260svh] bg-paper">
+    <section ref={ref} className="relative h-[320svh] bg-paper">
       {/* Sticky stage — plain white */}
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden bg-paper">
-        <div className="relative flex-1 overflow-hidden bg-paper">
-          {/* Tease overlay — fades out as user scrolls past */}
+        <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-paper">
+          {/* Tease overlay — visible at the top of the section, fades out */}
           <motion.div
             style={{ opacity: teaseOpacity, y: teaseY }}
             className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center"
@@ -48,28 +50,24 @@ export default function ProductReveal() {
             </p>
           </motion.div>
 
-          {/* Image — small enough on mobile that the whole thing is visible */}
+          {/* e-POD image — dead-centre, sized to be fully visible on mobile */}
           <motion.img
             src={productSpecs.image}
             alt="The Jedlik E-POD — a fully enclosed, two-wheeled electric vehicle"
-            style={{
-              opacity: renderOpacity,
-              scale: renderScale,
-              filter: useTransform(blurAmount, (v) => `blur(${v}px)`),
-            }}
-            className="absolute left-1/2 top-1/2 z-10 h-auto w-[78%] max-w-[680px] -translate-x-1/2 -translate-y-1/2 object-contain md:w-[70%]"
+            style={{ opacity: renderOpacity, scale: renderScale }}
+            className="relative z-10 h-auto w-[88%] max-w-[820px] object-contain md:w-[75%]"
           />
 
-          {/* Wordmark overlay — lands last, in red */}
+          {/* Wordmark — bottom-left, lands after the image */}
           <motion.div
             style={{ opacity: wordmarkOpacity, y: wordmarkY }}
-            className="absolute inset-x-0 bottom-12 z-30 px-6 text-center md:bottom-16"
+            className="absolute bottom-8 left-6 z-30 md:bottom-12 md:left-10"
           >
             <p className="eyebrow text-muted">Introducing</p>
             <p
-              className="mt-2 font-display font-extrabold uppercase italic text-red"
+              className="mt-1 font-display font-extrabold uppercase italic text-red"
               style={{
-                fontSize: "clamp(3.5rem, 12vw, 8rem)",
+                fontSize: "clamp(3rem, 10vw, 6.5rem)",
                 letterSpacing: "-0.03em",
                 lineHeight: 0.9,
               }}
@@ -80,8 +78,11 @@ export default function ProductReveal() {
         </div>
       </div>
 
-      {/* Below the sticky: spec list — features live alongside the reveal */}
-      <div className="relative z-10 mx-auto -mt-12 max-w-deck bg-paper px-6 pb-20 pt-10 md:px-10 md:pb-24 md:pt-12">
+      {/* Below the sticky — callouts appear AFTER the reveal completes */}
+      <motion.div
+        style={{ opacity: calloutsOpacity, y: calloutsY }}
+        className="relative z-10 mx-auto max-w-deck bg-paper px-6 pb-20 pt-12 md:px-10 md:pb-24 md:pt-16"
+      >
         <p className="eyebrow">Section 05 — The Unveil</p>
         <h2 className="display-lg mt-4 max-w-[18ch] text-ink">
           The {productSpecs.fullName}.
@@ -89,12 +90,8 @@ export default function ProductReveal() {
 
         <div className="mt-10 grid grid-cols-1 gap-x-12 gap-y-4 sm:grid-cols-2">
           {productSpecs.callouts.map((c, i) => (
-            <motion.div
+            <div
               key={c}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.4, delay: i * 0.06 }}
               className="flex items-baseline gap-5 border-b border-rule py-4"
             >
               <span className="font-display text-xs font-semibold text-red">
@@ -103,10 +100,10 @@ export default function ProductReveal() {
               <span className="font-display text-sm font-semibold uppercase tracking-tight text-ink md:text-base">
                 {c}
               </span>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

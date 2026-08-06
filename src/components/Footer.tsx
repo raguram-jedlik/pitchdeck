@@ -22,7 +22,7 @@ export default function Footer() {
   return (
     <footer className="relative bg-ink px-6 py-16 text-paper md:px-10 md:py-24">
       <div className="mx-auto max-w-deck">
-        {/* Jedlik logo lockup */}
+        {/* Jedlik logo */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -31,9 +31,9 @@ export default function Footer() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/assets/logo-lockup.svg"
-            alt={`${brand.name} — ${brand.tagline}`}
-            className="h-14 w-auto invert"
+            src={brand.logo}
+            alt={`${brand.name} logo`}
+            className="h-12 w-auto invert"
           />
         </motion.div>
 
@@ -162,11 +162,11 @@ export default function Footer() {
             ))}
           </ul>
           <div className="mt-6 flex flex-wrap items-center gap-6">
-            {/* Dedicated black Anna Incubator logo for the white-bg supporter strip */}
+            {/* Uploaded Anna Incubator logo */}
             <div className="inline-block bg-paper p-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/assets/anna-incubator.svg"
+                src="/assets/anna-incubator-uploaded.png"
                 alt="Anna Incubator"
                 loading="lazy"
                 className="h-10 w-auto md:h-12"

@@ -89,19 +89,40 @@ hr.rule {
 }
 
 /*
- * Continuous wheel rotation for the crab-walk diagrams. Each wheel sits at
- * its resting steering angle (--angle or inline transform), then the animation
- * oscillates around that angle — so under prefers-reduced-motion the three
- * modes still read as three genuinely different geometries.
+ * Continuous wheel rotation for the crab-walk diagrams. Each mode has its
+ * own keyframe block — Front Wheel Drive only turns the front wheel, Circle
+ * turns them in opposite directions, Glide turns them in the same direction.
+ * The transform-origin is set on each wheel so rotation pivots from the
+ * contact patch. Under prefers-reduced-motion all animations halt and the
+ * wheels rest at their steering angle (--angle).
  */
-@keyframes steer {
-  0%, 18% {
-    transform: rotate(var(--angle, 0deg));
-  }
-  42%, 78% {
-    transform: rotate(calc(var(--angle, 0deg) + 8deg));
-  }
-  100% {
-    transform: rotate(var(--angle, 0deg));
-  }
+
+/* Front Wheel Drive — only the front wheel turns */
+@keyframes crab-front-FrontWheelDrive {
+  0%, 100% { transform: rotate(24deg); }
+  50%      { transform: rotate(-24deg); }
+}
+@keyframes crab-rear-FrontWheelDrive {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(0deg); }
+}
+
+/* Circle — front and rear wheels turn in OPPOSITE directions */
+@keyframes crab-front-Circle {
+  0%, 100% { transform: rotate(24deg); }
+  50%      { transform: rotate(-24deg); }
+}
+@keyframes crab-rear-Circle {
+  0%, 100% { transform: rotate(-24deg); }
+  50%      { transform: rotate(24deg); }
+}
+
+/* Glide — front and rear wheels turn in the SAME direction */
+@keyframes crab-front-Glide {
+  0%, 100% { transform: rotate(24deg); }
+  50%      { transform: rotate(-24deg); }
+}
+@keyframes crab-rear-Glide {
+  0%, 100% { transform: rotate(24deg); }
+  50%      { transform: rotate(-24deg); }
 }

@@ -19,10 +19,10 @@ const bodyFont = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.jedlik.in"),
-  title: `${brand.name} — ${brand.tagline}`,
+  title: brand.name,
   description: `${brand.name} is redefining the way the world commutes in cities. Introducing the E-POD — a fully enclosed, two-wheeled electric vehicle with car-grade safety.`,
   openGraph: {
-    title: `${brand.name} — ${brand.tagline}`,
+    title: brand.name,
     description: "The investor pitch for the E-POD.",
     images: ["/assets/epod-reveal.jpg"],
   },
