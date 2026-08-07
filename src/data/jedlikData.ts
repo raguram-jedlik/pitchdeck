@@ -55,6 +55,10 @@ export interface TeamMember {
   role: string;
   image?: string;
   detail?: string;
+  /** True when the source photo is a circular avatar crop with a solid
+   * background fill outside the circle — the image needs to be zoomed
+   * in so that fill never shows inside the rectangular crop frame. */
+  imageZoom?: boolean;
 }
 
 export const founders: TeamMember[] = [
@@ -84,6 +88,7 @@ export const mentors: TeamMember[] = [
     role: "Business Mentor",
     detail: "Strategic Advisor & Independent Director — Governance, Growth & Business Advisory",
     image: "/assets/team-shankar.jpg",
+    imageZoom: true,
   },
 ];
 
@@ -335,27 +340,27 @@ export const personas: Persona[] = [
 export const supporters: { name: string; src: string; alt: string }[] = [
   {
     name: "Anna Incubator",
-    src: "/assets/supporters/anna-incubator.png",
+    src: "/assets/supporters/anna-incubator.jpg",
     alt: "Anna Incubator",
   },
   {
     name: "Startup India (DPIIT)",
-    src: "/assets/supporters/startup-india-dpiit.svg",
+    src: "/assets/supporters/startup-india-dpiit.jpg",
     alt: "Startup India — DPIIT",
   },
   {
     name: "Startup TN",
-    src: "/assets/supporters/startup-tn.svg",
+    src: "/assets/supporters/startup-tn.png",
     alt: "Startup Tamil Nadu",
   },
   {
     name: "MAARG",
-    src: "/assets/supporters/maarg.svg",
+    src: "/assets/supporters/maarg.webp",
     alt: "MAARG — Mentorship, Advisory, Assistance, Resilience, Growth",
   },
   {
     name: "NIDHI PRAYAS",
-    src: "/assets/supporters/nidhi-prayas.svg",
+    src: "/assets/supporters/nidhi-prayas.png",
     alt: "NIDHI PRAYAS — DST India",
   },
 ];

@@ -18,7 +18,7 @@ export default function Footer() {
   const marquee = [...buildPhotos, ...buildPhotos];
 
   return (
-    <footer className="relative bg-ink px-6 py-16 text-paper md:px-10 md:py-24">
+    <footer id="site-footer" className="relative bg-ink px-6 py-16 text-paper md:px-10 md:py-24">
       <div className="mx-auto max-w-deck">
         {/* Jedlik logo */}
         <motion.div
@@ -167,7 +167,6 @@ export default function Footer() {
                 key={s.name}
                 src={s.src}
                 alt={s.alt}
-                loading="lazy"
                 className="h-9 w-auto object-contain md:h-11"
               />
             ))}

@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView, animate } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, animate } from "framer-motion";
 import {
   marketMetrics,
   indiaStats,
@@ -19,26 +19,26 @@ function CountUpNumber({
   suffix?: string;
   decimals?: number;
 }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
   const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(0, value, {
-      duration: 1.4,
-      ease: "easeOut",
-      onUpdate: (v) => setDisplay(v),
-    });
-    return () => controls.stop();
-  }, [inView, value]);
+  const started = useRef(false);
 
   return (
-    <span ref={ref}>
+    <motion.span
+      viewport={{ once: true, margin: "-60px" }}
+      onViewportEnter={() => {
+        if (started.current) return;
+        started.current = true;
+        animate(0, value, {
+          duration: 1.4,
+          ease: "easeOut",
+          onUpdate: (v) => setDisplay(v),
+        });
+      }}
+    >
       {prefix}
       {display.toFixed(decimals)}
       {suffix}
-    </span>
+    </motion.span>
   );
 }
 
