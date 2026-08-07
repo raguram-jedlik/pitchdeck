@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="title"
-      className="relative flex min-h-[92svh] w-full flex-col overflow-hidden bg-paper px-6 pb-10 pt-20 md:min-h-0 md:px-10 md:pb-14 md:pt-24"
+      className="relative flex w-full flex-col overflow-hidden bg-paper px-6 pb-10 pt-20 md:px-10 md:pb-14 md:pt-24"
     >
       {/* Background video — desktop (landscape) and mobile (portrait) cuts,
           swapped by breakpoint so only the relevant one downloads/plays. */}
