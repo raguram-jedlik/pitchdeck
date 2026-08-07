@@ -86,7 +86,7 @@ export default function ProductReveal() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6 }}
-            className="display-md max-w-3xl text-ink"
+            className="display-md mx-auto max-w-3xl text-ink"
           >
             {productSpecs.tease.line1}
           </motion.p>
@@ -95,7 +95,7 @@ export default function ProductReveal() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="display-md mt-4 max-w-3xl text-ink"
+            className="display-md mx-auto mt-4 max-w-3xl text-ink"
           >
             <span className="text-red">{productSpecs.tease.line2}</span>
           </motion.p>
@@ -104,7 +104,7 @@ export default function ProductReveal() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="display-md mt-4 max-w-3xl text-ink"
+            className="display-md mx-auto mt-4 max-w-3xl text-ink"
           >
             {productSpecs.tease.line3}
           </motion.p>

@@ -22,7 +22,7 @@ export default function CommuterNeeds() {
           Not just a vehicle. A better way to move.
         </p>
 
-        <ol className="mt-12 grid grid-cols-1 border-t border-rule sm:grid-cols-2 lg:grid-cols-3">
+        <ol className="mt-8 grid grid-cols-1 border-t border-rule sm:grid-cols-2 lg:grid-cols-3">
           {commuterNeeds.map((need, i) => (
             <motion.li
               key={need.id}

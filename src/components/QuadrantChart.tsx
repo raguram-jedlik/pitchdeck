@@ -32,48 +32,50 @@ export default function QuadrantChart() {
             Percent-based left/top on plotted points below are relative to
             this box's own edges, so it stays padding-free; label breathing
             room comes from the outer wrapper's margin instead. */}
-        <div className="relative mx-auto mt-14 mb-10 aspect-square w-full max-w-[640px] sm:mt-16 sm:mb-12">
-          {/* axes */}
-          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink" />
-          <div className="absolute top-1/2 left-0 h-px w-full bg-ink" />
+        <div className="relative mx-auto mt-12 mb-10 aspect-square w-full max-w-[640px] sm:mt-14 sm:mb-12">
+          {/* axes — double-headed arrows, black */}
+          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2">
+            <svg className="absolute -top-2 left-1/2 -translate-x-1/2" width="12" height="8" viewBox="0 0 12 8">
+              <path d="M6 0 L12 8 H0 Z" fill="#111111" />
+            </svg>
+            <div className="h-full w-px bg-ink" />
+            <svg className="absolute -bottom-2 left-1/2 -translate-x-1/2" width="12" height="8" viewBox="0 0 12 8">
+              <path d="M6 8 L12 0 H0 Z" fill="#111111" />
+            </svg>
+          </div>
+          <div className="absolute top-1/2 left-0 h-px w-full -translate-y-1/2">
+            <svg className="absolute -left-2 top-1/2 -translate-y-1/2" width="8" height="12" viewBox="0 0 8 12">
+              <path d="M0 6 L8 12 V0 Z" fill="#111111" />
+            </svg>
+            <div className="h-px w-full bg-ink" />
+            <svg className="absolute -right-2 top-1/2 -translate-y-1/2" width="8" height="12" viewBox="0 0 8 12">
+              <path d="M8 6 L0 12 V0 Z" fill="#111111" />
+            </svg>
+          </div>
 
-          {/* axis labels */}
-          <span className="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-ink md:-top-8 md:text-[0.65rem]">
-            High Maneuverability
+          {/* axis titles */}
+          <span className="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-[0.6rem] font-bold uppercase tracking-[0.1em] text-red md:-top-8 md:text-sm">
+            Maneuverability
           </span>
-          <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-muted md:-bottom-8 md:text-[0.65rem]">
-            Low Maneuverability
-          </span>
-          <span className="absolute top-1/2 left-0 origin-top-left -translate-x-6 -translate-y-1/2 -rotate-90 whitespace-nowrap font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-muted md:-translate-x-7 md:text-[0.65rem]">
-            Low Comfort
-          </span>
-          <span className="absolute top-1/2 right-0 origin-top-right translate-x-6 -translate-y-1/2 rotate-90 whitespace-nowrap font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-ink md:translate-x-7 md:text-[0.65rem]">
-            High Comfort
+          <span className="absolute top-1/2 -right-2 translate-x-full -translate-y-1/2 whitespace-nowrap font-display text-[0.6rem] font-bold uppercase tracking-[0.1em] text-red md:text-sm">
+            Comfort
           </span>
 
           {/* Quadrant corner labels (screen reading order: TL, TR, BL, BR) */}
-          <span className="absolute left-2 top-2 font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:left-3 md:top-3 md:text-[0.55rem]">
-            High Maneuver
-            <br />
-            Low Comfort
+          <span className="absolute left-2 top-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:left-3 md:top-3 md:text-xs">
+            Lower Comfort
           </span>
-          <span className="absolute right-2 top-2 text-right font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-red md:right-3 md:top-3 md:text-[0.55rem]">
-            High Comfort
-            <br />
-            High Maneuver
+          <span className="absolute right-2 top-2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:right-3 md:top-3 md:text-xs">
+            Higher Comfort
           </span>
-          <span className="absolute bottom-2 left-2 font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:bottom-3 md:left-3 md:text-[0.55rem]">
-            Low Maneuver
-            <br />
-            Low Comfort
+          <span className="absolute bottom-2 left-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:bottom-3 md:left-3 md:text-xs">
+            Lower Maneuverability
           </span>
-          <span className="absolute bottom-2 right-2 text-right font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:bottom-3 md:right-3 md:text-[0.55rem]">
-            Low Maneuver
-            <br />
-            High Comfort
+          <span className="absolute bottom-2 right-2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:bottom-3 md:right-3 md:text-xs">
+            Higher Maneuverability
           </span>
 
-          {/* rivals — small image above, name below */}
+          {/* rivals — vehicle image, colored dot marker, name below */}
           {rivals.map((p, i) => {
             const left = `${(p.comfort / 100) * 100}%`;
             const top = `${100 - p.maneuverability}%`;
@@ -93,10 +95,14 @@ export default function QuadrantChart() {
                     src={p.image}
                     alt={p.name}
                     loading="lazy"
-                    className="h-6 w-auto object-contain md:h-8"
+                    className="h-7 w-auto object-contain md:h-9"
                   />
                 )}
-                <span className="mt-0.5 whitespace-nowrap text-center font-display text-[0.5rem] font-semibold leading-tight text-ink md:text-[0.55rem]">
+                <span
+                  className="mt-0.5 h-2.5 w-2.5 rounded-full border border-paper shadow-sm md:h-3 md:w-3"
+                  style={{ backgroundColor: p.color }}
+                />
+                <span className="mt-0.5 whitespace-nowrap text-center font-display text-[0.5rem] font-semibold leading-tight text-ink md:text-[0.6rem]">
                   {p.name}
                 </span>
               </motion.div>
@@ -126,7 +132,11 @@ export default function QuadrantChart() {
                 ?
               </span>
             </div>
-            <span className="mt-0.5 whitespace-nowrap text-center font-display text-[0.6rem] font-bold uppercase text-red md:text-[0.65rem]">
+            <span
+              className="mt-0.5 h-2.5 w-2.5 rounded-full border border-paper shadow-sm md:h-3 md:w-3"
+              style={{ backgroundColor: jedlik.color }}
+            />
+            <span className="mt-0.5 whitespace-nowrap text-center font-display text-[0.65rem] font-bold uppercase text-red md:text-sm">
               {jedlik.name}
             </span>
           </motion.div>
