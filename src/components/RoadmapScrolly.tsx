@@ -22,7 +22,7 @@ export default function RoadmapScrolly() {
   return (
     <section
       ref={ref}
-      className="relative bg-paper px-6 py-16 md:px-10 md:py-24"
+      className="relative bg-paper px-6 py-8 md:px-10 md:py-12"
     >
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 04 — The Fuel</p>

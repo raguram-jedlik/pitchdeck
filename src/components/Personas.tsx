@@ -91,7 +91,7 @@ function LtvBar({ ltv }: { ltv: string }) {
 
 export default function Personas() {
   return (
-    <section className="relative bg-paper px-6 py-16 md:px-10 md:py-24">
+    <section className="relative bg-paper px-6 py-8 md:px-10 md:py-12">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 08 — The Customers</p>
         <h2 className="display-lg mt-4 max-w-[16ch] text-ink">

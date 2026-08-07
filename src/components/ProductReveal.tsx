@@ -20,7 +20,7 @@ export default function ProductReveal() {
   return (
     <>
       {/* Block A — Tease */}
-      <section className="relative bg-paper px-6 py-20 md:px-10 md:py-32">
+      <section className="relative bg-paper px-6 py-8 md:px-10 md:py-12">
         <div className="mx-auto max-w-deck text-center">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -53,7 +53,7 @@ export default function ProductReveal() {
       </section>
 
       {/* Block B — Reveal stage */}
-      <section className="relative flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-paper px-6 py-16">
+      <section className="relative flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-paper px-6 py-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -95,7 +95,7 @@ export default function ProductReveal() {
       </section>
 
       {/* Block C — Callouts (strictly AFTER the reveal) */}
-      <section className="relative bg-paper px-6 pb-20 pt-8 md:px-10 md:pb-24 md:pt-12">
+      <section className="relative bg-paper px-6 pb-10 pt-4 md:px-10 md:pb-12 md:pt-6">
         <div className="mx-auto max-w-deck">
           <p className="eyebrow">Section 05 — The Unveil</p>
           <h2 className="display-lg mt-4 max-w-[18ch] text-ink">
