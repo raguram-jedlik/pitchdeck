@@ -12,7 +12,7 @@ export default function Hero() {
   return (
     <section
       id="title"
-      className="relative flex min-h-[100svh] w-full flex-col overflow-hidden bg-paper px-6 pb-8 pt-20 md:px-10 md:pb-10 md:pt-24"
+      className="relative flex w-full flex-col overflow-hidden bg-paper px-6 pb-8 pt-20 md:min-h-[100svh] md:px-10 md:pb-10 md:pt-24"
     >
       {/* Background image — fills the section */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -49,7 +49,7 @@ export default function Hero() {
           {brand.name}
         </motion.h1>
 
-        <div className="mt-auto pt-8">
+        <div className="mt-10 pt-2 md:mt-auto md:pt-8">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
