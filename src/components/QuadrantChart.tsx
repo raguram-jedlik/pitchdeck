@@ -75,7 +75,10 @@ export default function QuadrantChart() {
             Higher Maneuverability
           </span>
 
-          {/* rivals — vehicle image, colored dot marker, name below */}
+          {/* rivals — the colored dot is the actual data marker and sits
+              exactly on {left, top}; the vehicle image and name are
+              positioned relative to the dot (not the reverse), so adding
+              an image never shifts where the point actually plots. */}
           {rivals.map((p, i) => {
             const left = `${(p.comfort / 100) * 100}%`;
             const top = `${100 - p.maneuverability}%`;
@@ -86,23 +89,23 @@ export default function QuadrantChart() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
+                className="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 md:h-3 md:w-3"
                 style={{ left, top }}
               >
+                <span
+                  className="block h-full w-full rounded-full border border-paper shadow-sm"
+                  style={{ backgroundColor: p.color }}
+                />
                 {p.image && (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
                     src={p.image}
                     alt={p.name}
                     loading="lazy"
-                    className="h-7 w-auto object-contain md:h-9"
+                    className="absolute bottom-full left-1/2 mb-1 h-7 w-auto -translate-x-1/2 object-contain md:h-9"
                   />
                 )}
-                <span
-                  className="mt-0.5 h-2.5 w-2.5 rounded-full border border-paper shadow-sm md:h-3 md:w-3"
-                  style={{ backgroundColor: p.color }}
-                />
-                <span className="mt-0.5 whitespace-nowrap text-center font-display text-[0.5rem] font-semibold leading-tight text-ink md:text-[0.6rem]">
+                <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.5rem] font-semibold leading-tight text-ink md:text-[0.6rem]">
                   {p.name}
                 </span>
               </motion.div>
@@ -115,13 +118,17 @@ export default function QuadrantChart() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-30px" }}
             transition={{ duration: 0.5, delay: rivals.length * 0.06 + 0.2 }}
-            className="absolute z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
+            className="absolute z-10 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 md:h-3 md:w-3"
             style={{
               left: `${(jedlik.comfort / 100) * 100}%`,
               top: `${100 - jedlik.maneuverability}%`,
             }}
           >
-            <div className="relative h-10 w-14 md:h-14 md:w-20">
+            <span
+              className="block h-full w-full rounded-full border border-paper shadow-sm"
+              style={{ backgroundColor: jedlik.color }}
+            />
+            <div className="absolute bottom-full left-1/2 mb-1 h-10 w-14 -translate-x-1/2 md:h-14 md:w-20">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={brand.silhouette}
@@ -132,11 +139,7 @@ export default function QuadrantChart() {
                 ?
               </span>
             </div>
-            <span
-              className="mt-0.5 h-2.5 w-2.5 rounded-full border border-paper shadow-sm md:h-3 md:w-3"
-              style={{ backgroundColor: jedlik.color }}
-            />
-            <span className="mt-0.5 whitespace-nowrap text-center font-display text-[0.65rem] font-bold uppercase text-red md:text-sm">
+            <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.65rem] font-bold uppercase text-red md:text-sm">
               {jedlik.name}
             </span>
           </motion.div>
