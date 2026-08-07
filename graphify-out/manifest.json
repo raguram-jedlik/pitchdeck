@@ -1,0 +1,326 @@
+{
+  "/Users/raguram/Documents/GitHub/pitchdeck/next.config.js": {
+    "mtime": 1786015399.9045777,
+    "hash": "368f129b1abbe2d82b25351cde2785d9"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/next-env.d.ts": {
+    "mtime": 1786015399.9043489,
+    "hash": "b5ed9dd8b4c5ba8e5ab8e6a379c15838"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/tailwind.config.ts": {
+    "mtime": 1786018552.3111398,
+    "hash": "e00397ab505a124cccc4e79a826b7249"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/postcss.config.js": {
+    "mtime": 1786015399.9065857,
+    "hash": "8640f9b2e6475cc3f5b1ff4548925765"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/app/layout.tsx": {
+    "mtime": 1786020838.49118,
+    "hash": "adfae30addb53a8171a31ccf923eb0a9"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/app/page.tsx": {
+    "mtime": 1786015399.9040377,
+    "hash": "0dc7f22bc3c325c350b21f56175a083a"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/components/Hero.tsx": {
+    "mtime": 1786022637.770475,
+    "hash": "374e0270553e653e938fea3b985b657e"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/components/Nav.tsx": {
+    "mtime": 1786022642.1759708,
+    "hash": "8460aadfe0e41861fe2149ce75bb2137"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/components/TeamForces.tsx": {
+    "mtime": 1786022772.033303,
+    "hash": "266043094183404f4bb77b4ece3b5c56"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/components/Personas.tsx": {
+    "mtime": 1786018742.2657478,
+    "hash": "7a36be453facc3314c0a718b3350eec9"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/components/Footer.tsx": {
+    "mtime": 1786022832.590969,
+    "hash": "92a86750d21009010010c47f95dd70cd"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/components/QuadrantChart.tsx": {
+    "mtime": 1786022680.5634725,
+    "hash": "b16c7007cf4252667cc1ebc117fe0606"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/components/ProductReveal.tsx": {
+    "mtime": 1786022744.946164,
+    "hash": "a320bff6b53bf305cd0d3e43bafc6718"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/components/MarketSize.tsx": {
+    "mtime": 1786022809.8008351,
+    "hash": "6297880ab4b0c9d8188deda6b06063fc"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/components/CommuterNeeds.tsx": {
+    "mtime": 1786018589.6439462,
+    "hash": "5f2c4932bda6d1b44981b5f184ee2850"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/components/RoadmapScrolly.tsx": {
+    "mtime": 1786022709.8711798,
+    "hash": "3c5826c565a77cd6478e6dc49cbda116"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/components/SteerByWire.tsx": {
+    "mtime": 1786020992.2803915,
+    "hash": "e66e41c6c2bf8e399a91308c04211e69"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/src/data/jedlikData.ts": {
+    "mtime": 1786022792.9145005,
+    "hash": "c19aa99b60c6f17e379b866897da3709"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/README.md": {
+    "mtime": 1786015819.871911,
+    "hash": "6e072ca4d8a8ffd0b04df4678961f940"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/docs/superpowers/specs/2026-08-05-jedlik-pitchdeck-design.md": {
+    "mtime": 1785933546.6877038,
+    "hash": "2a05b9469bd215bd1b494ab4ad5cf7f5"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/apple-touch-icon.png": {
+    "mtime": 1785933903.0706873,
+    "hash": "e292c4fd09dc6552dcac3a51021f4b70"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/build-3.jpg": {
+    "mtime": 1785933903.0278053,
+    "hash": "31442bd5f671e9ba1a3e7c2b006e3f34"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-lit-motors-c1.webp": {
+    "mtime": 1786020041.715779,
+    "hash": "6e5d69bfb90dcf0e1fe45dd633776dae"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/epod-reveal.jpg": {
+    "mtime": 1785933888.7341893,
+    "hash": "cfebb1025da19e6ade7f624280ed0cff"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/build-2.jpg": {
+    "mtime": 1785933903.0221086,
+    "hash": "7adbe273152bcc8c0604246ccc9a79b1"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/team-nishanthraj.jpg": {
+    "mtime": 1785933888.847753,
+    "hash": "2f45d5237551772cc97dd44c60fabbad"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/anna-incubator-uploaded.png": {
+    "mtime": 1786020743.7664554,
+    "hash": "7df6b23d7b7bcc4af39ea2ba2de04738"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/build-1.jpg": {
+    "mtime": 1785933902.9970946,
+    "hash": "a58b79bdd1916695e6d3cbd0141f67cb"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-sina-version-e.png": {
+    "mtime": 1785933888.913236,
+    "hash": "9bcd8d75cf0463c3ea861f62fc681109"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/build-5.jpg": {
+    "mtime": 1785933903.039386,
+    "hash": "5474013484298ba7ddb4f815b546be25"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/epod-blur.jpg": {
+    "mtime": 1785933888.7441168,
+    "hash": "43617c022a4031f432c418624a1b6926"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/team-srikanthan.jpg": {
+    "mtime": 1785933888.855336,
+    "hash": "cfad13cde26adc06b24eb1aa29cdbc42"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/build-4.jpg": {
+    "mtime": 1785933903.0351734,
+    "hash": "d6f9f2dff004a998c2573f98529f2a92"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/team-muthuram.jpg": {
+    "mtime": 1785933888.8423889,
+    "hash": "7450d493d0a212c1918b2df9aaf597ab"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/build-6.jpg": {
+    "mtime": 1785933903.047239,
+    "hash": "f1aeccc0f271240e91829a633db74903"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-tshell-badboy.png": {
+    "mtime": 1785933888.898187,
+    "hash": "3c1bdff4f4731d9fdf3e518aff5b5b18"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-wings-robin.webp": {
+    "mtime": 1786020054.5245132,
+    "hash": "229fc1568bd4b94c66295c4507588072"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-gensol-ezio.webp": {
+    "mtime": 1786020037.9700804,
+    "hash": "54c45ca9d064b0a56a6c588a54e5f6af"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/build-7.jpg": {
+    "mtime": 1785933903.0524669,
+    "hash": "ac57d97eab8dec5e19e429307b02c2b7"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/epod-reveal-uploaded.png": {
+    "mtime": 1786022262.8979673,
+    "hash": "24291e1b008352a9eab64f347cd3fad8"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/world-map.svg": {
+    "mtime": 1786018443.8292034,
+    "hash": "ecf31683c22ca1f5b63931a1c913b611"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-wings-robin.png": {
+    "mtime": 1785933888.8935573,
+    "hash": "9d80357c5c22a19dd3b3fb6ddf4b6aab"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/anna-incubator.svg": {
+    "mtime": 1786018485.7675877,
+    "hash": "78c8442319242113662eaad0b0aef26c"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/logo-dark.svg": {
+    "mtime": 1786018485.766844,
+    "hash": "3c723e4b34cf14e406aa8fe6485c6b92"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/team-swathi.jpg": {
+    "mtime": 1785933888.8590171,
+    "hash": "729efe479eef114495f8ca9611c55925"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-sina-version-e.webp": {
+    "mtime": 1786020048.1995475,
+    "hash": "3f2d25268d57addd2d884a65cd41543b"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-mg-comet.png": {
+    "mtime": 1785933888.872637,
+    "hash": "704544cd61c40676dd0a8cbaa2f51726"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/logo-mark-dark.svg": {
+    "mtime": 1786018485.76742,
+    "hash": "a71a2fe810a9a52ca4e4e85d43c9f343"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/logo-mark.svg": {
+    "mtime": 1786018485.7672327,
+    "hash": "cdcca360e1464fb862b0ed66348bf921"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-lit-motors-c1.png": {
+    "mtime": 1785933888.9058158,
+    "hash": "74d3a0658ee3d33da310f1077a4d6b31"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/logo.png": {
+    "mtime": 1785933903.067108,
+    "hash": "1991f9aeba5dd5fc165dd96db829e027"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-tshell-badboy.webp": {
+    "mtime": 1786020051.8483858,
+    "hash": "1844b167fcf3e2c0a848fd36a34127d6"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/steer-by-wire.png": {
+    "mtime": 1785933888.78268,
+    "hash": "c67bbcd99c82e128acfabf98cdf6550d"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/logo-lockup.svg": {
+    "mtime": 1786018485.7669556,
+    "hash": "de4ab7579beabee2d7fc0fe27171f6f3"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-mg-comet.webp": {
+    "mtime": 1786020056.7644286,
+    "hash": "65690401e27c781f6780f49af995b0e2"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/ground.jpg": {
+    "mtime": 1785933888.7535806,
+    "hash": "3d0c92f24b9e19b2e3750febfd17e238"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-gensol-ezio.png": {
+    "mtime": 1785933888.887166,
+    "hash": "e8eea074aa37a6ef21bca15315b5881a"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/logo-uploaded.png": {
+    "mtime": 1786019631.6066484,
+    "hash": "f39e27c48eab3db4f361de0a92940247"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/street-sketch.png": {
+    "mtime": 1785933888.7002907,
+    "hash": "3334e3612eccb486aa717ac2f3d70357"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/epod-silhouette.png": {
+    "mtime": 1786020094.3225398,
+    "hash": "5513503c64d6478e4afa7232de0022ca"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/team-shankar.jpg": {
+    "mtime": 1785933888.861364,
+    "hash": "e4ffa28003dfc2db89d1dfb21d9f61d0"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-pmv-ease.png": {
+    "mtime": 1785933888.8809159,
+    "hash": "61972268671810791c7b6a9a3cfa9a5b"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/logo.svg": {
+    "mtime": 1786018485.7666953,
+    "hash": "6662abf4f95f8fec68836d8f12847783"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/rival-pmv-ease.webp": {
+    "mtime": 1786020045.3121743,
+    "hash": "41017995d92539c1bdd235189834ad72"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/team-raguram.jpg": {
+    "mtime": 1785933888.8411512,
+    "hash": "7dc185c35e07f5e1a8aa380bb4e14f03"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/supporters.png": {
+    "mtime": 1785933888.8256888,
+    "hash": "18235142274e281b0f8ac646a8e1f917"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/supporters/anna-incubator.png": {
+    "mtime": 1786020743.7664554,
+    "hash": "7df6b23d7b7bcc4af39ea2ba2de04738"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/supporters/maarg.svg": {
+    "mtime": 1786022539.092156,
+    "hash": "7266b695a697ee6868dbd41da5523184"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/supporters/startup-india-dpiit.svg": {
+    "mtime": 1786022539.0920331,
+    "hash": "815925ef852af0b066ed5a3462bf8892"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/supporters/startup-tn.svg": {
+    "mtime": 1786022539.0921018,
+    "hash": "894e58df47cb194368b21f5ac0229617"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/supporters/nidhi-prayas.svg": {
+    "mtime": 1786022539.0922165,
+    "hash": "edb7da1f9a2a89831c3bfcd308575ef3"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/needs/weather.svg": {
+    "mtime": 1786018461.6226516,
+    "hash": "671923ec2dba92ac2d56f138a2a2ae8a"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/needs/maneuver.svg": {
+    "mtime": 1786018461.6232307,
+    "hash": "9fa05d9c2dacdde289e3dd6fcbc8aeef"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/needs/speed.svg": {
+    "mtime": 1786018461.622024,
+    "hash": "2d9677eee3cf498f68a25020b7225351"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/needs/dashboard.svg": {
+    "mtime": 1786018461.6223767,
+    "hash": "448ce6b97f1080ea861f18069a4707eb"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/needs/pickup.svg": {
+    "mtime": 1786018461.6229548,
+    "hash": "b0ddad300b0e7d552a17464086c9a6f2"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/needs/comfort.svg": {
+    "mtime": 1786018461.622223,
+    "hash": "9327707bcf941b84aad88345b93b3399"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/needs/efficiency.svg": {
+    "mtime": 1786018461.622788,
+    "hash": "113af69db84f917f35a59e86c63dfff5"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/needs/helmet.svg": {
+    "mtime": 1786018461.623102,
+    "hash": "8fd1a11e2d6b5c8f0f4a127dd7df4c79"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/needs/storage.svg": {
+    "mtime": 1786018461.6225116,
+    "hash": "768d8649d3cf2bb20ccb24b181374a36"
+  },
+  "/Users/raguram/Documents/GitHub/pitchdeck/public/assets/needs/parking.svg": {
+    "mtime": 1786018461.6233487,
+    "hash": "c29bc42781dfd01f445cf481e4c92035"
+  }
+}
