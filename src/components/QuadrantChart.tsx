@@ -57,7 +57,7 @@ export default function QuadrantChart() {
           <span className="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-[0.6rem] font-bold uppercase tracking-[0.1em] text-red md:-top-8 md:text-sm">
             Maneuverability
           </span>
-          <span className="absolute top-1/2 -right-2 translate-x-full -translate-y-1/2 whitespace-nowrap font-display text-[0.6rem] font-bold uppercase tracking-[0.1em] text-red md:text-sm">
+          <span className="absolute top-1/2 right-2 -translate-y-1/2 whitespace-nowrap font-display text-[0.6rem] font-bold uppercase tracking-[0.1em] text-red md:right-3 md:text-sm">
             Comfort
           </span>
 
