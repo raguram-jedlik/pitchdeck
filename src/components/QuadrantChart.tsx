@@ -65,7 +65,7 @@ export default function QuadrantChart() {
           <span className="absolute left-2 top-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:left-3 md:top-3 md:text-xs">
             Lower Comfort
           </span>
-          <span className="absolute right-2 top-2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:right-3 md:top-3 md:text-xs">
+          <span className="absolute right-2 top-24 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:right-3 md:top-32 md:text-xs">
             Higher Comfort
           </span>
           <span className="absolute bottom-2 left-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:bottom-3 md:left-3 md:text-xs">
@@ -101,7 +101,6 @@ export default function QuadrantChart() {
                   <img
                     src={p.image}
                     alt={p.name}
-                    loading="lazy"
                     className="absolute bottom-full left-1/2 mb-1 h-11 w-auto -translate-x-1/2 object-contain md:h-16"
                   />
                 )}
