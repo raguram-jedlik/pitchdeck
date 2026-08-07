@@ -19,7 +19,7 @@ export default function Nav() {
       <header className="fixed top-0 left-0 right-0 z-40 flex items-start justify-between">
         <a href="#title" aria-label={`${brand.name} — home`} className="block pl-0 pt-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/logo-cropped.png" alt={brand.name} className="h-14 w-auto md:h-20" />
+          <img src="/assets/logo-cropped.png" alt={brand.name} className="h-11 w-auto md:h-16" />
         </a>
         <span className="mr-6 mt-3 font-display text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted md:mr-10 md:mt-4 md:text-xs">
           <span className="text-red">{brand.year}</span>

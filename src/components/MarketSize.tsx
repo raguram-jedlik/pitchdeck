@@ -100,6 +100,49 @@ function MarketIcon({ kind }: { kind: string }) {
   );
 }
 
+/**
+ * India stat icon — keyed off the stat label. Small inline SVG, same
+ * black-stroke/red-accent language as MarketIcon.
+ */
+function IndiaStatIcon({ label }: { label: string }) {
+  const common = { viewBox: "0 0 64 64", className: "h-8 w-8 md:h-9 md:w-9", "aria-hidden": true } as const;
+  if (/2-wheelers on/i.test(label)) {
+    // Fleet — two overlapping wheels
+    return (
+      <svg {...common}>
+        <circle cx="24" cy="38" r="14" fill="none" stroke="#000" strokeWidth="2" />
+        <circle cx="42" cy="26" r="10" fill="none" stroke="#E5091E" strokeWidth="2" />
+      </svg>
+    );
+  }
+  if (/sold annually/i.test(label)) {
+    // Sales — upward bar trend
+    return (
+      <svg {...common}>
+        <rect x="10" y="38" width="8" height="16" fill="none" stroke="#000" strokeWidth="2" />
+        <rect x="24" y="28" width="8" height="26" fill="none" stroke="#000" strokeWidth="2" />
+        <rect x="38" y="14" width="8" height="40" fill="none" stroke="#E5091E" strokeWidth="2" />
+      </svg>
+    );
+  }
+  if (/electric 2-wheelers/i.test(label)) {
+    // EV share — bolt
+    return (
+      <svg {...common}>
+        <path d="M34 8 L16 36 H28 L22 56 L48 26 H34 Z" fill="none" stroke="#E5091E" strokeWidth="2" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+  // Opportunity — target
+  return (
+    <svg {...common}>
+      <circle cx="32" cy="32" r="20" fill="none" stroke="#000" strokeWidth="2" />
+      <circle cx="32" cy="32" r="12" fill="none" stroke="#000" strokeWidth="1.5" />
+      <circle cx="32" cy="32" r="4" fill="#E5091E" />
+    </svg>
+  );
+}
+
 export default function MarketSize() {
   const maxGeo = Math.max(...geoExpansion.map((g) => g.value));
 
@@ -114,32 +157,37 @@ export default function MarketSize() {
           India: $517M SAM · World: $1.6B SAM · 2030 forecast.
         </p>
 
-        {/* Funnel — icon + count + description, no donuts */}
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-4">
-          {marketMetrics.map((m, i) => (
-            <motion.div
-              key={m.label}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="flex flex-col items-center border border-rule bg-paper p-5 text-center md:p-6"
-            >
-              <MarketIcon kind={m.label} />
-              <p className="eyebrow mt-3">{m.label}</p>
-              <p className="mt-3 font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">
-                <CountUpNumber
-                  value={m.numericValue}
-                  prefix={m.prefix ?? ""}
-                  suffix={m.suffix}
-                  decimals={m.numericValue % 1 !== 0 ? 1 : 0}
-                />
-              </p>
-              <p className="mt-2 max-w-[28ch] text-xs leading-relaxed text-muted md:text-sm">
-                {m.description}
-              </p>
-            </motion.div>
-          ))}
+        {/* Funnel — icon + count + description, aligned like the India stats below */}
+        <div className="mt-10">
+          <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+            Global
+          </h3>
+          <div className="mt-6 grid grid-cols-1 gap-px bg-rule sm:grid-cols-3">
+            {marketMetrics.map((m, i) => (
+              <motion.div
+                key={m.label}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="bg-paper p-4 md:p-6"
+              >
+                <MarketIcon kind={m.label} />
+                <p className="eyebrow mt-3">{m.label}</p>
+                <p className="mt-3 font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">
+                  <CountUpNumber
+                    value={m.numericValue}
+                    prefix={m.prefix ?? ""}
+                    suffix={m.suffix}
+                    decimals={m.numericValue % 1 !== 0 ? 1 : 0}
+                  />
+                </p>
+                <p className="mt-2 max-w-[28ch] text-xs leading-relaxed text-muted md:text-sm">
+                  {m.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* India stats — iconified per stat */}
@@ -157,7 +205,8 @@ export default function MarketSize() {
                 transition={{ duration: 0.4, delay: i * 0.06 }}
                 className="bg-paper p-4 md:p-6"
               >
-                <p className="font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">
+                <IndiaStatIcon label={s.label} />
+                <p className="mt-3 font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">
                   {s.value}
                 </p>
                 <p className="mt-2 text-xs leading-relaxed text-muted md:text-sm">

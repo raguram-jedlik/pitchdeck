@@ -4,6 +4,65 @@ import { motion } from "framer-motion";
 import { productSpecs } from "@/data/jedlikData";
 
 /**
+ * Callout icon — small inline SVG keyed off the callout copy so the list
+ * doesn't depend on external icon files.
+ */
+function CalloutIcon({ label }: { label: string }) {
+  const common = { viewBox: "0 0 64 64", className: "h-6 w-6 shrink-0 md:h-7 md:w-7", "aria-hidden": true } as const;
+  if (/enclosed/i.test(label)) {
+    return (
+      <svg {...common}>
+        <path d="M8 40 Q8 24 24 22 L40 22 Q56 24 56 40 L56 46 H8 Z" fill="none" stroke="#000" strokeWidth="2" strokeLinejoin="round" />
+        <circle cx="20" cy="48" r="5" fill="none" stroke="#E5091E" strokeWidth="2" />
+        <circle cx="44" cy="48" r="5" fill="none" stroke="#000" strokeWidth="2" />
+      </svg>
+    );
+  }
+  if (/airbag/i.test(label)) {
+    return (
+      <svg {...common}>
+        <circle cx="32" cy="32" r="20" fill="none" stroke="#000" strokeWidth="2" />
+        <path d="M32 12 L32 52 M12 32 L52 32 M18 18 L46 46 M46 18 L18 46" stroke="#E5091E" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+  if (/air condition/i.test(label)) {
+    return (
+      <svg {...common}>
+        <path d="M32 6 V58 M12 15 L52 49 M52 15 L12 49" stroke="#000" strokeWidth="2" strokeLinecap="round" />
+        <path d="M32 6 L26 14 M32 6 L38 14 M32 58 L26 50 M32 58 L38 50" stroke="#E5091E" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    );
+  }
+  if (/top speed/i.test(label)) {
+    return (
+      <svg {...common}>
+        <path d="M10 40 A22 22 0 0 1 54 40" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" />
+        <line x1="32" y1="40" x2="44" y2="26" stroke="#E5091E" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="32" cy="40" r="3" fill="#000" />
+      </svg>
+    );
+  }
+  if (/range/i.test(label)) {
+    return (
+      <svg {...common}>
+        <path d="M8 46 Q22 46 26 34 Q30 22 44 22 Q54 22 56 12" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
+        <circle cx="8" cy="46" r="3" fill="#000" />
+        <circle cx="56" cy="12" r="3" fill="#E5091E" />
+      </svg>
+    );
+  }
+  // Pushback seats
+  return (
+    <svg {...common}>
+      <path d="M18 50 V26 Q18 20 26 20 H34 Q42 20 42 28 V32" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" />
+      <path d="M18 50 H42 M18 38 H36" stroke="#000" strokeWidth="2" strokeLinecap="round" />
+      <path d="M42 28 L50 22" stroke="#E5091E" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/**
  * The tease + reveal — split into two clearly defined blocks.
  *
  *   Block A: Plain white tease section with the three lines. Standard
@@ -53,7 +112,7 @@ export default function ProductReveal() {
       </section>
 
       {/* Block B — Reveal stage */}
-      <section className="relative flex min-h-[100svh] w-full flex-col items-center justify-center overflow-hidden bg-paper px-6 py-8">
+      <section className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-paper px-6 py-6 md:py-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -110,11 +169,12 @@ export default function ProductReveal() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="flex items-baseline gap-5 border-b border-rule py-4"
+                className="flex items-center gap-4 border-b border-rule py-4"
               >
                 <span className="font-display text-xs font-semibold text-red">
                   {String(i + 1).padStart(2, "0")}
                 </span>
+                <CalloutIcon label={c} />
                 <span className="font-display text-sm font-semibold uppercase tracking-tight text-ink md:text-base">
                   {c}
                 </span>

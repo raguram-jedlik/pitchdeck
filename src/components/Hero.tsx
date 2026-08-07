@@ -25,26 +25,12 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-paper/40 via-transparent to-paper" />
 
       <div className="relative mx-auto flex w-full max-w-deck flex-1 flex-col">
-        {/* Uploaded logo, prominent at the top */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={brand.logo}
-            alt={`${brand.name} logo`}
-            className="h-20 w-auto md:h-28"
-          />
-        </motion.div>
-
         {/* Big company name — the wordmark the user wants visible */}
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="display-xl mt-4 text-red md:mt-6"
+          className="display-xl text-red"
         >
           {brand.name}
         </motion.h1>

@@ -29,7 +29,7 @@ export default function Footer() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={brand.logo}
+            src="/assets/logo-cropped.png"
             alt={`${brand.name} logo`}
             className="h-12 w-auto invert"
           />

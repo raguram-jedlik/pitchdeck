@@ -28,43 +28,46 @@ export default function QuadrantChart() {
           What&apos;s on the road today?
         </h2>
 
-        {/* Chart container — square aspect keeps the scatter readable on mobile */}
-        <div className="relative mx-auto mt-10 aspect-square w-full max-w-[640px]">
+        {/* Chart container — square aspect keeps the scatter readable on mobile.
+            Percent-based left/top on plotted points below are relative to
+            this box's own edges, so it stays padding-free; label breathing
+            room comes from the outer wrapper's margin instead. */}
+        <div className="relative mx-auto mt-14 mb-10 aspect-square w-full max-w-[640px] sm:mt-16 sm:mb-12">
           {/* axes */}
           <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-ink" />
           <div className="absolute top-1/2 left-0 h-px w-full bg-ink" />
 
           {/* axis labels */}
-          <span className="absolute -top-5 left-1/2 -translate-x-1/2 font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-ink md:-top-6 md:text-[0.65rem]">
-            Comfort
+          <span className="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-ink md:-top-8 md:text-[0.65rem]">
+            High Maneuverability
           </span>
-          <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-muted md:-bottom-6 md:text-[0.65rem]">
+          <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-muted md:-bottom-8 md:text-[0.65rem]">
+            Low Maneuverability
+          </span>
+          <span className="absolute top-1/2 left-0 origin-top-left -translate-x-6 -translate-y-1/2 -rotate-90 whitespace-nowrap font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-muted md:-translate-x-7 md:text-[0.65rem]">
             Low Comfort
           </span>
-          <span className="absolute top-1/2 left-0 origin-top-left -translate-x-1 -translate-y-1/2 -rotate-90 font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-ink md:text-[0.65rem]">
-            Maneuverability
-          </span>
-          <span className="absolute top-1/2 right-0 origin-top-right translate-x-1 -translate-y-1/2 rotate-90 font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-muted md:text-[0.65rem]">
-            Low Maneuver
+          <span className="absolute top-1/2 right-0 origin-top-right translate-x-6 -translate-y-1/2 rotate-90 whitespace-nowrap font-display text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-ink md:translate-x-7 md:text-[0.65rem]">
+            High Comfort
           </span>
 
           {/* Quadrant corner labels (screen reading order: TL, TR, BL, BR) */}
-          <span className="absolute left-1 top-1 font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:text-[0.55rem]">
+          <span className="absolute left-2 top-2 font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:left-3 md:top-3 md:text-[0.55rem]">
             High Maneuver
             <br />
             Low Comfort
           </span>
-          <span className="absolute right-1 top-1 text-right font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-red md:text-[0.55rem]">
+          <span className="absolute right-2 top-2 text-right font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-red md:right-3 md:top-3 md:text-[0.55rem]">
             High Comfort
             <br />
-            Low Maneuver
+            High Maneuver
           </span>
-          <span className="absolute bottom-1 left-1 font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:text-[0.55rem]">
+          <span className="absolute bottom-2 left-2 font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:bottom-3 md:left-3 md:text-[0.55rem]">
             Low Maneuver
             <br />
             Low Comfort
           </span>
-          <span className="absolute bottom-1 right-1 text-right font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:text-[0.55rem]">
+          <span className="absolute bottom-2 right-2 text-right font-display text-[0.5rem] font-semibold uppercase leading-tight tracking-[0.12em] text-muted md:bottom-3 md:right-3 md:text-[0.55rem]">
             Low Maneuver
             <br />
             High Comfort
@@ -131,7 +134,7 @@ export default function QuadrantChart() {
 
         <p className="mx-auto mt-8 max-w-xl text-center text-sm text-muted md:text-base">
           Seven serious attempts at an enclosed commuter. None of them sit in the
-          top-right quadrant — the only one with both high comfort and low
+          top-right quadrant — the only one with both high comfort and high
           maneuverability, where Jedlik lives.
         </p>
       </div>

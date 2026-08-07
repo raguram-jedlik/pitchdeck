@@ -30,8 +30,10 @@ export default function RoadmapScrolly() {
           The fuel needed to bring Jedlik alive.
         </h2>
 
-        {/* Mobile: horizontal snap-scroll row */}
-        <div className="relative mt-12 -mx-6 overflow-x-auto pb-6 md:hidden">
+        {/* Mobile: horizontal snap-scroll row.
+            pt-4 reserves room for the "Now" badge — overflow-x-auto forces
+            overflow-y to auto too (CSS spec), which was clipping it. */}
+        <div className="relative mt-12 -mx-6 overflow-x-auto pb-6 pt-4 md:hidden">
           <ol className="flex w-max snap-x snap-mandatory gap-4 px-6">
             {roadmap.map((m, i) => (
               <motion.li
@@ -90,16 +92,13 @@ export default function RoadmapScrolly() {
                 className="relative pl-10 md:pl-14"
               >
                 {/* Marker on the rule — big red disc for NOW, small black for others */}
-                {m.isNow ? (
-                  <>
-                    <span className="absolute top-2 left-2 -translate-x-1/2 h-3 w-3 rounded-full bg-red shadow-[0_0_0_4px_rgba(229,9,30,0.2)] md:left-3" />
-                    <span className="absolute top-2 left-6 ml-1 inline-flex items-center bg-red px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper">
-                      Now
-                    </span>
-                  </>
-                ) : (
-                  <span className="absolute top-2 left-2 -translate-x-1/2 h-2 w-2 rounded-full bg-ink md:left-3" />
-                )}
+                <span
+                  className={`absolute top-2 left-2 -translate-x-1/2 rounded-full md:left-3 ${
+                    m.isNow
+                      ? "h-3 w-3 bg-red shadow-[0_0_0_4px_rgba(229,9,30,0.2)]"
+                      : "h-2 w-2 bg-ink"
+                  }`}
+                />
 
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6">
                   <span
@@ -116,6 +115,11 @@ export default function RoadmapScrolly() {
                   >
                     {m.label}
                   </span>
+                  {m.isNow && (
+                    <span className="inline-flex w-fit items-center bg-red px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper">
+                      Now
+                    </span>
+                  )}
                 </div>
                 <ul className="mt-2 space-y-1 text-sm leading-relaxed text-ink md:text-base">
                   {m.points.map((p) => (
