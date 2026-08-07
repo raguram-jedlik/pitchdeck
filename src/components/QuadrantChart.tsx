@@ -89,7 +89,7 @@ export default function QuadrantChart() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 md:h-3 md:w-3"
+                className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 md:h-4 md:w-4"
                 style={{ left, top }}
               >
                 <span
@@ -102,7 +102,7 @@ export default function QuadrantChart() {
                     src={p.image}
                     alt={p.name}
                     loading="lazy"
-                    className="absolute bottom-full left-1/2 mb-1 h-7 w-auto -translate-x-1/2 object-contain md:h-9"
+                    className="absolute bottom-full left-1/2 mb-1 h-11 w-auto -translate-x-1/2 object-contain md:h-16"
                   />
                 )}
                 <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.5rem] font-semibold leading-tight text-ink md:text-[0.6rem]">
@@ -118,7 +118,7 @@ export default function QuadrantChart() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-30px" }}
             transition={{ duration: 0.5, delay: rivals.length * 0.06 + 0.2 }}
-            className="absolute z-10 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 md:h-3 md:w-3"
+            className="absolute z-10 h-3 w-3 -translate-x-1/2 -translate-y-1/2 md:h-4 md:w-4"
             style={{
               left: `${(jedlik.comfort / 100) * 100}%`,
               top: `${100 - jedlik.maneuverability}%`,
@@ -128,14 +128,14 @@ export default function QuadrantChart() {
               className="block h-full w-full rounded-full border border-paper shadow-sm"
               style={{ backgroundColor: jedlik.color }}
             />
-            <div className="absolute bottom-full left-1/2 mb-1 h-10 w-14 -translate-x-1/2 md:h-14 md:w-20">
+            <div className="absolute bottom-full left-1/2 mb-1 h-14 w-20 -translate-x-1/2 md:h-20 md:w-28">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={brand.silhouette}
                 alt="E-POD silhouette"
                 className="h-full w-full object-contain"
               />
-              <span className="absolute inset-0 flex items-center justify-center font-display text-xl font-extrabold text-paper drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] md:text-2xl">
+              <span className="absolute inset-0 flex items-center justify-center font-display text-2xl font-extrabold text-paper drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] md:text-4xl">
                 ?
               </span>
             </div>
