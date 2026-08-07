@@ -201,7 +201,7 @@ export default function MarketSize() {
                 <MetricCard key={m.label} m={m} i={i} />
               ))}
             </div>
-            <div className="mt-px flex justify-center bg-rule">
+            <div className="mt-px flex justify-center">
               <div className="w-1/2 bg-paper">
                 <MetricCard m={marketMetrics[2]} i={2} />
               </div>
@@ -270,6 +270,11 @@ export default function MarketSize() {
                 // sqrt-scaled radius: 6–16px so India dominates but small
                 // markets stay legible without crowding neighbours.
                 const size = 6 + Math.sqrt(g.value / maxGeo) * 10;
+                // The dot itself is the true data marker and is anchored
+                // exactly at {mapX, mapY}; the label is positioned
+                // relative to the dot (not the reverse), otherwise
+                // centering the dot+label stack as one unit shifts the
+                // visible dot away from its real coordinate.
                 return (
                   <motion.div
                     key={g.region}
@@ -282,14 +287,13 @@ export default function MarketSize() {
                       type: "spring",
                       stiffness: 240,
                     }}
-                    className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
-                    style={{ left: `${g.mapX}%`, top: `${g.mapY}%` }}
+                    className="absolute -translate-x-1/2 -translate-y-1/2"
+                    style={{ left: `${g.mapX}%`, top: `${g.mapY}%`, width: size, height: size }}
                   >
                     <span
-                      className="rounded-full border-2 border-paper bg-red shadow-sm"
-                      style={{ width: size, height: size }}
+                      className="block h-full w-full rounded-full border-2 border-paper bg-red shadow-sm"
                     />
-                    <span className="mt-1 max-w-[18vw] whitespace-normal text-center rounded bg-paper/95 px-1.5 py-0.5 font-display text-[0.5rem] font-bold leading-tight text-ink shadow-sm sm:max-w-none sm:whitespace-nowrap md:text-[0.65rem]">
+                    <span className="absolute top-full left-1/2 mt-1 max-w-[18vw] -translate-x-1/2 whitespace-normal text-center rounded bg-paper/95 px-1.5 py-0.5 font-display text-[0.5rem] font-bold leading-tight text-ink shadow-sm sm:max-w-none sm:whitespace-nowrap md:text-[0.65rem]">
                       {g.display}
                     </span>
                   </motion.div>
