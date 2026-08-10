@@ -21,10 +21,10 @@ export default function QuadrantChart() {
   const jedlik = quadrantPoints.find((p) => p.isJedlik)!;
 
   return (
-    <section className="relative bg-paper px-4 py-8 md:px-10 md:py-12">
+    <section className="relative bg-paper px-2 py-8 sm:px-4 md:px-10 md:py-12">
       <div className="mx-auto max-w-deck">
-        <p className="eyebrow">Section 02 — The Map</p>
-        <h2 className="display-lg mt-4 max-w-[18ch] text-ink">
+        <p className="eyebrow px-2 sm:px-0">Section 02 — The Map</p>
+        <h2 className="display-lg mt-4 max-w-[18ch] px-2 text-ink sm:px-0">
           What&apos;s on the road today?
         </h2>
 
@@ -32,7 +32,7 @@ export default function QuadrantChart() {
             Percent-based left/top on plotted points below are relative to
             this box's own edges, so it stays padding-free; label breathing
             room comes from the outer wrapper's margin instead. */}
-        <div className="relative mx-auto mt-12 mb-10 aspect-square w-full max-w-[640px] sm:mt-14 sm:mb-12">
+        <div className="relative mx-auto mt-14 mb-10 aspect-square w-full max-w-[640px] sm:mt-14 sm:mb-12">
           {/* axes — double-headed arrows, black */}
           <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2">
             <svg className="absolute -top-2 left-1/2 -translate-x-1/2" width="12" height="8" viewBox="0 0 12 8">
@@ -96,23 +96,16 @@ export default function QuadrantChart() {
                 <span
                   className="flex h-full w-full items-center justify-center rounded-full border border-paper shadow-sm"
                   style={{ backgroundColor: p.color }}
-                >
-                  {/* number badge stands in for the image+name pair on mobile,
-                      where seven clustered dots don't leave room for either
-                      without overlapping neighbours */}
-                  <span className="font-display text-[0.5rem] font-bold leading-none text-paper sm:hidden">
-                    {i + 1}
-                  </span>
-                </span>
+                />
                 {p.image && (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
                     src={p.image}
                     alt={p.name}
-                    className="absolute bottom-full left-1/2 mb-0.5 hidden h-8 w-12 max-w-none -translate-x-1/2 object-contain sm:block md:h-9 md:w-14"
+                    className="absolute bottom-full left-1/2 mb-0.5 h-5 w-8 max-w-none -translate-x-1/2 object-contain sm:h-8 sm:w-12 md:h-9 md:w-14"
                   />
                 )}
-                <span className="absolute top-full left-1/2 mt-1 hidden -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.6rem] font-semibold leading-tight text-ink sm:block">
+                <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.42rem] font-semibold leading-tight text-ink sm:text-[0.6rem]">
                   {p.name}
                 </span>
               </motion.div>
@@ -156,23 +149,7 @@ export default function QuadrantChart() {
           </motion.div>
         </div>
 
-        {/* legend — replaces the inline image+name labels on mobile, where
-            the seven clustered dots don't leave room for either */}
-        <ul className="mx-auto grid max-w-[360px] grid-cols-2 gap-x-6 gap-y-1.5 sm:hidden">
-          {rivals.map((p, i) => (
-            <li key={p.name} className="flex items-center gap-1.5 text-xs text-ink">
-              <span
-                className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-paper font-display text-[0.5rem] font-bold leading-none text-paper shadow-sm"
-                style={{ backgroundColor: p.color }}
-              >
-                {i + 1}
-              </span>
-              <span className="truncate">{p.name}</span>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mx-auto mt-8 max-w-xl text-center text-sm text-muted md:text-base">
+        <p className="mx-auto mt-8 max-w-xl px-2 text-center text-sm text-muted sm:px-0 md:text-base">
           Seven serious attempts at an enclosed commuter. None of them sit in the
           top-right quadrant — the only one with both high comfort and high
           maneuverability, where Jedlik lives.

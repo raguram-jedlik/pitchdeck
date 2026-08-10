@@ -44,8 +44,8 @@ export const quadrantPoints: QuadrantPoint[] = [
   { name: "Gensol EV/Ezio*",  comfort: 45, maneuverability: 50, image: "/assets/rival-gensol-ezio.webp",     color: "#93C5FD" },
   { name: "Wings Robin",      comfort: 35, maneuverability: 38, image: "/assets/rival-wings-robin.webp",     color: "#B45309" },
   { name: "Sina Version-E",   comfort: 58, maneuverability: 44, image: "/assets/rival-sina-version-e.webp",  color: "#60A5FA" },
-  { name: "T-Shell Bad Boy",  comfort: 60, maneuverability: 22, image: "/assets/rival-tshell-badboy.webp",   color: "#7F1D1D" },
-  { name: "Lit Motors C-1",   comfort: 76, maneuverability: 40, image: "/assets/rival-lit-motors-c1.webp",   color: "#1E3A8A" },
+  { name: "T-Shell Bad Boy",  comfort: 52, maneuverability: 14, image: "/assets/rival-tshell-badboy.webp",   color: "#7F1D1D" },
+  { name: "Lit Motors C-1",   comfort: 80, maneuverability: 42, image: "/assets/rival-lit-motors-c1.webp",   color: "#1E3A8A" },
   { name: "Jedlik",           comfort: 88, maneuverability: 88, isJedlik: true,                              color: "#059669" },
 ];
 
