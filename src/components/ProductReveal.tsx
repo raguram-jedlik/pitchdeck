@@ -113,6 +113,12 @@ export default function ProductReveal() {
 
       {/* Block B — Reveal stage */}
       <section className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-paper px-6 py-6 md:py-10">
+        <div className="mx-auto max-w-deck self-start text-left">
+          <p className="eyebrow">Section 05 — The Unveil</p>
+          <h2 className="display-lg mt-4 max-w-[18ch] text-ink">
+            The {productSpecs.fullName}.
+          </h2>
+        </div>
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -156,11 +162,6 @@ export default function ProductReveal() {
       {/* Block C — Callouts (strictly AFTER the reveal) */}
       <section className="relative bg-paper px-6 pb-10 pt-4 md:px-10 md:pb-12 md:pt-6">
         <div className="mx-auto max-w-deck">
-          <p className="eyebrow">Section 05 — The Unveil</p>
-          <h2 className="display-lg mt-4 max-w-[18ch] text-ink">
-            The {productSpecs.fullName}.
-          </h2>
-
           <div className="mt-10 grid grid-cols-1 gap-x-12 gap-y-4 sm:grid-cols-2">
             {productSpecs.callouts.map((c, i) => (
               <motion.div

@@ -88,7 +88,6 @@ export const mentors: TeamMember[] = [
     role: "Business Mentor",
     detail: "Strategic Advisor & Independent Director — Governance, Growth & Business Advisory",
     image: "/assets/team-shankar.jpg",
-    imageZoom: true,
   },
 ];
 
