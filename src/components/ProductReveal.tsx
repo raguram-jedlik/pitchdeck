@@ -79,7 +79,7 @@ export default function ProductReveal() {
   return (
     <>
       {/* Block A — Tease */}
-      <section className="relative bg-paper px-6 py-8 md:px-10 md:py-12">
+      <section className="relative bg-paper px-6 py-6 md:px-10 md:py-12">
         <div className="mx-auto max-w-deck text-center">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -111,24 +111,21 @@ export default function ProductReveal() {
         </div>
       </section>
 
-      {/* Block A2 — Section title, its own full-viewport page */}
-      <section className="relative flex min-h-screen w-full flex-col justify-center bg-paper px-6 md:px-10">
+      {/* Block B — Section title + reveal stage */}
+      <section className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-paper px-6 py-4 md:py-10">
         <div className="mx-auto w-full max-w-deck text-left">
           <p className="eyebrow">Section 05 — The Unveil</p>
           <h2 className="display-lg mt-4 max-w-[18ch] text-ink">
             The {productSpecs.fullName}.
           </h2>
         </div>
-      </section>
 
-      {/* Block B — Reveal stage */}
-      <section className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-paper px-6 py-6 md:py-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative"
+          className="relative mt-8 md:mt-12"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
