@@ -74,30 +74,6 @@ export default function ProductReveal() {
               className="block h-auto w-[88vw] max-w-[820px] object-contain md:w-[70vw]"
             />
           </picture>
-
-          {/* Wordmark — overlaid on top of the image, top-right */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-            className="pointer-events-none absolute inset-x-0 top-4 text-center md:top-8"
-          >
-            <p className="font-display text-[0.6rem] font-semibold uppercase tracking-[0.28em] text-ink md:text-[0.7rem]">
-              Introducing
-            </p>
-            <p
-              className="mt-1 font-display font-extrabold uppercase italic text-red"
-              style={{
-                fontSize: "clamp(3rem, 12vw, 8rem)",
-                letterSpacing: "-0.04em",
-                lineHeight: 0.85,
-                textShadow: "0 0 24px rgba(255,255,255,0.6)",
-              }}
-            >
-              {productSpecs.name}
-            </p>
-          </motion.div>
         </motion.div>
       </section>
     </>
