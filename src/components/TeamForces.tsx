@@ -30,7 +30,7 @@ export default function TeamForces() {
           <img
             src="/images/question-mark-epod.png"
             alt="Jedlik"
-            className="inline-block h-[1em] w-auto align-baseline"
+            className="relative top-[0.15em] inline-block h-[1em] w-auto align-baseline"
           />{" "}
           alive.
         </h2>
