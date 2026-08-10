@@ -67,7 +67,7 @@ export default function ProductReveal() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <picture>
-            <source media="(max-width: 767px)" srcSet="/assets/epod-reveal-mobile.png" />
+            <source media="(max-width: 767px)" srcSet="/assets/epod-reveal-mobile.jpg" />
             <img
               src={productSpecs.image}
               alt="The Jedlik E-POD — a fully enclosed, two-wheeled electric vehicle"
