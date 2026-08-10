@@ -128,11 +128,14 @@ export default function ProductReveal() {
           className="relative mt-8 md:mt-12"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={productSpecs.image}
-            alt="The Jedlik E-POD — a fully enclosed, two-wheeled electric vehicle"
-            className="block h-auto w-[88vw] max-w-[820px] object-contain md:w-[70vw]"
-          />
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/assets/epod-reveal-mobile.png" />
+            <img
+              src={productSpecs.image}
+              alt="The Jedlik E-POD — a fully enclosed, two-wheeled electric vehicle"
+              className="block h-auto w-[88vw] max-w-[820px] object-contain md:w-[70vw]"
+            />
+          </picture>
 
           {/* Wordmark — overlaid on top of the image, top-right */}
           <motion.div
