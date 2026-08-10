@@ -174,7 +174,7 @@ export const productSpecs = {
     "Pushback Seats",
   ],
   // Uploaded PNG with transparent background, sized to fit on mobile + desktop
-  image: "/assets/epod-reveal-uploaded.png",
+  image: "/assets/epod-reveal-uploaded.jpg",
   blurImage: "/assets/epod-blur.jpg",
 };
 
