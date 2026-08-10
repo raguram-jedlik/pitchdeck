@@ -21,6 +21,9 @@ export default function ProductReveal() {
     <>
       {/* Block A — Tease */}
       <section className="relative bg-paper px-6 py-6 md:px-10 md:py-12">
+        <div className="mx-auto max-w-deck text-left">
+          <p className="eyebrow">Section 05 — The Dawn of a New Class</p>
+        </div>
         <div className="mx-auto max-w-deck text-center">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -54,10 +57,6 @@ export default function ProductReveal() {
 
       {/* Block B — Section title + reveal stage */}
       <section className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-paper px-6 py-4 md:py-10">
-        <div className="mx-auto w-full max-w-deck text-left">
-          <p className="eyebrow">Section 05 — The Unveil</p>
-        </div>
-
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
