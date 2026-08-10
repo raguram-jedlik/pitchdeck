@@ -43,9 +43,6 @@ export default function Nav() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/assets/logo-cropped.png" alt={brand.name} className="h-11 w-auto md:h-16" />
         </a>
-        <span className="mr-6 mt-3 font-display text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted md:mr-10 md:mt-4 md:text-xs">
-          <span className="text-red">{brand.year}</span>
-        </span>
       </header>
     </>
   );
