@@ -55,7 +55,7 @@ function MarketIcon({ kind }: { kind: string }) {
         <circle cx="32" cy="32" r="22" fill="none" stroke="#000000" strokeWidth="2" />
         <ellipse cx="32" cy="32" rx="9" ry="22" fill="none" stroke="#000000" strokeWidth="1.5" />
         <path d="M10 32 H54 M13 20 H51 M13 44 H51" stroke="#000000" strokeWidth="1.5" />
-        <path d="M22 12 Q32 8 42 12" fill="none" stroke="#E5091E" strokeWidth="2" strokeLinecap="round" />
+        <path d="M22 12 Q32 8 42 12" fill="none" stroke="#C8023B" strokeWidth="2" strokeLinecap="round" />
       </svg>
     );
   }
@@ -69,7 +69,7 @@ function MarketIcon({ kind }: { kind: string }) {
         <path
           d="M20 42 H30 L34 26 H42 M30 42 L34 30"
           fill="none"
-          stroke="#E5091E"
+          stroke="#C8023B"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -84,7 +84,7 @@ function MarketIcon({ kind }: { kind: string }) {
       <rect x="14" y="34" width="8" height="10" fill="none" stroke="#000000" strokeWidth="2" />
       <rect x="28" y="24" width="8" height="20" fill="none" stroke="#000000" strokeWidth="2" />
       <rect x="42" y="14" width="8" height="30" fill="none" stroke="#000000" strokeWidth="2" />
-      <path d="M46 14 V6 M46 6 L54 9 L46 12 Z" fill="#E5091E" stroke="#E5091E" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M46 14 V6 M46 6 L54 9 L46 12 Z" fill="#C8023B" stroke="#C8023B" strokeWidth="1.5" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -104,7 +104,7 @@ function IndiaStatIcon({ label }: { label: string }) {
         <path
           d="M16 46 H32 L38 26 H48 M32 46 L38 32 M22 26 H34"
           fill="none"
-          stroke="#E5091E"
+          stroke="#C8023B"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -118,7 +118,7 @@ function IndiaStatIcon({ label }: { label: string }) {
       <svg {...common}>
         <rect x="10" y="38" width="8" height="16" fill="none" stroke="#000" strokeWidth="2" />
         <rect x="24" y="28" width="8" height="26" fill="none" stroke="#000" strokeWidth="2" />
-        <rect x="38" y="14" width="8" height="40" fill="none" stroke="#E5091E" strokeWidth="2" />
+        <rect x="38" y="14" width="8" height="40" fill="none" stroke="#C8023B" strokeWidth="2" />
       </svg>
     );
   }
@@ -126,7 +126,7 @@ function IndiaStatIcon({ label }: { label: string }) {
     // EV share — bolt
     return (
       <svg {...common}>
-        <path d="M34 8 L16 36 H28 L22 56 L48 26 H34 Z" fill="none" stroke="#E5091E" strokeWidth="2" strokeLinejoin="round" />
+        <path d="M34 8 L16 36 H28 L22 56 L48 26 H34 Z" fill="none" stroke="#C8023B" strokeWidth="2" strokeLinejoin="round" />
       </svg>
     );
   }
@@ -135,7 +135,7 @@ function IndiaStatIcon({ label }: { label: string }) {
     <svg {...common}>
       <circle cx="32" cy="32" r="20" fill="none" stroke="#000" strokeWidth="2" />
       <circle cx="32" cy="32" r="12" fill="none" stroke="#000" strokeWidth="1.5" />
-      <circle cx="32" cy="32" r="4" fill="#E5091E" />
+      <circle cx="32" cy="32" r="4" fill="#C8023B" />
     </svg>
   );
 }

@@ -325,7 +325,7 @@ export const personas: Persona[] = [
     title: "Premium Aspirant",
     profile: "Age 30–50 · Tech-savvy",
     share: 15,
-    accent: "#E5091E",
+    accent: "#C8023B",
     tam: "15% of TAM",
     age: "30–50",
     income: "Tech-savvy ($2K–$5K/mo)",

@@ -18,7 +18,7 @@ const config: Config = {
         muted: "#6B6B6B",
         rule: "#E5E5E5",
         red: {
-          DEFAULT: "#E5091E",
+          DEFAULT: "#C8023B",
           deep: "#9C0614",
           soft: "#FBD9DC",
         },
