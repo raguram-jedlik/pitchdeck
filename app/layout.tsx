@@ -24,12 +24,23 @@ export const metadata: Metadata = {
   openGraph: {
     title: brand.name,
     description: "The investor pitch for the E-POD.",
-    images: ["/assets/jedlik-thumbnail.jpg"],
+    images: [
+      {
+        url: "/assets/jedlik-thumbnail.jpg",
+        width: 1042,
+        height: 852,
+        alt: brand.name,
+        type: "image/jpeg",
+      },
+    ],
   },
   icons: {
     icon: "/assets/jedlik-thumbnail.jpg",
     shortcut: "/assets/jedlik-thumbnail.jpg",
     apple: "/assets/jedlik-thumbnail.jpg",
+  },
+  other: {
+    image: "https://www.jedlik.in/assets/jedlik-thumbnail.jpg",
   },
 };
 
