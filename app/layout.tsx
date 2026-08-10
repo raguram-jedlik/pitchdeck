@@ -24,7 +24,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: brand.name,
     description: "The investor pitch for the E-POD.",
-    images: ["/assets/epod-reveal.jpg"],
+    images: ["/assets/jedlik-thumbnail.jpg"],
+  },
+  icons: {
+    icon: "/assets/jedlik-thumbnail.jpg",
+    shortcut: "/assets/jedlik-thumbnail.jpg",
+    apple: "/assets/jedlik-thumbnail.jpg",
   },
 };
 
