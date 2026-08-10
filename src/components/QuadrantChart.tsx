@@ -83,15 +83,20 @@ export default function QuadrantChart() {
           {rivals.map((p, i) => {
             const left = `${(p.comfort / 100) * 100}%`;
             const top = `${100 - p.maneuverability}%`;
-            // Gensol and Wings Robin sit close together (comfort 45/35,
-            // maneuverability 50/38) — close enough that Gensol's label
-            // and Wings' image collide at mobile widths. Nudge Gensol's
-            // label further down and Wings' image further up so the two
-            // clear each other; every other pair already has enough room.
-            const labelGap =
-              p.name === "Gensol EV/Ezio*" ? "mt-3 sm:mt-1" : "mt-1";
-            const imageGap =
-              p.name === "Wings Robin" ? "mb-2 sm:mb-0.5" : "mb-0.5";
+            // Two pairs of points sit close together on the mobile-scaled
+            // chart, where fixed-size labels/images no longer fit the
+            // shrunken gap between dots: MG Comet (22,78) / PMV Eas-E
+            // (30,70), and Gensol/Ezio (45,50) / Wings Robin (35,38).
+            // Nudge each pair apart both vertically and horizontally so
+            // their labels and images clear each other on small screens.
+            const nudge: Record<string, { label?: string; image?: string }> = {
+              "MG Comet": { label: "mt-2 ml-4 sm:mt-1 sm:ml-0" },
+              "PMV Eas-E": { image: "mb-2 -ml-4 sm:mb-0.5 sm:ml-0" },
+              "Gensol EV/Ezio*": { label: "mt-3 ml-3 sm:mt-1 sm:ml-0" },
+              "Wings Robin": { image: "mb-2 -ml-3 sm:mb-0.5 sm:ml-0" },
+            };
+            const labelGap = nudge[p.name]?.label ?? "mt-1";
+            const imageGap = nudge[p.name]?.image ?? "mb-0.5";
             return (
               <motion.div
                 key={p.name}
