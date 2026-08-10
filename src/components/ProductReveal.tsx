@@ -24,7 +24,7 @@ export default function ProductReveal() {
         <div className="mx-auto max-w-deck text-left">
           <p className="eyebrow">Section 05 — The Unveil</p>
           <h2 className="display-lg mt-4 max-w-[16ch] text-ink">
-            The dawn of a new class
+            The dawn of a new class.
           </h2>
         </div>
         <div className="mx-auto max-w-deck mt-10 md:mt-16 text-center">

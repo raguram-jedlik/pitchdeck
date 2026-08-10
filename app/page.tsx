@@ -1,4 +1,5 @@
 import Nav from "@/components/Nav";
+import ScrollReveal from "@/components/ScrollReveal";
 import Hero from "@/components/Hero";
 import CommuterNeeds from "@/components/CommuterNeeds";
 import QuadrantChart from "@/components/QuadrantChart";
@@ -13,6 +14,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main className="relative">
+      <ScrollReveal />
       <Nav />
       <Hero />
       <CommuterNeeds />

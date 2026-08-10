@@ -4,6 +4,7 @@
     { "name": "pitchdeck", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev", "--", "-p", "3001"], "port": 3001 },
     { "name": "pitchdeck-verify", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev", "--", "-p", "3002"], "port": 3002 },
     { "name": "pitchdeck-verify2", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev", "--", "-p", "3003"], "port": 3003 },
-    { "name": "pitchdeck-verify3", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev", "--", "-p", "3004"], "port": 3004 }
+    { "name": "pitchdeck-verify3", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev", "--", "-p", "3004"], "port": 3004 },
+    { "name": "pitchdeck-verify4", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev", "--", "-p", "3005"], "port": 3005 }
   ]
 }
