@@ -26,7 +26,13 @@ export default function TeamForces() {
       <div className="mx-auto max-w-deck overflow-hidden">
         <p className="eyebrow">Section 03 — The Forces</p>
         <h2 className="display-lg mt-4 max-w-[16ch] text-ink">
-          The team that will bring Jedlik alive.
+          The team that will bring{" "}
+          <img
+            src="/images/question-mark-epod.png"
+            alt="Jedlik"
+            className="inline-block h-[1em] w-auto align-baseline"
+          />{" "}
+          alive.
         </h2>
 
         {/* Founders — scroll container isolated from vertical page scroll */}

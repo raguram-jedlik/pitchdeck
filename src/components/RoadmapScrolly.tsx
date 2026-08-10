@@ -27,7 +27,13 @@ export default function RoadmapScrolly() {
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 04 — The Fuel</p>
         <h2 className="display-lg mt-4 max-w-[18ch] text-ink">
-          The fuel needed to bring Jedlik alive.
+          The fuel needed to bring{" "}
+          <img
+            src="/images/question-mark-epod.png"
+            alt="Jedlik"
+            className="inline-block h-[1em] w-auto align-baseline"
+          />{" "}
+          alive.
         </h2>
 
         {/* Mobile: horizontal snap-scroll row.
