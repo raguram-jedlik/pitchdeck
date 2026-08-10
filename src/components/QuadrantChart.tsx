@@ -83,20 +83,6 @@ export default function QuadrantChart() {
           {rivals.map((p, i) => {
             const left = `${(p.comfort / 100) * 100}%`;
             const top = `${100 - p.maneuverability}%`;
-            // Two pairs of points sit close together on the mobile-scaled
-            // chart, where fixed-size labels/images no longer fit the
-            // shrunken gap between dots: MG Comet (22,78) / PMV Eas-E
-            // (30,70), and Gensol/Ezio (45,50) / Wings Robin (35,38).
-            // Nudge each pair apart both vertically and horizontally so
-            // their labels and images clear each other on small screens.
-            const nudge: Record<string, { label?: string; image?: string }> = {
-              "MG Comet": { label: "mt-2 ml-4 sm:mt-1 sm:ml-0" },
-              "PMV Eas-E": { image: "mb-2 -ml-4 sm:mb-0.5 sm:ml-0" },
-              "Gensol EV/Ezio*": { label: "mt-3 ml-3 sm:mt-1 sm:ml-0" },
-              "Wings Robin": { image: "mb-2 -ml-3 sm:mb-0.5 sm:ml-0" },
-            };
-            const labelGap = nudge[p.name]?.label ?? "mt-1";
-            const imageGap = nudge[p.name]?.image ?? "mb-0.5";
             return (
               <motion.div
                 key={p.name}
@@ -108,20 +94,25 @@ export default function QuadrantChart() {
                 style={{ left, top, zIndex: i + 1 }}
               >
                 <span
-                  className="block h-full w-full rounded-full border border-paper shadow-sm"
+                  className="flex h-full w-full items-center justify-center rounded-full border border-paper shadow-sm"
                   style={{ backgroundColor: p.color }}
-                />
+                >
+                  {/* number badge stands in for the image+name pair on mobile,
+                      where seven clustered dots don't leave room for either
+                      without overlapping neighbours */}
+                  <span className="font-display text-[0.5rem] font-bold leading-none text-paper sm:hidden">
+                    {i + 1}
+                  </span>
+                </span>
                 {p.image && (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
                     src={p.image}
                     alt={p.name}
-                    className={`absolute bottom-full left-1/2 ${imageGap} h-6 w-9 max-w-none -translate-x-1/2 object-contain sm:h-8 sm:w-12 md:h-9 md:w-14`}
+                    className="absolute bottom-full left-1/2 mb-0.5 hidden h-8 w-12 max-w-none -translate-x-1/2 object-contain sm:block md:h-9 md:w-14"
                   />
                 )}
-                <span
-                  className={`absolute top-full left-1/2 ${labelGap} -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.45rem] font-semibold leading-tight text-ink sm:text-[0.6rem]`}
-                >
+                <span className="absolute top-full left-1/2 mt-1 hidden -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.6rem] font-semibold leading-tight text-ink sm:block">
                   {p.name}
                 </span>
               </motion.div>
@@ -141,9 +132,13 @@ export default function QuadrantChart() {
             }}
           >
             <span
-              className="block h-full w-full rounded-full border border-paper shadow-sm"
+              className="flex h-full w-full items-center justify-center rounded-full border border-paper shadow-sm"
               style={{ backgroundColor: jedlik.color }}
-            />
+            >
+              <span className="font-display text-[0.5rem] font-bold leading-none text-paper sm:hidden">
+                J
+              </span>
+            </span>
             <div className="absolute bottom-full left-1/2 mb-1 h-14 w-20 -translate-x-1/2 md:h-20 md:w-28">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -160,6 +155,22 @@ export default function QuadrantChart() {
             </span>
           </motion.div>
         </div>
+
+        {/* legend — replaces the inline image+name labels on mobile, where
+            the seven clustered dots don't leave room for either */}
+        <ul className="mx-auto grid max-w-[360px] grid-cols-2 gap-x-6 gap-y-1.5 sm:hidden">
+          {rivals.map((p, i) => (
+            <li key={p.name} className="flex items-center gap-1.5 text-xs text-ink">
+              <span
+                className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-paper font-display text-[0.5rem] font-bold leading-none text-paper shadow-sm"
+                style={{ backgroundColor: p.color }}
+              >
+                {i + 1}
+              </span>
+              <span className="truncate">{p.name}</span>
+            </li>
+          ))}
+        </ul>
 
         <p className="mx-auto mt-8 max-w-xl text-center text-sm text-muted md:text-base">
           Seven serious attempts at an enclosed commuter. None of them sit in the
