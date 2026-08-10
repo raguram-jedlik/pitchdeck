@@ -36,17 +36,21 @@ export interface QuadrantPoint {
   isJedlik?: boolean;
   image?: string;
   color: string;
+  /** Vehicle image sits above the dot by default; a few points near the
+   * axis lines flip it below to match the reference layout and avoid
+   * colliding with the axis arrows/labels. */
+  imageBelow?: boolean;
 }
 
 export const quadrantPoints: QuadrantPoint[] = [
-  { name: "MG Comet",         comfort: 22, maneuverability: 78, image: "/assets/rival-mg-comet.webp",        color: "#7C3AED" },
-  { name: "PMV Eas-E",        comfort: 30, maneuverability: 70, image: "/assets/rival-pmv-ease.webp",        color: "#D946EF" },
-  { name: "Gensol EV/Ezio*",  comfort: 45, maneuverability: 50, image: "/assets/rival-gensol-ezio.webp",     color: "#93C5FD" },
-  { name: "Wings Robin",      comfort: 50, maneuverability: 38, image: "/assets/rival-wings-robin.webp",     color: "#B45309" },
-  { name: "Sina Version-E",   comfort: 58, maneuverability: 44, image: "/assets/rival-sina-version-e.webp",  color: "#60A5FA" },
-  { name: "T-Shell Bad Boy",  comfort: 65, maneuverability: 28, image: "/assets/rival-tshell-badboy.webp",   color: "#7F1D1D" },
-  { name: "Lit Motors C-1",   comfort: 70, maneuverability: 34, image: "/assets/rival-lit-motors-c1.webp",   color: "#1E3A8A" },
-  { name: "Jedlik",           comfort: 88, maneuverability: 88, isJedlik: true,                              color: "#059669" },
+  { name: "MG Comet",         comfort: 12, maneuverability: 82, image: "/assets/rival-mg-comet.webp",        color: "#7C3AED" },
+  { name: "PMV Eas-E",        comfort: 28, maneuverability: 63, image: "/assets/rival-pmv-ease.webp",        color: "#D946EF" },
+  { name: "Gensol EV/Ezio*",  comfort: 40, maneuverability: 50, image: "/assets/rival-gensol-ezio.webp",     color: "#93C5FD", imageBelow: true },
+  { name: "Wings Robin",      comfort: 58, maneuverability: 43, image: "/assets/rival-wings-robin.webp",     color: "#B45309" },
+  { name: "Sina Version-E",   comfort: 78, maneuverability: 40, image: "/assets/rival-sina-version-e.webp",  color: "#60A5FA" },
+  { name: "T-Shell Bad Boy",  comfort: 65, maneuverability: 21, image: "/assets/rival-tshell-badboy.webp",   color: "#7F1D1D" },
+  { name: "Lit Motors C-1",   comfort: 67, maneuverability: 61, image: "/assets/rival-lit-motors-c1.webp",   color: "#1E3A8A" },
+  { name: "Jedlik",           comfort: 90, maneuverability: 88, isJedlik: true,                              color: "#059669" },
 ];
 
 // ---------- Section 4: Team & Advisors ----------

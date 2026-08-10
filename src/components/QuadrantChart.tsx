@@ -97,7 +97,7 @@ export default function QuadrantChart() {
                   className="block h-full w-full rounded-full border border-paper shadow-sm"
                   style={{ backgroundColor: p.color }}
                 />
-                {p.image && (
+                {p.image && !p.imageBelow && (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
                     src={p.image}
@@ -105,9 +105,19 @@ export default function QuadrantChart() {
                     className="absolute bottom-full left-1/2 mb-0.5 h-7 w-11 max-w-none -translate-x-1/2 object-contain sm:h-8 sm:w-12 md:h-9 md:w-14"
                   />
                 )}
-                <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.5rem] font-semibold leading-tight text-ink md:text-[0.6rem]">
+                <span
+                  className={`absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.5rem] font-semibold leading-tight text-ink md:text-[0.6rem]`}
+                >
                   {p.name}
                 </span>
+                {p.image && p.imageBelow && (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="absolute top-full left-1/2 mt-5 h-7 w-11 max-w-none -translate-x-1/2 object-contain sm:mt-6 sm:h-8 sm:w-12 md:mt-7 md:h-9 md:w-14"
+                  />
+                )}
               </motion.div>
             );
           })}
