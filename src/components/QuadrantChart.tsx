@@ -91,7 +91,7 @@ export default function QuadrantChart() {
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
                 className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 md:h-4 md:w-4"
-                style={{ left, top }}
+                style={{ left, top, zIndex: i + 1 }}
               >
                 <span
                   className="block h-full w-full rounded-full border border-paper shadow-sm"
@@ -102,7 +102,7 @@ export default function QuadrantChart() {
                   <img
                     src={p.image}
                     alt={p.name}
-                    className="absolute bottom-full left-1/2 mb-1 h-24 w-auto max-w-none -translate-x-1/2 object-contain sm:h-28 md:h-36"
+                    className="absolute bottom-full left-1/2 mb-0.5 h-7 w-11 max-w-none -translate-x-1/2 object-contain sm:h-8 sm:w-12 md:h-9 md:w-14"
                   />
                 )}
                 <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.5rem] font-semibold leading-tight text-ink md:text-[0.6rem]">
