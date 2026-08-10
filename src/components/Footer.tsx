@@ -160,14 +160,14 @@ export default function Footer() {
             ))}
           </ul>
           {/* The white strip — composed of the uploaded Anna Incubator + 4 SVG logos */}
-          <div className="mt-6 flex flex-nowrap items-center justify-start gap-x-8 overflow-x-auto bg-paper p-4 md:justify-center md:gap-x-10">
+          <div className="mt-6 flex flex-nowrap items-center justify-between gap-x-3 bg-paper px-3 py-4 sm:gap-x-6 sm:px-6 md:justify-center md:gap-x-10">
             {supporters.map((s) => (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 key={s.name}
                 src={s.src}
                 alt={s.alt}
-                className="h-8 w-auto max-w-none shrink-0 object-contain sm:h-9 md:h-11"
+                className="h-6 w-auto min-w-0 flex-1 object-contain sm:h-9 sm:flex-none md:h-11"
               />
             ))}
           </div>
