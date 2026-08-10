@@ -372,6 +372,12 @@ export const buildPhotos = [
   "/assets/build-5.jpg",
   "/assets/build-6.jpg",
   "/assets/build-7.jpg",
+  "/assets/build-8.jpg",
+  "/assets/build-9.jpg",
+  "/assets/build-10.jpg",
+  "/assets/build-11.jpg",
+  "/assets/build-12.jpg",
+  "/assets/build-13.jpg",
 ];
 
 
