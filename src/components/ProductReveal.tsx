@@ -22,7 +22,10 @@ export default function ProductReveal() {
       {/* Block A — Tease */}
       <section className="relative bg-paper px-6 py-6 md:px-10 md:py-12">
         <div className="mx-auto max-w-deck text-left">
-          <p className="eyebrow">Section 05 — The Dawn of a New Class</p>
+          <p className="eyebrow">Section 05 — The Unveil</p>
+          <h2 className="display-lg mt-4 max-w-[16ch] text-ink">
+            The dawn of a new class.
+          </h2>
         </div>
         <div className="mx-auto max-w-deck text-center">
           <motion.p
