@@ -53,15 +53,6 @@ export default function Hero() {
         </motion.h1>
 
         <div className="mt-10 pt-2 md:mt-12 md:pt-0">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="eyebrow"
-          >
-            {brand.year}
-          </motion.p>
-
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
