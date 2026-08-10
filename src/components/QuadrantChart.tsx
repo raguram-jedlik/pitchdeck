@@ -53,11 +53,12 @@ export default function QuadrantChart() {
             </svg>
           </div>
 
-          {/* axis titles */}
-          <span className="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-[0.6rem] font-bold uppercase tracking-[0.1em] text-red md:-top-8 md:text-sm">
+          {/* axis titles — small paper backing keeps the axis line from
+              visually striking through the text */}
+          <span className="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap bg-paper px-1 font-display text-[0.6rem] font-bold uppercase tracking-[0.1em] text-red md:-top-8 md:text-sm">
             Maneuverability
           </span>
-          <span className="absolute top-1/2 right-2 -translate-y-1/2 whitespace-nowrap font-display text-[0.6rem] font-bold uppercase tracking-[0.1em] text-red md:right-3 md:text-sm">
+          <span className="absolute top-1/2 right-0 -translate-y-1/2 whitespace-nowrap bg-paper px-1 font-display text-[0.6rem] font-bold uppercase tracking-[0.1em] text-red md:right-0 md:text-sm">
             Comfort
           </span>
 
@@ -65,7 +66,7 @@ export default function QuadrantChart() {
           <span className="absolute left-2 top-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:left-3 md:top-3 md:text-xs">
             Lower Comfort
           </span>
-          <span className="absolute right-2 top-24 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:right-3 md:top-32 md:text-xs">
+          <span className="absolute right-2 top-[34%] whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:right-3 md:text-xs">
             Higher Comfort
           </span>
           <span className="absolute bottom-2 left-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:bottom-3 md:left-3 md:text-xs">
@@ -101,7 +102,7 @@ export default function QuadrantChart() {
                   <img
                     src={p.image}
                     alt={p.name}
-                    className="absolute bottom-full left-1/2 mb-1 h-11 w-auto -translate-x-1/2 object-contain md:h-16"
+                    className="absolute bottom-full left-1/2 mb-1 h-24 w-auto max-w-none -translate-x-1/2 object-contain sm:h-28 md:h-36"
                   />
                 )}
                 <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.5rem] font-semibold leading-tight text-ink md:text-[0.6rem]">
