@@ -105,7 +105,15 @@ export default function QuadrantChart() {
                     className="absolute bottom-full left-1/2 mb-0.5 h-5 w-8 max-w-none -translate-x-1/2 object-contain sm:h-8 sm:w-12 md:h-9 md:w-14"
                   />
                 )}
-                <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.42rem] font-semibold leading-tight text-ink sm:text-[0.6rem]">
+                <span
+                  className={`absolute top-full mt-1 whitespace-nowrap font-display text-[0.42rem] font-semibold leading-tight text-ink sm:text-[0.6rem] ${
+                    p.name === "Gensol EV/Ezio*"
+                      ? "right-1/2 mr-[-6px] text-right"
+                      : p.name === "T-Shell Bad Boy"
+                        ? "left-1/2 ml-[-6px] text-left"
+                        : "left-1/2 -translate-x-1/2 text-center"
+                  }`}
+                >
                   {p.name}
                 </span>
               </motion.div>
