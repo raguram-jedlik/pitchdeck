@@ -112,6 +112,19 @@ export default function Footer() {
               {contactInfo.instagram}
             </a>
           </li>
+          <li className="flex items-baseline gap-6">
+            <span className="w-24 shrink-0 font-display text-xs font-semibold uppercase tracking-[0.16em] text-paper/60">
+              LinkedIn
+            </span>
+            <a
+              href={contactInfo.linkedinUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-paper underline-offset-4 hover:underline"
+            >
+              {contactInfo.linkedin}
+            </a>
+          </li>
         </motion.ul>
 
         {/* Build photos — auto-marquee, no touch. */}

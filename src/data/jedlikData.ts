@@ -383,6 +383,8 @@ export const contactInfo = {
   domain: "jedlik.in",
   phone: "+91 90940 36915",
   instagram: "instagram.com/jedlik.in",
+  linkedin: "linkedin.com/company/jedlik",
+  linkedinUrl: "https://www.linkedin.com/company/jedlik/about/?viewAsMember=true",
 };
 
 export const close = {
