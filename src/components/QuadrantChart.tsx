@@ -90,11 +90,21 @@ export default function QuadrantChart() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 md:h-4 md:w-4"
+                className="absolute -translate-x-1/2 -translate-y-1/2"
                 style={{ left, top, zIndex: i + 1 }}
               >
+                {/* Mobile: a plain numbered dot — no image/label, so dense
+                    clusters never overlap. Names live in the legend below. */}
                 <span
-                  className="block h-full w-full rounded-full border border-paper shadow-sm"
+                  className="flex h-5 w-5 items-center justify-center rounded-full border border-paper font-display text-[0.6rem] font-bold text-paper shadow-sm sm:hidden"
+                  style={{ backgroundColor: p.color }}
+                >
+                  {i + 1}
+                </span>
+
+                {/* Desktop/tablet: full dot + vehicle image + name label */}
+                <span
+                  className="hidden h-3 w-3 rounded-full border border-paper shadow-sm sm:block md:h-4 md:w-4"
                   style={{ backgroundColor: p.color }}
                 />
                 {p.image && (
@@ -102,10 +112,10 @@ export default function QuadrantChart() {
                   <img
                     src={p.image}
                     alt={p.name}
-                    className="absolute bottom-full left-1/2 mb-0.5 h-7 w-11 max-w-none -translate-x-1/2 object-contain sm:h-8 sm:w-12 md:h-9 md:w-14"
+                    className="absolute bottom-full left-1/2 mb-0.5 hidden h-8 w-12 max-w-none -translate-x-1/2 object-contain sm:block md:h-9 md:w-14"
                   />
                 )}
-                <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.5rem] font-semibold leading-tight text-ink md:text-[0.6rem]">
+                <span className="absolute top-full left-1/2 mt-1 hidden -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.6rem] font-semibold leading-tight text-ink sm:block">
                   {p.name}
                 </span>
               </motion.div>
@@ -144,6 +154,24 @@ export default function QuadrantChart() {
             </span>
           </motion.div>
         </div>
+
+        {/* Mobile-only legend — matches the numbered dots above since the
+            chart itself drops names/images at this size to avoid overlap. */}
+        <ul className="mx-auto grid max-w-sm grid-cols-2 gap-x-6 gap-y-2 sm:hidden">
+          {rivals.map((p, i) => (
+            <li key={p.name} className="flex items-center gap-2">
+              <span
+                className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-paper font-display text-[0.5rem] font-bold text-paper"
+                style={{ backgroundColor: p.color }}
+              >
+                {i + 1}
+              </span>
+              <span className="font-display text-[0.65rem] font-medium leading-tight text-ink">
+                {p.name}
+              </span>
+            </li>
+          ))}
+        </ul>
 
         <p className="mx-auto mt-8 max-w-xl text-center text-sm text-muted md:text-base">
           Seven serious attempts at an enclosed commuter. None of them sit in the
