@@ -46,9 +46,9 @@ export const quadrantPoints: QuadrantPoint[] = [
   { name: "MG Comet",         comfort: 12, maneuverability: 82, image: "/assets/rival-mg-comet.webp",        color: "#7C3AED" },
   { name: "PMV Eas-E",        comfort: 28, maneuverability: 63, image: "/assets/rival-pmv-ease.webp",        color: "#D946EF" },
   { name: "Gensol EV/Ezio*",  comfort: 40, maneuverability: 50, image: "/assets/rival-gensol-ezio.webp",     color: "#93C5FD", imageBelow: true },
-  { name: "Wings Robin",      comfort: 58, maneuverability: 43, image: "/assets/rival-wings-robin.webp",     color: "#B45309" },
+  { name: "Wings Robin",      comfort: 35, maneuverability: 43, image: "/assets/rival-wings-robin.webp",     color: "#B45309" },
   { name: "Sina Version-E",   comfort: 78, maneuverability: 40, image: "/assets/rival-sina-version-e.webp",  color: "#60A5FA" },
-  { name: "T-Shell Bad Boy",  comfort: 65, maneuverability: 21, image: "/assets/rival-tshell-badboy.webp",   color: "#7F1D1D" },
+  { name: "T-Shell Bad Boy",  comfort: 65, maneuverability: 21, image: "/assets/rival-tshell-badboy.webp",   color: "#7F1D1D", imageBelow: true },
   { name: "Lit Motors C-1",   comfort: 67, maneuverability: 61, image: "/assets/rival-lit-motors-c1.webp",   color: "#1E3A8A" },
   { name: "Jedlik",           comfort: 90, maneuverability: 88, isJedlik: true,                              color: "#059669" },
 ];
