@@ -399,3 +399,25 @@ export const close = {
   accent: "move differently",
   tail: "from here.",
 };
+
+// ---------- Section 09: Feedback ----------
+export const feedbackCopy = {
+  eyebrow: "Section 09 — Your Verdict",
+  heading: "Did this land for you?",
+  sub: "One click. We read every response.",
+  voteUp: "Yes, I'm interested",
+  voteDown: "Not for me",
+  // Shown only after a positive vote — the ask is earned, not upfront.
+  emailPrompt: "Shall we keep you posted?",
+  emailSub: "Leave an address and we'll send progress on the e-POD. Optional.",
+  emailPlaceholder: "you@firm.com",
+  emailSubmit: "Send",
+  emailSkip: "No thanks",
+  thanksUp: "Thank you — we'll be in touch.",
+  thanksDown: "Thank you for the honest answer.",
+  thanksEmail: "Noted. You'll hear from us.",
+  invalidEmail: "That address doesn't look right.",
+  privacy:
+    "We record your response and, if you give it, your email. Nothing else.",
+};
+

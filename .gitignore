@@ -3,3 +3,5 @@ dist
 .next
 .DS_Store
 *.local
+.env
+.env.*
