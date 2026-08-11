@@ -15,8 +15,17 @@ import { neon } from "@neondatabase/serverless";
 
 export type Vote = "up" | "down";
 
+/**
+ * What the person did. "verdict" is the Section 09 thumbs up/down; "invest" is
+ * the header button, which is a far stronger signal and is kept separate so the
+ * two are never averaged together in a query.
+ */
+export type Intent = "verdict" | "invest";
+
 export interface FeedbackRecord {
-  vote: Vote;
+  /** Null for an invest submission — there is no thumbs up/down involved. */
+  vote: Vote | null;
+  intent: Intent;
   email: string | null;
   sessionId: string;
   referrer: string | null;
@@ -38,16 +47,23 @@ function db() {
 let schemaReady = false;
 
 /**
- * Create the table on first use. Kept to a single flat table for now: Phase 2
- * (per-section dwell time) will add a separate `events` table keyed by the same
- * session_id, so this row stays joinable to the full visit without a rewrite.
+ * Create the table on first use, and bring an older table up to date.
+ *
+ * The ALTER statements matter: a database created before the Invest button
+ * existed has `vote NOT NULL` and no `intent` column, which would reject every
+ * invest submission. All three statements are idempotent, so this is safe to
+ * run on both a fresh and an existing database.
+ *
+ * Phase 2 (per-section dwell time) will add a separate `events` table keyed by
+ * the same session_id, so these rows stay joinable to the full visit.
  */
 async function ensureSchema(sql: NonNullable<ReturnType<typeof db>>) {
   if (schemaReady) return;
   await sql`
     CREATE TABLE IF NOT EXISTS feedback (
       id          BIGSERIAL PRIMARY KEY,
-      vote        TEXT        NOT NULL CHECK (vote IN ('up', 'down')),
+      vote        TEXT        CHECK (vote IN ('up', 'down')),
+      intent      TEXT        NOT NULL DEFAULT 'verdict',
       email       TEXT,
       session_id  TEXT        NOT NULL,
       referrer    TEXT,
@@ -56,8 +72,12 @@ async function ensureSchema(sql: NonNullable<ReturnType<typeof db>>) {
       created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `;
+  // Migrate a table created before the Invest button shipped.
+  await sql`ALTER TABLE feedback ADD COLUMN IF NOT EXISTS intent TEXT NOT NULL DEFAULT 'verdict'`;
+  await sql`ALTER TABLE feedback ALTER COLUMN vote DROP NOT NULL`;
   await sql`CREATE INDEX IF NOT EXISTS feedback_session_idx ON feedback (session_id)`;
   await sql`CREATE INDEX IF NOT EXISTS feedback_created_idx ON feedback (created_at DESC)`;
+  await sql`CREATE INDEX IF NOT EXISTS feedback_intent_idx ON feedback (intent)`;
   schemaReady = true;
 }
 
@@ -75,9 +95,9 @@ export async function saveFeedback(
   try {
     await ensureSchema(sql);
     await sql`
-      INSERT INTO feedback (vote, email, session_id, referrer, user_agent, viewport)
+      INSERT INTO feedback (vote, intent, email, session_id, referrer, user_agent, viewport)
       VALUES (
-        ${record.vote}, ${record.email}, ${record.sessionId},
+        ${record.vote}, ${record.intent}, ${record.email}, ${record.sessionId},
         ${record.referrer}, ${record.userAgent}, ${record.viewport}
       )
     `;
@@ -93,9 +113,10 @@ export async function saveFeedback(
 }
 
 /**
- * A session votes once. Second submissions update the existing row rather than
- * inserting a duplicate, so someone who votes and *then* adds their email
- * produces one complete record instead of two partial ones.
+ * One row per session *per intent*. Someone can both rate the deck and ask to
+ * invest, and those are two separate facts — so the key is (session_id, intent)
+ * rather than session_id alone. Repeating the same intent updates in place, so
+ * voting and then adding an email yields one complete row, not two partial ones.
  */
 export async function upsertFeedback(
   record: FeedbackRecord
@@ -106,16 +127,18 @@ export async function upsertFeedback(
   try {
     await ensureSchema(sql);
     const existing = await sql`
-      SELECT id FROM feedback WHERE session_id = ${record.sessionId} LIMIT 1
+      SELECT id FROM feedback
+      WHERE session_id = ${record.sessionId} AND intent = ${record.intent}
+      LIMIT 1
     `;
 
     if (existing.length > 0) {
-      // COALESCE keeps a previously captured email if this update omits one.
+      // COALESCE keeps a previously captured value if this update omits one.
       await sql`
         UPDATE feedback
-        SET vote  = ${record.vote},
+        SET vote  = COALESCE(${record.vote}, vote),
             email = COALESCE(${record.email}, email)
-        WHERE session_id = ${record.sessionId}
+        WHERE session_id = ${record.sessionId} AND intent = ${record.intent}
       `;
       return { stored: true };
     }

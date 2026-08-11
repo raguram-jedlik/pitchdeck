@@ -3,15 +3,17 @@
 import { useEffect, useState } from "react";
 import { motion, useScroll } from "framer-motion";
 import { brand } from "@/data/jedlikData";
+import InvestButton from "@/components/InvestButton";
 
 /**
- * Nav — the year mark only. The hero carries the full logo so the brand
- * mark isn't duplicated. A 2px red progress bar sits above.
+ * Nav — the logo and the Invest CTA. The hero carries the full logo so the
+ * brand mark isn't duplicated. A 2px red progress bar sits above.
  *
  * The header is fixed, so it stays pinned in the top-left corner even
  * once the dark footer (which has its own logo near its top) scrolls
  * into that same screen position. Hide the nav once the footer is in
- * view so the two logos never overlap.
+ * view so the two logos never overlap — the footer carries its own
+ * contact details, so the CTA is not needed there.
  */
 export default function Nav() {
   const { scrollYProgress } = useScroll();
@@ -43,9 +45,7 @@ export default function Nav() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/assets/logo-cropped.png" alt={brand.name} className="h-11 w-auto md:h-16" />
         </a>
-        <span className="mr-6 mt-3 font-display text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted md:mr-10 md:mt-4 md:text-xs">
-          <span className="text-red">{brand.year}</span>
-        </span>
+        <InvestButton />
       </header>
     </>
   );

@@ -40,43 +40,60 @@ The `feedback` table is created automatically on the first submission — there 
 no migration to run. Query it from the Neon SQL editor:
 
 ```sql
--- Everyone who left an address, newest first
+-- Hottest leads first: everyone who clicked "Invest in Us"
 SELECT email, created_at, referrer
+FROM feedback
+WHERE intent = 'invest'
+ORDER BY created_at DESC;
+
+-- Everyone who left an address by any route
+SELECT email, intent, vote, created_at
 FROM feedback
 WHERE email IS NOT NULL
 ORDER BY created_at DESC;
 
--- The score
-SELECT vote, COUNT(*) FROM feedback GROUP BY vote;
+-- The score (verdicts only — invest rows have no vote)
+SELECT vote, COUNT(*) FROM feedback WHERE intent = 'verdict' GROUP BY vote;
 
--- Conversion: what share of positive responders left an email
+-- People who both rated the deck AND asked to invest, joined by session
 SELECT
-  COUNT(*) FILTER (WHERE vote = 'up')                      AS liked,
-  COUNT(*) FILTER (WHERE vote = 'up' AND email IS NOT NULL) AS gave_email
-FROM feedback;
+  v.vote,
+  i.email,
+  i.created_at
+FROM feedback i
+JOIN feedback v
+  ON v.session_id = i.session_id AND v.intent = 'verdict'
+WHERE i.intent = 'invest';
 ```
 
 ## What is stored
 
 | Column | Why |
 |---|---|
-| `vote` | `up` or `down` |
-| `email` | Only if volunteered; lower-cased |
-| `session_id` | Random per-browser id, so repeat visits don't double-count |
+| `intent` | `verdict` (Section 09 rating) or `invest` (header button) |
+| `vote` | `up` or `down`. Null for an invest row — there is no vote involved |
+| `email` | Only if volunteered; lower-cased. Always present on an invest row |
+| `session_id` | Random per-browser id, shared by both capture surfaces |
 | `referrer` | Which channel sent them (LinkedIn, email, direct) |
 | `user_agent` | Browser/device, for reading mobile vs desktop |
 | `viewport` | Screen size at the time of response |
 | `created_at` | Timestamp |
 
-**Not stored:** IP addresses, or any fingerprinting. The privacy line shown
-beside the email field states exactly this — keep the two in sync if you change
-what is collected.
+**Not stored:** IP addresses, or any fingerprinting. The privacy lines shown in
+the widget and the invest dialog state exactly this — keep them in sync if you
+change what is collected.
 
 ## Notes
 
-- One row per session. Voting and then adding an email updates the same row
-  rather than inserting a second.
+- One row per session *per intent*. The same person can rate the deck and ask to
+  invest; those are two rows sharing a `session_id`, joinable as above.
+- Repeating the same intent updates that row rather than inserting a duplicate.
+- An invest submission without an email is rejected — there would be no way to
+  follow up, which is the point of the button.
 - A hidden honeypot field plus per-IP rate limiting (10/min) blunt casual bots.
+- The schema self-migrates: a table created before the Invest button shipped
+  gains the `intent` column and drops the `NOT NULL` on `vote` automatically on
+  the next write.
 - `session_id` is deliberately the same key Phase 2 (per-section dwell time)
-  will use, so analytics events can be joined to the verdict later without a
+  will use, so analytics events can be joined to these rows later without a
   schema rewrite.

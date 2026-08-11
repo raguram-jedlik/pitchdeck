@@ -421,3 +421,17 @@ export const feedbackCopy = {
     "We record your response and, if you give it, your email. Nothing else.",
 };
 
+// ---------- Header: Invest CTA ----------
+export const investCopy = {
+  button: "Invest in Us",
+  heading: "Invest in Jedlik.",
+  sub: "Leave your email and we'll send the full investor pack and set up a call.",
+  placeholder: "you@firm.com",
+  submit: "Submit",
+  cancel: "Cancel",
+  thanks: "Thank you — we'll be in touch shortly.",
+  invalidEmail: "That address doesn't look right.",
+  privacy: "We record your email so we can reply. Nothing else.",
+  close: "Close",
+};
+

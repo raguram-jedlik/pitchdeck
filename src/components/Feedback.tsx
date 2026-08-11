@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { feedbackCopy } from "@/data/jedlikData";
+import { getSessionId, getState, updateState, postCapture, EMAIL_RE } from "@/lib/visitor";
 
 /**
  * Section 09 — the only place the deck asks the investor for anything.
@@ -15,53 +16,13 @@ import { feedbackCopy } from "@/data/jedlikData";
  * Nothing here can break the deck: every network call is fire-and-forget and
  * the UI advances on failure exactly as it does on success. An investor must
  * never see an error because our database is down.
+ *
+ * Identity lives in src/lib/visitor.ts, shared with the header Invest button so
+ * one person's actions join into a single story.
  */
 
 type Step = "vote" | "email" | "done";
 type Vote = "up" | "down";
-
-const STORAGE_KEY = "jedlik-feedback-v1";
-
-/**
- * A random per-visitor id, persisted so a returning visitor keeps one identity.
- * Phase 2 (per-section dwell time) will reuse this key to stitch a visit's
- * events to its verdict, which is why it lives in its own record rather than
- * being derived from the vote.
- */
-function getSessionId(): string {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw) as { sessionId?: string };
-      if (parsed.sessionId) return parsed.sessionId;
-    }
-  } catch {
-    /* localStorage unavailable (private mode) — fall through to a fresh id. */
-  }
-  return crypto.randomUUID().slice(0, 36);
-}
-
-function readStoredVote(): Vote | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as { vote?: Vote };
-    return parsed.vote ?? null;
-  } catch {
-    return null;
-  }
-}
-
-function persist(sessionId: string, vote: Vote, emailGiven: boolean) {
-  try {
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({ sessionId, vote, emailGiven })
-    );
-  } catch {
-    /* Non-fatal: they'll simply be asked again on a future visit. */
-  }
-}
 
 export default function Feedback() {
   const [step, setStep] = useState<Step>("vote");
@@ -77,35 +38,18 @@ export default function Feedback() {
   // hydration, since the server has no idea whether this visitor has voted.
   useEffect(() => {
     setSessionId(getSessionId());
-    if (readStoredVote()) setStep("done");
+    const prior = getState().vote;
+    if (prior) {
+      setVote(prior);
+      setStep("done");
+    }
     setReady(true);
   }, []);
 
-  async function send(payload: { vote: Vote; email?: string }) {
-    try {
-      await fetch("/api/feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...payload,
-          sessionId,
-          website: honeypot, // honeypot — real users never fill this
-          referrer: typeof document !== "undefined" ? document.referrer : "",
-          viewport:
-            typeof window !== "undefined"
-              ? `${window.innerWidth}x${window.innerHeight}`
-              : "",
-        }),
-      });
-    } catch {
-      /* Swallowed by design — see the component note above. */
-    }
-  }
-
   function handleVote(v: Vote) {
     setVote(v);
-    persist(sessionId, v, false);
-    void send({ vote: v });
+    updateState({ vote: v });
+    void postCapture({ intent: "verdict", vote: v, sessionId, honeypot });
     // A negative voter is never asked for anything further.
     setStep(v === "up" ? "email" : "done");
   }
@@ -113,22 +57,33 @@ export default function Feedback() {
   async function handleEmail(e: React.FormEvent) {
     e.preventDefault();
     const trimmed = email.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmed)) {
+    if (!EMAIL_RE.test(trimmed)) {
       setError(feedbackCopy.invalidEmail);
       return;
     }
     setError(null);
     setSubmitting(true);
-    await send({ vote: "up", email: trimmed });
-    persist(sessionId, "up", true);
+    await postCapture({
+      intent: "verdict",
+      vote: "up",
+      email: trimmed,
+      sessionId,
+      honeypot,
+    });
+    updateState({ vote: "up", emailGiven: true });
     setSubmitting(false);
     setStep("done");
   }
 
+  // `email` is empty for a returning visitor, so fall back to the stored flag —
+  // otherwise someone who gave an address last visit would be thanked as though
+  // they had skipped it.
+  const gaveEmail = email !== "" || (ready && Boolean(getState().emailGiven));
+
   const thanksMessage =
     vote === "down"
       ? feedbackCopy.thanksDown
-      : email
+      : gaveEmail
         ? feedbackCopy.thanksEmail
         : feedbackCopy.thanksUp;
 

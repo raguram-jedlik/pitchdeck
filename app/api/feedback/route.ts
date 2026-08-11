@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { upsertFeedback, isConfigured, type Vote } from "@/lib/feedbackStore";
+import { upsertFeedback, isConfigured, type Vote, type Intent } from "@/lib/feedbackStore";
 
 /**
  * POST /api/feedback — records one investor's reaction to the deck.
@@ -69,9 +69,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  const vote = data.vote;
-  if (vote !== "up" && vote !== "down") {
-    return NextResponse.json({ ok: false, error: "invalid vote" }, { status: 400 });
+  // Defaults to the Section 09 verdict so the original payload shape still works.
+  const intent: Intent = data.intent === "invest" ? "invest" : "verdict";
+
+  // A verdict needs a vote; an invest request has none.
+  let vote: Vote | null = null;
+  if (intent === "verdict") {
+    if (data.vote !== "up" && data.vote !== "down") {
+      return NextResponse.json({ ok: false, error: "invalid vote" }, { status: 400 });
+    }
+    vote = data.vote;
   }
 
   const sessionId =
@@ -95,11 +102,18 @@ export async function POST(req: NextRequest) {
     email = candidate;
   }
 
+  // An invest request without an address is not actionable — there would be no
+  // way to follow up, which is the entire point of the button.
+  if (intent === "invest" && !email) {
+    return NextResponse.json({ ok: false, error: "email required" }, { status: 400 });
+  }
+
   // Deliberately NOT stored: IP address, or any fingerprint. Referrer and a
   // coarse viewport are kept because they inform how the deck is being shared
   // and read; neither identifies a person.
   const result = await upsertFeedback({
-    vote: vote as Vote,
+    vote,
+    intent,
     email,
     sessionId,
     referrer: typeof data.referrer === "string" ? data.referrer.slice(0, 500) : null,
@@ -110,7 +124,7 @@ export async function POST(req: NextRequest) {
   if (!result.stored) {
     // Visible in `vercel logs`. Not surfaced to the client on purpose.
     console.error(
-      `[feedback] not persisted (${result.reason}) — vote=${vote} email=${email ? "yes" : "no"}${
+      `[feedback] not persisted (${result.reason}) — intent=${intent} vote=${vote ?? "n/a"} email=${email ? "yes" : "no"}${
         isConfigured() ? "" : " — set DATABASE_URL to enable storage"
       }`
     );
