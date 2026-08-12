@@ -271,7 +271,7 @@ export interface GeoExpansion {
 }
 
 export const geoExpansion: GeoExpansion[] = [
-  { region: "India",            value: 517, display: "$517M",  mapX: 72.39, mapY: 46.05 },
+  { region: "India",            value: 517, display: "$517M",  mapX: 72.99, mapY: 47.71 },
   { region: "Vietnam + Thailand", value: 86,  display: "$86M",   mapX: 78.02, mapY: 46.71 },
   { region: "Indonesia",        value: 63,  display: "$63M",   mapX: 79.91, mapY: 55.82 },
   { region: "EU-5",             value: 40,  display: "$40M+",  mapX: 49.5,  mapY: 30.5 },

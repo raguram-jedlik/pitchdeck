@@ -290,14 +290,12 @@ export default function MarketSize() {
                     className="absolute -translate-x-1/2 -translate-y-1/2"
                     style={{ left: `${g.mapX}%`, top: `${g.mapY}%`, width: size, height: size }}
                   >
-                    <div className="scale-[0.65] sm:scale-100">
                     <span
                       className="block h-full w-full rounded-full border-2 border-paper bg-red shadow-sm"
                     />
                     <span className="absolute top-full left-1/2 mt-1 max-w-[14vw] -translate-x-1/2 whitespace-normal text-center rounded bg-paper/95 px-1 py-0.5 font-display text-[0.45rem] font-bold leading-tight text-ink shadow-sm sm:max-w-none sm:whitespace-nowrap sm:px-1.5 sm:py-0.5 sm:text-[0.55rem] md:text-[0.65rem]">
                       {g.display}
                     </span>
-                    </div>
                   </motion.div>
                 );
               })}
