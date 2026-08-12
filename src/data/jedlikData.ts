@@ -271,11 +271,12 @@ export interface GeoExpansion {
 }
 
 export const geoExpansion: GeoExpansion[] = [
-  { region: "India",            value: 517, display: "$517M",  mapX: 68.5, mapY: 46.5 },
-  { region: "Vietnam + Thailand", value: 86,  display: "$86M",   mapX: 78.5, mapY: 53.0 },
-  { region: "Indonesia",        value: 63,  display: "$63M",   mapX: 81.0, mapY: 64.0 },
-  { region: "EU-5 + USA",       value: 40,  display: "$40M+",  mapX: 49.5, mapY: 30.5 },
-  { region: "Brazil",           value: 8,   display: "$8M",    mapX: 33.0, mapY: 64.0 },
+  { region: "India",            value: 517, display: "$517M",  mapX: 71.46, mapY: 43.56 },
+  { region: "Vietnam + Thailand", value: 86,  display: "$86M",   mapX: 78.5,  mapY: 53.0 },
+  { region: "Indonesia",        value: 63,  display: "$63M",   mapX: 81.0,  mapY: 64.0 },
+  { region: "EU-5 + USA",       value: 40,  display: "$40M+",  mapX: 49.5,  mapY: 30.5 },
+  { region: "USA",              value: 20,  display: "$20M",   mapX: 21.71, mapY: 33.57 },
+  { region: "Brazil",           value: 8,   display: "$8M",    mapX: 33.0,  mapY: 64.0 },
 ];
 
 // ---------- Section 9: Personas ----------
