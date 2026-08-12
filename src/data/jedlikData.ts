@@ -274,7 +274,7 @@ export const geoExpansion: GeoExpansion[] = [
   { region: "India",            value: 517, display: "$517M",  mapX: 71.5,  mapY: 39.5 },
   { region: "Vietnam + Thailand", value: 86,  display: "$86M",   mapX: 78.02, mapY: 46.71 },
   { region: "Indonesia",        value: 63,  display: "$63M",   mapX: 79.91, mapY: 55.82 },
-  { region: "EU-5 + USA",       value: 40,  display: "$40M+",  mapX: 49.5,  mapY: 30.5 },
+  { region: "EU-5",             value: 40,  display: "$40M+",  mapX: 49.5,  mapY: 30.5 },
   { region: "USA",              value: 20,  display: "$20M",   mapX: 21.71, mapY: 33.57 },
   { region: "Brazil",           value: 8,   display: "$8M",    mapX: 33.0,  mapY: 64.0 },
 ];
