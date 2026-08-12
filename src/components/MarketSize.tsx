@@ -293,7 +293,7 @@ export default function MarketSize() {
                     <span
                       className="block h-full w-full rounded-full border-2 border-paper bg-red shadow-sm"
                     />
-                    <span className="absolute top-full left-1/2 mt-1 max-w-[18vw] -translate-x-1/2 whitespace-normal text-center rounded bg-paper/95 px-1.5 py-0.5 font-display text-[0.5rem] font-bold leading-tight text-ink shadow-sm sm:max-w-none sm:whitespace-nowrap md:text-[0.65rem]">
+                    <span className="absolute top-full left-1/2 mt-1 max-w-[14vw] -translate-x-1/2 whitespace-normal text-center rounded bg-paper/95 px-1 py-px font-display text-[0.45rem] font-bold leading-tight text-ink shadow-sm sm:max-w-none sm:whitespace-nowrap sm:px-1.5 sm:py-0.5 sm:text-[0.55rem] md:text-[0.65rem]">
                       {g.display}
                     </span>
                   </motion.div>
