@@ -91,14 +91,32 @@ export default function IP() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="relative block w-full max-w-[280px] border border-rule bg-white text-left opacity-90 shadow-sm"
+            className="relative block w-full max-w-[280px] border border-dashed border-rule bg-white text-left shadow-sm"
             aria-label="Patent coming soon"
           >
             <span className="absolute -top-3 left-4 z-10 inline-block bg-ink px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper shadow-sm">
               Coming Soon
             </span>
 
-            <div className="relative flex h-[360px] w-full items-center justify-center overflow-hidden bg-paper">
+            <div
+              className="relative flex h-[360px] w-full flex-col items-center justify-center gap-4 overflow-hidden bg-paper"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 14px)",
+              }}
+            >
+              <svg
+                width="56"
+                height="56"
+                viewBox="0 0 56 56"
+                fill="none"
+                className="text-ink/25"
+              >
+                <rect x="10" y="4" width="30" height="40" rx="2" stroke="currentColor" strokeWidth="2" />
+                <path d="M17 14h16M17 21h16M17 28h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="38" cy="38" r="11" fill="var(--color-paper, #fff)" stroke="currentColor" strokeWidth="2" />
+                <path d="M33.5 38l3 3 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
               <span className="font-display text-xs font-semibold uppercase tracking-[0.14em] text-muted">
                 Published · Pending grant
               </span>
