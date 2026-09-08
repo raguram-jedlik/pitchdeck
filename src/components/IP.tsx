@@ -48,9 +48,16 @@ export default function IP() {
         </p>
 
         <div className="mt-10 -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pt-3 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] md:mx-0 md:flex-wrap md:gap-6 md:overflow-visible md:px-0 md:pt-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
-          <motion.button
-            type="button"
-            onClick={() => setOpen(true)}
+          <motion.a
+            href={PATENT_PDF}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => {
+              if (window.matchMedia("(min-width: 768px)").matches) {
+                e.preventDefault();
+                setOpen(true);
+              }
+            }}
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
@@ -84,7 +91,7 @@ export default function IP() {
                 Granted · Full document
               </span>
             </div>
-          </motion.button>
+          </motion.a>
 
           <motion.div
             initial={{ opacity: 0, y: 12 }}
