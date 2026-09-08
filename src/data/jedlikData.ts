@@ -101,16 +101,6 @@ export interface Milestone {
 
 export const roadmap: Milestone[] = [
   {
-    year: "FY2025",
-    label: "Completed",
-    points: ["Grants ₹26L INR", "Prototype Completed"],
-  },
-  {
-    year: "FY2026",
-    label: "Angel Round",
-    points: ["Investment Ask: ₹47L INR", "Valuation: ₹4.67 Cr", "MVP in Progress"],
-  },
-  {
     year: "FY2026",
     label: "Pre-Seed",
     points: [
