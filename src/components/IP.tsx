@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 const PATENT_PDF = "/assets/documents/ip-patent.pdf";
@@ -13,6 +14,11 @@ const PATENT_PDF = "/assets/documents/ip-patent.pdf";
  */
 export default function IP() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -78,8 +84,10 @@ export default function IP() {
         </motion.button>
       </div>
 
-      <AnimatePresence>
-        {open && (
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -124,9 +132,11 @@ export default function IP() {
                 className="h-full w-full flex-1"
               />
             </motion.div>
-          </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </section>
   );
 }
