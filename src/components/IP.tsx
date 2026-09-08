@@ -44,7 +44,7 @@ export default function IP() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.4 }}
-          className="group relative mt-10 block w-full max-w-[280px] cursor-pointer overflow-hidden border border-rule bg-white text-left shadow-sm transition-shadow hover:shadow-md"
+          className="group relative mt-10 block w-full max-w-[280px] cursor-pointer border border-rule bg-white text-left shadow-sm transition-shadow hover:shadow-md"
           aria-label="Open granted patent PDF"
         >
           <span className="absolute -top-3 left-4 z-10 inline-block bg-red px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper shadow-sm">
