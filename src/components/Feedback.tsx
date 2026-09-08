@@ -6,7 +6,7 @@ import { feedbackCopy } from "@/data/jedlikData";
 import { getSessionId, getState, updateState, postCapture, EMAIL_RE } from "@/lib/visitor";
 
 /**
- * Section 09 — the only place the deck asks the investor for anything.
+ * Section 10 — the only place the deck asks the investor for anything.
  *
  * Two steps on purpose. The vote is one click with no typing, so nearly
  * everyone answers it; the email is asked only after a positive vote, when

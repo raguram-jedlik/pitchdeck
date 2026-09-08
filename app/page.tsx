@@ -9,6 +9,7 @@ import ProductReveal from "@/components/ProductReveal";
 import SteerByWire from "@/components/SteerByWire";
 import MarketSize from "@/components/MarketSize";
 import Personas from "@/components/Personas";
+import IP from "@/components/IP";
 import Feedback from "@/components/Feedback";
 import Footer from "@/components/Footer";
 
@@ -26,6 +27,7 @@ export default function Home() {
       <SteerByWire />
       <MarketSize />
       <Personas />
+      <IP />
       <Feedback />
       <Footer />
     </main>

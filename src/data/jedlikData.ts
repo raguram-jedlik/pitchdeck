@@ -393,7 +393,7 @@ export const close = {
 
 // ---------- Section 09: Feedback ----------
 export const feedbackCopy = {
-  eyebrow: "Section 09 — Your Verdict",
+  eyebrow: "Section 10 — Your Verdict",
   heading: "Did this land for you?",
   sub: "One click. We read every response.",
   voteUp: "Yes, I'm interested",
