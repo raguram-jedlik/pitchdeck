@@ -44,7 +44,7 @@ export default function IP() {
           document below to read it in full.
         </p>
 
-        <div className="mt-10 flex flex-wrap gap-6">
+        <div className="mt-10 -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] md:mx-0 md:flex-wrap md:gap-6 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
           <motion.button
             type="button"
             onClick={() => setOpen(true)}
@@ -52,7 +52,7 @@ export default function IP() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.4 }}
-            className="group relative block w-full max-w-[280px] cursor-pointer border border-rule bg-white text-left shadow-sm transition-shadow hover:shadow-md"
+            className="group relative block w-[85vw] max-w-[280px] shrink-0 snap-center cursor-pointer border border-rule bg-white text-left shadow-sm transition-shadow hover:shadow-md md:w-full"
             aria-label="Open granted patent PDF"
           >
             <span className="absolute -top-3 left-4 z-10 inline-block bg-red px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper shadow-sm">
@@ -91,7 +91,7 @@ export default function IP() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="relative block w-full max-w-[280px] border border-dashed border-red/40 bg-white text-left shadow-sm"
+            className="relative block w-[85vw] max-w-[280px] shrink-0 snap-center border border-dashed border-red/40 bg-white text-left shadow-sm md:w-full"
             aria-label="Patent coming soon"
           >
             <span className="absolute -top-3 left-4 z-10 inline-block bg-red px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper shadow-sm">
