@@ -18,7 +18,7 @@ export default function BuildingEPod() {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <p className="eyebrow text-ink/60">Building the E-POD</p>
+          <p className="eyebrow text-ink/60">Section 07 — Building the E-POD</p>
           <div className="relative mt-4 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
             <div className="flex w-max animate-marquee gap-2 motion-reduce:animate-none">
               {marquee.map((src, i) => (
@@ -29,7 +29,7 @@ export default function BuildingEPod() {
                   alt=""
                   aria-hidden={i >= buildPhotos.length}
                   loading="lazy"
-                  className="h-32 w-32 shrink-0 object-cover md:h-40 md:w-40"
+                  className="h-40 w-40 shrink-0 object-cover md:h-52 md:w-52"
                 />
               ))}
             </div>

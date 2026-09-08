@@ -37,7 +37,7 @@ export default function IP() {
   return (
     <section className="relative bg-paper px-6 py-8 md:px-10 md:py-12">
       <div className="mx-auto max-w-deck">
-        <p className="eyebrow">Section 09 — The Moat</p>
+        <p className="eyebrow">Section 10 — The Moat</p>
         <h2 className="display-lg mt-4 max-w-[18ch] text-ink">
           Intellectual property
         </h2>
