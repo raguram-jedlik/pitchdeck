@@ -91,18 +91,18 @@ export default function IP() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="relative block w-full max-w-[280px] border border-dashed border-rule bg-white text-left shadow-sm"
+            className="relative block w-full max-w-[280px] border border-dashed border-red/40 bg-white text-left shadow-sm"
             aria-label="Patent coming soon"
           >
-            <span className="absolute -top-3 left-4 z-10 inline-block bg-ink px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper shadow-sm">
+            <span className="absolute -top-3 left-4 z-10 inline-block bg-red px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper shadow-sm">
               Coming Soon
             </span>
 
             <div
-              className="relative flex h-[360px] w-full flex-col items-center justify-center gap-4 overflow-hidden bg-paper"
+              className="relative flex h-[360px] w-full flex-col items-center justify-center gap-4 overflow-hidden bg-red-soft"
               style={{
                 backgroundImage:
-                  "repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 14px)",
+                  "repeating-linear-gradient(135deg, rgba(200,2,59,0.07) 0px, rgba(200,2,59,0.07) 1px, transparent 1px, transparent 14px)",
               }}
             >
               <svg
@@ -110,14 +110,14 @@ export default function IP() {
                 height="56"
                 viewBox="0 0 56 56"
                 fill="none"
-                className="text-ink/25"
+                className="text-red-deep/60"
               >
                 <rect x="10" y="4" width="30" height="40" rx="2" stroke="currentColor" strokeWidth="2" />
                 <path d="M17 14h16M17 21h16M17 28h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <circle cx="38" cy="38" r="11" fill="var(--color-paper, #fff)" stroke="currentColor" strokeWidth="2" />
+                <circle cx="38" cy="38" r="11" fill="var(--color-red-soft, #FBD9DC)" stroke="currentColor" strokeWidth="2" />
                 <path d="M33.5 38l3 3 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span className="font-display text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+              <span className="font-display text-xs font-semibold uppercase tracking-[0.14em] text-red-deep">
                 Published · Pending grant
               </span>
             </div>
@@ -127,7 +127,7 @@ export default function IP() {
                 Modular Electro-Mechanical Docking System for Electrically
                 Driven Enclosed Two-Wheeler Pod Vehicles
               </span>
-              <span className="mt-0.5 block font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-muted">
+              <span className="mt-0.5 block font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-red">
                 Coming soon
               </span>
             </div>
