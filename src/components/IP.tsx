@@ -5,12 +5,15 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 const PATENT_PDF = "/assets/documents/ip-patent.pdf";
+const PATENT_THUMB = "/assets/images/ip-patent-thumb.jpg";
 
 /**
- * Section 09 — Granted IP. The "thumbnail" is a live, non-interactive
- * render of the actual patent PDF (via <iframe>) rather than a static
- * screenshot, so it's always in sync with the source document. Clicking
- * it opens the same PDF full-size in a lightbox.
+ * Section 09 — Granted IP. The thumbnail is a static render of the
+ * patent PDF's first page — mobile browsers show a native "open file"
+ * placeholder instead of rendering PDFs inside an <iframe>, so a live
+ * iframe can't be used for the card preview. Clicking it opens the
+ * actual PDF full-size in a lightbox (desktop iframe, with a fallback
+ * "open in new tab" link for mobile).
  */
 export default function IP() {
   const [open, setOpen] = useState(false);
@@ -44,7 +47,7 @@ export default function IP() {
           document below to read it in full.
         </p>
 
-        <div className="mt-10 -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] md:mx-0 md:flex-wrap md:gap-6 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
+        <div className="mt-10 -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pt-3 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] md:mx-0 md:flex-wrap md:gap-6 md:overflow-visible md:px-0 md:pt-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
           <motion.button
             type="button"
             onClick={() => setOpen(true)}
@@ -60,13 +63,10 @@ export default function IP() {
             </span>
 
             <div className="relative h-[360px] w-full overflow-hidden bg-white">
-              {/* The thumbnail IS the PDF — an iframe render of page one,
-                  scaled up and clipped so it reads clearly at card size. */}
-              <iframe
-                src={`${PATENT_PDF}#toolbar=0&navpanes=0&scrollbar=0&view=FitH&zoom=65`}
-                title="Granted patent preview"
-                className="pointer-events-none absolute inset-0 h-full w-full"
-                tabIndex={-1}
+              <img
+                src={PATENT_THUMB}
+                alt="Granted patent, page one"
+                className="absolute inset-0 h-full w-full object-cover object-top"
               />
               <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100">
                 <span className="mb-4 font-display text-xs font-semibold uppercase tracking-[0.14em] text-paper">
