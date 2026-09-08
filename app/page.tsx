@@ -6,6 +6,7 @@ import QuadrantChart from "@/components/QuadrantChart";
 import TeamForces from "@/components/TeamForces";
 import RoadmapScrolly from "@/components/RoadmapScrolly";
 import ProductReveal from "@/components/ProductReveal";
+import BuildingEPod from "@/components/BuildingEPod";
 import SteerByWire from "@/components/SteerByWire";
 import MarketSize from "@/components/MarketSize";
 import Personas from "@/components/Personas";
@@ -24,6 +25,7 @@ export default function Home() {
       <TeamForces />
       <RoadmapScrolly />
       <ProductReveal />
+      <BuildingEPod />
       <SteerByWire />
       <MarketSize />
       <Personas />
