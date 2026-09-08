@@ -52,7 +52,7 @@ export default function IP() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.4 }}
-            className="group relative block w-[85vw] max-w-[280px] shrink-0 snap-center cursor-pointer border border-rule bg-white text-left shadow-sm transition-shadow hover:shadow-md md:w-full"
+            className="group relative block w-[85vw] max-w-[280px] shrink-0 snap-center cursor-pointer appearance-none overflow-visible border border-rule bg-white text-left shadow-sm transition-shadow hover:shadow-md md:w-full"
             aria-label="Open granted patent PDF"
           >
             <span className="absolute -top-3 left-4 z-10 inline-block bg-red px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper shadow-sm">
@@ -63,9 +63,9 @@ export default function IP() {
               {/* The thumbnail IS the PDF — an iframe render of page one,
                   scaled up and clipped so it reads clearly at card size. */}
               <iframe
-                src={`${PATENT_PDF}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                src={`${PATENT_PDF}#toolbar=0&navpanes=0&scrollbar=0&view=FitH&zoom=65`}
                 title="Granted patent preview"
-                className="pointer-events-none absolute left-1/2 top-0 h-[620px] w-[440px] -translate-x-1/2 origin-top scale-[0.65]"
+                className="pointer-events-none absolute inset-0 h-full w-full"
                 tabIndex={-1}
               />
               <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100">
