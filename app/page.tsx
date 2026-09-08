@@ -25,8 +25,8 @@ export default function Home() {
       <TeamForces />
       <RoadmapScrolly />
       <ProductReveal />
-      <BuildingEPod />
       <SteerByWire />
+      <BuildingEPod />
       <MarketSize />
       <Personas />
       <IP />
