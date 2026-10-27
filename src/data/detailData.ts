@@ -46,6 +46,10 @@ export const prototypeBuilds = [
 export const vehicleSpecs = [
   { spec: "Top speed", value: "120 km/hr" },
   { spec: "Range", value: "200 km" },
+  { spec: "Battery", value: "8.5 kWh" },
+  { spec: "Pod weight", value: "200 kg" },
+  { spec: "Vehicle category", value: "M category or L2+ Amendment category" },
+  { spec: "Charging time", value: "15 mins (0%–100% in 1.5 hrs)" },
   { spec: "Steer-by-wire", value: "Yes — granted patent" },
   { spec: "Autonomous standing", value: "Yes — safety redundancy" },
   { spec: "Localisation", value: "90%" },
