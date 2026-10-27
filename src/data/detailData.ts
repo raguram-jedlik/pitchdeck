@@ -1,0 +1,499 @@
+// ---------------------------------------------------------------------------
+// Detail page — the deep-dive behind the "Know More" button on the brief deck.
+//
+// Source of truth: the Jedlik Motors internal knowledge base
+// (jedlik-motors-kb skill, v6, 27 Oct 2026). Every figure below was either
+// operator-confirmed on 27 Oct 2026 or transcribed from the founder's own
+// deck slides. Nothing here is invented.
+//
+// Two rules the KB enforces, carried into this file:
+//   1. Currency — the projection and revenue charts are USD ($M) at ₹83/$1.
+//      Everything else is ₹. Each block states its own unit.
+//   2. Scope — three BOM figures and two CapEx figures exist. Each is
+//      labelled with its scope or production volume so they are never read
+//      as the same number.
+// ---------------------------------------------------------------------------
+
+// ---------- Section 01 — Snapshot ----------
+
+export const snapshot = [
+  { label: "Stage", value: "TRL 5 — prototype stage, field-trialed" },
+  { label: "Prototypes built", value: "Two — Alpha and Beta" },
+  { label: "Top speed", value: "120 km/hr" },
+  { label: "Range", value: "200 km" },
+  { label: "Granted IP", value: "1 patent granted, 1 published" },
+  { label: "Localisation", value: "90%" },
+  { label: "Burn", value: "₹13 L / month" },
+  { label: "Runway", value: "1.5 years" },
+];
+
+// ---------- Section 02 — The team ----------
+
+export interface Founder {
+  name: string;
+  role: string;
+  commitment: "Full-time" | "Part-time";
+  equity: string;
+  background: string;
+}
+
+export const founders: Founder[] = [
+  {
+    name: "Raguram S K",
+    role: "Founder & CEO",
+    commitment: "Full-time",
+    equity: "39%",
+    background:
+      "All three founders are B.E. Mechanical Engineering, 2020 batch, and started the company together. Raguram's mission is personal — it follows the accident that made him want safe urban commuting. He previously founded the online EV-scooter dealership minvaagana.com.",
+  },
+  {
+    name: "Muthuram B",
+    role: "Co-founder & CTO",
+    commitment: "Full-time",
+    equity: "24%",
+    background:
+      "Owns the vehicle architecture and the embedded stack: steer-by-wire, the hub-motor drive and the control firmware.",
+  },
+  {
+    name: "Nishanthraj G V",
+    role: "Co-founder & COO",
+    commitment: "Part-time",
+    equity: "24%",
+    background:
+      "MBA plus B.E. Mechanical Engineering, previously at Daimler. Leads operations, supply chain and commercial execution.",
+  },
+];
+
+// ---------- Section 03 — Prototypes ----------
+
+export const prototypeBuilds = [
+  {
+    name: "Alpha",
+    status: "Built",
+    detail:
+      "The frame and geometry precursor. Its suspension work is the basis the Beta prototype was developed from, and the Alpha lineage is still visible in the current CAD set.",
+  },
+  {
+    name: "Beta",
+    status: "Built and driven",
+    detail:
+      "The full working prototype — welded steel space frame, dual hub motors, steer-by-wire, 72 V pack. It drove under its own power on public roads on 4 September 2026, captured on film in Bengaluru.",
+  },
+];
+
+export const betaBuildRecord = [
+  { label: "Frame", value: "Welded steel space frame, developed from the Alpha suspension work" },
+  { label: "Steering", value: "Steer-by-wire — Nema 23 and Nema 34 front/rear stepper motors with encoders, STM32G474RE controller, isolated differential encoder receiver" },
+  { label: "Drive", value: "Dual hub motors, per-wheel controller, phase and hall-sensor wiring to the rim" },
+  { label: "Power", value: "72 V pack with a 72 V 15 A charger" },
+  { label: "Redundancy", value: "An additional stepper motor is fitted, so a single stepper-motor failure does not lose steering control" },
+];
+
+export const prototypeCaveat =
+  "Both Alpha and Beta are prototype-stage vehicles. They have driven on public roads, but they are not homologated, road-legal or production-intent. This round funds the third build — the finished alpha delivery and passenger units.";
+
+// ---------- Section 04 — Product ----------
+
+export const productSpecs = [
+  { spec: "Top speed", value: "120 km/hr" },
+  { spec: "Range", value: "200 km" },
+  { spec: "Steer-by-wire", value: "Yes — granted patent" },
+  { spec: "Autonomous standing", value: "Yes — safety redundancy" },
+  { spec: "Localisation", value: "90%" },
+  { spec: "Subsidy scheme", value: "PM E-DRIVE" },
+  { spec: "IP", value: "2 patents" },
+];
+
+export const valueProposition = [
+  "Accessible premium commute",
+  "Ultra-low cost of ownership",
+  "Zero-straight ergonomics",
+  "All-weather comfort and UV shielding",
+  "Helmet-free commuting",
+  "Automotive-grade safety",
+];
+
+// ---------- Section 05 — Business model canvas ----------
+
+export const canvasBlocks = [
+  {
+    title: "Key partners",
+    items: [
+      "Battery cell suppliers",
+      "Hub motor manufacturers",
+      "Delivery and fleet service partners",
+      "Manufacturing and fabrication partners",
+      "Component manufacturers",
+      "ARAI",
+      "GARC",
+      "Design and FEA consultants",
+    ],
+  },
+  {
+    title: "Key activities",
+    items: [
+      "Vehicle R&D",
+      "Supply chain and production",
+      "Testing and homologation",
+      "Business and finance",
+      "Marketing and sales",
+    ],
+  },
+  {
+    title: "Key resources",
+    items: [
+      "Engineering and R&D team",
+      "Manufacturing equipment and tools",
+      "Technology and product design",
+      "Investment capital and financial support",
+    ],
+  },
+  {
+    title: "Value proposition",
+    items: valueProposition,
+  },
+  {
+    title: "Customer relationships",
+    items: [
+      "Community building",
+      "Brand ambassador",
+      "3-month free beta trial",
+      "Dedicated service centers",
+      "Social media and user surveys",
+    ],
+  },
+  {
+    title: "Channels",
+    items: [
+      "Website",
+      "Pre-launch teasers",
+      "Offline showrooms and dealerships",
+      "Flash sales",
+      "Fleet and delivery partnerships",
+      "Social and digital marketing",
+      "TV and movie placements",
+      "Public displays",
+    ],
+  },
+  {
+    title: "Customer segments",
+    items: [
+      "Two-wheeler users",
+      "Car users",
+      "Two-wheeler-to-car upgraders",
+      "0–20 km short-trip riders",
+      "Premium commuters",
+      "Delivery and logistics fleets",
+      "Tech-forward early adopters",
+    ],
+  },
+  {
+    title: "Cost structure",
+    items: [
+      "Product development",
+      "Manufacturing and tooling",
+      "Core talent payroll",
+      "Homologation and testing",
+      "Customer acquisition",
+      "Legal and CA/CS expenses",
+    ],
+  },
+  {
+    title: "Revenue sources",
+    items: [
+      "Vehicle sales",
+      "Delivery partnerships",
+      "Service subscriptions",
+      "Autonomous mobility subscription",
+      "Accessories and upgrades",
+      "Merchandise",
+    ],
+  },
+];
+
+// ---------- Section 06 — Revenue mix ----------
+
+export interface RevenueStream {
+  label: string;
+  share: number;
+}
+
+export const revenueStreams: RevenueStream[] = [
+  { label: "Vehicle purchase", share: 60 },
+  { label: "Delivery-service partnerships", share: 13 },
+  { label: "Service subscription", share: 10 },
+  { label: "Autonomous mobility subscription", share: 8 },
+  { label: "Accessories and upgrades", share: 6 },
+  { label: "Toys and apparel for kids", share: 3 },
+];
+
+// ---------- Section 07 — Unit economics ----------
+
+export interface BomRow {
+  element: string;
+  percent: number;
+  rupees: string;
+  contents: string;
+}
+
+export const bomRows: BomRow[] = [
+  {
+    element: "Mechanical components",
+    percent: 36,
+    rupees: "₹2.09 L",
+    contents: "Tyres, rims, suspension, steering, seats, brakes, HVAC, glass",
+  },
+  {
+    element: "Outsourced fabrication",
+    percent: 26,
+    rupees: "₹1.50 L",
+    contents: "Chassis frame, body panels and enclosure — Chennai fabricator",
+  },
+  {
+    element: "Electrical components",
+    percent: 33,
+    rupees: "₹1.93 L",
+    contents: "Battery ₹63K, hub motors ₹22K, controller ₹16K, BMS, harness",
+  },
+  {
+    element: "Freight and logistics",
+    percent: 5,
+    rupees: "₹0.28 L",
+    contents: "Vendor-to-factory transport on the Chennai–Itsoor corridor",
+  },
+];
+
+export const unitEconomics = {
+  bomTotal: "₹5.79 L",
+  prototype: "₹6.41 L",
+  volume: "₹2.54 L",
+  sellPrice: "₹3.00 L",
+  grossProfit: "₹46 K",
+  grossMargin: "15.3%",
+  headline:
+    "Cost drops 60% at scale: ₹6.41 L prototype → ₹2.54 L volume. Gross margin 15.3% at a ₹3 L sell price.",
+};
+
+export const productionPlan = [
+  { label: "Output", value: "80 vehicles per month — 4 per day" },
+  { label: "Team", value: "60 staff" },
+  { label: "Cities", value: "Chennai, Bengaluru, Mumbai" },
+  { label: "Capacity", value: "Factory garage holds 900 vehicles" },
+  { label: "Fabrication", value: "Outsourced to Sriperumbudur, Hosur and Oragadam" },
+];
+
+// ---------- Section 08 — Manufacturing ----------
+
+export const darkFactory = {
+  headline: "Dark factory — 1,000 units a year",
+  sub: "Right-sized cobot automation, a five-cell layout, a 202-minute takt and CKD assembly.",
+  capex: "₹5–9 Cr",
+  capexManual: "₹15–25 Cr",
+  staff: "7",
+  staffManual: "65–80",
+  labourSaving: "₹6–9 Cr/yr",
+  payback: "4–6 years",
+  takt: "202 min",
+  output: "3.3 vehicles/day",
+  days: "300 days/year",
+  oee: "70% OEE",
+  roi: "22 systems including 6 cobots replace 65–80 workers. Dark-factory CapEx is ₹10–16 Cr less than a manual CKD line.",
+};
+
+export const cells = [
+  { cell: "Cell 1", minutes: 55, share: 27 },
+  { cell: "Cell 2", minutes: 106, share: 52 },
+  { cell: "Cell 3", minutes: 103, share: 51 },
+  { cell: "Cell 4", minutes: 111, share: 55 },
+  { cell: "Cell 5", minutes: 46, share: 23 },
+];
+
+export const equipmentAllocation = [
+  { item: "AMRs and conveyor", share: 21 },
+  { item: "Cobot cells", share: 27 },
+  { item: "Machine vision", share: 13 },
+  { item: "End-of-line testing", share: 27 },
+  { item: "MES and SCADA", share: 12 },
+];
+
+// ---------- Section 09 — Go to market ----------
+
+export const goToMarket = [
+  {
+    stage: "Pilot",
+    scale: "200 units / year",
+    detail: "3-month free beta trial on early vehicles.",
+  },
+  {
+    stage: "Scaling up",
+    scale: "10,000 units / year",
+    detail: "More free-trial units in market.",
+  },
+  {
+    stage: "Partnership",
+    scale: "Delivery-service partnerships",
+    detail: "Fleet and delivery channel opens up alongside direct sales.",
+  },
+  {
+    stage: "Break-even",
+    scale: "500,000 units / year",
+    detail: "Affordable version at ₹2.5 to 3.5 lakh.",
+  },
+];
+
+// ---------- Section 10 — The round ----------
+
+export interface FundUse {
+  bucket: string;
+  amount: string;
+  percent: number;
+  milestones: string;
+}
+
+export const fundUse: FundUse[] = [
+  {
+    bucket: "Product R&D",
+    amount: "₹2.8 Cr",
+    percent: 40,
+    milestones:
+      "Delivery and passenger alpha builds · 1,000 km public-road testing · BOM target of ₹1.8 L per unit at 1,000-unit scale · Level 1 ADAS architecture",
+  },
+  {
+    bucket: "Manufacturing",
+    amount: "₹1.75 Cr",
+    percent: 25,
+    milestones:
+      "Tamil Nadu manufacturer MOU · tooling, jigs and fixtures for the 25-unit pilot · QC and testing infrastructure · supply-chain lock · finalised industrial-design and engineering drawings",
+  },
+  {
+    bucket: "Regulatory and IP",
+    amount: "₹1.4 Cr",
+    percent: 20,
+    milestones:
+      "ARAI formal consultation · CMVR testing through GARC · crab-walk patent examination · PCT filings for USA, EU and Southeast Asia · SHA and IP assignments plus ESOP · Series A compliance documentation",
+  },
+  {
+    bucket: "Team and operations",
+    amount: "₹1.05 Cr",
+    percent: 15,
+    milestones:
+      "Electrical and embedded engineer · manufacturing engineer · BD manager · dedicated prototyping lab at the Anna University campus · 12-month operational runway",
+  },
+];
+
+export const burn = {
+  monthly: "₹13 L",
+  runway: "1.5 years",
+  implied: "₹2.34 Cr",
+  note: "The round funds roughly 54 months of gross burn. The 1.5-year runway is the company's current position from existing capital, not a claim that the round equals 1.5 years of runway — read it together with the allocation above.",
+};
+
+// ---------- Section 11 — Cap table ----------
+
+export interface Holder {
+  name: string;
+  percent: number;
+  kind: string;
+}
+
+export const capTable: Holder[] = [
+  { name: "Raguram S K", percent: 39, kind: "Founder and CEO" },
+  { name: "Muthuram B", percent: 24, kind: "Co-founder and CTO" },
+  { name: "Nishanthraj G V", percent: 24, kind: "Co-founder and COO" },
+  { name: "AIC — Anna Incubator", percent: 3, kind: "Incubator" },
+  { name: "Arihant", percent: 6, kind: "Angel investor" },
+  { name: "Ambili Arun Kumar", percent: 1, kind: "Angel investor" },
+  { name: "Poornima", percent: 3, kind: "Angel investor" },
+];
+
+// ---------- Section 12 — Operations and supply chain ----------
+
+export const operations = [
+  {
+    title: "Regulatory pathway",
+    body: "CMVR homologation testing runs through GARC, with ARAI engaged as the vehicle manufacturer for formal consultation. Status: not yet certified — no ARAI or ICAT approval and no IP rating to date.",
+  },
+  {
+    title: "Tyres — BKT",
+    body: "Tyre supply is through BKT, which now manufactures tyres itself rather than reselling them, giving direct control over quality, specification and supply continuity for a high-wear consumable.",
+  },
+  {
+    title: "Service and charging",
+    body: "Service centres and charging infrastructure are delivered through third-party partners rather than built in-house. The company does not carry a service network on its own balance sheet.",
+  },
+  {
+    title: "Redundancy prevention",
+    body: "An additional stepper motor is fitted in the steering system, so a single stepper-motor failure does not lose steering control.",
+  },
+];
+
+// ---------- Section 13 — IP ----------
+
+export const patents = [
+  {
+    title: "Crab-walk steering",
+    status: "Granted",
+    reference: "IN596007B1 · application 202541011348",
+    detail:
+      "Centre-hub steering for an enclosed two-wheeler electric pod, with 9 granted claims. Filed 11 Feb 2025, published 4 Apr 2025, granted 17 Jul 2026.",
+  },
+  {
+    title: "Modular electro-mechanical docking",
+    status: "Published, under examination",
+    reference: "Application 202641015078",
+    detail:
+      "Deterministic docking state machine with a fused distance-sensor and camera sensing stack. Filed 11 Feb 2026, published 20 Feb 2026, FER reply filed 19 Sep 2026.",
+  },
+];
+
+// ---------- Section 14 — Projection ----------
+
+export interface Milestone {
+  year: string;
+  label: string;
+  units: string;
+  revenue: string;
+  valuation: string;
+}
+
+export const milestones: Milestone[] = [
+  { year: "FY2028", label: "Seed Launch", units: "900 units", revenue: "$2.7M", valuation: "$12M" },
+  { year: "FY2029", label: "Series A", units: "1K units", revenue: "$3M", valuation: "$30M" },
+  { year: "FY2032", label: "10K Milestone", units: "10K units", revenue: "$30M", valuation: "$350M" },
+  { year: "FY2035", label: "First Profit", units: "65K units", revenue: "$176M", valuation: "$3B" },
+  { year: "FY2041", label: "1M Units", units: "1M units", revenue: "$3B", valuation: "$30B" },
+];
+
+export const projectionHeadline = [
+  { label: "ASP", value: "$3.0K (₹2.5 L)" },
+  { label: "Gross margin", value: "10% → 30%" },
+  { label: "Breakeven", value: "FY2035 (Year 8)" },
+  { label: "Total funding", value: "$720M" },
+  { label: "Peak revenue", value: "$3.0B (FY2041)" },
+  { label: "Peak valuation", value: "$30B" },
+];
+
+// ---------- Section 15 — Notes on the numbers ----------
+
+export const footnotes = [
+  {
+    label: "Currency",
+    body: "The projection and the revenue mix charts are in USD at ₹83 = $1. Every other figure on this page is in rupees.",
+  },
+  {
+    label: "Two BOM figures, two CapEx figures",
+    body: "The ₹5.79 L BOM here is the prototype material cost at the top of the cost curve. The ₹1.8 L per unit is a target at 1,000-unit scale. Separately, the ₹5–9 Cr is dark-factory equipment CapEx, while the broader company CapEx plan is ₹9.25 Cr. Each figure is labelled with its scope — they are not interchangeable.",
+  },
+  {
+    label: "Stage targets versus the projection",
+    body: "The 200, 10,000 and 500,000 unit figures are go-to-market stage targets, not a forecast. The projection table is the forecast.",
+  },
+  {
+    label: "Not yet certified",
+    body: "Homologation has not been obtained. GARC is the testing pathway and ARAI is engaged for consultation; neither is an approval.",
+  },
+  {
+    label: "Prototype stage",
+    body: "Alpha and Beta are prototype-stage vehicles. The finished alpha build is what this round funds.",
+  },
+];
