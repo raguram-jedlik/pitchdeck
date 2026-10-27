@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { brand } from "@/data/jedlikData";
 
 /**
@@ -71,32 +70,6 @@ export default function Hero() {
           >
             {brand.note}
           </motion.p>
-
-          {/* The one button that opens the full detail: business model, unit
-              economics, manufacturing plan, use of funds, cap table, operations,
-              IP and the fourteen-year projection. */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.62 }}
-            className="mt-9"
-          >
-            <Link
-              href="/detail"
-              className="group inline-flex items-center gap-3 bg-red px-6 py-3.5 font-display text-xs font-bold uppercase tracking-[0.16em] text-paper transition-colors hover:bg-red-deep"
-            >
-              Know more
-              <span
-                aria-hidden="true"
-                className="transition-transform group-hover:translate-x-1"
-              >
-                &rarr;
-              </span>
-            </Link>
-            <p className="mt-3 text-xs text-muted">
-              The full picture — model, economics, factory, round, projection.
-            </p>
-          </motion.div>
         </div>
       </div>
     </section>
