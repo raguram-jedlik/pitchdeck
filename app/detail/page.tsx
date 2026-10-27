@@ -5,8 +5,6 @@ import {
   snapshot,
   founders,
   prototypeBuilds,
-  betaBuildRecord,
-  prototypeCaveat,
   productSpecs,
   canvasBlocks,
   revenueStreams,
@@ -24,7 +22,6 @@ import {
   patents,
   milestones,
   projectionHeadline,
-  footnotes,
 } from "@/data/detailData";
 import DetailNav from "@/components/DetailNav";
 
@@ -210,10 +207,7 @@ export default function DetailPage() {
         <div className="grid gap-6 md:grid-cols-3">
           {founders.map((f) => (
             <div key={f.name} className="border border-rule bg-white p-6">
-              <div className="flex items-baseline justify-between gap-3">
-                <p className="font-display text-lg font-bold tracking-tight text-ink">{f.name}</p>
-                <span className="font-display text-2xl font-bold text-red">{f.equity}</span>
-              </div>
+              <p className="font-display text-lg font-bold tracking-tight text-ink">{f.name}</p>
               <p className="mt-1 font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted">
                 {f.role}
               </p>
@@ -238,7 +232,7 @@ export default function DetailPage() {
         index="03"
         eyebrow="Prototypes"
         title="Two vehicles have been built"
-        lede="Alpha and Beta. Beta drove under its own power on public roads on 4 September 2026, captured on film in Bengaluru."
+        lede="Alpha and Beta. Beta drove under its own power on public roads on 4 September 2026."
       >
         <div className="grid gap-6 md:grid-cols-2">
           {prototypeBuilds.map((b) => (
@@ -256,21 +250,6 @@ export default function DetailPage() {
           ))}
         </div>
 
-        <div className="mt-10">
-          <p className="eyebrow">The Beta build</p>
-          <div className="mt-5 grid gap-px border border-rule bg-rule md:grid-cols-2">
-            {betaBuildRecord.map((b) => (
-              <div key={b.label} className="bg-white px-5 py-4">
-                <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-red">
-                  {b.label}
-                </p>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink">{b.value}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <Note>{prototypeCaveat}</Note>
       </Section>
 
       {/* ---------- 04 Product ---------- */}
@@ -618,9 +597,9 @@ export default function DetailPage() {
           <div className="border border-rule bg-white p-6">
             <p className="eyebrow">Reading the table</p>
             <p className="mt-4 text-sm leading-relaxed text-muted">
-              The three founders came together as a batch and hold 39%, 24% and 24%.
-              Raguram and Muthuram are full-time; Nishanthraj is part-time. The Anna
-              University incubator holds 3% and has hosted the company&rsquo;s GPU
+              The three founders came together as a batch and are the core of the
+              company. Raguram and Muthuram are full-time; Nishanthraj is part-time. The
+              Anna University incubator holds 3% and has hosted the company&rsquo;s GPU
               server from its Guindy campus.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-muted">
@@ -675,9 +654,6 @@ export default function DetailPage() {
                   {p.status}
                 </span>
               </div>
-              <p className="mt-2 font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-muted">
-                {p.reference}
-              </p>
               <p className="mt-4 text-sm leading-relaxed text-muted">{p.detail}</p>
             </div>
           ))}
@@ -711,26 +687,6 @@ export default function DetailPage() {
           valuation compounds far faster — that multiple expansion is what the plan
           depends on.
         </Note>
-      </Section>
-
-      {/* ---------- 15 Notes ---------- */}
-      <Section
-        id="notes"
-        index="15"
-        eyebrow="Notes on the numbers"
-        title="How to read this page"
-        lede="A few honest notes so nothing on this page is mistaken for something it is not."
-      >
-        <div className="grid gap-px border border-rule bg-rule md:grid-cols-2">
-          {footnotes.map((f) => (
-            <div key={f.label} className="bg-white p-6">
-              <h3 className="font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-red">
-                {f.label}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{f.body}</p>
-            </div>
-          ))}
-        </div>
       </Section>
 
       {/* ---------- Closing ---------- */}

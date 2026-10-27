@@ -33,7 +33,6 @@ export interface Founder {
   name: string;
   role: string;
   commitment: "Full-time" | "Part-time";
-  equity: string;
   background: string;
 }
 
@@ -42,7 +41,6 @@ export const founders: Founder[] = [
     name: "Raguram S K",
     role: "Founder & CEO",
     commitment: "Full-time",
-    equity: "39%",
     background:
       "All three founders are B.E. Mechanical Engineering, 2020 batch, and started the company together. Raguram's mission is personal — it follows the accident that made him want safe urban commuting. He previously founded the online EV-scooter dealership minvaagana.com.",
   },
@@ -50,7 +48,6 @@ export const founders: Founder[] = [
     name: "Muthuram B",
     role: "Co-founder & CTO",
     commitment: "Full-time",
-    equity: "24%",
     background:
       "Owns the vehicle architecture and the embedded stack: steer-by-wire, the hub-motor drive and the control firmware.",
   },
@@ -58,7 +55,6 @@ export const founders: Founder[] = [
     name: "Nishanthraj G V",
     role: "Co-founder & COO",
     commitment: "Part-time",
-    equity: "24%",
     background:
       "MBA plus B.E. Mechanical Engineering, previously at Daimler. Leads operations, supply chain and commercial execution.",
   },
@@ -77,20 +73,9 @@ export const prototypeBuilds = [
     name: "Beta",
     status: "Built and driven",
     detail:
-      "The full working prototype — welded steel space frame, dual hub motors, steer-by-wire, 72 V pack. It drove under its own power on public roads on 4 September 2026, captured on film in Bengaluru.",
+      "The full working prototype — welded steel space frame, dual hub motors, steer-by-wire, 72 V pack. It drove under its own power on public roads on 4 September 2026.",
   },
 ];
-
-export const betaBuildRecord = [
-  { label: "Frame", value: "Welded steel space frame, developed from the Alpha suspension work" },
-  { label: "Steering", value: "Steer-by-wire — Nema 23 and Nema 34 front/rear stepper motors with encoders, STM32G474RE controller, isolated differential encoder receiver" },
-  { label: "Drive", value: "Dual hub motors, per-wheel controller, phase and hall-sensor wiring to the rim" },
-  { label: "Power", value: "72 V pack with a 72 V 15 A charger" },
-  { label: "Redundancy", value: "An additional stepper motor is fitted, so a single stepper-motor failure does not lose steering control" },
-];
-
-export const prototypeCaveat =
-  "Both Alpha and Beta are prototype-stage vehicles. They have driven on public roads, but they are not homologated, road-legal or production-intent. This round funds the third build — the finished alpha delivery and passenger units.";
 
 // ---------- Section 04 — Product ----------
 
@@ -433,16 +418,14 @@ export const patents = [
   {
     title: "Crab-walk steering",
     status: "Granted",
-    reference: "IN596007B1 · application 202541011348",
     detail:
-      "Centre-hub steering for an enclosed two-wheeler electric pod, with 9 granted claims. Filed 11 Feb 2025, published 4 Apr 2025, granted 17 Jul 2026.",
+      "Centre-hub steering for an enclosed two-wheeler electric pod, with 9 granted claims.",
   },
   {
     title: "Modular electro-mechanical docking",
     status: "Published, under examination",
-    reference: "Application 202641015078",
     detail:
-      "Deterministic docking state machine with a fused distance-sensor and camera sensing stack. Filed 11 Feb 2026, published 20 Feb 2026, FER reply filed 19 Sep 2026.",
+      "Deterministic docking state machine with a fused distance-sensor and camera sensing stack.",
   },
 ];
 
@@ -473,27 +456,4 @@ export const projectionHeadline = [
   { label: "Peak valuation", value: "$30B" },
 ];
 
-// ---------- Section 15 — Notes on the numbers ----------
-
-export const footnotes = [
-  {
-    label: "Currency",
-    body: "The projection and the revenue mix charts are in USD at ₹83 = $1. Every other figure on this page is in rupees.",
-  },
-  {
-    label: "Two BOM figures, two CapEx figures",
-    body: "The ₹5.79 L BOM here is the prototype material cost at the top of the cost curve. The ₹1.8 L per unit is a target at 1,000-unit scale. Separately, the ₹5–9 Cr is dark-factory equipment CapEx, while the broader company CapEx plan is ₹9.25 Cr. Each figure is labelled with its scope — they are not interchangeable.",
-  },
-  {
-    label: "Stage targets versus the projection",
-    body: "The 200, 10,000 and 500,000 unit figures are go-to-market stage targets, not a forecast. The projection table is the forecast.",
-  },
-  {
-    label: "Not yet certified",
-    body: "Homologation has not been obtained. GARC is the testing pathway and ARAI is engaged for consultation; neither is an approval.",
-  },
-  {
-    label: "Prototype stage",
-    body: "Alpha and Beta are prototype-stage vehicles. The finished alpha build is what this round funds.",
-  },
-];
+// ---------- Section 15 removed (Notes on the numbers) ----------

@@ -10,7 +10,6 @@ import BuildingEPod from "@/components/BuildingEPod";
 import SteerByWire from "@/components/SteerByWire";
 import MarketSize from "@/components/MarketSize";
 import Personas from "@/components/Personas";
-import IP from "@/components/IP";
 import Feedback from "@/components/Feedback";
 import KnowMoreCta from "@/components/KnowMoreCta";
 import Footer from "@/components/Footer";
@@ -30,7 +29,6 @@ export default function Home() {
       <BuildingEPod />
       <MarketSize />
       <Personas />
-      <IP />
       <Feedback />
       <KnowMoreCta />
       <Footer />

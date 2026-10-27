@@ -29,7 +29,6 @@ const SECTIONS = [
   { id: "operations", label: "Operations" },
   { id: "ip", label: "IP" },
   { id: "projection", label: "Projection" },
-  { id: "notes", label: "Notes" },
 ];
 
 export default function DetailNav() {
