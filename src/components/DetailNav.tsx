@@ -9,28 +9,55 @@ import { brand } from "@/data/jedlikData";
  * DetailNav — the header for the /detail page.
  *
  * Mirrors the deck's Nav (fixed logo top-left, red scroll-progress hairline)
- * but adds a quiet section index on the right so a reader deep in a
- * fifteen-section document can jump back to the structure. The index
- * collapses to a single "Contents" toggle on narrow screens.
+ * but adds a quiet contents panel on the right so a reader deep in a
+ * long document can jump back to the structure. The panel groups the
+ * fifteen sections under four parts, so the document reads as four
+ * stories rather than fifteen loose items.
  */
 
-const SECTIONS = [
-  { id: "snapshot", label: "Snapshot" },
-  { id: "team", label: "Founders" },
-  { id: "prototypes", label: "Prototypes" },
-  { id: "product", label: "Product" },
-  { id: "model", label: "Business model" },
-  { id: "revenue", label: "Revenue mix" },
-  { id: "economics", label: "Unit economics" },
-  { id: "manufacturing", label: "Manufacturing" },
-  { id: "gtm", label: "Go to market" },
-  { id: "round", label: "The round" },
-  { id: "captable", label: "Cap table" },
-  { id: "operations", label: "Operations" },
-  { id: "ip", label: "IP" },
-  { id: "projection", label: "Projection" },
-  { id: "notes", label: "Notes" },
+const PARTS = [
+  {
+    id: "part-company",
+    label: "Part 1 — Who we are and what we have built",
+    sections: [
+      { id: "snapshot", label: "Snapshot" },
+      { id: "team", label: "Founders" },
+      { id: "prototypes", label: "Prototypes" },
+      { id: "product", label: "Product" },
+    ],
+  },
+  {
+    id: "part-business",
+    label: "Part 2 — How the business makes money",
+    sections: [
+      { id: "model", label: "Business model" },
+      { id: "revenue", label: "Revenue mix" },
+      { id: "economics", label: "Unit economics" },
+    ],
+  },
+  {
+    id: "part-build",
+    label: "Part 3 — How we build and sell it",
+    sections: [
+      { id: "manufacturing", label: "Manufacturing" },
+      { id: "gtm", label: "Go to market" },
+      { id: "round", label: "The round" },
+    ],
+  },
+  {
+    id: "part-company-structure",
+    label: "Part 4 — The company, the money and the road ahead",
+    sections: [
+      { id: "captable", label: "Cap table" },
+      { id: "operations", label: "Operations" },
+      { id: "ip", label: "IP" },
+      { id: "projection", label: "Projection" },
+      { id: "notes", label: "Notes" },
+    ],
+  },
 ];
+
+const SECTIONS = PARTS.flatMap((p) => p.sections);
 
 export default function DetailNav() {
   const { scrollYProgress } = useScroll();
@@ -88,18 +115,31 @@ export default function DetailNav() {
 
       {open ? (
         <div className="fixed inset-x-0 top-[57px] z-30 max-h-[calc(100vh-57px)] overflow-y-auto border-b border-rule bg-paper px-6 py-6 md:top-[69px] md:px-10">
-          <nav className="mx-auto grid max-w-deck grid-cols-2 gap-x-6 gap-y-1 md:grid-cols-3">
-            {SECTIONS.map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                onClick={() => setOpen(false)}
-                className={`border-b border-rule py-2 font-display text-xs font-semibold uppercase tracking-[0.12em] transition-colors ${
-                  active === s.id ? "text-red" : "text-ink hover:text-red"
-                }`}
-              >
-                {s.label}
-              </a>
+          <nav className="mx-auto max-w-deck space-y-6">
+            {PARTS.map((part) => (
+              <div key={part.id}>
+                <a
+                  href={`#${part.id}`}
+                  onClick={() => setOpen(false)}
+                  className="block font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-red"
+                >
+                  {part.label}
+                </a>
+                <div className="mt-2 grid grid-cols-2 gap-x-6 md:grid-cols-4">
+                  {part.sections.map((s) => (
+                    <a
+                      key={s.id}
+                      href={`#${s.id}`}
+                      onClick={() => setOpen(false)}
+                      className={`border-b border-rule py-2 font-display text-xs font-semibold uppercase tracking-[0.12em] transition-colors ${
+                        active === s.id ? "text-red" : "text-ink hover:text-red"
+                      }`}
+                    >
+                      {s.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
             ))}
           </nav>
         </div>

@@ -35,6 +35,37 @@ export const metadata: Metadata = {
 };
 
 /* ------------------------------------------------------------------ */
+/* Part divider — groups the flat run of sections into four reads       */
+/* ------------------------------------------------------------------ */
+
+function Part({
+  id,
+  index,
+  title,
+  lede,
+}: {
+  id: string;
+  index: string;
+  title: string;
+  lede: string;
+}) {
+  return (
+    <section
+      id={id}
+      className="scroll-mt-24 border-t-2 border-ink bg-ink px-6 py-12 md:px-10 md:py-16"
+    >
+      <div className="mx-auto max-w-deck">
+        <p className="eyebrow text-paper/60">Part {index}</p>
+        <h2 className="display-lg mt-3 max-w-[22ch] text-paper">{title}</h2>
+        <p className="mt-4 max-w-[58ch] text-sm leading-relaxed text-paper/70 md:text-base">
+          {lede}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* Small shared pieces                                                 */
 /* ------------------------------------------------------------------ */
 
@@ -162,11 +193,35 @@ export default function DetailPage() {
             picture
           </h1>
           <p className="mt-6 max-w-[60ch] text-sm leading-relaxed text-muted md:text-base">
-            Everything behind the brief deck: the business model, the cost curve, how the
-            factory is built, where the money goes, who owns what, and the fourteen-year
-            projection. Every figure here comes from the company&rsquo;s own records and
-            founder-confirmed numbers.
+            Everything behind the brief deck, in four parts. Every figure comes from
+            the company&rsquo;s own records and founder-confirmed numbers.
           </p>
+
+          <div className="mt-9 grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { part: "Part 1", anchor: "part-company", title: "Who we are and what we have built", items: "Founders, prototypes, product" },
+              { part: "Part 2", anchor: "part-business", title: "How the business makes money", items: "Model, revenue, unit economics" },
+              { part: "Part 3", anchor: "part-build", title: "How we build and sell it", items: "Factory, market, the round" },
+              { part: "Part 4", anchor: "part-company-structure", title: "The company and the road ahead", items: "Cap table, operations, IP, projection" },
+            ].map((p) => (
+              <a
+                key={p.part}
+                href={`#${p.anchor}`}
+                className="group bg-white px-5 py-5 transition-colors hover:bg-ink"
+              >
+                <p className="font-display text-[0.6rem] font-bold uppercase tracking-[0.16em] text-red group-hover:text-paper">
+                  {p.part}
+                </p>
+                <p className="mt-2 font-display text-sm font-bold leading-snug tracking-tight text-ink group-hover:text-paper">
+                  {p.title}
+                </p>
+                <p className="mt-2 text-xs leading-relaxed text-muted group-hover:text-paper/70">
+                  {p.items}
+                </p>
+              </a>
+            ))}
+          </div>
+
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href="/"
@@ -183,6 +238,14 @@ export default function DetailPage() {
           </div>
         </div>
       </section>
+
+      {/* ---------- Part 1 ---------- */}
+      <Part
+        id="part-company"
+        index="1"
+        title="Who we are and what we have built"
+        lede="Three sections. The founders, the two prototypes on the road, and the product they add up to."
+      />
 
       {/* ---------- 01 Snapshot ---------- */}
       <Section
@@ -319,6 +382,14 @@ export default function DetailPage() {
         </div>
       </Section>
 
+      {/* ---------- Part 2 ---------- */}
+      <Part
+        id="part-business"
+        index="2"
+        title="How the business makes money"
+        lede="Three sections. The business model itself, the six revenue streams, and the cost curve underneath them."
+      />
+
       {/* ---------- 05 Business model ---------- */}
       <Section
         id="model"
@@ -411,6 +482,14 @@ export default function DetailPage() {
           </div>
         </div>
       </Section>
+
+      {/* ---------- Part 3 ---------- */}
+      <Part
+        id="part-build"
+        index="3"
+        title="How we build and sell it"
+        lede="Three sections. The factory that makes it, the route to the first customers, and the round that pays for both."
+      />
 
       {/* ---------- 08 Manufacturing ---------- */}
       <Section
@@ -585,6 +664,14 @@ export default function DetailPage() {
           <Note>{burn.note}</Note>
         </div>
       </Section>
+
+      {/* ---------- Part 4 ---------- */}
+      <Part
+        id="part-company-structure"
+        index="4"
+        title="The company, the money and the road ahead"
+        lede="Four sections. Who owns what, how the business operates, the patents, and where it all lands in fourteen years."
+      />
 
       {/* ---------- 11 Cap table ---------- */}
       <Section
