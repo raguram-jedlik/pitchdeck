@@ -29,30 +29,6 @@ export const snapshot = [
 
 // ---------- Section 02 — The team ----------
 
-export interface Founder {
-  name: string;
-  role: string;
-  commitment: "Full-time" | "Part-time";
-}
-
-export const founders: Founder[] = [
-  {
-    name: "Raguram S K",
-    role: "Founder & CEO",
-    commitment: "Full-time",
-  },
-  {
-    name: "Muthuram B",
-    role: "Co-founder & CTO",
-    commitment: "Full-time",
-  },
-  {
-    name: "Nishanthraj G V",
-    role: "Co-founder & COO",
-    commitment: "Part-time",
-  },
-];
-
 // ---------- Section 03 — Prototypes ----------
 
 export const prototypeBuilds = [
@@ -390,7 +366,7 @@ export const operations = [
   },
   {
     title: "Redundancy prevention",
-    body: "An additional stepper motor is fitted in the steering system, so a single stepper-motor failure does not lose steering control.",
+    body: "An additional motor is fitted in the steering system, so a single motor failure does not lose steering control.",
   },
 ];
 
