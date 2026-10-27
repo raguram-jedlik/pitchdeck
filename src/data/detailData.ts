@@ -223,6 +223,10 @@ export const unitEconomics = {
   sellPrice: "₹3.00 L",
   grossProfit: "₹46 K",
   grossMargin: "15.3%",
+  /* Numeric forms for the cost-curve chart (rupees). */
+  prototypeValue: 641000,
+  volumeValue: 254000,
+  sellPriceValue: 300000,
   headline:
     "Cost drops 60% at scale: ₹6.41 L prototype → ₹2.54 L volume. Gross margin 15.3% at a ₹3 L sell price.",
 };
@@ -396,14 +400,17 @@ export interface Milestone {
   units: string;
   revenue: string;
   valuation: string;
+  /* Numeric forms (USD millions) for the projection chart. */
+  revenueValue: number;
+  valuationValue: number;
 }
 
 export const milestones: Milestone[] = [
-  { year: "FY2028", label: "Seed Launch", units: "900 units", revenue: "$2.7M", valuation: "$12M" },
-  { year: "FY2029", label: "Series A", units: "1K units", revenue: "$3M", valuation: "$30M" },
-  { year: "FY2032", label: "10K Milestone", units: "10K units", revenue: "$30M", valuation: "$350M" },
-  { year: "FY2035", label: "First Profit", units: "65K units", revenue: "$176M", valuation: "$3B" },
-  { year: "FY2041", label: "1M Units", units: "1M units", revenue: "$3B", valuation: "$30B" },
+  { year: "FY2028", label: "Seed Launch", units: "900 units", revenue: "$2.7M", valuation: "$12M", revenueValue: 2.7, valuationValue: 12 },
+  { year: "FY2029", label: "Series A", units: "1K units", revenue: "$3M", valuation: "$30M", revenueValue: 3, valuationValue: 30 },
+  { year: "FY2032", label: "10K Milestone", units: "10K units", revenue: "$30M", valuation: "$350M", revenueValue: 30, valuationValue: 350 },
+  { year: "FY2035", label: "First Profit", units: "65K units", revenue: "$176M", valuation: "$3B", revenueValue: 176, valuationValue: 3000 },
+  { year: "FY2041", label: "1M Units", units: "1M units", revenue: "$3B", valuation: "$30B", revenueValue: 3000, valuationValue: 30000 },
 ];
 
 export const projectionHeadline = [

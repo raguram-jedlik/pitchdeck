@@ -24,6 +24,20 @@ import {
   projectionHeadline,
 } from "@/data/detailData";
 import DetailNav from "@/components/DetailNav";
+import {
+  AnimatedBar,
+  ColumnChart,
+  CountUpNumber,
+  DonutChart,
+  LineChart,
+} from "@/components/charts/ChartParts";
+import { SpecGauge, SpecTile } from "@/components/charts/SpecVisuals";
+import {
+  CanvasWheel,
+  CompareBars,
+  StageTimeline,
+  TaktChart,
+} from "@/components/charts/DiagramParts";
 
 export const metadata: Metadata = {
   title: `${brand.name} — Detailed Information`,
@@ -248,17 +262,23 @@ export default function DetailPage() {
         title="Technical specifications"
         lede="The measured and targeted specifications of the e-POD."
       >
-        <dl className="border-t border-rule">
-          {vehicleSpecs.map((s) => (
-            <div
-              key={s.spec}
-              className="flex items-baseline justify-between gap-4 border-b border-rule py-3"
-            >
-              <dt className="text-sm text-muted">{s.spec}</dt>
-              <dd className="text-right font-display text-sm font-bold text-ink">{s.value}</dd>
-            </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {vehicleSpecs.map((s, i) => (
+            <SpecTile key={s.spec} spec={s.spec} value={s.value} index={i} />
           ))}
-        </dl>
+        </div>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          <SpecGauge label="Top speed" value={120} display="120" max={140} unit="km/hr" />
+          <SpecGauge label="Range" value={200} display="200" max={240} unit="km" />
+          <SpecGauge
+            label="Localisation"
+            value={90}
+            display="90"
+            max={100}
+            unit="% built in India"
+          />
+        </div>
       </Section>
 
       {/* ---------- 05 Business model ---------- */}
@@ -269,22 +289,7 @@ export default function DetailPage() {
         title="How the business is put together"
         lede="The nine blocks of the business model canvas, as the founders have framed them."
       >
-        <div className="grid gap-px border border-rule bg-rule md:grid-cols-2 lg:grid-cols-3">
-          {canvasBlocks.map((b) => (
-            <div key={b.title} className="bg-white p-5">
-              <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-red">
-                {b.title}
-              </p>
-              <ul className="mt-3 space-y-1.5">
-                {b.items.map((it) => (
-                  <li key={it} className="text-sm leading-relaxed text-muted">
-                    {it}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+        <CanvasWheel blocks={canvasBlocks} />
       </Section>
 
       {/* ---------- 06 Revenue mix ---------- */}
@@ -295,18 +300,33 @@ export default function DetailPage() {
         title="Where the money comes from"
         lede="Vehicle sales carry the business. The rest is the recurring layer that builds on top of a growing fleet."
       >
-        <div className="space-y-5">
-          {revenueStreams.map((r) => (
-            <div key={r.label}>
-              <div className="flex items-baseline justify-between gap-4">
-                <span className="text-sm font-medium text-ink">{r.label}</span>
-                <span className="font-display text-sm font-bold text-ink">{r.share}%</span>
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-center">
+          <DonutChart
+            slices={revenueStreams.map((r, i) => ({
+              label: r.label,
+              value: r.share,
+              color: i === 0 ? "red" : i === 1 ? "ink" : "muted",
+            }))}
+            centreLabel="Vehicle sales"
+            centreValue={`${revenueStreams[0].share}%`}
+          />
+
+          <div className="space-y-5">
+            {revenueStreams.map((r, i) => (
+              <div key={r.label}>
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="text-sm font-medium text-ink">{r.label}</span>
+                  <span className="font-display text-sm font-bold text-ink">{r.share}%</span>
+                </div>
+                <AnimatedBar
+                  percent={r.share}
+                  color={i === 0 ? "red" : "ink"}
+                  delay={i * 0.1}
+                  className="mt-2"
+                />
               </div>
-              <div className="mt-2 h-2 w-full bg-rule">
-                <div className="h-2 bg-red" style={{ width: `${r.share}%` }} />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </Section>
 
@@ -318,10 +338,51 @@ export default function DetailPage() {
         title="What one vehicle costs, and what it earns"
         lede="The full material bill of materials, and where cost lands as volume scales."
       >
-        <DataTable
-          head={["Cost element", "Share", "Per vehicle", "Contents"]}
-          rows={bomRows.map((r) => [r.element, `${r.percent}%`, r.rupees, r.contents])}
-        />
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+          <div>
+            <p className="eyebrow">Where the cost sits</p>
+            <div className="mt-5">
+              <DonutChart
+                slices={bomRows.map((r, i) => ({
+                  label: r.element,
+                  value: r.percent,
+                  color: i === 0 ? "red" : i === 1 ? "ink" : "muted",
+                }))}
+                size={200}
+                thickness={30}
+                centreLabel="Total BOM"
+                centreValue={unitEconomics.bomTotal}
+              />
+            </div>
+          </div>
+
+          <div>
+            <p className="eyebrow">The cost curve as volume scales</p>
+            <div className="mt-5">
+              <LineChart
+                labels={["Prototype", "100K units", "Sell price"]}
+                series={[
+                  {
+                    name: "Cost per vehicle",
+                    color: "ink",
+                    points: [
+                      { y: Number(unitEconomics.prototypeValue) },
+                      { y: Number(unitEconomics.volumeValue) },
+                      { y: Number(unitEconomics.sellPriceValue) },
+                    ],
+                  },
+                ]}
+                logScale={false}
+                format="rupeesK"
+                height={230}
+              />
+            </div>
+            <Note>
+              Cost falls as volume rises; the sell price holds. The gap between them is
+              the gross profit on every vehicle.
+            </Note>
+          </div>
+        </div>
 
         <div className="mt-8 grid gap-px border border-rule bg-rule md:grid-cols-4">
           <Stat label="Total BOM" value={unitEconomics.bomTotal} accent />
@@ -338,6 +399,16 @@ export default function DetailPage() {
         <p className="mt-6 font-display text-base font-semibold leading-relaxed tracking-tight text-ink md:text-lg">
           {unitEconomics.headline}
         </p>
+
+        <div className="mt-10">
+          <p className="eyebrow">Full bill of materials</p>
+          <div className="mt-5">
+            <DataTable
+              head={["Cost element", "Share", "Per vehicle", "Contents"]}
+              rows={bomRows.map((r) => [r.element, `${r.percent}%`, r.rupees, r.contents])}
+            />
+          </div>
+        </div>
 
         <div className="mt-10">
           <p className="eyebrow">Production plan</p>
@@ -373,71 +444,44 @@ export default function DetailPage() {
           <Stat label="Payback" value={darkFactory.payback} />
         </div>
 
-        <div className="mt-8 overflow-x-auto">
-          <table className="w-full min-w-[520px] border-collapse text-left">
-            <thead>
-              <tr>
-                <th className="border-b-2 border-ink pb-3 pr-6 font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink">
-                  Dark factory
-                </th>
-                <th className="border-b-2 border-ink pb-3 pr-6 font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink">
-                  Manual CKD
-                </th>
-                <th className="border-b-2 border-ink pb-3 font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink">
-                  Effect
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b border-rule">
-                <td className="py-3.5 pr-6 font-display text-sm font-semibold text-ink">
-                  {darkFactory.capex}
-                </td>
-                <td className="py-3.5 pr-6 text-sm text-muted">{darkFactory.capexManual}</td>
-                <td className="py-3.5 text-sm text-muted">~60% lower upfront</td>
-              </tr>
-              <tr className="border-b border-rule">
-                <td className="py-3.5 pr-6 font-display text-sm font-semibold text-ink">
-                  {darkFactory.staff} staff
-                </td>
-                <td className="py-3.5 pr-6 text-sm text-muted">{darkFactory.staffManual} staff</td>
-                <td className="py-3.5 text-sm text-muted">~90% headcount reduction</td>
-              </tr>
-              <tr className="border-b border-rule">
-                <td className="py-3.5 pr-6 font-display text-sm font-semibold text-ink">
-                  {darkFactory.labourSaving} saved
-                </td>
-                <td className="py-3.5 pr-6 text-sm text-muted">&mdash;</td>
-                <td className="py-3.5 text-sm text-muted">Annual labour saving</td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="mt-8">
+          <p className="eyebrow">Dark factory against manual CKD</p>
+          <div className="mt-5">
+            <CompareBars
+              rows={[
+                {
+                  label: "Equipment CapEx",
+                  ours: darkFactory.capex,
+                  theirs: darkFactory.capexManual,
+                  effect: "~60% lower upfront",
+                  oursValue: 7,
+                  theirsValue: 20,
+                },
+                {
+                  label: "Staff",
+                  ours: `${darkFactory.staff} staff`,
+                  theirs: `${darkFactory.staffManual} staff`,
+                  effect: "~90% headcount reduction",
+                  oursValue: 7,
+                  theirsValue: 72,
+                },
+              ]}
+            />
+          </div>
         </div>
 
-        <div className="mt-8 grid gap-px border border-rule bg-rule md:grid-cols-3">
+        <div className="mt-8 grid gap-px border border-rule bg-rule md:grid-cols-4">
           <Stat label="Output" value={darkFactory.output} />
           <Stat label="Operating days" value={darkFactory.days} />
           <Stat label="Efficiency" value={darkFactory.oee} />
+          <Stat label="Annual labour saving" value={darkFactory.labourSaving} accent />
         </div>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-2">
           <div>
             <p className="eyebrow">Five-cell layout</p>
-            <div className="mt-5 space-y-3">
-              {cells.map((c) => (
-                <div key={c.cell}>
-                  <div className="flex items-baseline justify-between gap-4">
-                    <span className="text-sm font-medium text-ink">{c.cell}</span>
-                    <span className="font-display text-sm font-bold text-ink">
-                      {c.minutes} min
-                    </span>
-                  </div>
-                  <div className="mt-1.5 h-1.5 w-full bg-rule">
-                    <div className="h-1.5 bg-ink" style={{ width: `${c.share}%` }} />
-                  </div>
-                  <p className="mt-1 text-[0.7rem] text-muted">{c.share}% of takt</p>
-                </div>
-              ))}
+            <div className="mt-5">
+              <TaktChart cells={cells} taktMinutes={202} />
             </div>
             <Note>
               The cells run in parallel, so their cycle times are not additive — the
@@ -473,20 +517,7 @@ export default function DetailPage() {
         title="The path from pilot to break-even"
         lede="Four stages, each with a different scale and a different commercial model."
       >
-        <div className="grid gap-px border border-rule bg-rule md:grid-cols-2 lg:grid-cols-4">
-          {goToMarket.map((g, i) => (
-            <div key={g.stage} className="bg-white p-6">
-              <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-red">
-                Stage {i + 1}
-              </p>
-              <p className="mt-2 font-display text-lg font-bold tracking-tight text-ink">
-                {g.stage}
-              </p>
-              <p className="mt-3 font-display text-sm font-semibold text-ink">{g.scale}</p>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{g.detail}</p>
-            </div>
-          ))}
-        </div>
+        <StageTimeline stages={goToMarket} />
       </Section>
 
       {/* ---------- 10 The round ---------- */}
@@ -497,23 +528,39 @@ export default function DetailPage() {
         title="₹7 crore, and exactly what it buys"
         lede="Every rupee is assigned to a named milestone. This is the plan, not the intention."
       >
-        <div className="space-y-6">
-          {fundUse.map((f) => (
-            <div key={f.bucket} className="border border-rule bg-white p-6">
-              <div className="flex flex-wrap items-baseline justify-between gap-3">
-                <h3 className="font-display text-lg font-bold tracking-tight text-ink">
-                  {f.bucket}
-                </h3>
-                <p className="font-display text-lg font-bold text-red">
-                  {f.amount}
-                  <span className="ml-2 text-sm font-semibold text-muted">{f.percent}%</span>
-                </p>
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-center">
+          <DonutChart
+            slices={fundUse.map((f, i) => ({
+              label: f.bucket,
+              value: f.percent,
+              color: i === 0 ? "red" : i === 1 ? "ink" : "muted",
+            }))}
+            centreLabel="Total round"
+            centreValue="₹7 Cr"
+          />
+
+          <div className="space-y-6">
+            {fundUse.map((f, i) => (
+              <div key={f.bucket} className="border border-rule bg-white p-6">
+                <div className="flex flex-wrap items-baseline justify-between gap-3">
+                  <h3 className="font-display text-lg font-bold tracking-tight text-ink">
+                    {f.bucket}
+                  </h3>
+                  <p className="font-display text-lg font-bold text-red">
+                    {f.amount}
+                    <span className="ml-2 text-sm font-semibold text-muted">{f.percent}%</span>
+                  </p>
+                </div>
+                <AnimatedBar
+                  percent={f.percent}
+                  color="red"
+                  delay={i * 0.1}
+                  height="h-1.5"
+                  className="mt-3"
+                />
               </div>
-              <div className="mt-3 h-1.5 w-full bg-rule">
-                <div className="h-1.5 bg-red" style={{ width: `${f.percent}%` }} />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         <div className="mt-10">
@@ -535,7 +582,17 @@ export default function DetailPage() {
         title="Who owns the company"
         lede="Founders hold 87%. The incubator and the three angels hold the balance."
       >
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
+          <DonutChart
+            slices={capTable.map((h, i) => ({
+              label: h.name,
+              value: h.percent,
+              color: h.kind.startsWith("Founder") ? "ink" : i === capTable.length - 1 ? "red" : "muted",
+            }))}
+            centreLabel="Founders hold"
+            centreValue="87%"
+          />
+
           <div className="space-y-4">
             {capTable.map((h) => (
               <div key={h.name}>
@@ -546,25 +603,27 @@ export default function DetailPage() {
                   </div>
                   <span className="font-display text-sm font-bold text-ink">{h.percent}%</span>
                 </div>
-                <div className="mt-1.5 h-2 w-full bg-rule">
-                  <div
-                    className={`h-2 ${h.kind.startsWith("Founder") ? "bg-ink" : "bg-red"}`}
-                    style={{ width: `${h.percent}%` }}
-                  />
-                </div>
+                <AnimatedBar
+                  percent={h.percent}
+                  color={h.kind.startsWith("Founder") ? "ink" : "red"}
+                  height="h-2"
+                  className="mt-1.5"
+                />
               </div>
             ))}
           </div>
+        </div>
 
-          <div className="border border-rule bg-white p-6">
-            <p className="eyebrow">Reading the table</p>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
+        <div className="mt-10 border border-rule bg-white p-6">
+          <p className="eyebrow">Reading the table</p>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <p className="text-sm leading-relaxed text-muted">
               The three founders came together as a batch and are the core of the
               company. Raguram and Muthuram are full-time; Nishanthraj is part-time. The
               Anna University incubator holds 3% and has hosted the company&rsquo;s GPU
               server from its Guindy campus.
             </p>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
+            <p className="text-sm leading-relaxed text-muted">
               The three angel investors — Arihant, Ambili Arun Kumar and Poornima —
               hold 10% between them, subscribed under the share subscription and
               shareholders&rsquo; agreement.
@@ -634,6 +693,29 @@ export default function DetailPage() {
           {projectionHeadline.map((p) => (
             <Stat key={p.label} label={p.label} value={p.value} />
           ))}
+        </div>
+
+        <div className="mt-10">
+          <p className="eyebrow">Revenue and valuation, on a log scale</p>
+          <div className="mt-5">
+            <LineChart
+              labels={milestones.map((m) => m.year)}
+              series={[
+                {
+                  name: "Revenue",
+                  color: "red",
+                  points: milestones.map((m) => ({ y: Number(m.revenueValue) })),
+                },
+                {
+                  name: "Valuation",
+                  color: "ink",
+                  points: milestones.map((m) => ({ y: Number(m.valuationValue) })),
+                },
+              ]}
+              format="usdM"
+              height={280}
+            />
+          </div>
         </div>
 
         <div className="mt-10">
