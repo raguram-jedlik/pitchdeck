@@ -12,7 +12,6 @@ import MarketSize from "@/components/MarketSize";
 import Personas from "@/components/Personas";
 import IP from "@/components/IP";
 import Feedback from "@/components/Feedback";
-import KnowMoreCta from "@/components/KnowMoreCta";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -32,7 +31,6 @@ export default function Home() {
       <Personas />
       <IP />
       <Feedback />
-      <KnowMoreCta />
       <Footer />
     </main>
   );
