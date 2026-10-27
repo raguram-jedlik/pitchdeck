@@ -19,10 +19,7 @@
 export const snapshot = [
   { label: "Stage", value: "TRL 5 — prototype stage, field-trialed" },
   { label: "Prototypes built", value: "Two — Alpha and Beta" },
-  { label: "Top speed", value: "120 km/hr" },
-  { label: "Range", value: "200 km" },
   { label: "Granted IP", value: "1 patent granted, 1 published" },
-  { label: "Localisation", value: "90%" },
   { label: "Burn", value: "₹13 L / month" },
   { label: "Runway", value: "1.5 years" },
 ];
@@ -40,13 +37,13 @@ export const prototypeBuilds = [
   {
     name: "Beta",
     detail:
-      "The full working prototype — welded steel space frame, dual hub motors, steer-by-wire, 72 V pack. It drove under its own power on public roads.",
+      "The full working prototype. It drove under its own power on public roads.",
   },
 ];
 
-// ---------- Section 04 — Product ----------
+// ---------- Section 04 — Vehicle specifications ----------
 
-export const productSpecs = [
+export const vehicleSpecs = [
   { spec: "Top speed", value: "120 km/hr" },
   { spec: "Range", value: "200 km" },
   { spec: "Steer-by-wire", value: "Yes — granted patent" },

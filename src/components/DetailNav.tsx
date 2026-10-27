@@ -18,6 +18,7 @@ const SECTIONS = [
   { id: "snapshot", label: "Snapshot" },
   { id: "prototypes", label: "Prototypes" },
   { id: "product", label: "Product" },
+  { id: "specifications", label: "Vehicle specifications" },
   { id: "model", label: "Business model" },
   { id: "revenue", label: "Revenue mix" },
   { id: "economics", label: "Unit economics" },

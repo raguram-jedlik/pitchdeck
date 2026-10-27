@@ -4,7 +4,7 @@ import { brand } from "@/data/jedlikData";
 import {
   snapshot,
   prototypeBuilds,
-  productSpecs,
+  vehicleSpecs,
   valueProposition,
   canvasBlocks,
   revenueStreams,
@@ -223,43 +223,48 @@ export default function DetailPage() {
         index="03"
         eyebrow="Product"
         title="What the e-POD is"
-        lede="A fully enclosed two-wheeled electric vehicle. Car-grade safety and weather protection at two-wheeler scale, with a centre-hub steering architecture that is patent-protected."
+        lede="A fully enclosed two-wheeled electric vehicle. Car-grade safety and weather protection at two-wheeler scale."
       >
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr]">
-          <div>
-            <p className="eyebrow">Specifications</p>
-            <dl className="mt-5 border-t border-rule">
-              {productSpecs.map((s) => (
-                <div
-                  key={s.spec}
-                  className="flex items-baseline justify-between gap-4 border-b border-rule py-3"
-                >
-                  <dt className="text-sm text-muted">{s.spec}</dt>
-                  <dd className="text-right font-display text-sm font-bold text-ink">{s.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-          <div>
-            <p className="eyebrow">What it promises</p>
-            <ul className="mt-5 space-y-3">
-              {valueProposition.map((v) => (
-                <li key={v} className="flex items-start gap-3 border-b border-rule pb-3">
-                  <span className="dot mt-1.5 shrink-0" />
-                  <span className="font-display text-sm font-semibold tracking-tight text-ink">
-                    {v}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div>
+          <p className="eyebrow">What it promises</p>
+          <ul className="mt-5 space-y-3">
+            {valueProposition.map((v) => (
+              <li key={v} className="flex items-start gap-3 border-b border-rule pb-3">
+                <span className="dot mt-1.5 shrink-0" />
+                <span className="font-display text-sm font-semibold tracking-tight text-ink">
+                  {v}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
 
-      {/* ---------- 04 Business model ---------- */}
+      {/* ---------- 04 Vehicle specifications ---------- */}
+      <Section
+        id="specifications"
+        index="04"
+        eyebrow="Vehicle specifications"
+        title="Technical specifications"
+        lede="The measured and targeted specifications of the e-POD."
+      >
+        <dl className="border-t border-rule">
+          {vehicleSpecs.map((s) => (
+            <div
+              key={s.spec}
+              className="flex items-baseline justify-between gap-4 border-b border-rule py-3"
+            >
+              <dt className="text-sm text-muted">{s.spec}</dt>
+              <dd className="text-right font-display text-sm font-bold text-ink">{s.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </Section>
+
+      {/* ---------- 05 Business model ---------- */}
       <Section
         id="model"
-        index="04"
+        index="05"
         eyebrow="Business model"
         title="How the business is put together"
         lede="The nine blocks of the business model canvas, as the founders have framed them."
@@ -282,10 +287,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 05 Revenue mix ---------- */}
+      {/* ---------- 06 Revenue mix ---------- */}
       <Section
         id="revenue"
-        index="05"
+        index="06"
         eyebrow="Revenue mix"
         title="Where the money comes from"
         lede="Vehicle sales carry the business. The rest is the recurring layer that builds on top of a growing fleet."
@@ -305,10 +310,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 06 Unit economics ---------- */}
+      {/* ---------- 07 Unit economics ---------- */}
       <Section
         id="economics"
-        index="06"
+        index="07"
         eyebrow="Unit economics"
         title="What one vehicle costs, and what it earns"
         lede="The full material bill of materials, and where cost lands as volume scales."
@@ -349,10 +354,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 07 Manufacturing ---------- */}
+      {/* ---------- 08 Manufacturing ---------- */}
       <Section
         id="manufacturing"
-        index="07"
+        index="08"
         eyebrow="Manufacturing"
         title="The dark factory"
         lede={darkFactory.sub}
@@ -460,10 +465,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 08 Go to market ---------- */}
+      {/* ---------- 09 Go to market ---------- */}
       <Section
         id="gtm"
-        index="08"
+        index="09"
         eyebrow="Go to market"
         title="The path from pilot to break-even"
         lede="Four stages, each with a different scale and a different commercial model."
@@ -484,10 +489,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 09 The round ---------- */}
+      {/* ---------- 10 The round ---------- */}
       <Section
         id="round"
-        index="09"
+        index="10"
         eyebrow="The round"
         title="₹7 crore, and exactly what it buys"
         lede="Every rupee is assigned to a named milestone. This is the plan, not the intention."
@@ -522,10 +527,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 10 Cap table ---------- */}
+      {/* ---------- 11 Cap table ---------- */}
       <Section
         id="captable"
-        index="10"
+        index="11"
         eyebrow="Cap table"
         title="Who owns the company"
         lede="Founders hold 87%. The incubator and the three angels hold the balance."
@@ -568,10 +573,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 11 Operations ---------- */}
+      {/* ---------- 12 Operations ---------- */}
       <Section
         id="operations"
-        index="11"
+        index="12"
         eyebrow="Operations and supply chain"
         title="How the company operates"
         lede="Deliberately asset-light where it does not need to be, and rigorous where safety demands it."
@@ -588,10 +593,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 12 IP ---------- */}
+      {/* ---------- 13 IP ---------- */}
       <Section
         id="ip"
-        index="12"
+        index="13"
         eyebrow="Intellectual property"
         title="Two patents"
         lede="One granted, one published and under examination. International filings are funded by this round."
@@ -617,10 +622,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 13 Projection ---------- */}
+      {/* ---------- 14 Projection ---------- */}
       <Section
         id="projection"
-        index="13"
+        index="14"
         eyebrow="Financial projection"
         title="Fourteen years, five milestones"
         lede="Figures in USD at ₹83 to the dollar. This is the forecast that sits behind the round."
