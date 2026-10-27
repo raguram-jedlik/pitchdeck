@@ -33,7 +33,6 @@ export interface Founder {
   name: string;
   role: string;
   commitment: "Full-time" | "Part-time";
-  background: string;
 }
 
 export const founders: Founder[] = [
@@ -41,22 +40,16 @@ export const founders: Founder[] = [
     name: "Raguram S K",
     role: "Founder & CEO",
     commitment: "Full-time",
-    background:
-      "All three founders are B.E. Mechanical Engineering, 2020 batch, and started the company together. Raguram's mission is personal — it follows the accident that made him want safe urban commuting. He previously founded the online EV-scooter dealership minvaagana.com.",
   },
   {
     name: "Muthuram B",
     role: "Co-founder & CTO",
     commitment: "Full-time",
-    background:
-      "Owns the vehicle architecture and the embedded stack: steer-by-wire, the hub-motor drive and the control firmware.",
   },
   {
     name: "Nishanthraj G V",
     role: "Co-founder & COO",
     commitment: "Part-time",
-    background:
-      "MBA plus B.E. Mechanical Engineering, previously at Daimler. Leads operations, supply chain and commercial execution.",
   },
 ];
 
@@ -65,15 +58,13 @@ export const founders: Founder[] = [
 export const prototypeBuilds = [
   {
     name: "Alpha",
-    status: "Built",
     detail:
       "The frame and geometry precursor. Its suspension work is the basis the Beta prototype was developed from, and the Alpha lineage is still visible in the current CAD set.",
   },
   {
     name: "Beta",
-    status: "Built and driven",
     detail:
-      "The full working prototype — welded steel space frame, dual hub motors, steer-by-wire, 72 V pack. It drove under its own power on public roads on 4 September 2026.",
+      "The full working prototype — welded steel space frame, dual hub motors, steer-by-wire, 72 V pack. It drove under its own power on public roads.",
   },
 ];
 
@@ -332,7 +323,6 @@ export interface FundUse {
   bucket: string;
   amount: string;
   percent: number;
-  milestones: string;
 }
 
 export const fundUse: FundUse[] = [
@@ -340,29 +330,21 @@ export const fundUse: FundUse[] = [
     bucket: "Product R&D",
     amount: "₹2.8 Cr",
     percent: 40,
-    milestones:
-      "Delivery and passenger alpha builds · 1,000 km public-road testing · BOM target of ₹1.8 L per unit at 1,000-unit scale · Level 1 ADAS architecture",
   },
   {
     bucket: "Manufacturing",
     amount: "₹1.75 Cr",
     percent: 25,
-    milestones:
-      "Tamil Nadu manufacturer MOU · tooling, jigs and fixtures for the 25-unit pilot · QC and testing infrastructure · supply-chain lock · finalised industrial-design and engineering drawings",
   },
   {
     bucket: "Regulatory and IP",
     amount: "₹1.4 Cr",
     percent: 20,
-    milestones:
-      "ARAI formal consultation · CMVR testing through GARC · crab-walk patent examination · PCT filings for USA, EU and Southeast Asia · SHA and IP assignments plus ESOP · Series A compliance documentation",
   },
   {
     bucket: "Team and operations",
     amount: "₹1.05 Cr",
     percent: 15,
-    milestones:
-      "Electrical and embedded engineer · manufacturing engineer · BD manager · dedicated prototyping lab at the Anna University campus · 12-month operational runway",
   },
 ];
 

@@ -220,7 +220,6 @@ export default function DetailPage() {
               >
                 {f.commitment}
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-muted">{f.background}</p>
             </div>
           ))}
         </div>
@@ -232,19 +231,14 @@ export default function DetailPage() {
         index="03"
         eyebrow="Prototypes"
         title="Two vehicles have been built"
-        lede="Alpha and Beta. Beta drove under its own power on public roads on 4 September 2026."
+        lede="Alpha and Beta. Beta drove under its own power on public roads."
       >
         <div className="grid gap-6 md:grid-cols-2">
           {prototypeBuilds.map((b) => (
             <div key={b.name} className="border border-rule bg-white p-6">
-              <div className="flex items-center gap-3">
-                <span className="font-display text-2xl font-bold tracking-tight text-ink">
-                  {b.name}
-                </span>
-                <span className="bg-red px-2.5 py-1 font-display text-[0.6rem] font-bold uppercase tracking-[0.16em] text-paper">
-                  {b.status}
-                </span>
-              </div>
+              <span className="font-display text-2xl font-bold tracking-tight text-ink">
+                {b.name}
+              </span>
               <p className="mt-4 text-sm leading-relaxed text-muted">{b.detail}</p>
             </div>
           ))}
@@ -549,7 +543,6 @@ export default function DetailPage() {
               <div className="mt-3 h-1.5 w-full bg-rule">
                 <div className="h-1.5 bg-red" style={{ width: `${f.percent}%` }} />
               </div>
-              <p className="mt-4 text-sm leading-relaxed text-muted">{f.milestones}</p>
             </div>
           ))}
         </div>
