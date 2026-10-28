@@ -7,7 +7,6 @@ import {
   vehicleSpecs,
   valueProposition,
   validationTiles,
-  validationHeadline,
   canvasBlocks,
   revenueStreams,
   bomRows,
@@ -239,30 +238,9 @@ export default function DetailPage() {
 
       </Section>
 
-      {/* ---------- 03 Topic validation ---------- */}
-      <Section
-        id="validation"
-        index="03"
-        eyebrow="Topic validation"
-        title="The market answered before we did"
-        lede="Unsolicited reactions to the public launch, captured as they arrived. Every tile below is a real post or a real email — nothing here is written copy."
-      >
-        <div className="grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
-          {validationHeadline.map((v) => (
-            <Stat key={v.label} label={v.label} value={v.value} />
-          ))}
-        </div>
-
-        <div className="mt-12">
-          <ValidationCollage tiles={validationTiles} />
-        </div>
-
-        <Note>
-          The reactions cluster on three things: price, protection from heat and
-          dust, and the fact that the vehicle does not force a choice between
-          two-wheeler agility and four-wheeler protection. The inbound emails
-          are warmer still — both ask to be on the line for the launch.
-        </Note>
+      {/* ---------- 03 Validation ---------- */}
+      <Section id="validation" index="03" eyebrow="Validation" title="The market answered before we did">
+        <ValidationCollage tiles={validationTiles} />
       </Section>
 
       {/* ---------- 04 Product ---------- */}

@@ -165,13 +165,6 @@ export const validationTiles: ValidationTile[] = [
   },
 ];
 
-export const validationHeadline = [
-  { label: "Public reactions", value: "12 unsolicited" },
-  { label: "Inbound emails", value: "2" },
-  { label: "Enquiry type", value: "Collaboration, purchase, launch watch" },
-  { label: "Source", value: "LinkedIn and direct email" },
-];
-
 // ---------- Section 05 — Business model canvas ----------
 
 export const canvasBlocks = [

@@ -44,17 +44,7 @@ export default function ValidationCollage({
     <div className="space-y-12">
       {/* ---------- Public reactions ---------- */}
       <div>
-        <div className="flex items-baseline gap-3">
-          <p className="eyebrow">Public reactions</p>
-          <span className="h-px flex-1 bg-rule" aria-hidden="true" />
-        </div>
-        <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-muted">
-          Engineers, founders and product leaders reacted to the public launch
-          without being asked. Unedited, and they are the clearest read on
-          what the market actually understood.
-        </p>
-
-        <div className="mt-7 grid auto-rows-[minmax(0,auto)] grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid auto-rows-[minmax(0,auto)] grid-cols-1 gap-4 md:grid-cols-3">
           {social.map((tile, i) => (
             <motion.figure
               key={tile.src}
@@ -89,16 +79,7 @@ export default function ValidationCollage({
 
       {/* ---------- Inbound email ---------- */}
       <div>
-        <div className="flex items-baseline gap-3">
-          <p className="eyebrow">Inbound email</p>
-          <span className="h-px flex-1 bg-rule" aria-hidden="true" />
-        </div>
-        <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-muted">
-          Two people wrote to us cold after the launch. Sender addresses are
-          blurred; the messages themselves are unedited.
-        </p>
-
-        <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {email.map((tile, i) => (
             <motion.figure
               key={tile.src}
