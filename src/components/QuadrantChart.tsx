@@ -7,14 +7,20 @@ import { quadrantPoints, brand } from "@/data/jedlikData";
  * Positioning map — true 4-quadrant scatter graph with vehicle images for
  * rivals and a question-mark silhouette for Jedlik. Optimised for mobile:
  * the chart scales down cleanly and Jedlik's silhouette is positioned in
- * the only empty quadrant (top-right, the highest comfort / lowest
+ * the only empty quadrant (top-right, the highest comfort / highest
  * maneuverability quadrant).
  *
+ * Axis convention (standard math coordinates):
+ *   +x (right) = higher comfort,  −x (left)  = lower comfort
+ *   +y (top)   = higher maneuverability, −y (bottom) = lower maneuverability
+ * Comfort is measured on the x axis and maneuverability on the y axis, so
+ * every corner label is pinned to the side of the chart its axis points to.
+ *
  * Quadrant labels (screen reading order: TL, TR, BL, BR):
- *   Q1 TL — High Maneuver, Low Comfort
- *   Q2 TR — High Comfort, Low Maneuver   ← Jedlik
- *   Q3 BR — Low Maneuver, High Comfort
- *   Q4 BL — Low Maneuver, Low Comfort
+ *   Q1 TL — High Comfort, High Maneuver
+ *   Q2 TR — High Comfort, High Maneuver   ← Jedlik
+ *   Q3 BL — Low Comfort, Low Maneuver
+ *   Q4 BR — Low Comfort, Low Maneuver
  */
 export default function QuadrantChart() {
   const rivals = quadrantPoints.filter((p) => !p.isJedlik);
@@ -62,18 +68,36 @@ export default function QuadrantChart() {
             Comfort
           </span>
 
-          {/* Quadrant corner labels (screen reading order: TL, TR, BL, BR) */}
-          <span className="absolute left-2 top-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:left-3 md:top-3 md:text-xs">
-            Lower Comfort
+          {/* Degree markers — comfort runs 0° (higher, right pole) to 180°
+              (lower, left pole); maneuverability runs 90° (higher, top pole)
+              to 270° (lower, bottom pole). */}
+          <span className="absolute top-1/2 right-1 translate-y-1/2 whitespace-nowrap bg-paper px-1 font-display text-[0.5rem] font-semibold text-muted md:text-[0.65rem]">
+            0°
           </span>
-          <span className="absolute right-2 top-[34%] whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:right-3 md:text-xs">
-            Higher Comfort
+          <span className="absolute top-1/2 left-1 translate-y-1/2 whitespace-nowrap bg-paper px-1 font-display text-[0.5rem] font-semibold text-muted md:text-[0.65rem]">
+            180°
+          </span>
+          <span className="absolute left-1/2 top-1 -translate-x-1/2 whitespace-nowrap bg-paper px-1 font-display text-[0.5rem] font-semibold text-muted md:text-[0.65rem]">
+            90°
+          </span>
+          <span className="absolute bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap bg-paper px-1 font-display text-[0.5rem] font-semibold text-muted md:text-[0.65rem]">
+            270°
+          </span>
+
+          {/* Quadrant corner labels (screen reading order: TL, TR, BL, BR).
+              Each label names the quadrant by which side of each axis it sits
+              on: comfort is read left/right, maneuverability top/bottom. */}
+          <span className="absolute left-2 top-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:left-3 md:top-3 md:text-xs">
+            Lower Comfort · High Maneuverability
+          </span>
+          <span className="absolute right-2 top-2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:right-3 md:top-3 md:text-xs">
+            Higher Comfort · High Maneuverability
           </span>
           <span className="absolute bottom-2 left-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:bottom-3 md:left-3 md:text-xs">
-            Lower Maneuverability
+            Lower Comfort · Low Maneuverability
           </span>
           <span className="absolute bottom-2 right-2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:bottom-3 md:right-3 md:text-xs">
-            Higher Maneuverability
+            Higher Comfort · Low Maneuverability
           </span>
 
           {/* rivals — the colored dot is the actual data marker and sits
