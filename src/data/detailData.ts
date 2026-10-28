@@ -79,8 +79,6 @@ export interface ValidationTile {
   alt: string;
   /** Which of the two collage groups this tile belongs to. */
   group: "social" | "email";
-  /** Grid span on large screens. */
-  span?: "wide" | "tall" | "full";
 }
 
 export const validationTiles: ValidationTile[] = [
@@ -88,7 +86,6 @@ export const validationTiles: ValidationTile[] = [
     src: "/assets/validation/linkedin-1.png",
     alt: "LinkedIn comment describing the enclosed electric two-wheeler as a game-changer for city commuting",
     group: "social",
-    span: "wide",
   },
   {
     src: "/assets/validation/linkedin-2.png",
@@ -99,13 +96,11 @@ export const validationTiles: ValidationTile[] = [
     src: "/assets/validation/linkedin-3.png",
     alt: "LinkedIn comment encouraging the team to take the vehicle to the MVP and production, and asking for a roof for heat, sun and dust protection",
     group: "social",
-    span: "tall",
   },
   {
     src: "/assets/validation/linkedin-4.png",
     alt: "LinkedIn comment on the e-POD challenging the assumption that urban mobility must choose between two-wheeler agility and four-wheeler protection",
     group: "social",
-    span: "wide",
   },
   {
     src: "/assets/validation/linkedin-5.png",
@@ -121,13 +116,11 @@ export const validationTiles: ValidationTile[] = [
     src: "/assets/validation/linkedin-7.png",
     alt: "LinkedIn comment saying the next generation will love this product",
     group: "social",
-    span: "wide",
   },
   {
     src: "/assets/validation/linkedin-8.png",
     alt: "LinkedIn comment saying the vehicle helps with traffic congestion and pollution, and calling it a great innovation",
     group: "social",
-    span: "tall",
   },
   {
     src: "/assets/validation/linkedin-9.png",
@@ -138,13 +131,11 @@ export const validationTiles: ValidationTile[] = [
     src: "/assets/validation/linkedin-10.png",
     alt: "LinkedIn comments with a mix of reactions, one calling the product much needed and a Gr8 news, one calling it a nice concept, and one calling it amazing for police patrol, delivery professionals and micro ambulance use cases",
     group: "social",
-    span: "tall",
   },
   {
     src: "/assets/validation/linkedin-11.png",
     alt: "LinkedIn comment saying an enclosed two-wheeler solves real problems for Chennai rain and heat, and a second comment suggesting the battery be offered as a service instead of bundled into the sticker price",
     group: "social",
-    span: "wide",
   },
   {
     src: "/assets/validation/linkedin-12.png",
@@ -155,13 +146,11 @@ export const validationTiles: ValidationTile[] = [
     src: "/assets/validation/mail-10.png",
     alt: "Inbound email congratulating the team on the product and looking forward to the launch, with the sender's address blurred",
     group: "email",
-    span: "wide",
   },
   {
     src: "/assets/validation/mail-9.png",
     alt: "Inbound email from an industry reader who saw the vision and wants to be on the line for a collaboration, with the sender's address blurred",
     group: "email",
-    span: "wide",
   },
 ];
 
