@@ -79,6 +79,13 @@ export interface ValidationTile {
   alt: string;
   /** Which of the two collage groups this tile belongs to. */
   group: "social" | "email";
+  /**
+   * Intrinsic width / height of the source screenshot. The collage uses this
+   * to reserve the exact space each tile will occupy before the image
+   * loads, so the layout never jumps and the masonry can be balanced
+   * without measuring anything on screen.
+   */
+  ratio: number;
 }
 
 export const validationTiles: ValidationTile[] = [
@@ -86,76 +93,85 @@ export const validationTiles: ValidationTile[] = [
     src: "/assets/validation/linkedin-1.png",
     alt: "LinkedIn comment describing the enclosed electric two-wheeler as a game-changer for city commuting",
     group: "social",
+    ratio: 647 / 143,
   },
   {
     src: "/assets/validation/linkedin-2.png",
     alt: "LinkedIn comment congratulating the team",
     group: "social",
+    ratio: 675 / 135,
   },
   {
     src: "/assets/validation/linkedin-3.png",
     alt: "LinkedIn comment encouraging the team to take the vehicle to the MVP and production, and asking for a roof for heat, sun and dust protection",
     group: "social",
+    ratio: 647 / 262,
   },
   {
     src: "/assets/validation/linkedin-4.png",
     alt: "LinkedIn comment on the e-POD challenging the assumption that urban mobility must choose between two-wheeler agility and four-wheeler protection",
     group: "social",
+    ratio: 670 / 312,
   },
   {
     src: "/assets/validation/linkedin-5.png",
     alt: "LinkedIn comment saying the product is great",
     group: "social",
+    ratio: 646 / 117,
   },
   {
     src: "/assets/validation/linkedin-6.png",
     alt: "LinkedIn comment noting price is key and that Europe and cold-winter countries need the product",
     group: "social",
+    ratio: 693 / 183,
   },
   {
     src: "/assets/validation/linkedin-7.png",
     alt: "LinkedIn comment saying the next generation will love this product",
     group: "social",
+    ratio: 697 / 152,
   },
   {
     src: "/assets/validation/linkedin-8.png",
     alt: "LinkedIn comment saying the vehicle helps with traffic congestion and pollution, and calling it a great innovation",
     group: "social",
+    ratio: 696 / 477,
   },
   {
     src: "/assets/validation/linkedin-9.png",
     alt: "LinkedIn comment saying comfort is a smart angle because most electric vehicles in India still lead with range alone, and that city commuters care about posture, storage and daily ease more than spec sheets",
     group: "social",
+    ratio: 568 / 175,
   },
   {
     src: "/assets/validation/linkedin-10.png",
     alt: "LinkedIn comments with a mix of reactions, one calling the product much needed and a Gr8 news, one calling it a nice concept, and one calling it amazing for police patrol, delivery professionals and micro ambulance use cases",
     group: "social",
-  },
-  {
-    src: "/assets/validation/linkedin-11.png",
-    alt: "LinkedIn comment saying an enclosed two-wheeler solves real problems for Chennai rain and heat, and that the challenge will be keeping it nimble and affordable enough for daily traffic",
-    group: "social",
+    ratio: 550 / 442,
   },
   {
     src: "/assets/validation/linkedin-12.png",
     alt: "LinkedIn comments reacting to the launch with hearts and the word amazing",
     group: "social",
+    ratio: 618 / 167,
   },
   {
     src: "/assets/validation/linkedin-13.png",
     alt: "LinkedIn comment saying offering the battery as a service instead of bundling it into the sticker price is what actually gets the on-road cost down to something a daily commuter will consider",
     group: "social",
+    ratio: 972 / 204,
   },
   {
     src: "/assets/validation/mail-10.png",
     alt: "Inbound email congratulating the team on the product and looking forward to the launch, with the sender's address blurred",
     group: "email",
+    ratio: 935 / 473,
   },
   {
     src: "/assets/validation/mail-9.png",
     alt: "Inbound email from an industry reader who saw the vision and wants to be on the line for a collaboration, with the sender's address blurred",
     group: "email",
+    ratio: 933 / 400,
   },
 ];
 
