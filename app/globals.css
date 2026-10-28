@@ -94,6 +94,109 @@ body::after {
   background-size: 180px 180px;
 }
 
+/* ------------------------------------------------------------------ */
+/* Photo backdrop — detail page only                                   */
+/* ------------------------------------------------------------------ */
+/*
+ * The photo backdrop for the detail deck. It lives on <main> rather than
+ * <body> so the homepage keeps its plain paper treatment.
+ *
+ * The image is pale and high-key, so a warm paper scrim is laid over it:
+ * heavy on the left where the body copy runs, clearing over the vehicle on
+ * the right so the car still reads as a photograph rather than a watermark.
+ * The body's technical grid and paper grain still composite on top.
+ */
+.deck-photo-bg {
+  position: relative;
+  isolation: isolate;
+}
+
+.deck-photo-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    /*
+     * Scrim. Two gradients do the work:
+     *   - a horizontal one, heavy paper on the left where the body copy runs
+     *     and clearing to almost nothing over the vehicle on the right;
+     *   - a soft top-down one that clears the sky so the upper right stays
+     *     open and the horizon reads as distance.
+     */
+    linear-gradient(
+      100deg,
+      rgba(251, 250, 247, 0.97) 0%,
+      rgba(251, 250, 247, 0.95) 34%,
+      rgba(251, 250, 247, 0.86) 50%,
+      rgba(251, 250, 247, 0.42) 66%,
+      rgba(251, 250, 247, 0.08) 82%,
+      rgba(251, 250, 247, 0) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(251, 250, 247, 0.55) 0%,
+      rgba(251, 250, 247, 0) 22%
+    ),
+    url("/assets/epod-desert-bg.jpg");
+  background-size: cover, cover, cover;
+  background-position: center, center, 70% center;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-attachment: fixed, fixed, fixed;
+}
+
+/*
+ * A soft haze over the lower half of the frame. It grounds the vehicle in
+ * the sand and stops the horizon from cutting a hard line across the copy.
+ */
+.deck-photo-bg::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(251, 250, 247, 0) 0%,
+    rgba(251, 250, 247, 0) 52%,
+    rgba(251, 250, 247, 0.34) 100%
+  );
+}
+
+/* The dark closing section must sit solid — no photo bleeding through. */
+.deck-photo-bg .bg-ink {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ * Narrow screens. The desktop scrim works because the copy runs in a column
+ * to the LEFT of the vehicle. At phone width the copy is full-bleed and the
+ * car sits directly behind it, so the treatment changes: the photo is pushed
+ * down and to the right, and a much heavier, near-uniform scrim is laid over
+ * it. The result is a faint atmospheric wash rather than a competing image.
+ */
+@media (max-width: 767px) {
+  .deck-photo-bg::before {
+    background-image:
+      linear-gradient(
+        to bottom,
+        rgba(251, 250, 247, 0.9) 0%,
+        rgba(251, 250, 247, 0.86) 55%,
+        rgba(251, 250, 247, 0.82) 100%
+      ),
+      url("/assets/epod-desert-bg.jpg");
+    background-size: cover, cover;
+    background-position: center, 68% 78%;
+    background-attachment: fixed, fixed;
+  }
+
+  .deck-photo-bg::after {
+    background-image: none;
+  }
+}
+
 /* Keep the grain and grid from bleeding onto the dark sections. */
 .bg-ink {
   background-image: none;

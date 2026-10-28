@@ -175,7 +175,7 @@ function DataTable({
 
 export default function DetailPage() {
   return (
-    <main className="relative">
+    <main className="deck-photo-bg relative">
       <DetailNav />
 
       {/* ---------- Hero ---------- */}
