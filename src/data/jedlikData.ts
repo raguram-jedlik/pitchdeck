@@ -165,6 +165,8 @@ export const productSpecs = {
   ],
   // The reveal stage now runs the cinematic driving loop continuously.
   // No audio stream is muxed into the file, and the <video> is muted too.
+  // Forward-only: the loop is a crossfade of the clip's tail back into its
+  // head, so no part of the footage ever plays in reverse.
   video: "/assets/epod-reveal-loop.mp4",
   // Poster frame — the first frame of the loop, shown before playback starts.
   poster: "/assets/epod-reveal-poster.jpg",
