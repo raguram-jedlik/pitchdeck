@@ -127,7 +127,7 @@ export function DonutChart({
   });
 
   return (
-    <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:gap-8">
+    <div className="chart-panel flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:gap-8">
       <div className="relative shrink-0" style={{ width: size, height: size }}>
         <svg
           ref={ref}
@@ -287,7 +287,7 @@ export function LineChart({
     pts.map((p, i) => `${i === 0 ? "M" : "L"}${xOf(i).toFixed(1)} ${yOf(p.y).toFixed(1)}`).join(" ");
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className="chart-panel">
       <svg
         viewBox={`0 0 ${W} ${H}`}
         className="w-full"
@@ -435,7 +435,7 @@ export function ColumnChart({
   const max = Math.max(...data.map((d) => d.value), 1);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className="chart-panel">
       <div className="flex items-end gap-2 md:gap-4" style={{ height }}>
         {data.map((d, i) => {
           const isHi = highlightIndex === i;

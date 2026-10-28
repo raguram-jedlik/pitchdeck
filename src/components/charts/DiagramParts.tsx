@@ -237,7 +237,7 @@ export function CompareBars({
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <div ref={ref} className="space-y-7">
+    <div ref={ref} className="chart-panel space-y-7">
       {rows.map((r, i) => {
         const max = Math.max(r.oursValue ?? 0, r.theirsValue ?? 0, 1);
         return (

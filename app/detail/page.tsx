@@ -389,7 +389,7 @@ export default function DetailPage() {
           <Stat label="Gross margin" value={unitEconomics.grossMargin} accent span={2} />
         </div>
 
-        <p className="mt-6 font-display text-base font-semibold leading-relaxed tracking-tight text-ink md:text-lg">
+        <p className="mt-6 bg-paper-2 px-4 py-3 font-display text-base font-semibold leading-relaxed tracking-tight text-ink md:text-lg">
           {unitEconomics.headline}
         </p>
 
@@ -475,7 +475,7 @@ export default function DetailPage() {
             <p className="eyebrow">Equipment allocation</p>
             <div className="mt-5 space-y-3">
               {equipmentAllocation.map((e) => (
-                <div key={e.item}>
+                <div key={e.item} className="bg-paper-2 px-4 py-3">
                   <div className="flex items-baseline justify-between gap-4">
                     <span className="text-sm font-medium text-ink">{e.item}</span>
                     <span className="font-display text-sm font-bold text-ink">{e.share}%</span>
@@ -668,7 +668,7 @@ export default function DetailPage() {
 
         <div className="mt-10">
           <p className="eyebrow">Revenue and valuation, on a log scale</p>
-          <div className="mt-5 bg-paper-2 px-2 py-6 md:px-5">
+          <div className="mt-5">
             <LineChart
               labels={milestones.map((m) => m.year)}
               series={[

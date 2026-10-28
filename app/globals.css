@@ -171,6 +171,23 @@ body::after {
 }
 
 /*
+ * A chart sitting directly on the photo backdrop loses its axis labels —
+ * thin grey text over a bright vehicle is unreadable. Every chart gets this
+ * panel so the plotted lines and their labels always sit on solid paper.
+ */
+.chart-panel {
+  background-color: #f4f2ed;
+  padding: 1.25rem 0.75rem;
+  border-radius: 2px;
+}
+
+@media (min-width: 768px) {
+  .chart-panel {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+/*
  * Narrow screens. The desktop scrim works because the copy runs in a column
  * to the LEFT of the vehicle. At phone width the copy is full-bleed and the
  * car sits directly behind it, so the treatment changes: the photo is pushed
