@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { brand } from "@/data/jedlikData";
+import { brand, investCopy } from "@/data/jedlikData";
 import {
   snapshot,
   prototypeBuilds,
@@ -786,7 +786,8 @@ export default function DetailPage() {
                 </p>
                 <div className="mt-8">
                   <InvestButton
-                    label="Invest in Jedlik"
+                    label="Request the investor pack"
+                    heading={investCopy.headingDetail}
                     className="!m-0 !border-red !bg-red !px-6 !py-3.5 !text-xs hover:!border-paper hover:!bg-paper hover:!text-ink"
                   />
                   <p className="mt-4 text-xs leading-relaxed text-paper/50">
