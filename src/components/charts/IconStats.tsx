@@ -209,7 +209,7 @@ export function IconStat({
   return (
     <motion.div
       ref={ref}
-      className="group bg-white p-5 transition-colors hover:bg-[#FAFAFA]"
+      className="group bg-paper-2 p-5 transition-colors hover:bg-paper-3"
       initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
       transition={{ duration: 0.5, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
@@ -242,7 +242,7 @@ export function PrototypeCard({
 }) {
   return (
     <motion.div
-      className="group relative overflow-hidden border border-rule bg-white p-6 transition-colors hover:border-ink"
+      className="group relative overflow-hidden border border-rule bg-paper-2 p-6 transition-colors hover:border-ink"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
@@ -274,7 +274,7 @@ export function ValuePropStrip({ items }: { items: string[] }) {
         return (
           <motion.div
             key={item}
-            className="group flex items-start gap-4 bg-white p-5"
+            className="group flex items-start gap-4 bg-paper-2 p-5"
             initial={{ opacity: 0, x: -12 }}
             animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
             transition={{ duration: 0.5, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}

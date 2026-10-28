@@ -190,7 +190,7 @@ export function SpecTile({
   return (
     <motion.div
       ref={ref}
-      className="group border border-rule bg-white p-5 transition-colors hover:border-ink"
+      className="group border border-rule bg-paper-2 p-5 transition-colors hover:border-ink"
       initial={{ opacity: 0, y: 18 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
       transition={{ duration: 0.55, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
@@ -234,7 +234,7 @@ export function SpecGauge({
   return (
     <div
       ref={ref}
-      className="border border-rule bg-white p-6 text-center"
+      className="border border-rule bg-paper-2 p-6 text-center"
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = INK;
       }}

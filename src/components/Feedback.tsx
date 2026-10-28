@@ -88,7 +88,7 @@ export default function Feedback() {
         : feedbackCopy.thanksUp;
 
   return (
-    <section className="relative bg-paper px-6 py-8 md:px-10 md:py-12">
+    <section className="relative px-6 py-8 md:px-10 md:py-12">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">{feedbackCopy.eyebrow}</p>
 

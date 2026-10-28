@@ -21,7 +21,7 @@ export default function QuadrantChart() {
   const jedlik = quadrantPoints.find((p) => p.isJedlik)!;
 
   return (
-    <section className="relative bg-paper px-2 py-8 sm:px-4 md:px-10 md:py-12">
+    <section className="relative px-2 py-8 sm:px-4 md:px-10 md:py-12">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow px-2 sm:px-0">Section 02 — The Map</p>
         <h2 className="display-lg mt-4 max-w-[18ch] px-2 text-ink sm:px-0">

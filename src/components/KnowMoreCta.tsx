@@ -16,7 +16,7 @@ import Link from "next/link";
  */
 export default function KnowMoreCta() {
   return (
-    <section className="border-t border-rule bg-paper px-6 py-16 md:px-10 md:py-20">
+    <section className="border-t border-rule px-6 py-16 md:px-10 md:py-20">
       <div className="mx-auto max-w-deck">
         <motion.div
           initial={{ opacity: 0, y: 12 }}

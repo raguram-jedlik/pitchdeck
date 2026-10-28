@@ -91,7 +91,7 @@ function LtvBar({ ltv }: { ltv: string }) {
 
 export default function Personas() {
   return (
-    <section className="relative bg-paper px-6 py-8 md:px-10 md:py-12">
+    <section className="relative px-6 py-8 md:px-10 md:py-12">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 09 — The Customers</p>
         <h2 className="display-lg mt-4 max-w-[16ch] text-ink">
@@ -106,7 +106,7 @@ export default function Personas() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="bg-paper p-6 md:p-8"
+              className="bg-paper-2 p-6 md:p-8"
             >
               <div className="flex items-baseline justify-between">
                 <span className="font-display text-sm font-bold text-red">

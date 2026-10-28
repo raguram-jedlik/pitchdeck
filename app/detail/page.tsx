@@ -95,13 +95,17 @@ function Stat({
   label,
   value,
   accent,
+  span = 1,
 }: {
   label: string;
   value: string;
   accent?: boolean;
+  span?: 1 | 2;
 }) {
   return (
-    <div className="border-t-2 border-ink bg-white px-4 py-5">
+    <div
+      className={`bg-paper-2 px-4 py-5 ${span === 2 ? "md:col-span-2" : ""}`}
+    >
       <p className="eyebrow">{label}</p>
       <p
         className={`mt-2 font-display text-xl font-bold leading-tight tracking-tight md:text-2xl ${
@@ -171,7 +175,7 @@ function DataTable({
 
 export default function DetailPage() {
   return (
-    <main className="relative bg-paper">
+    <main className="relative">
       <DetailNav />
 
       {/* ---------- Hero ---------- */}
@@ -376,16 +380,13 @@ export default function DetailPage() {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-px border border-rule bg-rule md:grid-cols-4">
+        <div className="mt-8 grid gap-px border-y-2 border-ink bg-rule md:grid-cols-4">
           <Stat label="Total BOM" value={unitEconomics.bomTotal} accent />
           <Stat label="Prototype cost" value={unitEconomics.prototype} />
           <Stat label="Volume cost (100K)" value={unitEconomics.volume} />
           <Stat label="Sell price" value={unitEconomics.sellPrice} />
-        </div>
-
-        <div className="mt-px grid gap-px border border-rule bg-rule md:grid-cols-2">
-          <Stat label="Gross profit per vehicle" value={unitEconomics.grossProfit} />
-          <Stat label="Gross margin" value={unitEconomics.grossMargin} accent />
+          <Stat label="Gross profit per vehicle" value={unitEconomics.grossProfit} span={2} />
+          <Stat label="Gross margin" value={unitEconomics.grossMargin} accent span={2} />
         </div>
 
         <p className="mt-6 font-display text-base font-semibold leading-relaxed tracking-tight text-ink md:text-lg">
@@ -406,7 +407,7 @@ export default function DetailPage() {
           <p className="eyebrow">Production plan</p>
           <div className="mt-5 grid gap-px border border-rule bg-rule md:grid-cols-2">
             {productionPlan.map((p) => (
-              <div key={p.label} className="bg-white px-5 py-4">
+              <div key={p.label} className="bg-paper-2 px-5 py-4">
                 <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-red">
                   {p.label}
                 </p>
@@ -522,7 +523,7 @@ export default function DetailPage() {
 
           <div className="space-y-6">
             {fundUse.map((f, i) => (
-              <div key={f.bucket} className="border border-rule bg-white p-6">
+              <div key={f.bucket} className="border border-rule bg-paper-2 p-6">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
                   <h3 className="font-display text-lg font-bold tracking-tight text-ink">
                     {f.bucket}
@@ -612,7 +613,7 @@ export default function DetailPage() {
       >
         <div className="grid gap-px border border-rule bg-rule md:grid-cols-2">
           {operations.map((o) => (
-            <div key={o.title} className="bg-white p-6">
+            <div key={o.title} className="bg-paper-2 p-6">
               <h3 className="font-display text-base font-bold tracking-tight text-ink">
                 {o.title}
               </h3>
@@ -632,7 +633,7 @@ export default function DetailPage() {
       >
         <div className="grid gap-6 md:grid-cols-2">
           {patents.map((p) => (
-            <div key={p.title} className="border border-rule bg-white p-6">
+            <div key={p.title} className="border border-rule bg-paper-2 p-6">
               <div className="flex items-start justify-between gap-4">
                 <h3 className="font-display text-base font-bold leading-snug tracking-tight text-ink">
                   {p.title}

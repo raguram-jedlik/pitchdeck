@@ -10,7 +10,7 @@ export default function BuildingEPod() {
   const marquee = [...buildPhotos, ...buildPhotos];
 
   return (
-    <section className="relative bg-paper px-6 py-16 text-ink md:px-10 md:py-24">
+    <section className="relative px-6 py-16 text-ink md:px-10 md:py-24">
       <div className="mx-auto max-w-deck">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

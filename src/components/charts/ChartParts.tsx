@@ -455,7 +455,7 @@ export function ColumnChart({
                   transition={{ duration: 0.9, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 />
                 {hover === i ? (
-                  <div className="absolute -top-1 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap border border-ink bg-white px-2 py-1 font-display text-[0.7rem] font-bold text-ink">
+                  <div className="absolute -top-1 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap border border-ink bg-paper-2 px-2 py-1 font-display text-[0.7rem] font-bold text-ink">
                     {valueFormat(d.value)}
                   </div>
                 ) : null}

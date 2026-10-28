@@ -153,7 +153,7 @@ function MetricCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay: i * 0.08 }}
-      className="bg-paper p-4 md:p-6"
+      className="bg-paper-2 p-4 md:p-6"
     >
       <MarketIcon kind={m.label} />
       <p className="eyebrow mt-3">{m.label}</p>
@@ -176,7 +176,7 @@ export default function MarketSize() {
   const maxGeo = Math.max(...geoExpansion.map((g) => g.value));
 
   return (
-    <section className="relative bg-paper px-6 py-8 md:px-10 md:py-12">
+    <section className="relative px-6 py-8 md:px-10 md:py-12">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 08 — The Market</p>
         <h2 className="display-lg mt-4 max-w-[20ch] text-ink">
@@ -229,7 +229,7 @@ export default function MarketSize() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="bg-paper p-4 md:p-6"
+                className="bg-paper-2 p-4 md:p-6"
               >
                 <IndiaStatIcon label={s.label} />
                 <p className="mt-3 font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">

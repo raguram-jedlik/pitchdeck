@@ -169,7 +169,7 @@ export function CanvasWheel({
             key={b.title}
             onMouseEnter={() => setActive(i)}
             onMouseLeave={() => setActive(null)}
-            className={`bg-white p-4 transition-colors ${
+            className={`bg-paper-2 p-4 transition-colors ${
               active === i ? "outline outline-1 outline-red" : ""
             }`}
           >
@@ -207,7 +207,7 @@ export function StageTimeline({
       {stages.map((s, i) => (
         <motion.div
           key={s.stage}
-          className="bg-white p-6"
+          className="bg-paper-2 p-6"
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           transition={{ duration: 0.5, delay: i * 0.1 }}

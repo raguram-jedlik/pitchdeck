@@ -140,7 +140,7 @@ export default function ValidationCollage({
                     delay: ((ci + i) % 4) * 0.05,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="group relative overflow-hidden border border-rule bg-white"
+                  className="group relative overflow-hidden border border-rule bg-paper-2"
                 >
                   {/* Red hairline that fills on hover. */}
                   <span
