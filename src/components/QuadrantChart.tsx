@@ -66,22 +66,23 @@ export default function QuadrantChart() {
               +y (top) = higher maneuverability, -y (bottom) = lower
               maneuverability. */}
           {/* -x : lower comfort (left end of the horizontal axis).
-              Offset down a little so it clears the arrowhead at x=0. */}
-          <span className="absolute left-1 top-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+              Pushed BELOW the horizontal rule so the axis line does not
+              strike through the text. */}
+          <span className="absolute left-1 top-[calc(50%+0.6rem)] whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
             Lower Comfort
           </span>
           {/* +x : higher comfort (right end of the horizontal axis) */}
-          <span className="absolute right-1 top-1/2 -translate-y-1/2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+          <span className="absolute right-1 top-[calc(50%+0.6rem)] whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
             Higher Comfort
           </span>
           {/* +y : higher maneuverability (top end of the vertical axis).
-              Held just to the right of the axis line so the vertical rule
-              stays readable, and below the arrowhead. */}
-          <span className="absolute left-1/2 top-3 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+              Shifted RIGHT of the vertical rule so the axis line does not
+              strike through the text. */}
+          <span className="absolute left-[calc(50%+0.7rem)] top-3 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
             Higher Maneuverability
           </span>
           {/* -y : lower maneuverability (bottom end of the vertical axis) */}
-          <span className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+          <span className="absolute bottom-3 left-[calc(50%+0.7rem)] whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
             Lower Maneuverability
           </span>
 
