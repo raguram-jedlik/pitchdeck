@@ -17,6 +17,7 @@ import { brand } from "@/data/jedlikData";
 const SECTIONS = [
   { id: "snapshot", label: "Snapshot" },
   { id: "prototypes", label: "Prototypes" },
+  { id: "validation", label: "Topic validation" },
   { id: "product", label: "Product" },
   { id: "specifications", label: "Vehicle specifications" },
   { id: "model", label: "Business model" },

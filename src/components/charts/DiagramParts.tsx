@@ -10,6 +10,9 @@ const INK = "#000000";
  * CanvasWheel — the nine-block business model canvas drawn as a radial
  * diagram rather than a flat grid. Blocks sit around a circle with a
  * central hub. Hovering a block highlights it and its spokes.
+ *
+ * Labels are wrapped onto short lines and set inside generous circles so
+ * nothing ever bleeds past the circle edge. Titles are never truncated.
  */
 export function CanvasWheel({
   blocks,
@@ -21,20 +24,45 @@ export function CanvasWheel({
   const [active, setActive] = useState<number | null>(null);
 
   const n = blocks.length;
-  const R = 118;
-  const C = 160;
-  const cx = 160;
-  const cy = 160;
+  const R = 132;
+  const C = 180;
+  const cx = 180;
+  const cy = 180;
 
   const pos = (i: number) => {
     const a = (i / n) * Math.PI * 2 - Math.PI / 2;
     return { x: cx + Math.cos(a) * R, y: cy + Math.sin(a) * R };
   };
 
+  /**
+   * Split a block title into at most two lines that each fit inside a
+   * 30px-radius circle. Words longer than the line budget are kept whole
+   * rather than chopped, so no label ever shows an ellipsis.
+   */
+  const wrap = (title: string): string[] => {
+    const words = title.split(" ");
+    if (words.length === 1) return [title];
+
+    const lines: string[] = [];
+    let current = "";
+    for (const w of words) {
+      const candidate = current ? `${current} ${w}` : w;
+      // ~10 characters per line at the rendered size keeps text inside.
+      if (candidate.length > 11 && current) {
+        lines.push(current);
+        current = w;
+      } else {
+        current = candidate;
+      }
+    }
+    if (current) lines.push(current);
+    return lines.slice(0, 2);
+  };
+
   return (
     <div ref={ref} className="grid gap-8 lg:grid-cols-[auto_1fr] lg:items-center">
-      <div className="relative mx-auto w-full max-w-[320px] shrink-0">
-        <svg viewBox="0 0 320 320" className="w-full" role="img" aria-label="Business model canvas">
+      <div className="relative mx-auto w-full max-w-[380px] shrink-0">
+        <svg viewBox="0 0 360 360" className="w-full" role="img" aria-label="Business model canvas">
           {/* spokes */}
           {blocks.map((b, i) => {
             const p = pos(i);
@@ -58,7 +86,7 @@ export function CanvasWheel({
           <motion.circle
             cx={cx}
             cy={cy}
-            r="44"
+            r="48"
             fill="#FFFFFF"
             stroke={INK}
             strokeWidth="1.5"
@@ -72,7 +100,7 @@ export function CanvasWheel({
             y={cy - 4}
             textAnchor="middle"
             className="fill-[#000000] font-display"
-            fontSize="12"
+            fontSize="13"
             fontWeight="700"
             letterSpacing="0.06em"
           >
@@ -80,10 +108,10 @@ export function CanvasWheel({
           </text>
           <text
             x={cx}
-            y={cy + 13}
+            y={cy + 14}
             textAnchor="middle"
             className="fill-[#6B6B6B] font-display"
-            fontSize="9"
+            fontSize="9.5"
             letterSpacing="0.14em"
           >
             E-POD
@@ -93,6 +121,9 @@ export function CanvasWheel({
           {blocks.map((b, i) => {
             const p = pos(i);
             const isActive = active === i;
+            const lines = wrap(b.title);
+            const lineHeight = 10;
+            const startY = p.y - ((lines.length - 1) * lineHeight) / 2;
             return (
               <motion.g
                 key={b.title}
@@ -106,23 +137,26 @@ export function CanvasWheel({
                 <circle
                   cx={p.x}
                   cy={p.y}
-                  r={isActive ? 25 : 21}
+                  r={isActive ? 32 : 28}
                   fill={isActive ? RED : "#FFFFFF"}
                   stroke={isActive ? RED : INK}
                   strokeWidth="1.5"
                 />
-                <text
-                  x={p.x}
-                  y={p.y + 1}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  className="font-display"
-                  fontSize="8.5"
-                  fontWeight="700"
-                  fill={isActive ? "#FFFFFF" : INK}
-                >
-                  {b.title.length > 14 ? b.title.slice(0, 13) + "…" : b.title}
-                </text>
+                {lines.map((line, li) => (
+                  <text
+                    key={line + li}
+                    x={p.x}
+                    y={startY + li * lineHeight}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    className="font-display"
+                    fontSize="9"
+                    fontWeight="700"
+                    fill={isActive ? "#FFFFFF" : INK}
+                  >
+                    {line}
+                  </text>
+                ))}
               </motion.g>
             );
           })}
@@ -157,8 +191,8 @@ export function CanvasWheel({
 }
 
 /**
- * StageTimeline — the go-to-market path drawn as a rising staircase with
- * a connecting line, showing scale growing stage by stage.
+ * StageTimeline — the go-to-market path shown as a set of stage cards.
+ * The rising staircase graphic was removed; the cards carry the story.
  */
 export function StageTimeline({
   stages,
@@ -167,82 +201,25 @@ export function StageTimeline({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const n = stages.length;
 
   return (
-    <div ref={ref} className="relative">
-      <svg
-        viewBox={`0 0 ${(n - 1) * 200 + 80} 210`}
-        className="hidden w-full md:block"
-        role="img"
-        aria-label="Go to market stages"
-      >
-        {stages.map((s, i) => {
-          const x = 40 + i * 200;
-          const y = 180 - (i / (n - 1)) * 130;
-          return (
-            <g key={s.stage}>
-              {i > 0 ? (
-                <motion.line
-                  x1={x - 200}
-                  y1={180 - ((i - 1) / (n - 1)) * 130}
-                  x2={x}
-                  y2={y}
-                  stroke={INK}
-                  strokeWidth="1.5"
-                  strokeDasharray="4 3"
-                  initial={{ pathLength: 0 }}
-                  animate={inView ? { pathLength: 1 } : { pathLength: 0 }}
-                  transition={{ duration: 0.7, delay: 0.2 + i * 0.15 }}
-                />
-              ) : null}
-              <motion.circle
-                cx={x}
-                cy={y}
-                r="16"
-                fill={i === n - 1 ? RED : "#FFFFFF"}
-                stroke={i === n - 1 ? RED : INK}
-                strokeWidth="1.5"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={inView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-                transition={{ duration: 0.5, delay: 0.15 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                style={{ transformOrigin: `${x}px ${y}px` }}
-              />
-              <text
-                x={x}
-                y={y + 3}
-                textAnchor="middle"
-                dominantBaseline="middle"
-                className="font-display"
-                fontSize="10"
-                fontWeight="700"
-                fill={i === n - 1 ? "#FFFFFF" : INK}
-              >
-                {i + 1}
-              </text>
-            </g>
-          );
-        })}
-      </svg>
-
-      <div className="mt-6 grid gap-px border border-rule bg-rule md:grid-cols-2 lg:grid-cols-4">
-        {stages.map((s, i) => (
-          <motion.div
-            key={s.stage}
-            className="bg-white p-6"
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-          >
-            <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-red">
-              Stage {i + 1}
-            </p>
-            <p className="mt-2 font-display text-lg font-bold tracking-tight text-ink">{s.stage}</p>
-            <p className="mt-3 font-display text-sm font-semibold text-ink">{s.scale}</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted">{s.detail}</p>
-          </motion.div>
-        ))}
-      </div>
+    <div ref={ref} className="grid gap-px border border-rule bg-rule md:grid-cols-2 lg:grid-cols-4">
+      {stages.map((s, i) => (
+        <motion.div
+          key={s.stage}
+          className="bg-white p-6"
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+        >
+          <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-red">
+            Stage {i + 1}
+          </p>
+          <p className="mt-2 font-display text-lg font-bold tracking-tight text-ink">{s.stage}</p>
+          <p className="mt-3 font-display text-sm font-semibold text-ink">{s.scale}</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted">{s.detail}</p>
+        </motion.div>
+      ))}
     </div>
   );
 }

@@ -66,6 +66,112 @@ export const valueProposition = [
   "Automotive-grade safety",
 ];
 
+// ---------- Topic validation — unsolicited inbound proof ----------
+//
+// Real reactions to the public launch, captured as screenshots. The two
+// inbound-email screenshots are published with the sender's address blurred;
+// the recipient line and message body are left intact so the message reads
+// as a genuine enquiry. Nothing here is written copy — each tile is a
+// screenshot of a real post or a real email.
+
+export interface ValidationTile {
+  src: string;
+  alt: string;
+  /** Which of the two collage groups this tile belongs to. */
+  group: "social" | "email";
+  /** Grid span on large screens. */
+  span?: "wide" | "tall" | "full";
+}
+
+export const validationTiles: ValidationTile[] = [
+  {
+    src: "/assets/validation/linkedin-1.png",
+    alt: "LinkedIn comment describing the enclosed electric two-wheeler as a game-changer for city commuting",
+    group: "social",
+    span: "wide",
+  },
+  {
+    src: "/assets/validation/linkedin-2.png",
+    alt: "LinkedIn comment congratulating the team",
+    group: "social",
+  },
+  {
+    src: "/assets/validation/linkedin-3.png",
+    alt: "LinkedIn comment encouraging the team to take the vehicle to the MVP and production, and asking for a roof for heat, sun and dust protection",
+    group: "social",
+    span: "tall",
+  },
+  {
+    src: "/assets/validation/linkedin-4.png",
+    alt: "LinkedIn comment on the e-POD challenging the assumption that urban mobility must choose between two-wheeler agility and four-wheeler protection",
+    group: "social",
+    span: "wide",
+  },
+  {
+    src: "/assets/validation/linkedin-5.png",
+    alt: "LinkedIn comment saying the product is great",
+    group: "social",
+  },
+  {
+    src: "/assets/validation/linkedin-6.png",
+    alt: "LinkedIn comment noting price is key and that Europe and cold-winter countries need the product",
+    group: "social",
+  },
+  {
+    src: "/assets/validation/linkedin-7.png",
+    alt: "LinkedIn comment saying the next generation will love this product",
+    group: "social",
+    span: "wide",
+  },
+  {
+    src: "/assets/validation/linkedin-8.png",
+    alt: "LinkedIn comment saying the vehicle helps with traffic congestion and pollution, and calling it a great innovation",
+    group: "social",
+    span: "tall",
+  },
+  {
+    src: "/assets/validation/linkedin-9.png",
+    alt: "LinkedIn comment saying comfort is a smart angle because most electric vehicles in India still lead with range alone, and that city commuters care about posture, storage and daily ease more than spec sheets",
+    group: "social",
+  },
+  {
+    src: "/assets/validation/linkedin-10.png",
+    alt: "LinkedIn comments with a mix of reactions, one calling the product much needed and a Gr8 news, one calling it a nice concept, and one calling it amazing for police patrol, delivery professionals and micro ambulance use cases",
+    group: "social",
+    span: "tall",
+  },
+  {
+    src: "/assets/validation/linkedin-11.png",
+    alt: "LinkedIn comment saying an enclosed two-wheeler solves real problems for Chennai rain and heat, and a second comment suggesting the battery be offered as a service instead of bundled into the sticker price",
+    group: "social",
+    span: "wide",
+  },
+  {
+    src: "/assets/validation/linkedin-12.png",
+    alt: "LinkedIn comments reacting to the launch with hearts and the word amazing",
+    group: "social",
+  },
+  {
+    src: "/assets/validation/mail-10.png",
+    alt: "Inbound email congratulating the team on the product and looking forward to the launch, with the sender's address blurred",
+    group: "email",
+    span: "wide",
+  },
+  {
+    src: "/assets/validation/mail-9.png",
+    alt: "Inbound email from an industry reader who saw the vision and wants to be on the line for a collaboration, with the sender's address blurred",
+    group: "email",
+    span: "wide",
+  },
+];
+
+export const validationHeadline = [
+  { label: "Public reactions", value: "12 unsolicited" },
+  { label: "Inbound emails", value: "2" },
+  { label: "Enquiry type", value: "Collaboration, purchase, launch watch" },
+  { label: "Source", value: "LinkedIn and direct email" },
+];
+
 // ---------- Section 05 — Business model canvas ----------
 
 export const canvasBlocks = [

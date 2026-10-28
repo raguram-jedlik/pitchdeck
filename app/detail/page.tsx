@@ -6,6 +6,8 @@ import {
   prototypeBuilds,
   vehicleSpecs,
   valueProposition,
+  validationTiles,
+  validationHeadline,
   canvasBlocks,
   revenueStreams,
   bomRows,
@@ -31,13 +33,24 @@ import {
   DonutChart,
   LineChart,
 } from "@/components/charts/ChartParts";
-import { SpecGauge, SpecTile } from "@/components/charts/SpecVisuals";
+import { SpecTile } from "@/components/charts/SpecVisuals";
 import {
   CanvasWheel,
   CompareBars,
   StageTimeline,
   TaktChart,
 } from "@/components/charts/DiagramParts";
+import ValidationCollage from "@/components/charts/ValidationCollage";
+import { IconStat, PrototypeCard, ValuePropStrip } from "@/components/charts/IconStats";
+
+/**
+ * Founders are the people who built the company, so they are highlighted in
+ * red on the ownership chart. Roles are written out in full in the data
+ * ("Founder and CEO", "Co-founder and CTO", ...), so both spellings count.
+ */
+function isFounder(kind: string): boolean {
+  return /(^|co-)founder/i.test(kind);
+}
 
 export const metadata: Metadata = {
   title: `${brand.name} — Detailed Information`,
@@ -203,9 +216,9 @@ export default function DetailPage() {
         title="Where the company stands today"
         lede="Two physical prototypes built and driven. A granted patent, a second filing published, and a funded plan to take both to a finished vehicle."
       >
-        <div className="grid grid-cols-2 gap-px border border-rule bg-rule md:grid-cols-4">
-          {snapshot.map((s) => (
-            <Stat key={s.label} label={s.label} value={s.value} />
+        <div className="grid grid-cols-2 gap-px border border-rule bg-rule md:grid-cols-3 lg:grid-cols-5">
+          {snapshot.map((s, i) => (
+            <IconStat key={s.label} label={s.label} value={s.value} index={i} />
           ))}
         </div>
       </Section>
@@ -219,45 +232,59 @@ export default function DetailPage() {
         lede="Alpha and Beta. Beta drove under its own power on public roads."
       >
         <div className="grid gap-6 md:grid-cols-2">
-          {prototypeBuilds.map((b) => (
-            <div key={b.name} className="border border-rule bg-white p-6">
-              <span className="font-display text-2xl font-bold tracking-tight text-ink">
-                {b.name}
-              </span>
-              <p className="mt-4 text-sm leading-relaxed text-muted">{b.detail}</p>
-            </div>
+          {prototypeBuilds.map((b, i) => (
+            <PrototypeCard key={b.name} name={b.name} detail={b.detail} index={i} />
           ))}
         </div>
 
       </Section>
 
-      {/* ---------- 03 Product ---------- */}
+      {/* ---------- 03 Topic validation ---------- */}
+      <Section
+        id="validation"
+        index="03"
+        eyebrow="Topic validation"
+        title="The market answered before we did"
+        lede="Unsolicited reactions to the public launch, captured as they arrived. Every tile below is a real post or a real email — nothing here is written copy."
+      >
+        <div className="grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
+          {validationHeadline.map((v) => (
+            <Stat key={v.label} label={v.label} value={v.value} />
+          ))}
+        </div>
+
+        <div className="mt-12">
+          <ValidationCollage tiles={validationTiles} />
+        </div>
+
+        <Note>
+          The reactions cluster on three things: price, protection from heat and
+          dust, and the fact that the vehicle does not force a choice between
+          two-wheeler agility and four-wheeler protection. The inbound emails
+          are warmer still — both ask to be on the line for the launch.
+        </Note>
+      </Section>
+
+      {/* ---------- 04 Product ---------- */}
       <Section
         id="product"
-        index="03"
+        index="04"
         eyebrow="Product"
         title="What the e-POD is"
         lede="A fully enclosed two-wheeled electric vehicle. Car-grade safety and weather protection at two-wheeler scale."
       >
         <div>
           <p className="eyebrow">What it promises</p>
-          <ul className="mt-5 space-y-3">
-            {valueProposition.map((v) => (
-              <li key={v} className="flex items-start gap-3 border-b border-rule pb-3">
-                <span className="dot mt-1.5 shrink-0" />
-                <span className="font-display text-sm font-semibold tracking-tight text-ink">
-                  {v}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-5">
+            <ValuePropStrip items={valueProposition} />
+          </div>
         </div>
       </Section>
 
-      {/* ---------- 04 Vehicle specifications ---------- */}
+      {/* ---------- 05 Vehicle specifications ---------- */}
       <Section
         id="specifications"
-        index="04"
+        index="05"
         eyebrow="Vehicle specifications"
         title="Technical specifications"
         lede="The measured and targeted specifications of the e-POD."
@@ -267,24 +294,12 @@ export default function DetailPage() {
             <SpecTile key={s.spec} spec={s.spec} value={s.value} index={i} />
           ))}
         </div>
-
-        <div className="mt-10 grid gap-4 sm:grid-cols-3">
-          <SpecGauge label="Top speed" value={120} display="120" max={140} unit="km/hr" />
-          <SpecGauge label="Range" value={200} display="200" max={240} unit="km" />
-          <SpecGauge
-            label="Localisation"
-            value={90}
-            display="90"
-            max={100}
-            unit="% built in India"
-          />
-        </div>
       </Section>
 
-      {/* ---------- 05 Business model ---------- */}
+      {/* ---------- 06 Business model ---------- */}
       <Section
         id="model"
-        index="05"
+        index="06"
         eyebrow="Business model"
         title="How the business is put together"
         lede="The nine blocks of the business model canvas, as the founders have framed them."
@@ -292,10 +307,10 @@ export default function DetailPage() {
         <CanvasWheel blocks={canvasBlocks} />
       </Section>
 
-      {/* ---------- 06 Revenue mix ---------- */}
+      {/* ---------- 07 Revenue mix ---------- */}
       <Section
         id="revenue"
-        index="06"
+        index="07"
         eyebrow="Revenue mix"
         title="Where the money comes from"
         lede="Vehicle sales carry the business. The rest is the recurring layer that builds on top of a growing fleet."
@@ -330,10 +345,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 07 Unit economics ---------- */}
+      {/* ---------- 08 Unit economics ---------- */}
       <Section
         id="economics"
-        index="07"
+        index="08"
         eyebrow="Unit economics"
         title="What one vehicle costs, and what it earns"
         lede="The full material bill of materials, and where cost lands as volume scales."
@@ -425,10 +440,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 08 Manufacturing ---------- */}
+      {/* ---------- 09 Manufacturing ---------- */}
       <Section
         id="manufacturing"
-        index="08"
+        index="09"
         eyebrow="Manufacturing"
         title="The dark factory"
         lede={darkFactory.sub}
@@ -509,10 +524,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 09 Go to market ---------- */}
+      {/* ---------- 10 Go to market ---------- */}
       <Section
         id="gtm"
-        index="09"
+        index="10"
         eyebrow="Go to market"
         title="The path from pilot to break-even"
         lede="Four stages, each with a different scale and a different commercial model."
@@ -520,10 +535,10 @@ export default function DetailPage() {
         <StageTimeline stages={goToMarket} />
       </Section>
 
-      {/* ---------- 10 The round ---------- */}
+      {/* ---------- 11 The round ---------- */}
       <Section
         id="round"
-        index="10"
+        index="11"
         eyebrow="The round"
         title="₹7 crore, and exactly what it buys"
         lede="Every rupee is assigned to a named milestone. This is the plan, not the intention."
@@ -574,20 +589,20 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 11 Cap table ---------- */}
+      {/* ---------- 12 Cap table ---------- */}
       <Section
         id="captable"
-        index="11"
+        index="12"
         eyebrow="Cap table"
         title="Who owns the company"
         lede="Founders hold 87%. The incubator and the three angels hold the balance."
       >
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
           <DonutChart
-            slices={capTable.map((h, i) => ({
+            slices={capTable.map((h) => ({
               label: h.name,
               value: h.percent,
-              color: h.kind.startsWith("Founder") ? "ink" : i === capTable.length - 1 ? "red" : "muted",
+              color: isFounder(h.kind) ? "red" : "ink",
             }))}
             centreLabel="Founders hold"
             centreValue="87%"
@@ -598,14 +613,20 @@ export default function DetailPage() {
               <div key={h.name}>
                 <div className="flex items-baseline justify-between gap-4">
                   <div>
-                    <span className="text-sm font-medium text-ink">{h.name}</span>
+                    <span
+                      className={`text-sm font-medium ${
+                        isFounder(h.kind) ? "text-red" : "text-ink"
+                      }`}
+                    >
+                      {h.name}
+                    </span>
                     <span className="ml-2 text-xs text-muted">{h.kind}</span>
                   </div>
                   <span className="font-display text-sm font-bold text-ink">{h.percent}%</span>
                 </div>
                 <AnimatedBar
                   percent={h.percent}
-                  color={h.kind.startsWith("Founder") ? "ink" : "red"}
+                  color={isFounder(h.kind) ? "red" : "ink"}
                   height="h-2"
                   className="mt-1.5"
                 />
@@ -613,29 +634,12 @@ export default function DetailPage() {
             ))}
           </div>
         </div>
-
-        <div className="mt-10 border border-rule bg-white p-6">
-          <p className="eyebrow">Reading the table</p>
-          <div className="mt-4 grid gap-4 md:grid-cols-2">
-            <p className="text-sm leading-relaxed text-muted">
-              The three founders came together as a batch and are the core of the
-              company. Raguram and Muthuram are full-time; Nishanthraj is part-time. The
-              Anna University incubator holds 3% and has hosted the company&rsquo;s GPU
-              server from its Guindy campus.
-            </p>
-            <p className="text-sm leading-relaxed text-muted">
-              The three angel investors — Arihant, Ambili Arun Kumar and Poornima —
-              hold 10% between them, subscribed under the share subscription and
-              shareholders&rsquo; agreement.
-            </p>
-          </div>
-        </div>
       </Section>
 
-      {/* ---------- 12 Operations ---------- */}
+      {/* ---------- 13 Operations ---------- */}
       <Section
         id="operations"
-        index="12"
+        index="13"
         eyebrow="Operations and supply chain"
         title="How the company operates"
         lede="Deliberately asset-light where it does not need to be, and rigorous where safety demands it."
@@ -652,10 +656,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 13 IP ---------- */}
+      {/* ---------- 14 IP ---------- */}
       <Section
         id="ip"
-        index="13"
+        index="14"
         eyebrow="Intellectual property"
         title="Two patents"
         lede="One granted, one published and under examination. International filings are funded by this round."
@@ -681,10 +685,10 @@ export default function DetailPage() {
         </div>
       </Section>
 
-      {/* ---------- 14 Projection ---------- */}
+      {/* ---------- 15 Projection ---------- */}
       <Section
         id="projection"
-        index="14"
+        index="15"
         eyebrow="Financial projection"
         title="Fourteen years, five milestones"
         lede="Figures in USD at ₹83 to the dollar. This is the forecast that sits behind the round."
