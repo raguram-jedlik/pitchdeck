@@ -7,14 +7,19 @@ import { quadrantPoints, brand } from "@/data/jedlikData";
  * Positioning map — true 4-quadrant scatter graph with vehicle images for
  * rivals and a question-mark silhouette for Jedlik. Optimised for mobile:
  * the chart scales down cleanly and Jedlik's silhouette is positioned in
- * the only empty quadrant (top-right, the highest comfort / lowest
+ * the only empty quadrant (top-right, the highest comfort / highest
  * maneuverability quadrant).
  *
- * Quadrant labels (screen reading order: TL, TR, BL, BR):
- *   Q1 TL — High Maneuver, Low Comfort
- *   Q2 TR — High Comfort, Low Maneuver   ← Jedlik
- *   Q3 BR — Low Maneuver, High Comfort
- *   Q4 BL — Low Maneuver, Low Comfort
+ * Axis convention: comfort is the x axis, maneuverability is the y axis.
+ * +x (right) = higher comfort, -x (left) = lower comfort, +y (top) = higher
+ * maneuverability, -y (bottom) = lower maneuverability.
+ *
+ * Corner labels (screen reading order: TL, TR, BL, BR) — each names the
+ * quadrant by the side of the chart its own axis points to:
+ *   Q1 TL — Lower Comfort, High Maneuverability
+ *   Q2 TR — Higher Comfort, High Maneuverability   ← Jedlik
+ *   Q3 BL — Lower Comfort, Low Maneuverability
+ *   Q4 BR — Higher Comfort, Low Maneuverability
  */
 export default function QuadrantChart() {
   const rivals = quadrantPoints.filter((p) => !p.isJedlik);
@@ -53,20 +58,16 @@ export default function QuadrantChart() {
             </svg>
           </div>
 
-          {/* axis titles — small paper backing keeps the axis line from
-              visually striking through the text */}
-          <span className="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap bg-paper px-1 font-display text-[0.6rem] font-bold uppercase tracking-[0.1em] text-red md:-top-8 md:text-sm">
-            Maneuverability
-          </span>
-          <span className="absolute top-1/2 right-0 -translate-y-1/2 whitespace-nowrap bg-paper px-1 font-display text-[0.6rem] font-bold uppercase tracking-[0.1em] text-red md:right-0 md:text-sm">
-            Comfort
-          </span>
-
-          {/* Quadrant corner labels (screen reading order: TL, TR, BL, BR) */}
+          {/* Quadrant corner labels (screen reading order: TL, TR, BL, BR).
+              Comfort is read on the x axis (left/right), maneuverability on
+              the y axis (top/bottom), so each label sits on the edge of its
+              own axis. +x (right) = higher comfort, -x (left) = lower
+              comfort, +y (top) = higher maneuverability, -y (bottom) = lower
+              maneuverability. */}
           <span className="absolute left-2 top-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:left-3 md:top-3 md:text-xs">
             Lower Comfort
           </span>
-          <span className="absolute right-2 top-[34%] whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:right-3 md:text-xs">
+          <span className="absolute right-2 top-2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:right-3 md:top-3 md:text-xs">
             Higher Comfort
           </span>
           <span className="absolute bottom-2 left-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:bottom-3 md:left-3 md:text-xs">
