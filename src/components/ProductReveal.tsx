@@ -4,17 +4,18 @@ import { motion } from "framer-motion";
 import { productSpecs } from "@/data/jedlikData";
 
 /**
- * The tease + reveal — split into two clearly defined blocks.
+ * The tease + reveal — split into three clearly defined blocks.
  *
  *   Block A: Plain white tease section with the three lines. Standard
  *            scroll, not pinned.
  *
- *   Block B: A viewport-tall white stage with the uploaded e-POD PNG
- *            centred and the red E-POD wordmark stamped on top. The
- *            image and wordmark fade + scale in once on first view.
+ *   Block B: A viewport-tall white stage with the E-POD cinematic loop
+ *            running continuously. The file carries no audio stream and
+ *            the element is muted, so playback is silent by construction.
+ *            The stage fades + scales in once on first view.
  *
- *   Block C: Callouts as a numbered list — sits BELOW the stage so it
- *            always appears after the reveal completes.
+ *   Block C: The feature callouts as bullet points — sits BELOW the stage
+ *            so it always appears after the reveal completes.
  */
 export default function ProductReveal() {
   return (
@@ -65,18 +66,52 @@ export default function ProductReveal() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative mt-8 md:mt-12"
+          className="relative mt-8 w-full max-w-[900px] md:mt-12"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <picture>
-            <source media="(max-width: 767px)" srcSet="/assets/epod-reveal-mobile.jpg" />
-            <img
-              src={productSpecs.image}
-              alt="The Jedlik E-POD — a fully enclosed, two-wheeled electric vehicle"
-              className="block h-auto w-[88vw] max-w-[820px] object-contain md:w-[70vw]"
-            />
-          </picture>
+          <div className="relative overflow-hidden bg-paper-3">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              poster={productSpecs.poster}
+              aria-label="The Jedlik E-POD driving on a wet city road at sunset"
+              className="block h-auto w-full select-none object-cover"
+            >
+              <source src={productSpecs.video} type="video/mp4" />
+            </video>
+          </div>
         </motion.div>
+      </section>
+
+      {/* Block C — Feature callouts as bullet points, below the video */}
+      <section className="relative px-6 pb-16 md:px-10 md:pb-24">
+        <div className="mx-auto max-w-deck">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="eyebrow">Section 06 — What the E-POD Comes With</p>
+            <ul className="mt-6 grid gap-x-10 gap-y-5 sm:grid-cols-2 md:mt-8">
+              {productSpecs.features.map((f) => (
+                <li key={f.label} className="flex gap-3">
+                  <span className="dot mt-2 shrink-0" aria-hidden="true" />
+                  <span>
+                    <span className="block text-sm font-semibold uppercase tracking-tight text-ink md:text-base">
+                      {f.label}
+                    </span>
+                    <span className="mt-1 block text-sm leading-relaxed text-muted">
+                      {f.note}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
       </section>
     </>
   );

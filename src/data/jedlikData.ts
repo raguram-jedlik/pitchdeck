@@ -163,6 +163,39 @@ export const productSpecs = {
     "Range 200 km",
     "Pushback Seats",
   ],
+  // The reveal stage now runs the cinematic driving loop continuously.
+  // No audio stream is muxed into the file, and the <video> is muted too.
+  video: "/assets/epod-reveal-loop.mp4",
+  // Poster frame — the first frame of the loop, shown before playback starts.
+  poster: "/assets/epod-reveal-poster.jpg",
+  // Feature callouts lifted off the original annotated still, with a short
+  // plain-language note for each so the bullets read on their own.
+  features: [
+    {
+      label: "Fully Enclosed",
+      note: "A closed cabin with a roof and glass — all-weather protection.",
+    },
+    {
+      label: "Airbags",
+      note: "Automotive-grade safety restraint built into the cabin.",
+    },
+    {
+      label: "Air Conditioning",
+      note: "A cooled cabin for hot city traffic.",
+    },
+    {
+      label: "Top Speed 120 km/hr",
+      note: "City-legal pace with headroom for highway overtakes.",
+    },
+    {
+      label: "200 km Range",
+      note: "A full working day of commuting on a single charge.",
+    },
+    {
+      label: "Pushback Seats",
+      note: "Seat travel that adjusts to the rider, not the other way round.",
+    },
+  ],
   // Uploaded PNG with transparent background, sized to fit on mobile + desktop
   image: "/assets/epod-reveal-uploaded.jpg",
   blurImage: "/assets/epod-blur.jpg",
