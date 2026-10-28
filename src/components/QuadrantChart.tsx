@@ -58,23 +58,31 @@ export default function QuadrantChart() {
             </svg>
           </div>
 
-          {/* Quadrant corner labels (screen reading order: TL, TR, BL, BR).
-              Comfort is read on the x axis (left/right), maneuverability on
-              the y axis (top/bottom), so each label sits on the edge of its
-              own axis. +x (right) = higher comfort, -x (left) = lower
-              comfort, +y (top) = higher maneuverability, -y (bottom) = lower
+          {/* Axis-end labels. This is a cross of two axes, not four
+              quadrants, so each label sits at the END of the axis it names
+              (left/right ends of the horizontal x axis = comfort,
+              top/bottom ends of the vertical y axis = maneuverability).
+              +x (right) = higher comfort, -x (left) = lower comfort,
+              +y (top) = higher maneuverability, -y (bottom) = lower
               maneuverability. */}
-          <span className="absolute left-2 top-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:left-3 md:top-3 md:text-xs">
+          {/* -x : lower comfort (left end of the horizontal axis).
+              Offset down a little so it clears the arrowhead at x=0. */}
+          <span className="absolute left-1 top-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
             Lower Comfort
           </span>
-          <span className="absolute right-2 top-2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:right-3 md:top-3 md:text-xs">
+          {/* +x : higher comfort (right end of the horizontal axis) */}
+          <span className="absolute right-1 top-1/2 -translate-y-1/2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
             Higher Comfort
           </span>
-          <span className="absolute bottom-2 left-2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:bottom-3 md:left-3 md:text-xs">
-            Lower Maneuverability
-          </span>
-          <span className="absolute bottom-2 right-2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:bottom-3 md:right-3 md:text-xs">
+          {/* +y : higher maneuverability (top end of the vertical axis).
+              Held just to the right of the axis line so the vertical rule
+              stays readable, and below the arrowhead. */}
+          <span className="absolute left-1/2 top-3 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
             Higher Maneuverability
+          </span>
+          {/* -y : lower maneuverability (bottom end of the vertical axis) */}
+          <span className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+            Lower Maneuverability
           </span>
 
           {/* rivals — the colored dot is the actual data marker and sits
