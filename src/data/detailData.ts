@@ -138,12 +138,6 @@ export const validationTiles: ValidationTile[] = [
     ratio: 696 / 477,
   },
   {
-    src: "/assets/validation/linkedin-9.png",
-    alt: "LinkedIn comment saying comfort is a smart angle because most electric vehicles in India still lead with range alone, and that city commuters care about posture, storage and daily ease more than spec sheets",
-    group: "social",
-    ratio: 568 / 175,
-  },
-  {
     src: "/assets/validation/linkedin-10.png",
     alt: "LinkedIn comments with a mix of reactions, one calling the product much needed and a Gr8 news, one calling it a nice concept, and one calling it amazing for police patrol, delivery professionals and micro ambulance use cases",
     group: "social",
