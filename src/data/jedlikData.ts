@@ -417,10 +417,6 @@ export const investCopy = {
   button: "Invest in Us",
   heading: "Invest in Jedlik.",
   sub: "Leave your email and we'll send the full investor pack and set up a call.",
-  /** Heading shown when the dialog is opened from the detail page's closing
-   *  section. The button there already says "Invest in Jedlik", so repeating
-   *  it here would read as the same line twice in one interaction. */
-  headingDetail: "Request the investor pack.",
   placeholder: "you@firm.com",
   submit: "Submit",
   cancel: "Cancel",

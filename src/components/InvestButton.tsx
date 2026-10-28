@@ -22,17 +22,12 @@ type Step = "closed" | "form" | "done";
 export default function InvestButton({
   className = "",
   label,
-  heading,
 }: {
   /** Extra classes for the trigger button. Use to override the nav margins
    *  when the button is placed somewhere other than the header. */
   className?: string;
   /** Overrides the default button text (investCopy.button). */
   label?: string;
-  /** Overrides the dialog heading (investCopy.heading). Use this when the
-   *  trigger button already names the action, so the two do not read as the
-   *  same line twice in one interaction. */
-  heading?: string;
 }) {
   const [step, setStep] = useState<Step>("closed");
   const [email, setEmail] = useState("");
@@ -126,7 +121,7 @@ export default function InvestButton({
               {step === "form" ? (
                 <>
                   <h2 id="invest-heading" className="display-md text-ink">
-                    {heading ?? investCopy.heading}
+                    {investCopy.heading}
                   </h2>
                   <p className="mt-3 text-base text-muted">{investCopy.sub}</p>
 
@@ -143,7 +138,7 @@ export default function InvestButton({
                       className="pointer-events-none absolute h-0 w-0 opacity-0"
                     />
                     <label htmlFor="invest-email" className="sr-only">
-                      {heading ?? investCopy.heading}
+                      {investCopy.heading}
                     </label>
                     <input
                       ref={inputRef}
