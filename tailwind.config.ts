@@ -35,6 +35,8 @@ const config: Config = {
       fontFamily: {
         display: ["var(--font-display)"],
         body: ["var(--font-body)"],
+        headline: ["var(--font-headline)"],
+        label: ["var(--font-label)"],
       },
       maxWidth: {
         deck: "1180px",

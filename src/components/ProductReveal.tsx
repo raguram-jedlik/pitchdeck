@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { productSpecs } from "@/data/jedlikData";
+import RevealHeadline from "@/components/RevealHeadline";
 
 /**
  * The tease + reveal — split into three clearly defined blocks.
@@ -81,6 +82,7 @@ export default function ProductReveal() {
             >
               <source src={productSpecs.video} type="video/mp4" />
             </video>
+            <RevealHeadline />
           </div>
         </motion.div>
       </section>
