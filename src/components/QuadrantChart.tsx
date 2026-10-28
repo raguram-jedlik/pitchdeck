@@ -35,10 +35,16 @@ export default function QuadrantChart() {
 
         {/* Chart container — square aspect keeps the scatter readable on mobile.
             Percent-based left/top on plotted points below are relative to
-            this box's own edges, so it stays padding-free; label breathing
-            room comes from the outer wrapper's margin instead. */}
-        <div className="relative mx-auto mt-14 mb-10 aspect-square w-full max-w-[640px] sm:mt-14 sm:mb-12">
-          {/* axes — double-headed arrows, black */}
+            the inner square's own edges, so it stays padding-free.
+
+            The four axis labels live OUTSIDE that square, in the wrapper
+            below, so they sit clear of the arrowheads: the comfort labels
+            run off past the left/right arrow tips, and the maneuverability
+            labels sit above the top tip / below the bottom tip. The square
+            is inset by the px-* padding so the labels have room to sit in. */}
+        <div className="relative mx-auto mt-16 mb-16 w-full max-w-[640px] px-7 py-7 sm:mt-20 sm:mb-20 sm:px-9 sm:py-8">
+          <div className="relative aspect-square w-full">
+            {/* axes — double-headed arrows, black */}
           <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2">
             <svg className="absolute -top-2 left-1/2 -translate-x-1/2" width="12" height="8" viewBox="0 0 12 8">
               <path d="M6 0 L12 8 H0 Z" fill="#111111" />
@@ -58,33 +64,8 @@ export default function QuadrantChart() {
             </svg>
           </div>
 
-          {/* Axis-end labels. This is a cross of two axes, not four
-              quadrants, so each label sits at the END of the axis it names
-              (left/right ends of the horizontal x axis = comfort,
-              top/bottom ends of the vertical y axis = maneuverability).
-              +x (right) = higher comfort, -x (left) = lower comfort,
-              +y (top) = higher maneuverability, -y (bottom) = lower
-              maneuverability. */}
-          {/* -x : lower comfort (left end of the horizontal axis).
-              Pushed BELOW the horizontal rule so the axis line does not
-              strike through the text. */}
-          <span className="absolute left-1 top-[calc(50%+0.6rem)] whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
-            Lower Comfort
-          </span>
-          {/* +x : higher comfort (right end of the horizontal axis) */}
-          <span className="absolute right-1 top-[calc(50%+0.6rem)] whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
-            Higher Comfort
-          </span>
-          {/* +y : higher maneuverability (top end of the vertical axis).
-              Shifted RIGHT of the vertical rule so the axis line does not
-              strike through the text. */}
-          <span className="absolute left-[calc(50%+0.7rem)] top-3 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
-            Higher Maneuverability
-          </span>
-          {/* -y : lower maneuverability (bottom end of the vertical axis) */}
-          <span className="absolute bottom-3 left-[calc(50%+0.7rem)] whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
-            Lower Maneuverability
-          </span>
+          {/* Axis-end labels live in the outer wrapper (see below) so they
+              sit clear of the arrowheads rather than on the axes. */}
 
           {/* rivals — the colored dot is the actual data marker and sits
               exactly on {left, top}; the vehicle image and name are
@@ -165,6 +146,36 @@ export default function QuadrantChart() {
               {jedlik.name}
             </span>
           </motion.div>
+
+          {/* Axis-end labels — anchored just OUTSIDE the square's edges so
+              they sit clear of the arrowheads. The comfort labels run off
+              horizontally past the left/right arrow tips; the
+              maneuverability labels sit above the top tip and below the
+              bottom tip.
+              +x (right) = higher comfort, -x (left) = lower comfort,
+              +y (top) = higher maneuverability, -y (bottom) = lower
+              maneuverability. */}
+          {/* -x : lower comfort, out past the LEFT arrow tip.
+              right-full pins the text's right edge to the square's left
+              edge, so the label runs outward to the left. */}
+          <span className="absolute right-full top-1/2 mr-2 -translate-y-1/2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+            Lower Comfort
+          </span>
+          {/* +x : higher comfort, out past the RIGHT arrow tip.
+              left-full pins the text's left edge to the square's right
+              edge, so the label runs outward to the right. */}
+          <span className="absolute left-full top-1/2 ml-2 -translate-y-1/2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+            Higher Comfort
+          </span>
+          {/* +y : higher maneuverability, above the top arrow tip */}
+          <span className="absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+            Higher Maneuverability
+          </span>
+          {/* -y : lower maneuverability, below the bottom arrow tip */}
+          <span className="absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+            Lower Maneuverability
+          </span>
+          </div>
         </div>
 
         <p className="mx-auto mt-8 max-w-xl px-2 text-center text-sm text-muted sm:px-0 md:text-base">
