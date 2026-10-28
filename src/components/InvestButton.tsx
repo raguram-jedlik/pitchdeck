@@ -19,7 +19,16 @@ import { getSessionId, getState, updateState, postCapture, EMAIL_RE } from "@/li
 
 type Step = "closed" | "form" | "done";
 
-export default function InvestButton() {
+export default function InvestButton({
+  className = "",
+  label,
+}: {
+  /** Extra classes for the trigger button. Use to override the nav margins
+   *  when the button is placed somewhere other than the header. */
+  className?: string;
+  /** Overrides the default button text (investCopy.button). */
+  label?: string;
+}) {
   const [step, setStep] = useState<Step>("closed");
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -80,9 +89,9 @@ export default function InvestButton() {
         ref={triggerRef}
         type="button"
         onClick={() => setStep(alreadyInvested ? "done" : "form")}
-        className="mr-6 mt-3 border border-red bg-red px-4 py-2 font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-paper transition-colors hover:bg-ink hover:border-ink md:mr-10 md:mt-4 md:px-5 md:py-2.5 md:text-xs"
+        className={`mr-6 mt-3 border border-red bg-red px-4 py-2 font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-paper transition-colors hover:bg-ink hover:border-ink md:mr-10 md:mt-4 md:px-5 md:py-2.5 md:text-xs ${className}`}
       >
-        {investCopy.button}
+        {label ?? investCopy.button}
       </button>
 
       <AnimatePresence>

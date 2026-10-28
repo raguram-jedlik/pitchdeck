@@ -41,6 +41,7 @@ import {
 } from "@/components/charts/DiagramParts";
 import ValidationCollage from "@/components/charts/ValidationCollage";
 import { IconStat, PrototypeCard, ValuePropStrip } from "@/components/charts/IconStats";
+import InvestButton from "@/components/InvestButton";
 
 /**
  * Founders are the people who built the company, so they are highlighted in
@@ -715,31 +716,116 @@ export default function DetailPage() {
         </Note>
       </Section>
 
-      {/* ---------- Closing ---------- */}
-      <section className="border-t border-rule bg-ink px-6 py-16 md:px-10 md:py-20">
+      {/* ---------- Closing — the ask ---------- */}
+      <section
+        id="invest"
+        className="scroll-mt-24 border-t border-rule bg-ink px-6 py-16 md:px-10 md:py-20"
+      >
         <div className="mx-auto max-w-deck">
-          <p className="eyebrow text-paper/60">Next</p>
-          <h2 className="display-lg mt-4 max-w-[18ch] text-paper">
-            Back to the short version
+          <p className="eyebrow text-paper/60">The ask</p>
+          <h2 className="display-lg mt-4 max-w-[20ch] text-paper">
+            Join us for ₹7 crore
           </h2>
-          <p className="mt-5 max-w-[52ch] text-sm leading-relaxed text-paper/70 md:text-base">
-            The deck takes two minutes. This page is the evidence behind it. If you want
-            to go deeper on any single number, ask — most of them have a full
-            calculation behind them.
+          <p className="mt-5 max-w-[58ch] text-sm leading-relaxed text-paper/70 md:text-base">
+            This page is the evidence behind every number in the short deck. If it
+            holds up, the next step is a conversation about taking the round.
+            We are raising ₹7 crore to put the vehicle on the road, fund the
+            tooling, and clear the certifications that turn a prototype into a
+            product someone can buy.
           </p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Link
-              href="/"
-              className="inline-flex items-center bg-red px-5 py-2.5 font-display text-xs font-bold uppercase tracking-[0.16em] text-paper transition-colors hover:bg-red-deep"
-            >
-              Back to the deck
-            </Link>
+
+          <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
+            <div>
+              <h3 className="font-display text-sm font-bold uppercase tracking-[0.16em] text-paper">
+                What the round buys
+              </h3>
+              <ul className="mt-6 space-y-5">
+                {[
+                  {
+                    title: "₹2.8 crore into product R&D",
+                    body: "The next vehicle, built for Indian roads and Indian weather, not an imported platform.",
+                  },
+                  {
+                    title: "₹1.75 crore into manufacturing",
+                    body: "Line setup and tooling that take us from hand-built to production volume.",
+                  },
+                  {
+                    title: "₹1.4 crore into regulatory and IP",
+                    body: "Homologation, the certifications a road vehicle needs, and the patents that protect it.",
+                  },
+                  {
+                    title: "₹1.05 crore into team and operations",
+                    body: "The people and supply chain that turn one prototype into a repeatable product.",
+                  },
+                ].map((item) => (
+                  <li key={item.title} className="border-l border-paper/20 pl-5">
+                    <p className="font-display text-sm font-bold text-paper md:text-base">
+                      {item.title}
+                    </p>
+                    <p className="mt-1.5 text-sm leading-relaxed text-paper/60">
+                      {item.body}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="lg:pt-1">
+              <div className="border border-paper/15 bg-paper/[0.03] p-7 md:p-9">
+                <p className="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-paper/50">
+                  Round size
+                </p>
+                <p className="display-lg mt-3 text-paper">₹7 Cr</p>
+                <div className="mt-7 space-y-3 border-t border-paper/15 pt-6">
+                  {[
+                    ["Monthly burn", "₹13 L"],
+                    ["Runway today", "1.5 years"],
+                    ["Cap table", "Founders 87%"],
+                    ["Next milestone", "Production vehicle"],
+                  ].map(([label, value]) => (
+                    <div
+                      key={label}
+                      className="flex items-baseline justify-between gap-6"
+                    >
+                      <span className="text-sm text-paper/60">{label}</span>
+                      <span className="font-display text-sm font-bold text-paper">
+                        {value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <InvestButton
+                  label="Invest in Jedlik"
+                  className="!m-0 !border-red !bg-red !px-6 !py-3.5 !text-xs hover:!border-paper hover:!bg-paper hover:!text-ink"
+                />
+                <p className="mt-4 text-xs leading-relaxed text-paper/50">
+                  Leave your email and we will send the data room, the full
+                  financial model, and a time to talk. If you would rather read
+                  first, the numbers are all above.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-paper/15 pt-8">
             <a
               href="#snapshot"
-              className="inline-flex items-center border border-paper/30 px-5 py-2.5 font-display text-xs font-bold uppercase tracking-[0.16em] text-paper transition-colors hover:border-paper"
+              className="font-display text-xs font-bold uppercase tracking-[0.16em] text-paper/70 transition-colors hover:text-paper"
             >
               Top of this page
             </a>
+            <Link
+              href="/"
+              className="font-display text-xs font-bold uppercase tracking-[0.16em] text-paper/70 transition-colors hover:text-paper"
+            >
+              Back to the short deck
+            </Link>
+            <p className="w-full text-xs text-paper/40 md:w-auto md:ml-auto">
+              Raguram S K · Muthuram · Nishanthraj — Jedlik Motors
+            </p>
           </div>
         </div>
       </section>
