@@ -723,43 +723,47 @@ export default function DetailPage() {
       >
         <div className="mx-auto max-w-deck">
           <p className="eyebrow text-paper/60">The ask</p>
-          <h2 className="display-lg mt-4 max-w-[20ch] text-paper">
-            Join us for ₹7 crore
+          <h2 className="display-lg mt-4 max-w-[22ch] text-paper">
+            Take the round with us
           </h2>
           <p className="mt-5 max-w-[58ch] text-sm leading-relaxed text-paper/70 md:text-base">
-            This page is the evidence behind every number in the short deck. If it
-            holds up, the next step is a conversation about taking the round.
-            We are raising ₹7 crore to put the vehicle on the road, fund the
-            tooling, and clear the certifications that turn a prototype into a
-            product someone can buy.
+            You have read the evidence. Here is what we are asking for, and what
+            happens next.
           </p>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
             <div>
               <h3 className="font-display text-sm font-bold uppercase tracking-[0.16em] text-paper">
-                What the round buys
+                What happens with your money
               </h3>
               <ul className="mt-6 space-y-5">
                 {[
                   {
-                    title: "₹2.8 crore into product R&D",
-                    body: "The next vehicle, built for Indian roads and Indian weather, not an imported platform.",
+                    step: "Now",
+                    title: "Lock the vehicle",
+                    body: "Freeze the Alpha design into a production-ready Beta and put it through homologation testing.",
                   },
                   {
-                    title: "₹1.75 crore into manufacturing",
-                    body: "Line setup and tooling that take us from hand-built to production volume.",
+                    step: "Next",
+                    title: "Stand up the line",
+                    body: "Tooling, a dark factory that needs no shift, and the suppliers already named on the operations page.",
                   },
                   {
-                    title: "₹1.4 crore into regulatory and IP",
-                    body: "Homologation, the certifications a road vehicle needs, and the patents that protect it.",
+                    step: "Then",
+                    title: "Sell it",
+                    body: "Pilot fleets first — police, delivery, ambulance — then the wider market the reactions above came from.",
                   },
                   {
-                    title: "₹1.05 crore into team and operations",
-                    body: "The people and supply chain that turn one prototype into a repeatable product.",
+                    step: "With you",
+                    title: "Report back",
+                    body: "Quarterly numbers against the milestones in the projection. No new deck required.",
                   },
                 ].map((item) => (
-                  <li key={item.title} className="border-l border-paper/20 pl-5">
-                    <p className="font-display text-sm font-bold text-paper md:text-base">
+                  <li key={item.step} className="border-l border-paper/20 pl-5">
+                    <p className="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-paper/40">
+                      {item.step}
+                    </p>
+                    <p className="mt-1 font-display text-sm font-bold text-paper md:text-base">
                       {item.title}
                     </p>
                     <p className="mt-1.5 text-sm leading-relaxed text-paper/60">
@@ -773,38 +777,33 @@ export default function DetailPage() {
             <div className="lg:pt-1">
               <div className="border border-paper/15 bg-paper/[0.03] p-7 md:p-9">
                 <p className="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-paper/50">
-                  Round size
+                  The ask
                 </p>
                 <p className="display-lg mt-3 text-paper">₹7 Cr</p>
-                <div className="mt-7 space-y-3 border-t border-paper/15 pt-6">
-                  {[
-                    ["Monthly burn", "₹13 L"],
-                    ["Runway today", "1.5 years"],
-                    ["Cap table", "Founders 87%"],
-                    ["Next milestone", "Production vehicle"],
-                  ].map(([label, value]) => (
-                    <div
-                      key={label}
-                      className="flex items-baseline justify-between gap-6"
-                    >
-                      <span className="text-sm text-paper/60">{label}</span>
-                      <span className="font-display text-sm font-bold text-paper">
-                        {value}
-                      </span>
-                    </div>
-                  ))}
+                <p className="mt-4 text-sm leading-relaxed text-paper/60">
+                  Broken down in section 11. What we want from you is an
+                  introduction, a question, or a cheque — whichever comes first.
+                </p>
+                <div className="mt-8">
+                  <InvestButton
+                    label="Invest in Jedlik"
+                    className="!m-0 !border-red !bg-red !px-6 !py-3.5 !text-xs hover:!border-paper hover:!bg-paper hover:!text-ink"
+                  />
+                  <p className="mt-4 text-xs leading-relaxed text-paper/50">
+                    Leave your email and we will send the data room, the full
+                    financial model, and a time to talk.
+                  </p>
                 </div>
               </div>
 
-              <div className="mt-8">
-                <InvestButton
-                  label="Invest in Jedlik"
-                  className="!m-0 !border-red !bg-red !px-6 !py-3.5 !text-xs hover:!border-paper hover:!bg-paper hover:!text-ink"
-                />
-                <p className="mt-4 text-xs leading-relaxed text-paper/50">
-                  Leave your email and we will send the data room, the full
-                  financial model, and a time to talk. If you would rather read
-                  first, the numbers are all above.
+              <div className="mt-8 border-t border-paper/15 pt-6">
+                <p className="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-paper/50">
+                  Prefer to start smaller?
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-paper/60">
+                  Come to the factory, ride Beta, and argue with the numbers
+                  face to face. We would rather you did that than read
+                  something you did not push on.
                 </p>
               </div>
             </div>
