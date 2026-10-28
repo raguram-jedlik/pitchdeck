@@ -719,98 +719,30 @@ export default function DetailPage() {
       {/* ---------- Closing — the ask ---------- */}
       <section
         id="invest"
-        className="scroll-mt-24 border-t border-rule bg-ink px-6 py-16 md:px-10 md:py-20"
+        className="scroll-mt-24 border-t border-rule bg-ink px-6 py-20 md:px-10 md:py-28"
       >
         <div className="mx-auto max-w-deck">
           <p className="eyebrow text-paper/60">The ask</p>
-          <h2 className="display-lg mt-4 max-w-[22ch] text-paper">
-            Take the round with us
+          <h2 className="display-lg mt-4 max-w-[18ch] text-paper">
+            ₹7 crore, and we build it
           </h2>
-          <p className="mt-5 max-w-[58ch] text-sm leading-relaxed text-paper/70 md:text-base">
-            You have read the evidence. Here is what we are asking for, and what
-            happens next.
+          <p className="mt-6 max-w-[46ch] text-sm leading-relaxed text-paper/70 md:text-base">
+            We have shown you the vehicle, the market and the plan. If it holds
+            up, take the round with us.
           </p>
 
-          <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
-            <div>
-              <h3 className="font-display text-sm font-bold uppercase tracking-[0.16em] text-paper">
-                What happens with your money
-              </h3>
-              <ul className="mt-6 space-y-5">
-                {[
-                  {
-                    step: "Now",
-                    title: "Lock the vehicle",
-                    body: "Freeze the Alpha design into a production-ready Beta and put it through homologation testing.",
-                  },
-                  {
-                    step: "Next",
-                    title: "Stand up the line",
-                    body: "Tooling, a dark factory that needs no shift, and the suppliers already named on the operations page.",
-                  },
-                  {
-                    step: "Then",
-                    title: "Sell it",
-                    body: "Pilot fleets first — police, delivery, ambulance — then the wider market the reactions above came from.",
-                  },
-                  {
-                    step: "With you",
-                    title: "Report back",
-                    body: "Quarterly numbers against the milestones in the projection. No new deck required.",
-                  },
-                ].map((item) => (
-                  <li key={item.step} className="border-l border-paper/20 pl-5">
-                    <p className="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-paper/40">
-                      {item.step}
-                    </p>
-                    <p className="mt-1 font-display text-sm font-bold text-paper md:text-base">
-                      {item.title}
-                    </p>
-                    <p className="mt-1.5 text-sm leading-relaxed text-paper/60">
-                      {item.body}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="lg:pt-1">
-              <div className="border border-paper/15 bg-paper/[0.03] p-7 md:p-9">
-                <p className="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-paper/50">
-                  The ask
-                </p>
-                <p className="display-lg mt-3 text-paper">₹7 Cr</p>
-                <p className="mt-4 text-sm leading-relaxed text-paper/60">
-                  Broken down in section 11. What we want from you is an
-                  introduction, a question, or a cheque — whichever comes first.
-                </p>
-                <div className="mt-8">
-                  <InvestButton
-                    label="Request the investor pack"
-                    heading={investCopy.headingDetail}
-                    className="!m-0 !border-red !bg-red !px-6 !py-3.5 !text-xs hover:!border-paper hover:!bg-paper hover:!text-ink"
-                  />
-                  <p className="mt-4 text-xs leading-relaxed text-paper/50">
-                    Leave your email and we will send the data room, the full
-                    financial model, and a time to talk.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-8 border-t border-paper/15 pt-6">
-                <p className="font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-paper/50">
-                  Prefer to start smaller?
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-paper/60">
-                  Come to the factory, ride Beta, and argue with the numbers
-                  face to face. We would rather you did that than read
-                  something you did not push on.
-                </p>
-              </div>
-            </div>
+          <div className="mt-10">
+            <InvestButton
+              label="Request the investor pack"
+              heading={investCopy.headingDetail}
+              className="!m-0 !border-red !bg-red !px-6 !py-3.5 !text-xs hover:!border-paper hover:!bg-paper hover:!text-ink"
+            />
+            <p className="mt-4 text-xs leading-relaxed text-paper/50">
+              Data room, financial model, and a time to talk.
+            </p>
           </div>
 
-          <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-paper/15 pt-8">
+          <div className="mt-16 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-paper/15 pt-8">
             <a
               href="#snapshot"
               className="font-display text-xs font-bold uppercase tracking-[0.16em] text-paper/70 transition-colors hover:text-paper"
