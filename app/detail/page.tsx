@@ -135,7 +135,7 @@ function DataTable({
 }) {
   return (
     <div className="-mx-6 overflow-x-auto px-6 md:mx-0 md:px-0">
-      <table className="w-full min-w-[640px] border-collapse text-left">
+      <table className="w-full min-w-[640px] border-collapse bg-paper-2 text-left">
         <thead>
           <tr>
             {head.map((h) => (
@@ -309,7 +309,7 @@ export default function DetailPage() {
 
           <div className="space-y-5">
             {revenueStreams.map((r, i) => (
-              <div key={r.label}>
+              <div key={r.label} className="bg-paper-2 px-4 py-3">
                 <div className="flex items-baseline justify-between gap-4">
                   <span className="text-sm font-medium text-ink">{r.label}</span>
                   <span className="font-display text-sm font-bold text-ink">{r.share}%</span>
@@ -668,7 +668,7 @@ export default function DetailPage() {
 
         <div className="mt-10">
           <p className="eyebrow">Revenue and valuation, on a log scale</p>
-          <div className="mt-5">
+          <div className="mt-5 bg-paper-2 px-2 py-6 md:px-5">
             <LineChart
               labels={milestones.map((m) => m.year)}
               series={[
