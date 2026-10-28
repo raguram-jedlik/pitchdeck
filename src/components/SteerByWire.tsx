@@ -82,7 +82,7 @@ export default function SteerByWire() {
   return (
     <section className="relative px-6 py-8 md:px-10 md:py-12">
       <div className="mx-auto max-w-deck">
-        <p className="eyebrow">Section 06 — The Trick</p>
+        <p className="eyebrow">Section 07 — The Trick</p>
         <h2 className="display-lg mt-4 max-w-[16ch] text-ink">
           The trick with two wheels.
         </h2>

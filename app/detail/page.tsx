@@ -40,6 +40,7 @@ import {
 import ValidationCollage from "@/components/charts/ValidationCollage";
 import { IconStat, PrototypeCard, ValuePropStrip } from "@/components/charts/IconStats";
 import InvestButton from "@/components/InvestButton";
+import DeckShell from "@/components/DeckShell";
 
 /**
  * Founders are the people who built the company, so they are highlighted in
@@ -211,6 +212,7 @@ export default function DetailPage() {
       </section>
 
       {/* ---------- 01 Snapshot ---------- */}
+      <DeckShell title="Jedlik Motors — Detailed" sectionSelector=".deck-shell > section">
       <Section
         id="snapshot"
         index="01"
@@ -748,6 +750,7 @@ export default function DetailPage() {
           </div>
         </div>
       </section>
+      </DeckShell>
     </main>
   );
 }

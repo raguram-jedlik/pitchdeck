@@ -10,7 +10,7 @@ import { getSessionId, getState, updateState, postCapture, EMAIL_RE } from "@/li
  * visible on every screen of the deck rather than waiting for the end.
  *
  * Opens a small dialog asking only for an email. Recorded with intent
- * "invest", which is deliberately a different signal from the Section 09
+ * "invest", which is deliberately a different signal from the Section 10
  * thumbs-up: someone who clicks this is asking to be contacted, and should
  * never be averaged in with mild approval.
  *

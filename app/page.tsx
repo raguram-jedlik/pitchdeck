@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import ScrollReveal from "@/components/ScrollReveal";
+import DeckShell from "@/components/DeckShell";
 import Hero from "@/components/Hero";
 import CommuterNeeds from "@/components/CommuterNeeds";
 import QuadrantChart from "@/components/QuadrantChart";
@@ -19,18 +20,22 @@ export default function Home() {
     <main className="relative">
       <ScrollReveal />
       <Nav />
-      <Hero />
-      <CommuterNeeds />
-      <QuadrantChart />
-      <TeamForces />
-      <RoadmapScrolly />
-      <ProductReveal />
-      <SteerByWire />
-      <BuildingEPod />
-      <MarketSize />
-      <Personas />
-      <Feedback />
-      <KnowMoreCta />
+      {/* DeckShell enforces one-section-at-a-time scrolling and provides
+          the "View in present mode" button at the bottom of the deck. */}
+      <DeckShell title="Jedlik Motors — Brief" sectionSelector=".deck-shell > section">
+        <Hero />
+        <CommuterNeeds />
+        <QuadrantChart />
+        <TeamForces />
+        <RoadmapScrolly />
+        <ProductReveal />
+        <SteerByWire />
+        <BuildingEPod />
+        <MarketSize />
+        <Personas />
+        <Feedback />
+        <KnowMoreCta />
+      </DeckShell>
       <Footer />
     </main>
   );

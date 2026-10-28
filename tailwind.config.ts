@@ -52,7 +52,11 @@ const config: Config = {
         },
       },
       animation: {
-        marquee: "marquee 30s linear infinite",
+        // The track is duplicated, so -50% lands exactly on the second copy.
+        // Duration is tuned to the photo size: bigger cards mean a longer
+        // track, so the run time is shortened to keep the scroll speed
+        // visually the same as the smaller thumbnails had.
+        marquee: "marquee 14s linear infinite",
       },
     },
   },

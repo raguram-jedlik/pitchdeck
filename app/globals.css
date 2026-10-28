@@ -356,6 +356,59 @@ section.section-reveal.in-view {
 }
 
 /*
+ * One-section-at-a-time scrolling for the brief and detailed decks.
+ *
+ * DeckShell tags each top-level section that fits the viewport with
+ * .deck-snap-target. Those sections are the snap points, so the reader
+ * always comes to rest on a section boundary and only one section is
+ * visible at a time.
+ *
+ * Snap points are applied to the document scroll (the deck scrolls the
+ * page, not an inner container), so this needs the html element to be the
+ * snap container. The document-level snap is mandatory here — unlike the
+ * proximity setting above — because every snap target is known to fit
+ * inside the viewport. Sections that overflow are excluded from the snap
+ * set by DeckShell, so long content still scrolls freely.
+ */
+html:has(.deck-shell) {
+  scroll-snap-type: y mandatory;
+}
+
+html:has(.deck-shell) .deck-snap-target {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/*
+ * While present mode is open the deck's own sections are moved into the
+ * overlay. The page behind must not scroll, and the sections inside the
+ * overlay should snap to the top of the viewport rather than the page.
+ */
+html:has(.present-mode-section) {
+  overflow: hidden;
+}
+
+.present-mode-slot {
+  min-height: 100%;
+}
+
+.present-mode-section {
+  scroll-snap-align: none;
+  min-height: 100vh;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/*
+ * The present-mode overlay scrolls internally. Its sections are laid out
+ * one at a time so only one fills the screen.
+ */
+.present-mode-slot > section {
+  scroll-snap-align: start;
+}
+
+
+/*
  * Continuous wheel rotation for the crab-walk diagrams. Each mode has its
  * own keyframe block — Front Wheel Drive only turns the front wheel, Circle
  * turns them in opposite directions, Glide turns them in the same direction.
