@@ -134,12 +134,17 @@ export const validationTiles: ValidationTile[] = [
   },
   {
     src: "/assets/validation/linkedin-11.png",
-    alt: "LinkedIn comment saying an enclosed two-wheeler solves real problems for Chennai rain and heat, and a second comment suggesting the battery be offered as a service instead of bundled into the sticker price",
+    alt: "LinkedIn comment saying an enclosed two-wheeler solves real problems for Chennai rain and heat, and that the challenge will be keeping it nimble and affordable enough for daily traffic",
     group: "social",
   },
   {
     src: "/assets/validation/linkedin-12.png",
     alt: "LinkedIn comments reacting to the launch with hearts and the word amazing",
+    group: "social",
+  },
+  {
+    src: "/assets/validation/linkedin-13.png",
+    alt: "LinkedIn comment saying offering the battery as a service instead of bundling it into the sticker price is what actually gets the on-road cost down to something a daily commuter will consider",
     group: "social",
   },
   {
