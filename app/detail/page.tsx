@@ -13,7 +13,6 @@ import {
   unitEconomics,
   productionPlan,
   darkFactory,
-  cells,
   equipmentAllocation,
   goToMarket,
   fundUse,
@@ -37,7 +36,6 @@ import {
   CanvasWheel,
   CompareBars,
   StageTimeline,
-  TaktChart,
 } from "@/components/charts/DiagramParts";
 import ValidationCollage from "@/components/charts/ValidationCollage";
 import { IconStat, PrototypeCard, ValuePropStrip } from "@/components/charts/IconStats";
@@ -471,18 +469,7 @@ export default function DetailPage() {
           <Stat label="Annual labour saving" value={darkFactory.labourSaving} accent />
         </div>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-2">
-          <div>
-            <p className="eyebrow">Five-cell layout</p>
-            <div className="mt-5">
-              <TaktChart cells={cells} taktMinutes={202} />
-            </div>
-            <Note>
-              The cells run in parallel, so their cycle times are not additive — the
-              202-minute takt is the constraint that sets the output rate.
-            </Note>
-          </div>
-
+        <div className="mt-10">
           <div>
             <p className="eyebrow">Equipment allocation</p>
             <div className="mt-5 space-y-3">

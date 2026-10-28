@@ -346,7 +346,7 @@ export const productionPlan = [
 
 export const darkFactory = {
   headline: "Dark factory — 1,000 units a year",
-  sub: "Right-sized cobot automation, a five-cell layout, a 202-minute takt and CKD assembly.",
+  sub: "Right-sized cobot automation, a 202-minute takt and CKD assembly.",
   capex: "₹5–9 Cr",
   capexManual: "₹15–25 Cr",
   staff: "7",
@@ -359,14 +359,6 @@ export const darkFactory = {
   oee: "70% OEE",
   roi: "22 systems including 6 cobots replace 65–80 workers. Dark-factory CapEx is ₹10–16 Cr less than a manual CKD line.",
 };
-
-export const cells = [
-  { cell: "Cell 1", minutes: 55, share: 27 },
-  { cell: "Cell 2", minutes: 106, share: 52 },
-  { cell: "Cell 3", minutes: 103, share: 51 },
-  { cell: "Cell 4", minutes: 111, share: 55 },
-  { cell: "Cell 5", minutes: 46, share: 23 },
-];
 
 export const equipmentAllocation = [
   { item: "AMRs and conveyor", share: 21 },
