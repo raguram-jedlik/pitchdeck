@@ -100,7 +100,7 @@ export function CanvasWheel({
             y={cy - 4}
             textAnchor="middle"
             className="fill-[#000000] font-display"
-            fontSize="13"
+            fontSize="14"
             fontWeight="700"
             letterSpacing="0.06em"
           >
@@ -111,7 +111,7 @@ export function CanvasWheel({
             y={cy + 14}
             textAnchor="middle"
             className="fill-[#6B6B6B] font-display"
-            fontSize="9.5"
+            fontSize="12"
             letterSpacing="0.14em"
           >
             E-POD
@@ -150,7 +150,7 @@ export function CanvasWheel({
                     textAnchor="middle"
                     dominantBaseline="middle"
                     className="font-display"
-                    fontSize="9"
+                    fontSize="12"
                     fontWeight="700"
                     fill={isActive ? "#FFFFFF" : INK}
                   >
@@ -178,7 +178,7 @@ export function CanvasWheel({
             </p>
             <ul className="mt-2.5 space-y-1">
               {b.items.map((it) => (
-                <li key={it} className="text-[0.78rem] leading-relaxed text-muted">
+                <li key={it} className="text-[0.75rem] leading-relaxed text-muted">
                   {it}
                 </li>
               ))}

@@ -310,7 +310,7 @@ export function LineChart({
               y={yOf(g) + 4}
               textAnchor="end"
               className="fill-[#6B6B6B] font-display"
-              fontSize="10"
+              fontSize="12"
             >
               {yFormat(g)}
             </text>
@@ -367,7 +367,7 @@ export function LineChart({
             y={H - padB + 20}
             textAnchor="middle"
             className="fill-[#6B6B6B] font-display"
-            fontSize="10"
+            fontSize="12"
           >
             {l}
           </text>

@@ -110,7 +110,7 @@ export default function QuadrantChart() {
                  * the name readable where it crosses the artwork.
                  */}
                 <span
-                  className={`absolute top-full mt-1 hidden whitespace-nowrap font-display text-[0.7rem] font-semibold leading-tight text-ink [text-shadow:0_0_3px_var(--color-paper),0_0_6px_var(--color-paper)] sm:block ${
+                  className={`absolute top-full mt-1 hidden whitespace-nowrap font-display text-[0.75rem] font-semibold leading-tight text-ink [text-shadow:0_0_3px_var(--color-paper),0_0_6px_var(--color-paper)] sm:block ${
                     p.name === "Gensol EV/Ezio*"
                       ? "right-1/2 mr-[-6px] text-right"
                       : p.name === "T-Shell Bad Boy"
@@ -155,7 +155,7 @@ export default function QuadrantChart() {
                 ?
               </span>
             </div>
-            <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 hidden whitespace-nowrap text-center font-display text-[0.7rem] font-bold uppercase text-red sm:block md:text-sm">
+            <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 hidden whitespace-nowrap text-center font-display text-[0.75rem] font-bold uppercase text-red sm:block md:text-sm">
               {jedlik.name}
             </span>
           </motion.div>
@@ -195,11 +195,11 @@ export default function QuadrantChart() {
               in the top-right corner — occupies 220px→300px. They overlap
               by 17px. Anchored left, the label stops at 190px and the
               two never touch. Tablet and up keeps it centred. */}
-          <span className="absolute bottom-full left-0 mb-2 whitespace-nowrap text-left font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] sm:left-1/2 sm:-translate-x-1/2 sm:text-center md:text-xs">
+          <span className="absolute bottom-full left-0 mb-2 whitespace-nowrap text-left font-display text-[0.75rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] sm:left-1/2 sm:-translate-x-1/2 sm:text-center md:text-xs">
             Higher Maneuverability
           </span>
           {/* -y : lower maneuverability, below the bottom arrow tip */}
-          <span className="absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+          <span className="absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.75rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
             Lower Maneuverability
           </span>
 

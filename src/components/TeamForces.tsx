@@ -46,8 +46,12 @@ export default function TeamForces() {
 
         <div className="md:grid md:grid-cols-2 md:items-start md:gap-8">
           {/* Founders — scroll container isolated from vertical page scroll */}
-          <div className="mt-4 overflow-x-auto overflow-y-hidden pb-2 [touch-action:pan-y_pan-x] md:mt-6">
-            <div className="flex w-max gap-4 pr-6 md:grid md:w-full md:grid-cols-3 md:gap-4 md:pr-0">
+          <div>
+            <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+              Founders
+            </h3>
+            <div className="mt-1 overflow-x-auto overflow-y-hidden pb-2 [touch-action:pan-y_pan-x]">
+              <div className="flex w-max gap-4 pr-6 md:grid md:w-full md:grid-cols-3 md:gap-4 md:pr-0">
               {founders.map((f, i) => (
                 <motion.figure
                   key={f.name}
@@ -76,11 +80,12 @@ export default function TeamForces() {
                   </figcaption>
                 </motion.figure>
               ))}
+              </div>
             </div>
           </div>
 
           {/* Mentors */}
-          <div className="mt-4 md:mt-6">
+          <div>
             <div className="flex items-center justify-between">
               <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
                 Mentors &amp; Advisors

@@ -478,31 +478,37 @@ export default function DetailPage() {
           <Stat label="Annual labour saving" value={darkFactory.labourSaving} accent />
         </div>
 
-        <div className="mt-10">
-          <div>
-            <p className="eyebrow">Equipment allocation</p>
-            <div className="mt-5 space-y-3">
-              {equipmentAllocation.map((e) => (
-                <div key={e.item} className="bg-paper-2 px-4 py-3">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <span className="text-sm font-medium text-ink">{e.item}</span>
-                    <span className="font-display text-sm font-bold text-ink">{e.share}%</span>
-                  </div>
-                  <div className="mt-2 h-2 w-full bg-rule">
-                    <div className="h-2 bg-red" style={{ width: `${e.share}%` }} />
-                  </div>
+      </Section>
+
+      {/* ---------- 10 Equipment allocation ---------- */}
+      <Section
+        id="equipment"
+        index="10"
+        eyebrow="Manufacturing"
+        title="Equipment allocation"
+        lede="What the equipment budget buys, item by item."
+      >
+          <div className="mt-5 space-y-3">
+            {equipmentAllocation.map((e) => (
+              <div key={e.item} className="bg-paper-2 px-4 py-3">
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="text-sm font-medium text-ink">{e.item}</span>
+                  <span className="font-display text-sm font-bold text-ink">{e.share}%</span>
                 </div>
-              ))}
-            </div>
-            <p className="mt-6 text-sm leading-relaxed text-muted">{darkFactory.roi}</p>
+                <div className="mt-2 h-2 w-full bg-rule">
+                  <div className="h-2 bg-red" style={{ width: `${e.share}%` }} />
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
+
+        <p className="mt-6 text-sm leading-relaxed text-muted">{darkFactory.roi}</p>
       </Section>
 
       {/* ---------- 10 Go to market ---------- */}
       <Section
         id="gtm"
-        index="10"
+        index="11"
         eyebrow="Go to market"
         title="The path from pilot to break-even"
         lede="Four stages, each with a different scale and a different commercial model."
@@ -513,7 +519,7 @@ export default function DetailPage() {
       {/* ---------- 11 The round ---------- */}
       <Section
         id="round"
-        index="11"
+        index="12"
         eyebrow="The round"
         title="₹7 crore, and exactly what it buys"
         lede="Every rupee is assigned to a named milestone. This is the plan, not the intention."
@@ -567,7 +573,7 @@ export default function DetailPage() {
       {/* ---------- 12 Cap table ---------- */}
       <Section
         id="captable"
-        index="12"
+        index="13"
         eyebrow="Cap table"
         title="Who owns the company"
         lede="Founders hold 87%. The incubator and the three angels hold the balance."
@@ -614,7 +620,7 @@ export default function DetailPage() {
       {/* ---------- 13 Operations ---------- */}
       <Section
         id="operations"
-        index="13"
+        index="14"
         eyebrow="Operations and supply chain"
         title="How the company operates"
         lede="Deliberately asset-light where it does not need to be, and rigorous where safety demands it."
@@ -634,7 +640,7 @@ export default function DetailPage() {
       {/* ---------- 14 IP ---------- */}
       <Section
         id="ip"
-        index="14"
+        index="15"
         eyebrow="Intellectual property"
         title="Two patents"
         lede="One granted, one published and under examination. International filings are funded by this round."
@@ -647,7 +653,7 @@ export default function DetailPage() {
                   {p.title}
                 </h3>
                 <span
-                  className={`shrink-0 whitespace-normal px-2.5 py-1 text-left font-display text-[0.7rem] font-bold uppercase leading-tight tracking-[0.16em] ${
+                  className={`shrink-0 whitespace-normal px-2.5 py-1 text-left font-display text-[0.75rem] font-bold uppercase leading-tight tracking-[0.16em] ${
                     p.status === "Granted" ? "bg-red text-paper" : "border border-rule text-muted"
                   }`}
                 >
@@ -663,7 +669,7 @@ export default function DetailPage() {
       {/* ---------- 15 Projection ---------- */}
       <Section
         id="projection"
-        index="15"
+        index="16"
         eyebrow="Financial projection"
         title="Fourteen years, five milestones"
         lede="Figures in USD at ₹83 to the dollar. This is the forecast that sits behind the round."
