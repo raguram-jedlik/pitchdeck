@@ -178,7 +178,7 @@ export function CanvasWheel({
             </p>
             <ul className="mt-2.5 space-y-1">
               {b.items.map((it) => (
-                <li key={it} className="text-[0.75rem] leading-relaxed text-muted">
+                <li key={it} className="text-sm leading-relaxed text-muted">
                   {it}
                 </li>
               ))}
@@ -244,7 +244,7 @@ export function CompareBars({
           <div key={r.label}>
             <div className="flex items-baseline justify-between gap-4">
               <span className="font-display text-sm font-semibold text-ink">{r.label}</span>
-              <span className="text-xs text-muted">{r.effect}</span>
+              <span className="text-sm text-muted">{r.effect}</span>
             </div>
             <div className="mt-3 space-y-2">
               <div className="flex items-center gap-3">

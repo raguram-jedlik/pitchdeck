@@ -93,6 +93,73 @@ function Section({
   );
 }
 
+/**
+ * A long topic split into one full-viewport snap section per content block.
+ *
+ * Forcing a multi-screen topic into a single fitted slide crushes it to the
+ * 0.5 scale floor and still clips the tail. Instead each block becomes its
+ * own `main > section`, so DeckShell's existing per-section fit gives it a
+ * full screen at full scale, and the detail deck's proximity snap rests at
+ * each block. The first block carries the real eyebrow/title/lede; every
+ * later block shows a small continuation header naming the block, so the
+ * reader always knows which section they are in without the topic's intro
+ * repeating on every screen.
+ */
+function SectionPages({
+  id,
+  index,
+  eyebrow,
+  title,
+  lede,
+  blocks,
+}: {
+  id: string;
+  index: string;
+  eyebrow: string;
+  title: string;
+  lede?: string;
+  blocks: { key: string; label: string; node: React.ReactNode }[];
+}) {
+  return (
+    <>
+      {blocks.map((b, i) => (
+        <section
+          key={b.key}
+          id={i === 0 ? id : `${id}-part-${i + 1}`}
+          className="scroll-mt-24 border-t border-rule px-6 py-14 md:px-10 md:py-20"
+        >
+          <div className="mx-auto max-w-deck">
+            {i === 0 ? (
+              <>
+                <p className="eyebrow">
+                  {index} — {eyebrow}
+                </p>
+                <h2 className="display-lg mt-4 max-w-[20ch] text-ink">{title}</h2>
+                {lede ? (
+                  <p className="mt-5 max-w-[62ch] text-sm leading-relaxed text-muted md:text-base">
+                    {lede}
+                  </p>
+                ) : null}
+              </>
+            ) : (
+              <>
+                <p className="eyebrow">
+                  {index} — {eyebrow}
+                  <span className="text-muted"> · continued</span>
+                </p>
+                <h2 className="mt-3 font-display text-xl font-bold tracking-tight text-ink md:text-2xl">
+                  {b.label}
+                </h2>
+              </>
+            )}
+            <div className="mt-8">{b.node}</div>
+          </div>
+        </section>
+      ))}
+    </>
+  );
+}
+
 function Stat({
   label,
   value,
@@ -335,150 +402,228 @@ export default function DetailPage() {
       </Section>
 
       {/* ---------- 08 Unit economics ---------- */}
-      <Section
+      <SectionPages
         id="economics"
         index="08"
         eyebrow="Unit economics"
         title="What one vehicle costs, and what it earns"
         lede="The full material bill of materials, and where cost lands as volume scales."
-      >
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
-          <div>
-            <p className="eyebrow">Where the cost sits</p>
-            <div className="mt-5">
-              <DonutChart
-                slices={bomRows.map((r, i) => ({
-                  label: r.element,
-                  value: r.percent,
-                  color: i === 0 ? "red" : i === 1 ? "ink" : "muted",
-                }))}
-                size={200}
-                thickness={30}
-                centreLabel="Total BOM"
-                centreValue={unitEconomics.bomTotal}
-              />
-            </div>
-          </div>
+        blocks={[
+          {
+            key: "cost-split",
+            label: "Where the cost sits, and the cost curve",
+            node: (
+              <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+                <div>
+                  <p className="eyebrow">Where the cost sits</p>
+                  <div className="mt-5">
+                    <DonutChart
+                      slices={bomRows.map((r, i) => ({
+                        label: r.element,
+                        value: r.percent,
+                        color: i === 0 ? "red" : i === 1 ? "ink" : "muted",
+                      }))}
+                      size={200}
+                      thickness={30}
+                      centreLabel="Total BOM"
+                      centreValue={unitEconomics.bomTotal}
+                    />
+                  </div>
+                </div>
 
-          <div>
-            <p className="eyebrow">The cost curve as volume scales</p>
-            <div className="mt-5">
-              <LineChart
-                labels={["Prototype", "100K units", "Sell price"]}
-                series={[
-                  {
-                    name: "Cost per vehicle",
-                    color: "ink",
-                    points: [
-                      { y: Number(unitEconomics.prototypeValue) },
-                      { y: Number(unitEconomics.volumeValue) },
-                      { y: Number(unitEconomics.sellPriceValue) },
-                    ],
-                  },
-                ]}
-                logScale={false}
-                format="rupeesK"
-                height={230}
-              />
-            </div>
-            <Note>
-              Cost falls as volume rises; the sell price holds. The gap between them is
-              the gross profit on every vehicle.
-            </Note>
-          </div>
-        </div>
-
-        <div className="mt-8 grid gap-px border-y-2 border-ink bg-rule md:grid-cols-4">
-          <Stat label="Total BOM" value={unitEconomics.bomTotal} accent />
-          <Stat label="Prototype cost" value={unitEconomics.prototype} />
-          <Stat label="Volume cost (100K)" value={unitEconomics.volume} />
-          <Stat label="Sell price" value={unitEconomics.sellPrice} />
-          <Stat label="Gross profit per vehicle" value={unitEconomics.grossProfit} span={2} />
-          <Stat label="Gross margin" value={unitEconomics.grossMargin} accent span={2} />
-        </div>
-
-        <p className="mt-6 bg-paper-2 px-4 py-3 font-display text-base font-semibold leading-relaxed tracking-tight text-ink md:text-lg">
-          {unitEconomics.headline}
-        </p>
-
-        <div className="mt-10">
-          <p className="eyebrow">Full bill of materials</p>
-          <div className="mt-5">
-            <DataTable
-              head={["Cost element", "Share", "Per vehicle", "Contents"]}
-              rows={bomRows.map((r) => [r.element, `${r.percent}%`, r.rupees, r.contents])}
-            />
-          </div>
-        </div>
-
-        <div className="mt-10">
-          <p className="eyebrow">Production plan</p>
-          <div className="mt-5 grid gap-px border border-rule bg-rule md:grid-cols-2">
-            {productionPlan.map((p) => (
-              <div key={p.label} className="bg-paper-2 px-5 py-4">
-                <p className="font-display text-[0.75rem] font-bold uppercase tracking-[0.16em] text-red">
-                  {p.label}
-                </p>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink">{p.value}</p>
+                <div>
+                  <p className="eyebrow">The cost curve as volume scales</p>
+                  <div className="mt-5">
+                    <LineChart
+                      labels={["Prototype", "100K units", "Sell price"]}
+                      series={[
+                        {
+                          name: "Cost per vehicle",
+                          color: "ink",
+                          points: [
+                            { y: Number(unitEconomics.prototypeValue) },
+                            { y: Number(unitEconomics.volumeValue) },
+                            { y: Number(unitEconomics.sellPriceValue) },
+                          ],
+                        },
+                      ]}
+                      logScale={false}
+                      format="rupeesK"
+                      height={230}
+                    />
+                  </div>
+                  <Note>
+                    Cost falls as volume rises; the sell price holds. The gap between them
+                    is the gross profit on every vehicle.
+                  </Note>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </Section>
+            ),
+          },
+          {
+            key: "economics-headline",
+            label: "The headline numbers",
+            node: (
+              <>
+                <div className="grid gap-px border-y-2 border-ink bg-rule md:grid-cols-4">
+                  <Stat label="Total BOM" value={unitEconomics.bomTotal} accent />
+                  <Stat label="Prototype cost" value={unitEconomics.prototype} />
+                  <Stat label="Volume cost (100K)" value={unitEconomics.volume} />
+                  <Stat label="Sell price" value={unitEconomics.sellPrice} />
+                  <Stat
+                    label="Gross profit per vehicle"
+                    value={unitEconomics.grossProfit}
+                    span={2}
+                  />
+                  <Stat
+                    label="Gross margin"
+                    value={unitEconomics.grossMargin}
+                    accent
+                    span={2}
+                  />
+                </div>
+
+                <p className="mt-6 bg-paper-2 px-4 py-3 font-display text-base font-semibold leading-relaxed tracking-tight text-ink md:text-lg">
+                  {unitEconomics.headline}
+                </p>
+              </>
+            ),
+          },
+          {
+            key: "full-bom",
+            label: "Full bill of materials",
+            node: (
+              <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+                <div>
+                  <p className="eyebrow">Full bill of materials</p>
+                  <div className="mt-5">
+                    <DataTable
+                      head={["Cost element", "Share", "Per vehicle", "Contents"]}
+                      rows={bomRows.map((r) => [
+                        r.element,
+                        `${r.percent}%`,
+                        r.rupees,
+                        r.contents,
+                      ])}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <p className="eyebrow">Where the cost sits</p>
+                  <div className="mt-5">
+                    <DonutChart
+                      slices={bomRows.map((r, i) => ({
+                        label: r.element,
+                        value: r.percent,
+                        color: i === 0 ? "red" : i === 1 ? "ink" : "muted",
+                      }))}
+                      size={200}
+                      thickness={30}
+                      centreLabel="Total BOM"
+                      centreValue={unitEconomics.bomTotal}
+                    />
+                  </div>
+                </div>
+              </div>
+            ),
+          },
+          {
+            key: "production-plan",
+            label: "Production plan",
+            node: (
+              <>
+                <p className="eyebrow">Production plan</p>
+                <div className="mt-5 grid gap-px border border-rule bg-rule md:grid-cols-2">
+                  {productionPlan.map((p) => (
+                    <div key={p.label} className="bg-paper-2 px-5 py-4">
+                      <p className="font-display text-[0.75rem] font-bold uppercase tracking-[0.16em] text-red">
+                        {p.label}
+                      </p>
+                      <p className="mt-1.5 text-sm leading-relaxed text-ink">{p.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ),
+          },
+        ]}
+      />
 
       {/* ---------- 09 Manufacturing ---------- */}
-      <Section
+      <SectionPages
         id="manufacturing"
         index="09"
         eyebrow="Manufacturing"
         title="The dark factory"
         lede={darkFactory.sub}
-      >
-        <p className="font-display text-2xl font-bold uppercase tracking-tight text-ink md:text-3xl">
-          {darkFactory.headline}
-        </p>
+        blocks={[
+          {
+            key: "headline",
+            label: "The dark factory at a glance",
+            node: (
+              <>
+                <p className="font-display text-2xl font-bold uppercase tracking-tight text-ink md:text-3xl">
+                  {darkFactory.headline}
+                </p>
 
-        <div className="mt-8 grid gap-px border border-rule bg-rule md:grid-cols-4">
-          <Stat label="Equipment CapEx" value={darkFactory.capex} accent />
-          <Stat label="Staff" value={darkFactory.staff} />
-          <Stat label="Takt" value={darkFactory.takt} />
-          <Stat label="Payback" value={darkFactory.payback} />
-        </div>
-
-        <div className="mt-8">
-          <p className="eyebrow">Dark factory against manual CKD</p>
-          <div className="mt-5">
-            <CompareBars
-              rows={[
-                {
-                  label: "Equipment CapEx",
-                  ours: darkFactory.capex,
-                  theirs: darkFactory.capexManual,
-                  effect: "~60% lower upfront",
-                  oursValue: 7,
-                  theirsValue: 20,
-                },
-                {
-                  label: "Staff",
-                  ours: `${darkFactory.staff} staff`,
-                  theirs: `${darkFactory.staffManual} staff`,
-                  effect: "~90% headcount reduction",
-                  oursValue: 7,
-                  theirsValue: 72,
-                },
-              ]}
-            />
-          </div>
-        </div>
-
-        <div className="mt-8 grid gap-px border border-rule bg-rule md:grid-cols-4">
-          <Stat label="Output" value={darkFactory.output} />
-          <Stat label="Operating days" value={darkFactory.days} />
-          <Stat label="Efficiency" value={darkFactory.oee} />
-          <Stat label="Annual labour saving" value={darkFactory.labourSaving} accent />
-        </div>
-
-      </Section>
+                <div className="mt-8 grid gap-px border border-rule bg-rule md:grid-cols-4">
+                  <Stat label="Equipment CapEx" value={darkFactory.capex} accent />
+                  <Stat label="Staff" value={darkFactory.staff} />
+                  <Stat label="Takt" value={darkFactory.takt} />
+                  <Stat label="Payback" value={darkFactory.payback} />
+                </div>
+              </>
+            ),
+          },
+          {
+            key: "compare",
+            label: "Dark factory against manual CKD",
+            node: (
+              <div className="mt-8">
+                <p className="eyebrow">Dark factory against manual CKD</p>
+                <div className="mt-5">
+                  <CompareBars
+                    rows={[
+                      {
+                        label: "Equipment CapEx",
+                        ours: darkFactory.capex,
+                        theirs: darkFactory.capexManual,
+                        effect: "~60% lower upfront",
+                        oursValue: 7,
+                        theirsValue: 20,
+                      },
+                      {
+                        label: "Staff",
+                        ours: `${darkFactory.staff} staff`,
+                        theirs: `${darkFactory.staffManual} staff`,
+                        effect: "~90% headcount reduction",
+                        oursValue: 7,
+                        theirsValue: 72,
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            ),
+          },
+          {
+            key: "output",
+            label: "Output and savings",
+            node: (
+              <div className="mt-8 grid gap-px border border-rule bg-rule md:grid-cols-4">
+                <Stat label="Output" value={darkFactory.output} />
+                <Stat label="Operating days" value={darkFactory.days} />
+                <Stat label="Efficiency" value={darkFactory.oee} />
+                <Stat
+                  label="Annual labour saving"
+                  value={darkFactory.labourSaving}
+                  accent
+                />
+              </div>
+            ),
+          },
+        ]}
+      />
 
       {/* ---------- 10 Equipment allocation ---------- */}
       <Section
@@ -667,56 +812,84 @@ export default function DetailPage() {
       </Section>
 
       {/* ---------- 15 Projection ---------- */}
-      <Section
+      <SectionPages
         id="projection"
         index="16"
         eyebrow="Financial projection"
         title="Fourteen years, five milestones"
         lede="Figures in USD at ₹83 to the dollar. This is the forecast that sits behind the round."
-      >
-        <div className="grid gap-px border border-rule bg-rule md:grid-cols-3 lg:grid-cols-6">
-          {projectionHeadline.map((p) => (
-            <Stat key={p.label} label={p.label} value={p.value} />
-          ))}
-        </div>
-
-        <div className="mt-10">
-          <p className="eyebrow">Revenue and valuation, on a log scale</p>
-          <div className="mt-5">
-            <LineChart
-              labels={milestones.map((m) => m.year)}
-              series={[
-                {
-                  name: "Revenue",
-                  color: "red",
-                  points: milestones.map((m) => ({ y: Number(m.revenueValue) })),
-                },
-                {
-                  name: "Valuation",
-                  color: "ink",
-                  points: milestones.map((m) => ({ y: Number(m.valuationValue) })),
-                },
-              ]}
-              format="usdM"
-              height={280}
-            />
-          </div>
-        </div>
-
-        <div className="mt-10">
-          <DataTable
-            head={["Year", "Milestone", "Units", "Revenue", "Valuation"]}
-            rows={milestones.map((m) => [m.year, m.label, m.units, m.revenue, m.valuation])}
-          />
-        </div>
-
-        <Note>
-          Breakeven lands in FY2035, Year 8. Gross margin opens at 10% and widens to 30%
-          as volume scales. Across the same period, capital raised grows steadily while
-          valuation compounds far faster — that multiple expansion is what the plan
-          depends on.
-        </Note>
-      </Section>
+        blocks={[
+          {
+            key: "headline",
+            label: "The projection at a glance",
+            node: (
+              <div className="grid gap-px border border-rule bg-rule md:grid-cols-3 lg:grid-cols-6">
+                {projectionHeadline.map((p) => (
+                  <Stat key={p.label} label={p.label} value={p.value} />
+                ))}
+              </div>
+            ),
+          },
+          {
+            key: "chart",
+            label: "Revenue and valuation, on a log scale",
+            node: (
+              <div className="mt-10">
+                <p className="eyebrow">Revenue and valuation, on a log scale</p>
+                <div className="mt-5">
+                  <LineChart
+                    labels={milestones.map((m) => m.year)}
+                    series={[
+                      {
+                        name: "Revenue",
+                        color: "red",
+                        points: milestones.map((m) => ({ y: Number(m.revenueValue) })),
+                      },
+                      {
+                        name: "Valuation",
+                        color: "ink",
+                        points: milestones.map((m) => ({ y: Number(m.valuationValue) })),
+                      },
+                    ]}
+                    format="usdM"
+                    height={280}
+                  />
+                </div>
+              </div>
+            ),
+          },
+          {
+            key: "table",
+            label: "The milestones behind the forecast",
+            node: (
+              <div className="mt-10">
+                <DataTable
+                  head={["Year", "Milestone", "Units", "Revenue", "Valuation"]}
+                  rows={milestones.map((m) => [
+                    m.year,
+                    m.label,
+                    m.units,
+                    m.revenue,
+                    m.valuation,
+                  ])}
+                />
+              </div>
+            ),
+          },
+          {
+            key: "note",
+            label: "What the forecast depends on",
+            node: (
+              <Note>
+                Breakeven lands in FY2035, Year 8. Gross margin opens at 10% and widens to
+                30% as volume scales. Across the same period, capital raised grows
+                steadily while valuation compounds far faster — that multiple expansion is
+                what the plan depends on.
+              </Note>
+            ),
+          },
+        ]}
+      />
 
       {/* ---------- Closing — the ask ---------- */}
       <section
