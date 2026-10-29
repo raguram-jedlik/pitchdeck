@@ -46,11 +46,18 @@ export default function CommuterNeeds() {
                 aria-hidden="true"
                 className="mt-0.5 h-6 w-6 shrink-0 md:h-8 md:w-8"
               />
+              {/*
+               * min-w-0 on the title is what keeps the row intact on a
+               * 320px phone: without it the label refuses to shrink below
+               * its longest word, the row overflows, and the red numeral
+               * is pushed on top of the label. The numeral itself never
+               * shrinks.
+               */}
               <div className="flex flex-1 items-baseline justify-between gap-3">
-                <span className="font-display text-base font-medium uppercase leading-tight tracking-tight text-ink md:text-lg">
+                <span className="min-w-0 font-display text-base font-medium uppercase leading-tight tracking-tight text-ink md:text-lg">
                   {need.title}
                 </span>
-                <span className="font-display text-xs font-semibold text-red">
+                <span className="shrink-0 font-display text-xs font-semibold text-red">
                   {String(need.id).padStart(2, "0")}
                 </span>
               </div>

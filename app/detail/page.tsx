@@ -214,7 +214,11 @@ export default function DetailPage() {
       </section>
 
       {/* ---------- 01 Snapshot ---------- */}
-      <DeckShell title="Jedlik Motors — Detailed" sectionSelector=".deck-shell > section">
+      <DeckShell
+        title="Jedlik Motors — Detailed"
+        sectionSelector=".deck-shell > section"
+        fitToViewport
+      >
       <Section
         id="snapshot"
         index="01"

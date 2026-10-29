@@ -114,7 +114,6 @@ export const roadmap: Milestone[] = [
     year: "FY2027",
     label: "Seed Launch",
     points: [
-      "Valuation: ₹114.6 Cr (24.5x Return)",
       "Goals: Own Dark Factory, Single City Launch, Pilot Production Ready, In-House Battery Assembly",
     ],
   },
@@ -122,7 +121,6 @@ export const roadmap: Milestone[] = [
     year: "FY2028",
     label: "Series-A",
     points: [
-      "Valuation: ₹286.5 Cr (61.4x Return)",
       "Goals: 3x Plant Capacity, Full Automation, 3 Metro Expansion, OTA, Stack + Subsidy",
     ],
   },
@@ -130,7 +128,6 @@ export const roadmap: Milestone[] = [
     year: "FY2029",
     label: "Series-A2",
     points: [
-      "Valuation: ₹716.3 Cr (153.4x Return)",
       "Goals: 8 City Expansion, BLDC Motor Line, Own Battery Cell Sourcing",
     ],
   },
@@ -138,7 +135,6 @@ export const roadmap: Milestone[] = [
     year: "FY2030",
     label: "Series-B",
     points: [
-      "Valuation: ₹1671.3 Cr (357.9x Return)",
       "Goals: 16 City Hub, Long Range Variant, Road-Legal Homologation",
     ],
   },

@@ -549,6 +549,46 @@ html:has(.deck-shell):not(:has(.deck-detail)) .deck-snap-target {
 }
 
 /*
+ * One-section-at-a-time scrolling for the DETAIL deck (/detail).
+ *
+ * The detailed deck now runs fitToViewport too, so every section above
+ * 640px is fitted to exactly one viewport — the same guarantee as the
+ * brief deck, and it gets the same mechanism: proximity snapping over
+ * sections that carry scroll-snap-align.
+ *
+ * It is proximity rather than mandatory for the reason documented above:
+ * mandatory refused to rest anywhere that was not an exact snap point and
+ * pinned the page in place through repeated wheel events. Proximity lets
+ * the scroll run and then settles on the nearest boundary.
+ *
+ * The two objections recorded in the comment above this rule are
+ * addressed rather than assumed away:
+ *
+ *   1. "Mandatory snapping fights the reader on a long-form document of
+ *      tables and charts." That is why this uses PROXIMITY, not
+ *      mandatory: proximity only settles when the scroll comes to rest
+ *      near a boundary, so the reader can still read their way down a
+ *      tall table. Below 640px the detail sections are not fitted at all
+ *      — they run to their natural height, up to ~3 screens for the unit
+ *      economics and projection tables — and a proximity snap point at
+ *      the start of such a section never pulls while the reader is in
+ *      its middle.
+ *
+ *   2. "The browser carries the outgoing page's scroll offset across the
+ *      client-side navigation, so the page would open on its LAST snap
+ *      target." ScrollToTopOnMount resets the position before paint and
+ *      again after the snap has taken hold, so /detail opens on its
+ *      first section.
+ */
+html:has(.deck-shell):has(.deck-detail) {
+  scroll-snap-type: y proximity;
+}
+
+html:has(.deck-shell):has(.deck-detail) .deck-snap-target {
+  scroll-snap-align: start;
+}
+
+/*
  * The detail deck's hero.
  *
  * With proximity snapping the browser rests near a section boundary. The
