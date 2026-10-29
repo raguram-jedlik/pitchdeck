@@ -2,6 +2,8 @@ node_modules
 dist
 .next
 .next-prod
+.next-verify
+.next-sh
 .DS_Store
 *.local
 .env

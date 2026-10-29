@@ -63,7 +63,7 @@ const config: Config = {
         //
         // The var has a sane fallback so the track never jumps or renders
         // unanimated while the measurement is pending.
-        marquee: "marquee var(--marquee-duration, 60s) linear infinite",
+        marquee: "marquee var(--marquee-duration, 90s) linear infinite",
       },
     },
   },

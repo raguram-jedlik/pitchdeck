@@ -310,6 +310,28 @@ hr.rule {
 }
 
 /*
+ * The brief deck's fitted sections must NOT carry a scroll-margin.
+ *
+ * `scroll-margin-top` shifts the SNAP ALIGNMENT point, not the layout.
+ * The brief deck's sections already clear the fixed header with their own
+ * `padding-top` (see the fit rules further down), so the margin was
+ * double-counting: the browser snapped to `section.offsetTop - 88px`,
+ * landing the reader 88px short of every section boundary with a sliver
+ * of the next section peeking in at the bottom of the screen.
+ *
+ * Resetting it to 0 makes the snap land exactly on the section's top
+ * edge, so each scroll stop shows exactly one complete section.
+ *
+ * The detail deck keeps its scroll-margin — its Contents menu jumps to
+ * sections rather than snapping to them, and there the margin is doing
+ * the right job.
+ */
+.deck-shell > section.snap-fit-section {
+  scroll-margin-top: 0;
+  scroll-margin-bottom: 0;
+}
+
+/*
  * Sections that begin a snap target must clear the header. The padding
  * is applied to the section itself (not the inner wrapper) so the
  * background and border still span the full width.
@@ -362,6 +384,33 @@ hr.rule {
  */
 .deck-detail > section:not(:first-of-type) {
   scroll-margin-top: var(--deck-header-h);
+}
+
+/*
+ * Stop the decks from growing wider than the viewport.
+ *
+ * The detail deck's economics table is deliberately wide
+ * (`min-w-[640px]`) and sits in a `-mx-6 overflow-x-auto` wrapper so it
+ * can be swiped sideways. That wrapper is correct — but the wide table
+ * still raised the scroll width of every ancestor that did not clip:
+ *
+ *   body          width 320  scrollWidth 396
+ *   main.deck-detail   320        396
+ *   div.deck-shell     320        396
+ *
+ * The fixed header is sized to the *document* scroll width, so it
+ * measured 397px on a 320px phone. The header then fed the overflow
+ * back into the document — a loop that left the whole page 77px wider
+ * than the screen and pushed the last section's edge off-view.
+ *
+ * Clipping the two deck containers stops the runaway at its source.
+ * `overflow-x: hidden` does not break the table: the table scrolls
+ * inside its own wrapper, which is a separate scroll container and
+ * keeps working.
+ */
+.deck-shell,
+.deck-detail {
+  overflow-x: hidden;
 }
 
 /* Display headline scale — tight, all-caps, sharp. */
@@ -459,12 +508,44 @@ section.section-reveal.in-view {
  * The detail deck keeps the proximity snapping set on html above.
  */
 html:has(.deck-shell):not(:has(.deck-detail)) {
-  scroll-snap-type: y mandatory;
+  /*
+   * `proximity`, NOT `mandatory`.
+   *
+   * Chrome's mandatory snapping refuses to rest at any position that is
+   * not a snap point, so a wheel notch that lands BETWEEN two section
+   * boundaries is pulled straight back to the previous one. Because each
+   * brief-deck section is exactly one viewport tall, a small wheel delta
+   * can never clear the next boundary — and with mandatory snapping the
+   * page simply refused to scroll at all (verified against a minimal
+   * reproduction: a mandatory-snap page with 800px blocks kept scrollY
+   * pinned at 0 through six wheel events).
+   *
+   * `proximity` lets the scroll run freely and then settles on the
+   * NEAREST boundary once the gesture ends. Since every section is
+   * exactly one viewport tall, the reader always comes to rest with
+   * exactly one complete section on screen — the same guarantee, without
+   * the page jamming.
+   */
+  scroll-snap-type: y proximity;
 }
 
 html:has(.deck-shell):not(:has(.deck-detail)) .deck-snap-target {
   scroll-snap-align: start;
-  scroll-snap-stop: always;
+  /*
+   * `scroll-snap-stop: always` is deliberately NOT set here.
+   *
+   * With mandatory snapping, `always` forces the browser to stop at every
+   * snap target it passes. But the brief deck's sections are each exactly
+   * one viewport tall, so a small wheel delta can never clear the next
+   * target — and `always` then pulled the reader BACKWARD to the current
+   * section instead of letting them advance. Gentle scrolling became
+   * unusable: the page crept a few pixels and sprang back.
+   *
+   * Mandatory snapping alone already lands the reader on a section
+   * boundary with exactly one section in view. Dropping `always` lets a
+   * gentle drag accumulate across a couple of notches and then snap,
+   * while a deliberate flick still advances one section at a time.
+   */
 }
 
 /*
@@ -520,4 +601,177 @@ html:has(.deck-shell):not(:has(.deck-detail)) .deck-snap-target {
 @keyframes crab-rear-Glide {
   0%, 100% { transform: rotate(24deg); }
   50%      { transform: rotate(-24deg); }
+}
+
+/* ------------------------------------------------------------------ */
+/* One-page-per-stop fit — brief deck only                             */
+/* ------------------------------------------------------------------ */
+/*
+ * The brief deck ("/") must scroll as exactly one page per stop: every
+ * top-level section fills exactly one screen, and a section whose content
+ * is taller than the screen is scaled down until the whole of it is
+ * visible at once. No inner scrolling, no second scroll to finish
+ * reading a section.
+ *
+ * The structure per section (built imperatively by DeckShell, so the
+ * section elements themselves are untouched and the `.deck-shell > section`
+ * selectors keep working):
+ *
+ *   <section class="deck-snap-target snap-fit-section">   100dvh, clipped
+ *     <div class="snap-fit-frame">                         definite height
+ *       <div class="snap-fit-inner">                       scale: S
+ *
+ * The scale is the standalone CSS `scale` property, not
+ * `transform: scale()`, because framer-motion writes a `transform` matrix
+ * onto some content children and the standalone property composes with it
+ * rather than overwriting it. `transform-origin: top center` keeps the
+ * shrunken content centred horizontally and aligned to the top.
+ *
+ * These rules sit after the rules above so they win on source order, and
+ * the compound selectors raise specificity past `.deck-shell > section`
+ * and `.deck-shell > section:not(:first-child)`.
+ */
+
+/*
+ * The section is exactly one viewport tall and never shows a scrollbar.
+ * `100vh` is the fallback for browsers without `dvh` (mobile Safari
+ * before 15.4).
+ */
+.deck-shell > section.snap-fit-section {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  /*
+   * Trim the vertical padding so the scale factor does not have to be
+   * punishing. The top padding still clears the fixed header (the header
+   * is 72px on mobile / 88px from md up), the bottom padding is a small
+   * breathing space. `clamp()` keeps it honest on short viewports.
+   */
+  padding-top: calc(var(--deck-header-h) + 0.75rem);
+  padding-bottom: clamp(0.75rem, 2.5vh, 1.5rem);
+}
+
+/*
+ * The frame is the height budget: it fills the section's content box and
+ * clips whatever the scaled content does not cover. Its height is set in
+ * CSS (100% of the section's content box) rather than from JS — the
+ * browser resolves it against the section's definite 100dvh height.
+ */
+.snap-fit-frame {
+  height: 100%;
+  overflow: hidden;
+}
+
+/*
+ * A section whose content is still taller than the frame at the
+ * legibility floor (the scale never goes below 0.55, because below that
+ * the type stops being readable) would otherwise have its overflow
+ * clipped away by `overflow: hidden`. On a 320px phone that silently
+ * cut off the team photos and the market map.
+ *
+ * `DeckShell` marks those sections with `.snap-fit-overflows`. Here we
+ * release the clip on the section and let it scroll instead, so the
+ * content stays reachable. The section also stops being a snap point:
+ * a snap target that is taller than the viewport cannot be rested on
+ * cleanly, and the reader needs to be able to scroll inside it.
+ *
+ * These rules are written against `.snap-fit-section` rather than
+ * `.deck-shell > section.snap-fit-section`, because the brief deck's
+ * footer is fitted too and it sits outside `.deck-shell`.
+ *
+ * The selectors below carry the same specificity as the rules they have
+ * to beat. `#site-footer.snap-fit-section { overflow: hidden }` sets the
+ * footer's clip at weight 1-1-1; at weight 0-2-0 the release below
+ * silently lost to it, and the footer stayed clipped and unscrollable
+ * at 320px even though it was marked as overflowing.
+ */
+.deck-shell > section.snap-fit-section.snap-fit-overflows,
+#site-footer.snap-fit-section.snap-fit-overflows,
+.snap-fit-section.snap-fit-overflows {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-snap-align: none;
+}
+
+.deck-shell > section.snap-fit-section.snap-fit-overflows .snap-fit-frame,
+#site-footer.snap-fit-section.snap-fit-overflows .snap-fit-frame,
+.snap-fit-section.snap-fit-overflows .snap-fit-frame {
+  overflow: visible;
+  height: auto;
+  min-height: 100%;
+}
+
+/*
+ * The scaled content. `transform-origin: top center` keeps the content
+ * centred horizontally and pinned to the top of the frame.
+ */
+.snap-fit-inner {
+  transform-origin: top center;
+  will-change: scale;
+}
+
+/*
+ * Interactive controls must stay at least 44x44px ON SCREEN.
+ *
+ * The fit-to-viewport scale shrinks the whole section, so a control
+ * written as `h-11` (44px) renders at 36px in a section scaled to 0.82
+ * and at 24px in one scaled to 0.55 — below the minimum tap target, and
+ * hard to hit on a phone.
+ *
+ * `scale: calc(1 / var(--snap-fit-scale))` on the control counteracts
+ * the section's scale, so its rendered size stays at the size the
+ * author wrote. The control is also re-centred over its own box so the
+ * counter-scale does not make it drift away from where the layout
+ * expects it to be.
+ *
+ * The selector is deliberately not scoped to `.deck-shell`: the brief
+ * deck's footer is fitted as well, and its contact links are the ones
+ * that were shrinking to 24px.
+ */
+.snap-fit-section .snap-fit-inner :is(
+  a,
+  button,
+  [role="button"],
+  input,
+  select,
+  textarea
+) {
+  scale: calc(1 / var(--snap-fit-scale, 1));
+  transform-origin: center;
+}
+
+/*
+ * The footer sits outside `.deck-shell` and is far taller than one
+ * screen. Under the brief deck's mandatory document-level snapping it
+ * would be unreachable, because the browser only rests on snap points
+ * and the footer was not one.
+ *
+ * Two things make it reachable and readable:
+ *   1. it gets its own snap point at its top, so the reader can scroll
+ *      to the footer's first screen and stop there;
+ *   2. it is exempt from the mandatory snap once it is on screen — a
+ *      rule below switches the document to proximity snapping over the
+ *      footer so the reader can scroll through the rest of it freely.
+ */
+html:has(.deck-shell):not(:has(.deck-detail)) #site-footer {
+  scroll-snap-align: start;
+}
+
+/*
+ * The brief deck's footer participates in the same fit system as the
+ * sections: the footer becomes one screen tall and its content is scaled
+ * to fit, so the contact details, the supporter strip and the colophon
+ * are all visible without a second scroll.
+ */
+#site-footer.snap-fit-section {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  padding-top: clamp(1rem, 4vh, 2.5rem);
+  padding-bottom: clamp(1rem, 4vh, 2.5rem);
+}
+
+#site-footer .snap-fit-frame {
+  height: 100%;
+  overflow: hidden;
 }

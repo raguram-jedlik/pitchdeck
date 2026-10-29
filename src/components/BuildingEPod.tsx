@@ -7,20 +7,25 @@ import { buildPhotos } from "@/data/jedlikData";
 /**
  * Target scroll speed for the marquee, in pixels per second.
  *
- * Deliberately slow and cinematic: at this speed a build photo takes
- * roughly 10 seconds to glide past, which reads as a calm drift rather
- * than a carousel. Because the duration is derived from the measured track
- * width (see MARQUEE_PX_PER_SEC), the perceived speed stays identical at
- * every breakpoint even though the track is much longer on large screens.
+ * A measured middle ground. The original fixed 14-second duration ran at
+ * over 1000 px/sec on large cards, which read as a blur — the photos
+ * were unreadable. A very slow drift (40 px/sec) reads as a slideshow
+ * rather than a living deck. At 160 px/sec a photo takes a few seconds
+ * to glide past: fast enough to feel alive, slow enough to actually be
+ * looked at.
+ *
+ * Because the duration is derived from the measured track width (see
+ * MARQUEE_PX_PER_SEC), the perceived speed stays identical at every
+ * breakpoint even though the track is much longer on large screens.
  */
-const MARQUEE_PX_PER_SEC = 40;
+const MARQUEE_PX_PER_SEC = 160;
 
 /**
  * Fallback duration used before the track has been measured (first paint)
  * and if measurement is unavailable. Matches the largest breakpoint at
  * MARQUEE_PX_PER_SEC so there is no visible speed jump on hydration.
  */
-const FALLBACK_DURATION_S = 360;
+const FALLBACK_DURATION_S = 90;
 
 /**
  * Building the E-POD — auto-marquee build photos, no touch.

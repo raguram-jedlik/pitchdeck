@@ -183,14 +183,30 @@ export default function QuadrantChart() {
             Lower Maneuverability
           </span>
 
-          {/* Compact comfort labels. These sit inside the square, just
-              above the horizontal axis, in the corner space where no
-              rival is plotted. Shown until the lg breakpoint, where the
-              outside labels above take over. */}
-          <span className="absolute bottom-1/2 left-1 mb-1.5 -translate-y-full whitespace-nowrap font-display text-[0.75rem] font-bold uppercase tracking-[0.04em] text-[#C2660C] lg:hidden">
+          {/* Compact comfort labels — the mobile/tablet replacements for
+              the outside labels above.
+
+              They must not sit inside the plot area: every corner of the
+              square has a rival in it.
+
+                lower comfort  = MG Comet (22/78), PMV Eas-E (30/70)
+                                 -> top-left, names hang BELOW the dot
+                higher comfort = T-Shell Bad Boy (52/14)
+                                 -> bottom-right, name hangs below too
+
+              So the labels run vertically along the OUTSIDE edges of the
+              square, in the wrapper's padding gutter. Rotating them
+              keeps them readable while using only ~14px of width, which
+              fits at 320px where the desktop-style horizontal labels
+              (~80px) would run off-screen.
+
+              `[writing-mode:vertical-rl] rotate-180` turns the text
+              bottom-to-top, so "LOWER COMFORT" reads upward on the left
+              edge and "HIGHER COMFORT" reads downward on the right. */}
+          <span className="pointer-events-none absolute left-0 top-1/2 block -translate-x-full -translate-y-1/2 rotate-180 [writing-mode:vertical-rl] whitespace-nowrap font-display text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#C2660C] lg:hidden">
             Lower Comfort
           </span>
-          <span className="absolute bottom-1/2 right-1 mb-1.5 -translate-y-full whitespace-nowrap font-display text-[0.75rem] font-bold uppercase tracking-[0.04em] text-[#C2660C] lg:hidden">
+          <span className="pointer-events-none absolute right-0 top-1/2 block translate-x-full -translate-y-1/2 [writing-mode:vertical-rl] whitespace-nowrap font-display text-[0.75rem] font-bold uppercase tracking-[0.1em] text-[#C2660C] lg:hidden">
             Higher Comfort
           </span>
           </div>

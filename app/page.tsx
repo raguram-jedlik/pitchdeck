@@ -20,9 +20,15 @@ export default function Home() {
     <main className="relative">
       <ScrollReveal />
       <Nav />
-      {/* DeckShell enforces one-section-at-a-time scrolling and provides
-          the "View in present mode" button at the bottom of the deck. */}
-      <DeckShell title="Jedlik Motors — Brief" sectionSelector=".deck-shell > section">
+      {/* DeckShell enforces one-section-at-a-time scrolling: every section
+          is exactly one screen tall and its content is scaled to fit, so
+          the whole deck is read one page at a time. */}
+      <DeckShell
+        title="Jedlik Motors — Brief"
+        sectionSelector=".deck-shell > section"
+        fitToViewport
+        extraFitSelector="#site-footer"
+      >
         <Hero />
         <CommuterNeeds />
         <QuadrantChart />
