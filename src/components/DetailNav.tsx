@@ -55,6 +55,19 @@ export default function DetailNav() {
     return () => observer.disconnect();
   }, []);
 
+  // Land at the top of the document on a fresh load.
+  //
+  // The browser restores the previous scroll position on reload, which
+  // leaves the hero's buttons tucked under the fixed header. Jump to the
+  // top unless the URL carries an in-page anchor (a Contents jump).
+  useEffect(() => {
+    if (window.location.hash) return;
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <motion.div
@@ -62,16 +75,16 @@ export default function DetailNav() {
         style={{ scaleX: scrollYProgress }}
       />
 
-      <header className="fixed top-0 left-0 right-0 z-40 flex items-start justify-between gap-4 bg-paper/90 backdrop-blur-sm">
-        <Link href="/" aria-label={`${brand.name} — back to deck`} className="block pl-0 pt-0">
+      <header className="deck-header fixed top-0 left-0 right-0 z-40 flex items-start justify-between gap-3 bg-paper/90 py-2 backdrop-blur-sm md:gap-6">
+        <Link href="/" aria-label={`${brand.name} — back to deck`} className="flex min-h-[44px] items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/logo-cropped.png" alt={brand.name} className="h-10 w-auto md:h-14" />
+          <img src="/assets/logo-cropped.png" alt={brand.name} className="h-9 w-auto md:h-14" />
         </Link>
 
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="hidden border border-rule px-4 py-2 font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink transition-colors hover:border-ink md:inline-block"
+            className="hidden border border-rule px-4 py-2.5 font-display text-[0.7rem] font-bold uppercase tracking-[0.16em] text-ink transition-colors hover:border-ink md:inline-block md:text-[0.75rem]"
           >
             &larr; Deck
           </Link>
@@ -79,7 +92,7 @@ export default function DetailNav() {
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
-            className="border border-rule px-4 py-2 font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink transition-colors hover:border-ink"
+            className="border border-rule px-4 py-3 font-display text-[0.75rem] font-bold uppercase tracking-[0.16em] text-ink transition-colors hover:border-ink md:py-2.5"
           >
             {open ? "Close" : "Contents"}
           </button>

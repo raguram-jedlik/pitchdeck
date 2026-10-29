@@ -178,7 +178,7 @@ export function DonutChart({
                 {arcs[hover].value}
                 {arcs[hover].frac < 0.01 ? "%" : ""}
               </span>
-              <span className="mt-1 max-w-[9rem] text-[0.65rem] leading-snug text-muted">
+              <span className="mt-1 max-w-[9rem] text-[0.75rem] leading-snug text-muted">
                 {arcs[hover].label}
               </span>
             </>
@@ -188,7 +188,7 @@ export function DonutChart({
                 <span className="font-display text-xl font-bold text-ink">{centreValue}</span>
               ) : null}
               {centreLabel ? (
-                <span className="mt-1 text-[0.6rem] uppercase tracking-[0.16em] text-muted">
+                <span className="mt-1 text-[0.75rem] uppercase tracking-[0.16em] text-muted">
                   {centreLabel}
                 </span>
               ) : null}
@@ -455,7 +455,7 @@ export function ColumnChart({
                   transition={{ duration: 0.9, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 />
                 {hover === i ? (
-                  <div className="absolute -top-1 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap border border-ink bg-paper-2 px-2 py-1 font-display text-[0.7rem] font-bold text-ink">
+                  <div className="absolute -top-1 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap border border-ink bg-paper-2 px-2 py-1 font-display text-[0.75rem] font-bold text-ink">
                     {valueFormat(d.value)}
                   </div>
                 ) : null}
@@ -467,9 +467,9 @@ export function ColumnChart({
       <div className="mt-3 flex gap-2 md:gap-4">
         {data.map((d) => (
           <div key={d.label} className="flex-1 text-center">
-            <p className="font-display text-[0.65rem] font-bold text-ink">{d.label}</p>
+            <p className="font-display text-[0.75rem] font-bold text-ink">{d.label}</p>
             {d.sub ? (
-              <p className="mt-0.5 text-[0.6rem] text-muted">{d.sub}</p>
+              <p className="mt-0.5 text-[0.75rem] text-muted">{d.sub}</p>
             ) : null}
           </div>
         ))}

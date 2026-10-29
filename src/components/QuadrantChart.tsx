@@ -97,7 +97,7 @@ export default function QuadrantChart() {
                   />
                 )}
                 <span
-                  className={`absolute top-full mt-1 whitespace-nowrap font-display text-[0.42rem] font-semibold leading-tight text-ink sm:text-[0.6rem] ${
+                  className={`absolute top-full mt-1 whitespace-nowrap font-display text-[0.7rem] font-semibold leading-tight text-ink ${
                     p.name === "Gensol EV/Ezio*"
                       ? "right-1/2 mr-[-6px] text-right"
                       : p.name === "T-Shell Bad Boy"
@@ -127,7 +127,7 @@ export default function QuadrantChart() {
               className="flex h-full w-full items-center justify-center rounded-full border border-paper shadow-sm"
               style={{ backgroundColor: jedlik.color }}
             >
-              <span className="font-display text-[0.5rem] font-bold leading-none text-paper sm:hidden">
+              <span className="font-display text-[0.75rem] font-bold leading-none text-paper sm:hidden">
                 J
               </span>
             </span>
@@ -142,7 +142,7 @@ export default function QuadrantChart() {
                 ?
               </span>
             </div>
-            <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.65rem] font-bold uppercase text-red md:text-sm">
+            <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.7rem] font-bold uppercase text-red md:text-sm">
               {jedlik.name}
             </span>
           </motion.div>
@@ -157,23 +157,41 @@ export default function QuadrantChart() {
               maneuverability. */}
           {/* -x : lower comfort, out past the LEFT arrow tip.
               right-full pins the text's right edge to the square's left
-              edge, so the label runs outward to the left. */}
-          <span className="absolute right-full top-1/2 mr-2 -translate-y-1/2 whitespace-nowrap text-right font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+              edge, so the label runs outward to the left.
+
+              On a phone the square fills the width, so there is no room
+              outside it — the label would sit off-screen and be lost.
+              The same is true on a tablet in portrait. Until the
+              lg breakpoint the comfort labels therefore sit INSIDE the
+              square, tucked into the corners above the horizontal axis,
+              where there is empty space. */}
+          <span className="absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 whitespace-nowrap text-right font-display text-[0.75rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] lg:block md:text-xs">
             Lower Comfort
           </span>
           {/* +x : higher comfort, out past the RIGHT arrow tip.
               left-full pins the text's left edge to the square's right
               edge, so the label runs outward to the right. */}
-          <span className="absolute left-full top-1/2 ml-2 -translate-y-1/2 whitespace-nowrap font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+          <span className="absolute left-full top-1/2 ml-2 hidden -translate-y-1/2 whitespace-nowrap font-display text-[0.75rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] lg:block md:text-xs">
             Higher Comfort
           </span>
           {/* +y : higher maneuverability, above the top arrow tip */}
-          <span className="absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+          <span className="absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
             Higher Maneuverability
           </span>
           {/* -y : lower maneuverability, below the bottom arrow tip */}
-          <span className="absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.55rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+          <span className="absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
             Lower Maneuverability
+          </span>
+
+          {/* Compact comfort labels. These sit inside the square, just
+              above the horizontal axis, in the corner space where no
+              rival is plotted. Shown until the lg breakpoint, where the
+              outside labels above take over. */}
+          <span className="absolute bottom-1/2 left-1 mb-1.5 -translate-y-full whitespace-nowrap font-display text-[0.75rem] font-bold uppercase tracking-[0.04em] text-[#C2660C] lg:hidden">
+            Lower Comfort
+          </span>
+          <span className="absolute bottom-1/2 right-1 mb-1.5 -translate-y-full whitespace-nowrap font-display text-[0.75rem] font-bold uppercase tracking-[0.04em] text-[#C2660C] lg:hidden">
+            Higher Comfort
           </span>
           </div>
         </div>

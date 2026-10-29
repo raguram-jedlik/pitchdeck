@@ -69,7 +69,7 @@ export default function Footer() {
               href={contactInfo.websiteUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-paper underline-offset-4 hover:underline"
+              className="inline-flex min-h-[44px] items-center text-paper underline-offset-4 hover:underline"
             >
               {contactInfo.website}
             </a>
@@ -80,7 +80,7 @@ export default function Footer() {
             </span>
             <a
               href={`mailto:${contactInfo.email}`}
-              className="text-paper underline-offset-4 hover:underline"
+              className="inline-flex min-h-[44px] items-center text-paper underline-offset-4 hover:underline"
             >
               {contactInfo.email}
             </a>
@@ -91,7 +91,7 @@ export default function Footer() {
             </span>
             <a
               href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}
-              className="text-paper underline-offset-4 hover:underline"
+              className="inline-flex min-h-[44px] items-center text-paper underline-offset-4 hover:underline"
             >
               {contactInfo.phone}
             </a>
@@ -104,7 +104,7 @@ export default function Footer() {
               href={`https://${contactInfo.instagram}`}
               target="_blank"
               rel="noreferrer"
-              className="text-paper underline-offset-4 hover:underline"
+              className="inline-flex min-h-[44px] items-center text-paper underline-offset-4 hover:underline"
             >
               {contactInfo.instagram}
             </a>
@@ -117,7 +117,7 @@ export default function Footer() {
               href={contactInfo.linkedinUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-paper underline-offset-4 hover:underline"
+              className="inline-flex min-h-[44px] items-center text-paper underline-offset-4 hover:underline"
             >
               {contactInfo.linkedin}
             </a>

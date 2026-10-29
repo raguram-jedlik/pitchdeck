@@ -89,7 +89,7 @@ export default function InvestButton({
         ref={triggerRef}
         type="button"
         onClick={() => setStep(alreadyInvested ? "done" : "form")}
-        className={`mr-6 mt-3 border border-red bg-red px-4 py-2 font-display text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-paper transition-colors hover:bg-ink hover:border-ink md:mr-10 md:mt-4 md:px-5 md:py-2.5 md:text-xs ${className}`}
+        className={`inline-flex min-h-[44px] shrink-0 items-center justify-center whitespace-nowrap border border-red bg-red px-3 py-3 font-display text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-paper transition-colors hover:bg-ink hover:border-ink md:px-5 md:text-xs ${className}`}
       >
         {label ?? investCopy.button}
       </button>

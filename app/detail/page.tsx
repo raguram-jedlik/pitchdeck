@@ -142,7 +142,7 @@ function DataTable({
             {head.map((h) => (
               <th
                 key={h}
-                className="border-b-2 border-ink pb-3 pr-6 font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink"
+                className="border-b-2 border-ink pb-3 pr-6 font-display text-[0.75rem] font-bold uppercase tracking-[0.16em] text-ink"
               >
                 {h}
               </th>
@@ -176,7 +176,7 @@ function DataTable({
 
 export default function DetailPage() {
   return (
-    <main className="deck-photo-bg relative">
+    <main className="deck-detail deck-photo-bg relative">
       <DetailNav />
 
       {/* ---------- Hero ---------- */}
@@ -197,13 +197,13 @@ export default function DetailPage() {
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href="/"
-              className="inline-flex items-center border border-rule px-5 py-2.5 font-display text-xs font-bold uppercase tracking-[0.16em] text-ink transition-colors hover:border-ink"
+              className="inline-flex min-h-[44px] items-center border border-rule px-5 py-2.5 font-display text-xs font-bold uppercase tracking-[0.16em] text-ink transition-colors hover:border-ink"
             >
               &larr; Back to the deck
             </Link>
             <a
               href="#snapshot"
-              className="inline-flex items-center bg-red px-5 py-2.5 font-display text-xs font-bold uppercase tracking-[0.16em] text-paper transition-colors hover:bg-red-deep"
+              className="inline-flex min-h-[44px] items-center bg-red px-5 py-2.5 font-display text-xs font-bold uppercase tracking-[0.16em] text-paper transition-colors hover:bg-red-deep"
             >
               Start with the snapshot
             </a>
@@ -410,7 +410,7 @@ export default function DetailPage() {
           <div className="mt-5 grid gap-px border border-rule bg-rule md:grid-cols-2">
             {productionPlan.map((p) => (
               <div key={p.label} className="bg-paper-2 px-5 py-4">
-                <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-red">
+                <p className="font-display text-[0.75rem] font-bold uppercase tracking-[0.16em] text-red">
                   {p.label}
                 </p>
                 <p className="mt-1.5 text-sm leading-relaxed text-ink">{p.value}</p>
@@ -641,7 +641,7 @@ export default function DetailPage() {
                   {p.title}
                 </h3>
                 <span
-                  className={`shrink-0 px-2.5 py-1 font-display text-[0.6rem] font-bold uppercase tracking-[0.16em] ${
+                  className={`shrink-0 px-2.5 py-1 font-display text-[0.7rem] font-bold uppercase tracking-[0.16em] ${
                     p.status === "Granted" ? "bg-red text-paper" : "border border-rule text-muted"
                   }`}
                 >
@@ -734,13 +734,13 @@ export default function DetailPage() {
           <div className="mt-16 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-paper/15 pt-8">
             <a
               href="#snapshot"
-              className="font-display text-xs font-bold uppercase tracking-[0.16em] text-paper/70 transition-colors hover:text-paper"
+              className="-mx-1 inline-flex min-h-[44px] items-center px-1 py-2 font-display text-xs font-bold uppercase tracking-[0.16em] text-paper/70 transition-colors hover:text-paper"
             >
               Top of this page
             </a>
             <Link
               href="/"
-              className="font-display text-xs font-bold uppercase tracking-[0.16em] text-paper/70 transition-colors hover:text-paper"
+              className="-mx-1 inline-flex min-h-[44px] items-center px-1 py-2 font-display text-xs font-bold uppercase tracking-[0.16em] text-paper/70 transition-colors hover:text-paper"
             >
               Back to the short deck
             </Link>

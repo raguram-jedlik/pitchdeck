@@ -84,7 +84,7 @@ export default function TeamForces() {
                 type="button"
                 aria-label="Scroll mentors left"
                 onClick={() => scrollBy(mentorsScrollRef, -1)}
-                className="flex h-8 w-8 items-center justify-center border border-rule text-ink hover:bg-rule"
+                className="flex h-11 w-11 items-center justify-center border border-rule text-ink hover:bg-rule"
               >
                 ←
               </button>
@@ -92,7 +92,7 @@ export default function TeamForces() {
                 type="button"
                 aria-label="Scroll mentors right"
                 onClick={() => scrollBy(mentorsScrollRef, 1)}
-                className="flex h-8 w-8 items-center justify-center border border-rule text-ink hover:bg-rule"
+                className="flex h-11 w-11 items-center justify-center border border-rule text-ink hover:bg-rule"
               >
                 →
               </button>

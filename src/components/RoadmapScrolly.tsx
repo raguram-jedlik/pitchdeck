@@ -53,7 +53,7 @@ export default function RoadmapScrolly() {
                 }`}
               >
                 {m.isNow && (
-                  <span className="absolute -top-3 left-4 z-10 inline-block bg-red px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper shadow-sm">
+                  <span className="absolute -top-3 left-4 z-10 inline-block bg-red px-2.5 py-1 font-display text-[0.75rem] font-bold uppercase tracking-[0.18em] text-paper shadow-sm">
                     Now
                   </span>
                 )}
@@ -64,7 +64,7 @@ export default function RoadmapScrolly() {
                 >
                   {m.year}
                 </span>
-                <span className="mt-1 block font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-muted">
+                <span className="mt-1 block font-display text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-muted">
                   {m.label}
                 </span>
                 <ul className="mt-3 space-y-1 text-xs leading-relaxed text-ink">
@@ -122,7 +122,7 @@ export default function RoadmapScrolly() {
                     {m.label}
                   </span>
                   {m.isNow && (
-                    <span className="inline-flex w-fit items-center bg-red px-2.5 py-1 font-display text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper">
+                    <span className="inline-flex w-fit items-center bg-red px-2.5 py-1 font-display text-[0.75rem] font-bold uppercase tracking-[0.18em] text-paper">
                       Now
                     </span>
                   )}

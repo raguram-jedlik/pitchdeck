@@ -173,7 +173,7 @@ export function CanvasWheel({
               active === i ? "outline outline-1 outline-red" : ""
             }`}
           >
-            <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-red">
+            <p className="font-display text-[0.75rem] font-bold uppercase tracking-[0.16em] text-red">
               {b.title}
             </p>
             <ul className="mt-2.5 space-y-1">
@@ -212,7 +212,7 @@ export function StageTimeline({
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           transition={{ duration: 0.5, delay: i * 0.1 }}
         >
-          <p className="font-display text-[0.65rem] font-bold uppercase tracking-[0.16em] text-red">
+          <p className="font-display text-[0.75rem] font-bold uppercase tracking-[0.16em] text-red">
             Stage {i + 1}
           </p>
           <p className="mt-2 font-display text-lg font-bold tracking-tight text-ink">{s.stage}</p>
@@ -248,7 +248,7 @@ export function CompareBars({
             </div>
             <div className="mt-3 space-y-2">
               <div className="flex items-center gap-3">
-                <span className="w-24 shrink-0 font-display text-[0.6rem] font-bold uppercase tracking-[0.14em] text-muted">
+                <span className="w-24 shrink-0 font-display text-[0.75rem] font-bold uppercase tracking-[0.14em] text-muted">
                   Dark factory
                 </span>
                 <div className="h-6 flex-1 bg-rule">
@@ -267,7 +267,7 @@ export function CompareBars({
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="w-24 shrink-0 font-display text-[0.6rem] font-bold uppercase tracking-[0.14em] text-muted">
+                <span className="w-24 shrink-0 font-display text-[0.75rem] font-bold uppercase tracking-[0.14em] text-muted">
                   Manual CKD
                 </span>
                 <div className="h-6 flex-1 bg-rule">

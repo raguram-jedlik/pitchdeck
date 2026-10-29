@@ -30,6 +30,19 @@ export default function Nav() {
     return () => observer.disconnect();
   }, []);
 
+  // Land at the top of the deck on a fresh load.
+  //
+  // The browser restores the previous scroll position on reload, which
+  // can leave a section's eyebrow tucked under the fixed header. Jump to
+  // the top unless the URL carries an in-page anchor.
+  useEffect(() => {
+    if (window.location.hash) return;
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <motion.div
@@ -37,13 +50,13 @@ export default function Nav() {
         style={{ scaleX: scrollYProgress }}
       />
       <header
-        className={`fixed top-0 left-0 right-0 z-40 flex items-start justify-between transition-opacity duration-300 ${
+        className={`deck-header fixed top-0 left-0 right-0 z-40 flex items-start justify-between gap-3 py-2 transition-opacity duration-300 md:gap-6 ${
           overFooter ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
-        <a href="#title" aria-label={`${brand.name} — home`} className="block pl-0 pt-0">
+        <a href="#title" aria-label={`${brand.name} — home`} className="flex min-h-[44px] items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/logo-cropped.png" alt={brand.name} className="h-11 w-auto md:h-16" />
+          <img src="/assets/logo-cropped.png" alt={brand.name} className="h-9 w-auto md:h-16" />
         </a>
         <InvestButton />
       </header>

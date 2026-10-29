@@ -278,9 +278,90 @@ hr.rule {
   font-family: var(--font-body), system-ui, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 500;
   color: #6b6b6b;
+}
+
+/*
+ * Clear the fixed header.
+ *
+ * The deck header is pinned to the top of the viewport, so any content
+ * that scrolls underneath it is hidden. On a phone the header is a large
+ * share of a short viewport, and the section eyebrow + headline are the
+ * first thing a reader sees — so they were being overlapped by the logo.
+ *
+ * `--deck-header-h` is the height the header actually occupies. It is
+ * set per breakpoint below and consumed by:
+ *   - .deck-shell > section  → padding-top, so the first line of every
+ *     section starts below the header;
+ *   - scroll-margin-top      → so jumping to a section (the detail
+ *     deck's Contents menu) lands it in view rather than under the
+ *     header.
+ */
+:root {
+  --deck-header-h: 72px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --deck-header-h: 88px;
+  }
+}
+
+/*
+ * Sections that begin a snap target must clear the header. The padding
+ * is applied to the section itself (not the inner wrapper) so the
+ * background and border still span the full width.
+ */
+.deck-shell > section {
+  scroll-margin-top: var(--deck-header-h);
+}
+
+/*
+ * Every section after the hero gets enough top padding to clear it.
+ * The hero already reserves its own space (it sits under the header
+ * from the start), so it is left alone.
+ */
+.deck-shell > section:not(:first-child) {
+  padding-top: calc(var(--deck-header-h) + 1rem);
+}
+
+@media (min-width: 768px) {
+  .deck-shell > section:not(:first-child) {
+    padding-top: calc(var(--deck-header-h) + 1.5rem);
+  }
+}
+
+/*
+ * A compact, mobile-only header treatment. On a phone the deck header
+ * carries the logo, the progress hairline and the "Invest in Us" CTA.
+ * The CTA used to sit flush against the right edge of the viewport and
+ * was clipped, so the header now has real side padding on small
+ * screens and the CTA is allowed to shrink its label.
+ */
+@media (max-width: 767px) {
+  .deck-header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    align-items: center;
+  }
+}
+
+/*
+ * The long-form detail deck.
+ *
+ * It does not use .deck-shell, so it opts into the same clearance
+ * explicitly. Its header is shorter than the short deck's, and the
+ * hero already reserves room for it (pt-28), so only the sections
+ * that follow need the top padding.
+ *
+ * The hero is skipped via :first-of-type rather than :first-child,
+ * because <DetailNav> renders before it and is therefore the first
+ * child of <main>.
+ */
+.deck-detail > section:not(:first-of-type) {
+  scroll-margin-top: var(--deck-header-h);
 }
 
 /* Display headline scale — tight, all-caps, sharp. */
@@ -377,6 +458,22 @@ html:has(.deck-shell) {
 html:has(.deck-shell) .deck-snap-target {
   scroll-snap-align: start;
   scroll-snap-stop: always;
+}
+
+/*
+ * The detail deck's hero.
+ *
+ * The hero is not a snap target, so with mandatory snapping the browser
+ * pulls the page to the first section that IS one — landing the reader
+ * mid-document with the hero's buttons tucked under the fixed header.
+ * Marking the hero as a snap point gives the scroll a resting place at
+ * the very top, so the page opens where it should.
+ *
+ * Note: the hero is not `section:first-child` — <DetailNav> renders
+ * before it — so it is identified as the first `section` child instead.
+ */
+.deck-detail > section:first-of-type {
+  scroll-snap-align: start;
 }
 
 /*
