@@ -1,8 +1,14 @@
 node_modules
 dist
 .next
+.next-prod
 .DS_Store
 *.local
 .env
 .env.*
 tsconfig.tsbuildinfo
+
+# Local responsive-audit tooling (Playwright venvs, screenshots, reports).
+# Test-only; never part of a production commit.
+.mobile-audit/
+
