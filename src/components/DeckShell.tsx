@@ -92,6 +92,12 @@ interface DeckShellProps {
  */
 const MIN_SCALE = 0.85;
 
+/*
+ * The absolute floor, used only when the legibility floor would clip
+ * content. See `measure`.
+ */
+const HARD_SCALE_FLOOR = 0.5;
+
 /** Sections we fit are exactly one screen tall; that is the whole point. */
 const FIT_SECTION_CLASS = "snap-fit-section";
 const FRAME_CLASS = "snap-fit-frame";
@@ -231,30 +237,45 @@ function fitSection(section: HTMLElement): () => void {
 
     let next = 1;
     if (natural > available) {
-      next = available / natural;
-      // Never shrink past the legibility floor.
-      next = Math.max(MIN_SCALE, next);
+      const fit = available / natural;
+      // Prefer the legibility floor over a tighter fit.
+      next = Math.max(MIN_SCALE, fit);
+      /*
+       * But only as a preference. If honoring the floor would leave part
+       * of the slide outside the frame, go smaller.
+       *
+       * The frame clips, so a section that is too tall does not look
+       * wrong at first glance — its tail is simply gone. On a short
+       * phone (a 320x568 screen gives each section ~470px) the floor
+       * leaves roughly forty percent of six sections invisible, with no
+       * way for the reader to reach it. Undersized type is a flaw;
+       * missing content is a failure.
+       */
+      if (next * natural > available + 1) {
+        next = Math.max(HARD_SCALE_FLOOR, fit);
+      }
     }
 
     inner.style.scale = String(next);
     section.style.setProperty("--snap-fit-scale", String(next));
 
     /*
-     * When the content is still taller than the frame at the legibility
-     * floor, scaling alone cannot save it: the floor is there to keep
-     * the type readable, so we refuse to go below it.
+     * Scaling is the first line of defence: it shrinks the whole slide
+     * at paint time, so nothing moves and nothing is removed.
      *
-     * The old behaviour here was to release the clip on the section and
-     * let it scroll internally (`overflow-y: auto`). That was a trap:
-     * once the pointer was over such a section, the wheel scrolled
-     * INSIDE it instead of moving to the next section, so the deck
-     * appeared to freeze — "it gets stucked after section 2". The reader
-     * had to hunt with the mouse to escape.
+     * The old behaviour when even the legibility floor would not fit was
+     * to release the clip on the section and let it scroll internally
+     * (`overflow-y: auto`). That was a trap: once the pointer was over
+     * such a section, the wheel scrolled INSIDE it instead of moving to
+     * the next section, so the deck appeared to freeze — "it gets stucked
+     * after section 2". The reader had to hunt with the mouse to escape.
      *
-     * Now, instead of an inner scroller, we compress the section's own
-     * vertical rhythm so the content genuinely fits. `snap-fit-dense`
-     * tightens the gaps between the section's blocks, which is invisible
-     * in most cases and keeps the one-section-per-stop promise intact.
+     * So the section keeps its clip and we compress instead. First the
+     * scale goes as low as legibility allows, and only if that still
+     * leaves the tail outside the frame do we go below the floor rather
+     * than hide it. Then `snap-fit-dense` tightens the section's own
+     * vertical rhythm, which is nearly invisible and keeps the
+     * one-section-per-stop promise intact.
      */
     const stillOverflows = natural * next > available + 1;
     const wasDense = section.classList.contains("snap-fit-dense");
