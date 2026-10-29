@@ -139,9 +139,9 @@ body::after {
       rgba(251, 250, 247, 0.55) 0%,
       rgba(251, 250, 247, 0) 22%
     ),
-    url("/assets/epod-desert-bg.jpg");
+    url("/assets/epod-misty-desert.jpg");
   background-size: cover, cover, cover;
-  background-position: center, center, 70% center;
+  background-position: center, center, 62% 58%;
   background-repeat: no-repeat, no-repeat, no-repeat;
   background-attachment: fixed, fixed, fixed;
 }
@@ -203,9 +203,9 @@ body::after {
         rgba(251, 250, 247, 0.86) 55%,
         rgba(251, 250, 247, 0.82) 100%
       ),
-      url("/assets/epod-desert-bg.jpg");
+      url("/assets/epod-misty-desert.jpg");
     background-size: cover, cover;
-    background-position: center, 68% 78%;
+    background-position: center, 50% 52%;
     background-attachment: fixed, fixed;
   }
 
