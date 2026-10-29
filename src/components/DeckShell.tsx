@@ -1,11 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import PresentMode from "@/components/PresentMode";
 
 /**
  * DeckShell — wraps a deck's content and enforces one-section-at-a-time
- * scrolling, plus offers the "View in Present Mode" button at the bottom.
+ * scrolling.
  *
  * One-section-at-a-time scrolling
  * --------------------------------
@@ -25,38 +24,26 @@ import PresentMode from "@/components/PresentMode";
  * container uses `proximity` snapping — the browser only snaps when a
  * section boundary is near. This keeps long sections (the detailed deck's
  * data tables, for example) fully readable.
- *
- * Present mode
- * ------------
- * The same section elements are moved into the PresentMode overlay, which
- * shows exactly one at a time. There is one source of truth for content.
  */
 
 interface DeckShellProps {
   /** The deck's content — sections and everything between them. */
   children: React.ReactNode;
-  /** Deck title shown in the present-mode chrome. */
+  /** Deck title. */
   title: string;
   /** CSS selector that identifies the deck's top-level sections. */
   sectionSelector?: string;
-  /** Label for the present-mode button. */
-  presentLabel?: string;
 }
 
 export default function DeckShell({
   children,
-  title,
   sectionSelector = "main > section",
-  presentLabel = "View in present mode",
 }: DeckShellProps) {
-  const [present, setPresent] = useState(false);
   const [sections, setSections] = useState<HTMLElement[]>([]);
   const shellRef = useRef<HTMLDivElement>(null);
 
   /**
-   * Collect the deck's top-level sections once the DOM is ready. The
-   * present-mode overlay re-parents sections, so we re-read the list
-   * whenever present mode opens and closes.
+   * Collect the deck's top-level sections once the DOM is ready.
    */
   const collect = useCallback(() => {
     const root = shellRef.current;
@@ -93,43 +80,9 @@ export default function DeckShell({
     return () => window.removeEventListener("resize", apply);
   }, [sections]);
 
-  const openPresent = useCallback(() => {
-    collect();
-    setPresent(true);
-  }, [collect]);
-
   return (
     <div ref={shellRef} className="deck-shell relative">
       {children}
-
-      {/* The present-mode button sits at the very bottom of the deck. */}
-      <div className="flex justify-center border-t border-rule px-6 py-12 md:px-10 md:py-16">
-        <button
-          type="button"
-          onClick={openPresent}
-          className="group inline-flex items-center gap-3 border border-ink bg-transparent px-7 py-4 font-display text-xs font-bold uppercase tracking-[0.16em] text-ink transition-colors hover:border-red hover:bg-red hover:text-paper"
-        >
-          {presentLabel}
-          <span
-            aria-hidden="true"
-            className="transition-transform group-hover:translate-x-1"
-          >
-            &rarr;
-          </span>
-        </button>
-      </div>
-
-      <PresentMode
-        open={present}
-        onClose={() => {
-          setPresent(false);
-          // Re-read the section list now that the sections have been
-          // returned to the deck.
-          setTimeout(collect, 100);
-        }}
-        sections={sections}
-        title={title}
-      />
     </div>
   );
 }

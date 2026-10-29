@@ -437,7 +437,7 @@ section.section-reveal.in-view {
 }
 
 /*
- * One-section-at-a-time scrolling for the brief and detailed decks.
+ * One-section-at-a-time scrolling for the BRIEF deck only.
  *
  * DeckShell tags each top-level section that fits the viewport with
  * .deck-snap-target. Those sections are the snap points, so the reader
@@ -450,12 +450,19 @@ section.section-reveal.in-view {
  * proximity setting above — because every snap target is known to fit
  * inside the viewport. Sections that overflow are excluded from the snap
  * set by DeckShell, so long content still scrolls freely.
+ *
+ * The brief deck only. The detailed deck (/detail) is a long-form
+ * document of fifteen sections with tables and charts; mandatory
+ * snapping there fights the reader and — worse — the browser carries
+ * the outgoing page's scroll offset across the client-side navigation,
+ * so the page would open on its LAST snap target instead of its first.
+ * The detail deck keeps the proximity snapping set on html above.
  */
-html:has(.deck-shell) {
+html:has(.deck-shell):not(:has(.deck-detail)) {
   scroll-snap-type: y mandatory;
 }
 
-html:has(.deck-shell) .deck-snap-target {
+html:has(.deck-shell):not(:has(.deck-detail)) .deck-snap-target {
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
@@ -463,11 +470,11 @@ html:has(.deck-shell) .deck-snap-target {
 /*
  * The detail deck's hero.
  *
- * The hero is not a snap target, so with mandatory snapping the browser
- * pulls the page to the first section that IS one — landing the reader
- * mid-document with the hero's buttons tucked under the fixed header.
- * Marking the hero as a snap point gives the scroll a resting place at
- * the very top, so the page opens where it should.
+ * With proximity snapping the browser rests near a section boundary. The
+ * hero is not a snap target, so the page would come to rest just past
+ * it, with the hero's buttons tucked under the fixed header. Marking
+ * the hero as a snap point gives the scroll a resting place at the very
+ * top, so the page opens where it should.
  *
  * Note: the hero is not `section:first-child` — <DetailNav> renders
  * before it — so it is identified as the first `section` child instead.
@@ -475,35 +482,6 @@ html:has(.deck-shell) .deck-snap-target {
 .deck-detail > section:first-of-type {
   scroll-snap-align: start;
 }
-
-/*
- * While present mode is open the deck's own sections are moved into the
- * overlay. The page behind must not scroll, and the sections inside the
- * overlay should snap to the top of the viewport rather than the page.
- */
-html:has(.present-mode-section) {
-  overflow: hidden;
-}
-
-.present-mode-slot {
-  min-height: 100%;
-}
-
-.present-mode-section {
-  scroll-snap-align: none;
-  min-height: 100vh;
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-/*
- * The present-mode overlay scrolls internally. Its sections are laid out
- * one at a time so only one fills the screen.
- */
-.present-mode-slot > section {
-  scroll-snap-align: start;
-}
-
 
 /*
  * Continuous wheel rotation for the crab-walk diagrams. Each mode has its

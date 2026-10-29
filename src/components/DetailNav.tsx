@@ -60,11 +60,14 @@ export default function DetailNav() {
   // The browser restores the previous scroll position on reload, which
   // leaves the hero's buttons tucked under the fixed header. Jump to the
   // top unless the URL carries an in-page anchor (a Contents jump).
+  //
+  // ScrollToTopOnMount owns the reset — it also handles client-side
+  // navigation into this page, which a mount effect here cannot (the
+  // browser restores the outgoing page's offset after mount). Keeping a
+  // second reset here would fight the mandatory scroll-snap, so this
+  // only covers the case that component does not: a hard reload.
   useEffect(() => {
     if (window.location.hash) return;
-    if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
-    }
     window.scrollTo(0, 0);
   }, []);
 

@@ -53,10 +53,17 @@ const config: Config = {
       },
       animation: {
         // The track is duplicated, so -50% lands exactly on the second copy.
-        // Duration is tuned to the photo size: bigger cards mean a longer
-        // track, so the run time is shortened to keep the scroll speed
-        // visually the same as the smaller thumbnails had.
-        marquee: "marquee 14s linear infinite",
+        //
+        // Duration is NOT fixed: a fixed duration makes the perceived speed
+        // scale with card size (bigger cards => longer track => same seconds
+        // => faster pixels/second). Instead the component measures the real
+        // track width and sets `--marquee-duration` to
+        // (trackWidth / TARGET_PX_PER_SEC). That keeps the scroll speed
+        // constant and calm at every breakpoint.
+        //
+        // The var has a sane fallback so the track never jumps or renders
+        // unanimated while the measurement is pending.
+        marquee: "marquee var(--marquee-duration, 60s) linear infinite",
       },
     },
   },

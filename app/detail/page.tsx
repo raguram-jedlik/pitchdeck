@@ -24,6 +24,7 @@ import {
   projectionHeadline,
 } from "@/data/detailData";
 import DetailNav from "@/components/DetailNav";
+import ScrollToTopOnMount from "@/components/ScrollToTopOnMount";
 import {
   AnimatedBar,
   ColumnChart,
@@ -177,6 +178,7 @@ function DataTable({
 export default function DetailPage() {
   return (
     <main className="deck-detail deck-photo-bg relative">
+      <ScrollToTopOnMount />
       <DetailNav />
 
       {/* ---------- Hero ---------- */}
