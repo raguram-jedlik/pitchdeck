@@ -12,13 +12,22 @@ import { founders, mentors, teamHighlight } from "@/data/jedlikData";
  *   swipe keeps scrolling the page; a horizontal swipe scrolls only the
  *   row. No auto-marquee.
  *
- *   Desktop: static grid with arrow buttons on the mentor row.
+ *   Desktop: founders and mentors sit in two columns side by side, so the
+ *   section costs the height of the TALLER group rather than both stacked.
+ *   That is what lets the portraits stay square.
+ *
+ *   The portraits are `aspect-square` on purpose. Every source photo here
+ *   is square (605x620, 1024x1024, 432x432, 615x615, 1254x1254), and
+ *   object-fit: cover centred on a square box crops nothing. An earlier
+ *   version letterboxed them to 2:1 to buy vertical space, which sliced
+ *   roughly half the height off each headshot. The section now makes room
+ *   by placing the two groups side by side instead.
  */
 export default function TeamForces() {
   const mentorsScrollRef = useRef<HTMLDivElement>(null);
 
   const scrollBy = (ref: React.RefObject<HTMLDivElement>, dir: 1 | -1) => {
-    ref.current?.scrollBy({ left: dir * 240, behavior: "smooth" });
+    ref.current?.scrollBy({ left: dir * 200, behavior: "smooth" });
   };
 
   return (
@@ -35,122 +44,112 @@ export default function TeamForces() {
           alive.
         </h2>
 
-        {/* Founders — scroll container isolated from vertical page scroll */}
-        <div className="mt-4 overflow-x-auto overflow-y-hidden pb-2 [touch-action:pan-y_pan-x]">
-          <div className="flex w-max gap-4 pr-6 md:grid md:w-full md:grid-cols-3 md:gap-6 md:pr-0">
-            {founders.map((f, i) => (
-              <motion.figure
-                key={f.name}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="w-[220px] shrink-0 md:w-auto"
-              >
-                {f.image && (
-                  /*
-                   * The portrait crop is `aspect-[4/5]`, which made each
-                   * photo ~250px tall on a laptop — and this section
-                   * stacks TWO of those grids, so the photos alone were
-                   * taller than the screen. The section could then only
-                   * fit by scaling the whole thing down, which made the
-                   * type small and looked like a scroll trap.
-                   *
-                   * A wider crop (16/10) keeps the faces large while
-                   * giving the section back the height it needs, so the
-                   * content fits at full size.
-                   */
-                  <div className="aspect-[16/9] w-full overflow-hidden bg-rule md:aspect-[2/1]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={f.image}
-                      alt={f.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                )}
-                <figcaption className="mt-2 flex flex-col">
-                  <span className="font-display text-sm font-semibold uppercase tracking-tight text-ink md:text-base">
-                    {f.name}
-                  </span>
-                  <span className="mt-1 text-xs text-muted md:text-sm">{f.role}</span>
-                </figcaption>
-              </motion.figure>
-            ))}
+        <div className="md:grid md:grid-cols-2 md:items-start md:gap-8">
+          {/* Founders — scroll container isolated from vertical page scroll */}
+          <div className="mt-4 overflow-x-auto overflow-y-hidden pb-2 [touch-action:pan-y_pan-x] md:mt-6">
+            <div className="flex w-max gap-4 pr-6 md:grid md:w-full md:grid-cols-3 md:gap-4 md:pr-0">
+              {founders.map((f, i) => (
+                <motion.figure
+                  key={f.name}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="w-[180px] shrink-0 md:w-auto"
+                >
+                  {f.image && (
+                    <div className="aspect-square w-full overflow-hidden bg-rule">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={f.image}
+                        alt={f.name}
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  )}
+                  <figcaption className="mt-2 flex flex-col">
+                    <span className="font-display text-sm font-semibold uppercase tracking-tight text-ink md:text-base">
+                      {f.name}
+                    </span>
+                    <span className="mt-1 text-xs text-muted md:text-sm">{f.role}</span>
+                  </figcaption>
+                </motion.figure>
+              ))}
+            </div>
+          </div>
+
+          {/* Mentors */}
+          <div className="mt-4 md:mt-6">
+            <div className="flex items-center justify-between">
+              <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+                Mentors &amp; Advisors
+              </h3>
+              <div className="flex gap-1 md:hidden">
+                <button
+                  type="button"
+                  aria-label="Scroll mentors left"
+                  onClick={() => scrollBy(mentorsScrollRef, -1)}
+                  className="flex h-9 w-9 items-center justify-center border border-rule text-ink hover:bg-rule"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  aria-label="Scroll mentors right"
+                  onClick={() => scrollBy(mentorsScrollRef, 1)}
+                  className="flex h-9 w-9 items-center justify-center border border-rule text-ink hover:bg-rule"
+                >
+                  →
+                </button>
+              </div>
+            </div>
+            <div
+              ref={mentorsScrollRef}
+              className="mt-2 overflow-x-auto overflow-y-hidden pb-2 [touch-action:pan-y_pan-x]"
+            >
+              <div className="flex w-max gap-4 pr-6 md:grid md:w-full md:grid-cols-3 md:gap-4 md:pr-0">
+                {mentors.map((m, i) => (
+                  <motion.article
+                    key={m.name}
+                    initial={{ opacity: 0, y: 8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{ duration: 0.4, delay: i * 0.08 }}
+                    className="flex w-[190px] shrink-0 flex-col md:w-auto"
+                  >
+                    {m.image && (
+                      <div className="aspect-square w-full overflow-hidden bg-rule">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={m.image}
+                          alt={m.name}
+                          loading="lazy"
+                          className={`h-full w-full object-cover ${m.imageZoom ? "scale-150" : ""}`}
+                        />
+                      </div>
+                    )}
+                    <div className="mt-2 flex flex-col">
+                      <span className="font-display text-sm font-semibold uppercase tracking-tight text-ink md:text-base">
+                        {m.name}
+                      </span>
+                      <span className="mt-1 text-xs text-ink md:text-sm">{m.role}</span>
+                      {m.detail && (
+                        <span className="mt-1 text-xs leading-relaxed text-muted">
+                          {m.detail}
+                        </span>
+                      )}
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
         <p className="mt-3 max-w-3xl border-l-2 border-red pl-5 text-sm font-medium leading-relaxed text-ink md:text-base">
           {teamHighlight}
         </p>
-
-        {/* Mentors */}
-        <div className="mt-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-              Mentors &amp; Advisors
-            </h3>
-            <div className="flex gap-1 md:hidden">
-              <button
-                type="button"
-                aria-label="Scroll mentors left"
-                onClick={() => scrollBy(mentorsScrollRef, -1)}
-                className="flex h-9 w-9 items-center justify-center border border-rule text-ink hover:bg-rule"
-              >
-                ←
-              </button>
-              <button
-                type="button"
-                aria-label="Scroll mentors right"
-                onClick={() => scrollBy(mentorsScrollRef, 1)}
-                className="flex h-9 w-9 items-center justify-center border border-rule text-ink hover:bg-rule"
-              >
-                →
-              </button>
-            </div>
-          </div>
-          <div
-            ref={mentorsScrollRef}
-            className="mt-3 overflow-x-auto overflow-y-hidden pb-2 [touch-action:pan-y_pan-x]"
-          >
-            <div className="flex w-max gap-4 pr-6 md:grid md:w-full md:grid-cols-3 md:gap-5 md:pr-0">
-              {mentors.map((m, i) => (
-                <motion.article
-                  key={m.name}
-                  initial={{ opacity: 0, y: 8 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="flex w-[260px] shrink-0 flex-col md:w-auto"
-                >
-                  {m.image && (
-                    <div className="aspect-[16/9] w-full overflow-hidden bg-rule md:aspect-[2/1]">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={m.image}
-                        alt={m.name}
-                        loading="lazy"
-                        className={`h-full w-full object-cover ${m.imageZoom ? "scale-150" : ""}`}
-                      />
-                    </div>
-                  )}
-                  <div className="mt-2 flex flex-col">
-                    <span className="font-display text-sm font-semibold uppercase tracking-tight text-ink md:text-base">
-                      {m.name}
-                    </span>
-                    <span className="mt-1 text-xs text-ink md:text-sm">{m.role}</span>
-                    {m.detail && (
-                      <span className="mt-1 text-xs leading-relaxed text-muted">
-                        {m.detail}
-                      </span>
-                    )}
-                  </div>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
