@@ -429,7 +429,7 @@ hr.rule {
   font-weight: 700;
   line-height: 0.98;
   letter-spacing: -0.015em;
-  font-size: clamp(2rem, 5.5vw, 4rem);
+  font-size: clamp(1.9rem, 4.4vw, 3.2rem);
 }
 
 .display-md {
@@ -728,8 +728,21 @@ html:has(.deck-shell):not(:has(.deck-detail)) .deck-snap-target {
   margin-bottom: 0;
 }
 
+/*
+ * The gap between a section's blocks is what decides whether it fits
+ * on one screen.
+ *
+ * A section of six blocks carries five gaps. Left at a comfortable
+ * 0.9rem they add up to well over a hundred pixels, which is the
+ * difference between the section fitting on one screen and its tail
+ * sitting behind the next section.
+ *
+ * In a dense section the gaps close right down. The blocks still read
+ * as separate, because each one has its own background, border or
+ * heading — the spacing is not what tells them apart.
+ */
 .snap-fit-section.snap-fit-dense .snap-fit-inner > * + * {
-  margin-top: 0.9rem;
+  margin-top: 0.3rem;
 }
 
 /*
@@ -794,8 +807,8 @@ html:has(.deck-shell):not(:has(.deck-detail)) .deck-snap-target {
  * close up, which brings the three cards back into one screen.
  */
 .snap-fit-section.snap-fit-dense .snap-fit-inner svg[viewBox="0 0 120 120"] {
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
 }
 
 .snap-fit-section.snap-fit-dense .snap-fit-inner dl {
@@ -856,6 +869,60 @@ html:has(.deck-shell):not(:has(.deck-detail)) .deck-snap-target {
  */
 .snap-fit-section.snap-fit-dense .snap-fit-inner .snap-dense-3 .eyebrow {
   letter-spacing: 0.04em;
+}
+
+/*
+ * The persona cards (Section 10) are three full-height cards stacked
+ * on a phone, and they are what pushes that section past one screen.
+ *
+ * Each card carries four label/value rows one under the other. On a
+ * phone the label and its value sit in a narrow two-column row, and
+ * four of those rows are 90px of pure repetition.
+ *
+ * In a dense section the four rows pair up — two rows of two — which
+ * keeps every label and every value on screen but gives back half the
+ * height. The donut is trimmed at the same time.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 0.5rem;
+  row-gap: 0.15rem;
+}
+
+.snap-fit-section.snap-fit-dense .snap-fit-inner dl > div {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  row-gap: 0;
+  column-gap: 0;
+}
+
+.snap-fit-section.snap-fit-dense .snap-fit-inner dl > div > dd {
+  font-size: 0.75rem;
+  line-height: 1.25;
+}
+
+.snap-fit-section.snap-fit-dense .snap-fit-inner dl > div > dt {
+  line-height: 1.25;
+}
+
+/*
+ * Section 07 compares two steering concepts side by side. On a phone
+ * they stack, and the crab-walk diagram alone — three SVG blocks in a
+ * row — takes 109px. Capping the diagram keeps all three modes visible
+ * while giving the section back the room it needs.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner svg {
+  max-height: 4.5rem;
+}
+
+/*
+ * Section 09's map is 122px tall on a phone. The geography is the point
+ * of the picture, but it does not need to be taller than the numbers it
+ * sits next to.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner img[src*="world-map"] {
+  max-height: 6.5rem;
 }
 
 /*

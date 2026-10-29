@@ -22,7 +22,7 @@ export default function RoadmapScrolly() {
   return (
     <section
       ref={ref}
-      className="relative px-6 py-8 md:px-10 md:py-12"
+      className="relative px-6 py-5 md:px-10 md:py-7"
     >
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 04 — The Fuel</p>
@@ -39,7 +39,7 @@ export default function RoadmapScrolly() {
         {/* Mobile: horizontal snap-scroll row.
             pt-4 reserves room for the "Now" badge — overflow-x-auto forces
             overflow-y to auto too (CSS spec), which was clipping it. */}
-        <div className="relative mt-12 -mx-6 overflow-x-auto pb-6 pt-4 md:hidden">
+        <div className="relative mt-6 -mx-6 overflow-x-auto pb-4 pt-3 md:hidden">
           <ol className="flex w-max snap-x snap-mandatory gap-4 px-6">
             {roadmap.map((m, i) => (
               <motion.li
@@ -78,7 +78,7 @@ export default function RoadmapScrolly() {
         </div>
 
         {/* Desktop: vertical timeline */}
-        <div className="relative mt-12 hidden md:block">
+        <div className="relative mt-6 hidden md:block">
           {/* base rule */}
           <div className="absolute top-0 bottom-0 left-2 w-px bg-rule md:left-3" />
           {/* red fill */}
@@ -87,7 +87,7 @@ export default function RoadmapScrolly() {
             className="absolute top-0 left-2 w-px bg-red md:left-3"
           />
 
-          <ol className="flex flex-col gap-10">
+          <ol className="flex flex-col gap-6">
             {roadmap.map((m, i) => (
               <motion.li
                 key={`${m.year}-${m.label}-${i}`}

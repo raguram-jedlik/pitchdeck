@@ -22,21 +22,21 @@ export default function TeamForces() {
   };
 
   return (
-    <section className="relative px-6 py-8 md:px-10 md:py-12">
+    <section className="relative px-6 py-5 md:px-10 md:py-7">
       <div className="mx-auto max-w-deck overflow-hidden">
         <p className="eyebrow">Section 03 — The Forces</p>
-        <h2 className="display-lg mt-4 max-w-[16ch] text-ink">
+        <h2 className="display-lg mt-3 max-w-[16ch] text-ink">
           The team that will bring{" "}
           <img
             src="/images/question-mark-epod.png"
             alt="Jedlik"
-            className="relative top-[0.15em] inline-block h-[1em] w-auto align-baseline"
+            className="relative top-[0.12em] inline-block h-[0.7em] w-auto align-middle"
           />{" "}
           alive.
         </h2>
 
         {/* Founders — scroll container isolated from vertical page scroll */}
-        <div className="mt-6 overflow-x-auto overflow-y-hidden pb-2 [touch-action:pan-y_pan-x]">
+        <div className="mt-4 overflow-x-auto overflow-y-hidden pb-2 [touch-action:pan-y_pan-x]">
           <div className="flex w-max gap-4 pr-6 md:grid md:w-full md:grid-cols-3 md:gap-6 md:pr-0">
             {founders.map((f, i) => (
               <motion.figure
@@ -60,7 +60,7 @@ export default function TeamForces() {
                    * giving the section back the height it needs, so the
                    * content fits at full size.
                    */
-                  <div className="aspect-[16/10] w-full overflow-hidden bg-rule">
+                  <div className="aspect-[16/9] w-full overflow-hidden bg-rule md:aspect-[2/1]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={f.image}
@@ -81,22 +81,22 @@ export default function TeamForces() {
           </div>
         </div>
 
-        <p className="mt-6 max-w-3xl border-l-2 border-red pl-5 text-sm font-medium leading-relaxed text-ink md:text-base">
+        <p className="mt-3 max-w-3xl border-l-2 border-red pl-5 text-sm font-medium leading-relaxed text-ink md:text-base">
           {teamHighlight}
         </p>
 
         {/* Mentors */}
-        <div className="mt-8">
+        <div className="mt-4">
           <div className="flex items-center justify-between">
             <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
               Mentors &amp; Advisors
             </h3>
-            <div className="hidden gap-1 md:flex">
+            <div className="flex gap-1 md:hidden">
               <button
                 type="button"
                 aria-label="Scroll mentors left"
                 onClick={() => scrollBy(mentorsScrollRef, -1)}
-                className="flex h-11 w-11 items-center justify-center border border-rule text-ink hover:bg-rule"
+                className="flex h-9 w-9 items-center justify-center border border-rule text-ink hover:bg-rule"
               >
                 ←
               </button>
@@ -104,7 +104,7 @@ export default function TeamForces() {
                 type="button"
                 aria-label="Scroll mentors right"
                 onClick={() => scrollBy(mentorsScrollRef, 1)}
-                className="flex h-11 w-11 items-center justify-center border border-rule text-ink hover:bg-rule"
+                className="flex h-9 w-9 items-center justify-center border border-rule text-ink hover:bg-rule"
               >
                 →
               </button>
@@ -112,7 +112,7 @@ export default function TeamForces() {
           </div>
           <div
             ref={mentorsScrollRef}
-            className="mt-5 overflow-x-auto overflow-y-hidden pb-3 [touch-action:pan-y_pan-x]"
+            className="mt-3 overflow-x-auto overflow-y-hidden pb-2 [touch-action:pan-y_pan-x]"
           >
             <div className="flex w-max gap-4 pr-6 md:grid md:w-full md:grid-cols-3 md:gap-5 md:pr-0">
               {mentors.map((m, i) => (
@@ -125,7 +125,7 @@ export default function TeamForces() {
                   className="flex w-[260px] shrink-0 flex-col md:w-auto"
                 >
                   {m.image && (
-                    <div className="aspect-[16/10] w-full overflow-hidden bg-rule">
+                    <div className="aspect-[16/9] w-full overflow-hidden bg-rule md:aspect-[2/1]">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={m.image}
