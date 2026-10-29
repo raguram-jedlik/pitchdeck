@@ -36,7 +36,7 @@ export default function TeamForces() {
         </h2>
 
         {/* Founders — scroll container isolated from vertical page scroll */}
-        <div className="mt-10 overflow-x-auto overflow-y-hidden pb-2 [touch-action:pan-y_pan-x]">
+        <div className="mt-6 overflow-x-auto overflow-y-hidden pb-2 [touch-action:pan-y_pan-x]">
           <div className="flex w-max gap-4 pr-6 md:grid md:w-full md:grid-cols-3 md:gap-6 md:pr-0">
             {founders.map((f, i) => (
               <motion.figure
@@ -48,7 +48,19 @@ export default function TeamForces() {
                 className="w-[220px] shrink-0 md:w-auto"
               >
                 {f.image && (
-                  <div className="aspect-[4/5] w-full overflow-hidden bg-rule">
+                  /*
+                   * The portrait crop is `aspect-[4/5]`, which made each
+                   * photo ~250px tall on a laptop — and this section
+                   * stacks TWO of those grids, so the photos alone were
+                   * taller than the screen. The section could then only
+                   * fit by scaling the whole thing down, which made the
+                   * type small and looked like a scroll trap.
+                   *
+                   * A wider crop (16/10) keeps the faces large while
+                   * giving the section back the height it needs, so the
+                   * content fits at full size.
+                   */
+                  <div className="aspect-[16/10] w-full overflow-hidden bg-rule">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={f.image}
@@ -58,7 +70,7 @@ export default function TeamForces() {
                     />
                   </div>
                 )}
-                <figcaption className="mt-3 flex flex-col">
+                <figcaption className="mt-2 flex flex-col">
                   <span className="font-display text-sm font-semibold uppercase tracking-tight text-ink md:text-base">
                     {f.name}
                   </span>
@@ -69,12 +81,12 @@ export default function TeamForces() {
           </div>
         </div>
 
-        <p className="mt-10 max-w-3xl border-l-2 border-red pl-5 text-sm font-medium leading-relaxed text-ink md:text-base">
+        <p className="mt-6 max-w-3xl border-l-2 border-red pl-5 text-sm font-medium leading-relaxed text-ink md:text-base">
           {teamHighlight}
         </p>
 
         {/* Mentors */}
-        <div className="mt-14">
+        <div className="mt-8">
           <div className="flex items-center justify-between">
             <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
               Mentors &amp; Advisors
@@ -113,7 +125,7 @@ export default function TeamForces() {
                   className="flex w-[260px] shrink-0 flex-col md:w-auto"
                 >
                   {m.image && (
-                    <div className="aspect-[4/5] w-full overflow-hidden bg-rule">
+                    <div className="aspect-[16/10] w-full overflow-hidden bg-rule">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={m.image}
@@ -123,7 +135,7 @@ export default function TeamForces() {
                       />
                     </div>
                   )}
-                  <div className="mt-3 flex flex-col">
+                  <div className="mt-2 flex flex-col">
                     <span className="font-display text-sm font-semibold uppercase tracking-tight text-ink md:text-base">
                       {m.name}
                     </span>

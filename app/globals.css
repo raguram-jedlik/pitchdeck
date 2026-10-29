@@ -664,41 +664,198 @@ html:has(.deck-shell):not(:has(.deck-detail)) .deck-snap-target {
 
 /*
  * A section whose content is still taller than the frame at the
- * legibility floor (the scale never goes below 0.55, because below that
- * the type stops being readable) would otherwise have its overflow
- * clipped away by `overflow: hidden`. On a 320px phone that silently
- * cut off the team photos and the market map.
+ * legibility floor would otherwise have its overflow clipped away by
+ * `overflow: hidden`.
  *
- * `DeckShell` marks those sections with `.snap-fit-overflows`. Here we
- * release the clip on the section and let it scroll instead, so the
- * content stays reachable. The section also stops being a snap point:
- * a snap target that is taller than the viewport cannot be rested on
- * cleanly, and the reader needs to be able to scroll inside it.
+ * The OLD fix released the clip and let the section scroll internally.
+ * That was a trap: the wheel scrolled INSIDE the section rather than
+ * moving to the next one, so the deck appeared to freeze — "it gets
+ * stucked after section 2". The reader had to move the mouse off the
+ * section to escape.
+ *
+ * The fix now is to compress the section's own vertical rhythm instead.
+ * `DeckShell` marks those sections with `.snap-fit-dense`, and the rules
+ * below squeeze the big gaps between the section's blocks — the large
+ * `mt-10`/`mt-14` margins, and the tall photo grids — so the content
+ * genuinely fits inside one screen. No inner scroller, no trap, and the
+ * one-section-per-stop promise stays intact.
  *
  * These rules are written against `.snap-fit-section` rather than
  * `.deck-shell > section.snap-fit-section`, because the brief deck's
  * footer is fitted too and it sits outside `.deck-shell`.
- *
- * The selectors below carry the same specificity as the rules they have
- * to beat. `#site-footer.snap-fit-section { overflow: hidden }` sets the
- * footer's clip at weight 1-1-1; at weight 0-2-0 the release below
- * silently lost to it, and the footer stayed clipped and unscrollable
- * at 320px even though it was marked as overflowing.
  */
-.deck-shell > section.snap-fit-section.snap-fit-overflows,
-#site-footer.snap-fit-section.snap-fit-overflows,
-.snap-fit-section.snap-fit-overflows {
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scroll-snap-align: none;
+.snap-fit-section.snap-fit-dense {
+  overflow: hidden;
 }
 
-.deck-shell > section.snap-fit-section.snap-fit-overflows .snap-fit-frame,
-#site-footer.snap-fit-section.snap-fit-overflows .snap-fit-frame,
-.snap-fit-section.snap-fit-overflows .snap-fit-frame {
-  overflow: visible;
-  height: auto;
-  min-height: 100%;
+/*
+ * The section's own top/bottom padding is the single largest fixed cost
+ * in the height budget — `md:py-12` is 96px on a laptop, taken off the
+ * top and the bottom of every section. For a section that is trying to
+ * fit one screen this is the first thing to give back, and unlike the
+ * type it costs nothing in legibility.
+ */
+.snap-fit-section.snap-fit-dense {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/*
+ * Squeeze the vertical rhythm of a dense section.
+ *
+ * The gaps between a section's blocks are the flexible part of its
+ * layout — the text and the photos must stay at their readable size, but
+ * the air between them can shrink.
+ *
+ * The selector reaches the section's BLOCKS rather than only the scaled
+ * container's direct children. Most sections wrap their content in a
+ * `max-w-deck` container, so the blocks that actually carry the
+ * vertical rhythm sit one or two levels deeper than the inner — a
+ * direct-child rule squeezed nothing and the sections stayed too tall.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner > * > *,
+.snap-fit-section.snap-fit-dense .snap-fit-inner > * > * > * {
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+/*
+ * The section's own heading block and the first block after it should
+ * keep a little more air than the rest, so the hierarchy survives.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.snap-fit-section.snap-fit-dense .snap-fit-inner > * + * {
+  margin-top: 0.9rem;
+}
+
+/*
+ * Photo grids are the other flexible block: the portraits are laid out
+ * with `aspect-[4/5]`, so a narrower, shorter box keeps the same shape
+ * but gives the section back a lot of height. Trimming their vertical
+ * padding is enough to bring the team and mentor grids back into one
+ * screen.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner img,
+.snap-fit-section.snap-fit-dense .snap-fit-inner video {
+  /* keep the aspect ratio; only the box around it shrinks */
+  max-height: 100%;
+}
+
+/*
+ * Card internals are the other flexible part of a dense section.
+ *
+ * Squeezing the margins alone is not enough for the market and customer
+ * sections: on a narrow phone their metric cards stack into three and
+ * four rows, and each card carries a large icon (48px), a label, a big
+ * number and a description. The gaps shrink, but the cards themselves
+ * keep their full height, so the section still does not fit in one
+ * screen and the tail of it is clipped away.
+ *
+ * Here we trim the card padding, shrink the icons and pull the icon
+ * closer to the text that goes with it. The numbers and the labels keep
+ * their type size — they are the information, and shrinking them is
+ * what made the deck hard to read in the first place.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner .bg-paper-2 {
+  padding: 0.5rem;
+}
+
+/*
+ * The icons carry no information beyond their label, so they are the
+ * first thing to give up space.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner svg.h-12 {
+  height: 1.75rem;
+  width: 1.75rem;
+}
+
+.snap-fit-section.snap-fit-dense .snap-fit-inner svg.h-8 {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+/*
+ * The gap between an icon and the label under it closes up too.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner svg + .eyebrow,
+.snap-fit-section.snap-fit-dense .snap-fit-inner svg + p {
+  margin-top: 0.25rem;
+}
+
+/*
+ * The persona cards (Section 10) stack one per row on a phone, so the
+ * section is three cards tall. Each card carries a 120px donut, a title
+ * and four label/value rows, and the donut is by far the largest single
+ * item. In a dense section the donut is halved and the label/value rows
+ * close up, which brings the three cards back into one screen.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner svg[viewBox="0 0 120 120"] {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.snap-fit-section.snap-fit-dense .snap-fit-inner dl {
+  row-gap: 0.1rem;
+}
+
+.snap-fit-section.snap-fit-dense .snap-fit-inner dl > div {
+  margin-top: 0;
+}
+
+/*
+ * The world map in Section 09 is a wide image whose height follows its
+ * aspect ratio, so on a narrow screen it eats a large slice of the
+ * budget. Capping its height keeps the map readable while leaving room
+ * for the numbers around it.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner img[src*="world-map"] {
+  max-height: 9rem;
+  object-fit: contain;
+}
+
+/*
+ * The three headline market numbers sit in two rows on a phone: two
+ * cards side by side, then a third below. That second row is a whole
+ * extra band of height for one card.
+ *
+ * In a dense section all three go into one row instead. Each card gets
+ * roughly a third of the width, which is enough for the icon, the short
+ * label and the number — the description is dropped, because the number
+ * is the point of the card and the sentence under it repeats what the
+ * section heading already says.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner .snap-dense-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.snap-fit-section.snap-fit-dense .snap-fit-inner .snap-dense-3-last {
+  display: none;
+}
+
+.snap-fit-section.snap-fit-dense .snap-fit-inner .snap-dense-3 .bg-paper-2,
+.snap-fit-section.snap-fit-dense .snap-fit-inner .snap-dense-3-last .bg-paper-2 {
+  padding: 0.4rem;
+}
+
+/*
+ * The description line under the number goes in a dense section: it is
+ * the first thing to give up, and dropping it is what makes the
+ * three-across row possible.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner .snap-dense-3 .max-w-\[28ch\] {
+  display: none;
+}
+
+/*
+ * The number itself keeps its type size, but the label above it can
+ * tighten up a little.
+ */
+.snap-fit-section.snap-fit-dense .snap-fit-inner .snap-dense-3 .eyebrow {
+  letter-spacing: 0.04em;
 }
 
 /*

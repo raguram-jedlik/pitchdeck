@@ -61,7 +61,7 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-12 grid grid-cols-1 gap-3 border-t border-paper/15 pt-6 text-sm md:text-base"
         >
-          <li className="flex items-baseline gap-6">
+          <li className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
             <span className="w-24 shrink-0 font-display text-xs font-semibold uppercase tracking-[0.16em] text-paper/60">
               Web
             </span>
@@ -69,34 +69,34 @@ export default function Footer() {
               href={contactInfo.websiteUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex min-h-[44px] items-center text-paper underline-offset-4 hover:underline"
+              className="inline-flex min-h-[44px] min-w-0 items-center break-words text-paper underline-offset-4 hover:underline"
             >
               {contactInfo.website}
             </a>
           </li>
-          <li className="flex items-baseline gap-6">
+          <li className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
             <span className="w-24 shrink-0 font-display text-xs font-semibold uppercase tracking-[0.16em] text-paper/60">
               Email
             </span>
             <a
               href={`mailto:${contactInfo.email}`}
-              className="inline-flex min-h-[44px] items-center text-paper underline-offset-4 hover:underline"
+              className="inline-flex min-h-[44px] min-w-0 items-center break-words text-paper underline-offset-4 hover:underline"
             >
               {contactInfo.email}
             </a>
           </li>
-          <li className="flex items-baseline gap-6">
+          <li className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
             <span className="w-24 shrink-0 font-display text-xs font-semibold uppercase tracking-[0.16em] text-paper/60">
               Phone
             </span>
             <a
               href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}
-              className="inline-flex min-h-[44px] items-center text-paper underline-offset-4 hover:underline"
+              className="inline-flex min-h-[44px] min-w-0 items-center break-words text-paper underline-offset-4 hover:underline"
             >
               {contactInfo.phone}
             </a>
           </li>
-          <li className="flex items-baseline gap-6">
+          <li className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
             <span className="w-24 shrink-0 font-display text-xs font-semibold uppercase tracking-[0.16em] text-paper/60">
               Instagram
             </span>
@@ -104,12 +104,12 @@ export default function Footer() {
               href={`https://${contactInfo.instagram}`}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex min-h-[44px] items-center text-paper underline-offset-4 hover:underline"
+              className="inline-flex min-h-[44px] min-w-0 items-center break-words text-paper underline-offset-4 hover:underline"
             >
               {contactInfo.instagram}
             </a>
           </li>
-          <li className="flex items-baseline gap-6">
+          <li className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
             <span className="w-24 shrink-0 font-display text-xs font-semibold uppercase tracking-[0.16em] text-paper/60">
               LinkedIn
             </span>
@@ -117,7 +117,7 @@ export default function Footer() {
               href={contactInfo.linkedinUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex min-h-[44px] items-center text-paper underline-offset-4 hover:underline"
+              className="inline-flex min-h-[44px] min-w-0 items-center break-words text-paper underline-offset-4 hover:underline"
             >
               {contactInfo.linkedin}
             </a>

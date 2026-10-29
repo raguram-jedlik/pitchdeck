@@ -83,11 +83,11 @@ export default function SteerByWire() {
     <section className="relative px-6 py-8 md:px-10 md:py-12">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 07 — The Trick</p>
-        <h2 className="display-lg mt-4 max-w-[16ch] text-ink">
+        <h2 className="display-lg mt-3 max-w-[16ch] text-ink">
           The trick with two wheels.
         </h2>
 
-        <div className="mt-12 grid grid-cols-1 gap-12 border-t border-rule pt-12 md:grid-cols-2 md:gap-10">
+        <div className="mt-6 grid grid-cols-1 gap-6 border-t border-rule pt-6 md:grid-cols-2 md:gap-8">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -98,11 +98,11 @@ export default function SteerByWire() {
             <span className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-red">
               {steerByWire.heading}
             </span>
-            <p className="mt-4 text-base leading-relaxed text-ink md:text-lg">
+            <p className="mt-3 text-base leading-relaxed text-ink md:text-lg">
               {steerByWire.description}
             </p>
 
-            <div className="mt-6 overflow-hidden border border-rule">
+            <div className="mt-4 overflow-hidden border border-rule">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={steerByWire.image}
@@ -112,7 +112,7 @@ export default function SteerByWire() {
               />
             </div>
 
-            <ul className="mt-6 space-y-2 text-sm text-ink md:text-base">
+            <ul className="mt-4 space-y-2 text-sm text-ink md:text-base">
               {steerByWire.benefits.map((b) => (
                 <li key={b}>— {b}</li>
               ))}
@@ -129,17 +129,17 @@ export default function SteerByWire() {
             <span className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-red">
               {crabWalk.heading}
             </span>
-            <p className="mt-4 text-base leading-relaxed text-ink md:text-lg">
+            <p className="mt-3 text-base leading-relaxed text-ink md:text-lg">
               {crabWalk.description}
             </p>
 
-            <div className="mt-6 grid grid-cols-3 gap-4 border border-rule p-4 md:p-6">
+            <div className="mt-4 grid grid-cols-3 gap-4 border border-rule p-4 md:p-6">
               {crabWalk.modes.map((mode) => (
                 <CrabModeBlock key={mode.name} mode={mode} />
               ))}
             </div>
 
-            <ul className="mt-6 space-y-2 text-sm text-ink md:text-base">
+            <ul className="mt-4 space-y-2 text-sm text-ink md:text-base">
               {crabWalk.benefits.map((b) => (
                 <li key={b}>— {b}</li>
               ))}

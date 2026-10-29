@@ -68,8 +68,29 @@ interface DeckShellProps {
   extraFitSelector?: string;
 }
 
-/** The smallest scale we will apply before content becomes unreadable. */
-const MIN_SCALE = 0.55;
+/**
+ * The smallest scale we will apply before content becomes unreadable.
+ *
+ * This floor has been raised twice:
+ *
+ * - 0.55 was far too aggressive. On the laptop viewport it shrank the
+ *   team grid and the market numbers until the type was visibly small —
+ *   the "letters are too small" complaint.
+ * - 0.72 was still not enough. The deck's smallest type is 8-12px
+ *   (section eyebrows, chart labels, stat captions), and at 0.72 a
+ *   12px eyebrow rendered at 8.6px, which is below comfortable reading
+ *   size even on a phone.
+ *
+ * 0.85 keeps the deck's body copy (14-16px) comfortably readable at
+ * every viewport. Labels smaller than that are handled at the source —
+ * the eyebrow and caption classes were raised so the smallest type in
+ * the deck is 12px, which at the 0.85 floor still renders at 10.2px.
+ *
+ * The consequence of hitting the floor is handled by tightening the
+ * section's vertical rhythm, NOT by letting the reader scroll inside a
+ * section — see `fitSection` for why an inner scroller is a trap.
+ */
+const MIN_SCALE = 0.85;
 
 /** Sections we fit are exactly one screen tall; that is the whole point. */
 const FIT_SECTION_CLASS = "snap-fit-section";
@@ -77,12 +98,24 @@ const FRAME_CLASS = "snap-fit-frame";
 const INNER_CLASS = "snap-fit-inner";
 
 /**
- * Find the element that holds a section's content — the in-flow child.
+ * Find the elements that hold a section's content — its in-flow children.
+ *
  * Absolutely positioned children (the hero's background videos and its
  * gradient overlay) fill the section on their own and must not be
  * scaled, so they are skipped.
+ *
+ * A section can have SEVERAL in-flow children. `ProductReveal`, for
+ * example, renders its tease slide as two sibling divs — a heading block
+ * and a text block. Only the first one used to be picked up as the
+ * content, and the other was left behind in the section, outside the
+ * frame. The section then reported a scroll height larger than its
+ * client height and the tail of the text was clipped away.
+ *
+ * So we return ALL of them, in document order. `fitSection` moves the
+ * first into the frame as the inner and moves the rest in after it, so
+ * the whole slide is scaled as one unit.
  */
-function findContentChild(section: HTMLElement): HTMLElement | null {
+function findContentChildren(section: HTMLElement): HTMLElement[] {
   /*
    * If this section has already been fitted, the content we want is the
    * existing `.snap-fit-inner`. Returning it here (rather than the frame
@@ -92,16 +125,14 @@ function findContentChild(section: HTMLElement): HTMLElement | null {
   const existing = section.querySelector(
     `:scope > .${FRAME_CLASS} > .${INNER_CLASS}`
   );
-  if (existing) return existing as HTMLElement;
+  if (existing) return [existing as HTMLElement];
 
-  const inFlow = Array.from(section.children).filter(
+  return Array.from(section.children).filter(
     (child): child is HTMLElement => child instanceof HTMLElement
   ).filter((child) => {
     const position = window.getComputedStyle(child).position;
     return position !== "absolute" && position !== "fixed";
   });
-
-  return inFlow.length ? inFlow[0] : null;
 }
 
 /**
@@ -111,8 +142,8 @@ function findContentChild(section: HTMLElement): HTMLElement | null {
  * fitted shape.
  */
 function fitSection(section: HTMLElement): () => void {
-  const content = findContentChild(section);
-  if (!content) return () => {};
+  const contents = findContentChildren(section);
+  if (!contents.length) return () => {};
 
   /*
    * The frame is the height budget. It is created once and reused, so
@@ -128,8 +159,8 @@ function fitSection(section: HTMLElement): () => void {
     section.appendChild(frame);
   }
 
-  const alreadyFitted = content.classList.contains(INNER_CLASS);
-  const inner = content;
+  const alreadyFitted = contents[0].classList.contains(INNER_CLASS);
+  const inner = contents[0];
 
   if (alreadyFitted) {
     /*
@@ -152,13 +183,27 @@ function fitSection(section: HTMLElement): () => void {
    * Sections may have more than one in-flow child. Anything that is not
    * the scaled inner (i.e. a second content block) is moved into the
    * inner as well, so the whole block is scaled as one unit.
+   *
+   * Both the section's own children and the frame's children are
+   * collected. The section's extras matter: a slide whose content is
+   * spread over two sibling divs used to leave the second one outside
+   * the frame, where it was neither scaled nor counted in the fit — the
+   * text simply ran off the bottom of the screen.
+   *
+   * `contents` already holds every in-flow child of the section in
+   * document order. `contents[0]` is the inner; the rest are the
+   * extras. The frame is skipped, and so is anything that would create
+   * a cycle by being an ancestor of the inner.
    */
-  const extraChildren = Array.from(frame.children).filter(
-    (child) => child !== inner
-  );
+  const extraChildren = [
+    ...contents.slice(1),
+    ...Array.from(frame.children).filter((child) => child !== inner),
+  ];
   extraChildren.forEach((child) => {
+    if (child === frame) return;
     // Never move a node into its own descendant — that is a cycle.
     if (child.contains(inner)) return;
+    if (child === inner) return;
     inner.appendChild(child);
   });
 
@@ -197,17 +242,56 @@ function fitSection(section: HTMLElement): () => void {
     /*
      * When the content is still taller than the frame at the legibility
      * floor, scaling alone cannot save it: the floor is there to keep
-     * the type readable, so we refuse to go below it. Without this
-     * check the overflow is simply clipped by `overflow: hidden` and
-     * the reader loses the bottom of the section — on a 320px phone
-     * the team photos and the market map were cut off entirely.
+     * the type readable, so we refuse to go below it.
      *
-     * In that case we release the clip on that section only and let it
-     * scroll, so the content stays reachable. The other sections keep
-     * the clipped, one-screen-per-section behaviour.
+     * The old behaviour here was to release the clip on the section and
+     * let it scroll internally (`overflow-y: auto`). That was a trap:
+     * once the pointer was over such a section, the wheel scrolled
+     * INSIDE it instead of moving to the next section, so the deck
+     * appeared to freeze — "it gets stucked after section 2". The reader
+     * had to hunt with the mouse to escape.
+     *
+     * Now, instead of an inner scroller, we compress the section's own
+     * vertical rhythm so the content genuinely fits. `snap-fit-dense`
+     * tightens the gaps between the section's blocks, which is invisible
+     * in most cases and keeps the one-section-per-stop promise intact.
      */
     const stillOverflows = natural * next > available + 1;
-    section.classList.toggle("snap-fit-overflows", stillOverflows);
+    const wasDense = section.classList.contains("snap-fit-dense");
+    /*
+     * Dense mode is sticky in one direction only.
+     *
+     * Turning it on is fine: the section only gets there because the
+     * content did not fit. Turning it back off is the trap. The scale
+     * for this pass was computed from the *compacted* height, so if the
+     * class comes off, the content springs back to its full height and
+     * the scale is suddenly wrong — the section overflows again, the
+     * class comes back on, and the two states flip-flop on every
+     * measurement.
+     *
+     * That oscillation is why the same section could measure as fitting
+     * at one screen width and overflowing at the next, even though
+     * nothing about the layout had changed.
+     *
+     * So: once a section has needed the compressed rhythm, it keeps it.
+     * The compressed rhythm is visually almost identical — it just
+     * closes up the gaps between blocks — and it keeps the fit stable.
+     */
+    const needsDense = stillOverflows || wasDense;
+    section.classList.toggle("snap-fit-dense", needsDense);
+
+    /*
+     * Compressing the rhythm changes the content's height, so the scale
+     * has to be recomputed against the new height. Without this the
+     * section would keep the scale it was given before the compression
+     * and could still overflow.
+     *
+     * The re-measure is scheduled rather than run inline, because the
+     * class change has not been laid out yet at this point.
+     */
+    if (wasDense !== needsDense) {
+      schedule();
+    }
   };
 
   const schedule = () => {

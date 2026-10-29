@@ -38,7 +38,7 @@ export default function RevealHeadline() {
         <p
           className="font-label text-ink/90"
           style={{
-            fontSize: "clamp(8px, 1.55vw, 22px)",
+            fontSize: "clamp(12px, 1.55vw, 22px)",
             letterSpacing: "0.62em",
             fontWeight: 500,
             lineHeight: 1,

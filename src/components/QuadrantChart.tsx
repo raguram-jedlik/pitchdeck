@@ -26,10 +26,10 @@ export default function QuadrantChart() {
   const jedlik = quadrantPoints.find((p) => p.isJedlik)!;
 
   return (
-    <section className="relative px-2 py-8 sm:px-4 md:px-10 md:py-12">
+    <section className="relative px-2 py-6 sm:px-4 md:px-10 md:py-8">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow px-2 sm:px-0">Section 02 — The Map</p>
-        <h2 className="display-lg mt-4 max-w-[18ch] px-2 text-ink sm:px-0">
+        <h2 className="display-lg mt-3 max-w-[18ch] px-2 text-ink sm:px-0">
           What&apos;s on the road today?
         </h2>
 
@@ -42,7 +42,7 @@ export default function QuadrantChart() {
             run off past the left/right arrow tips, and the maneuverability
             labels sit above the top tip / below the bottom tip. The square
             is inset by the px-* padding so the labels have room to sit in. */}
-        <div className="relative mx-auto mt-16 mb-16 w-full max-w-[640px] px-7 py-7 sm:mt-20 sm:mb-20 sm:px-9 sm:py-8">
+        <div className="relative mx-auto mt-6 mb-6 w-full max-w-[560px] px-7 py-7 sm:mt-8 sm:mb-8 sm:px-9 sm:py-8">
           <div className="relative aspect-square w-full">
             {/* axes — double-headed arrows, black */}
           <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2">
@@ -212,7 +212,7 @@ export default function QuadrantChart() {
           </div>
         </div>
 
-        <p className="mx-auto mt-8 max-w-xl px-2 text-center text-sm text-muted sm:px-0 md:text-base">
+        <p className="mx-auto mt-5 max-w-xl px-2 text-center text-sm text-muted sm:px-0 md:text-base">
           Seven serious attempts at an enclosed commuter. None of them sit in the
           top-right quadrant — the only one with both high comfort and high
           maneuverability, where Jedlik lives.

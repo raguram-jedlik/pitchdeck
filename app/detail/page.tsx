@@ -638,12 +638,12 @@ export default function DetailPage() {
         <div className="grid gap-6 md:grid-cols-2">
           {patents.map((p) => (
             <div key={p.title} className="border border-rule bg-paper-2 p-6">
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="font-display text-base font-bold leading-snug tracking-tight text-ink">
+              <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                <h3 className="min-w-0 font-display text-base font-bold leading-snug tracking-tight text-ink">
                   {p.title}
                 </h3>
                 <span
-                  className={`shrink-0 px-2.5 py-1 font-display text-[0.7rem] font-bold uppercase tracking-[0.16em] ${
+                  className={`shrink-0 whitespace-normal px-2.5 py-1 text-left font-display text-[0.7rem] font-bold uppercase leading-tight tracking-[0.16em] ${
                     p.status === "Granted" ? "bg-red text-paper" : "border border-rule text-muted"
                   }`}
                 >

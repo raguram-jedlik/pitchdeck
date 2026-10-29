@@ -94,11 +94,11 @@ export default function Personas() {
     <section className="relative px-6 py-8 md:px-10 md:py-12">
       <div className="mx-auto max-w-deck">
         <p className="eyebrow">Section 10 — The Customers</p>
-        <h2 className="display-lg mt-4 max-w-[16ch] text-ink">
+        <h2 className="display-lg mt-3 max-w-[16ch] text-ink">
           Target customers.
         </h2>
 
-        <div className="mt-12 grid grid-cols-1 gap-px bg-rule sm:grid-cols-3">
+        <div className="mt-4 grid grid-cols-1 gap-px bg-rule sm:grid-cols-3">
           {personas.map((p, i) => (
             <motion.article
               key={p.title}
@@ -106,7 +106,7 @@ export default function Personas() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="bg-paper-2 p-6 md:p-8"
+              className="bg-paper-2 p-3.5 md:p-5"
             >
               <div className="flex items-baseline justify-between">
                 <span className="font-display text-sm font-bold text-red">
@@ -118,7 +118,7 @@ export default function Personas() {
               </div>
 
               {/* Infographic: donut for TAM share */}
-              <div className="mt-6 flex items-center gap-5">
+              <div className="mt-2.5 flex items-center gap-3 md:mt-3 md:gap-4">
                 <PersonaDonut share={p.share} accent={p.accent} />
                 <div className="flex-1">
                   <h3 className="font-display text-base font-semibold uppercase leading-tight tracking-tight text-ink md:text-lg">
@@ -128,7 +128,7 @@ export default function Personas() {
                 </div>
               </div>
 
-              <dl className="mt-6 space-y-3 text-sm md:text-base">
+              <dl className="mt-3 space-y-1.5 text-sm md:space-y-2 md:text-base">
                 {[
                   ["Age", p.age],
                   ["Income", p.income],
@@ -144,7 +144,7 @@ export default function Personas() {
                 ))}
               </dl>
 
-              <div className="mt-6 border-t border-rule pt-4">
+              <div className="mt-2.5 border-t border-rule pt-2.5 md:mt-3 md:pt-3">
                 <div className="flex items-baseline justify-between">
                   <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-muted">
                     LTV

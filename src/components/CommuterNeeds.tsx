@@ -22,7 +22,14 @@ export default function CommuterNeeds() {
           Not just a vehicle. A better way to move.
         </p>
 
-        <ol className="mt-8 grid grid-cols-1 border-t border-rule sm:grid-cols-2 lg:grid-cols-3">
+        {/*
+         * Ten needs in one column is ten rows on a phone, which is more
+         * than one screen can hold. Two columns from the smallest
+         * breakpoint turns that into five rows, and the list stays
+         * readable because each item is a short label with a number
+         * beside it.
+         */}
+        <ol className="mt-8 grid grid-cols-2 border-t border-rule sm:grid-cols-2 lg:grid-cols-3">
           {commuterNeeds.map((need, i) => (
             <motion.li
               key={need.id}

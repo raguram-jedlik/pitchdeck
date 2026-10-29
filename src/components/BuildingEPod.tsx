@@ -79,7 +79,7 @@ export default function BuildingEPod() {
   }, [reducedMotion]);
 
   return (
-    <section className="relative px-6 py-12 text-ink md:px-10 md:py-16">
+    <section className="relative px-6 py-8 text-ink md:px-10 md:py-10">
       <div className="mx-auto max-w-deck">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -110,7 +110,7 @@ export default function BuildingEPod() {
                   alt=""
                   aria-hidden={i >= buildPhotos.length}
                   loading="lazy"
-                  className="h-64 w-80 shrink-0 object-cover sm:h-72 sm:w-96 md:h-96 md:w-[26rem] lg:h-[28rem] lg:w-[34rem]"
+                  className="h-52 w-80 shrink-0 object-cover sm:h-64 sm:w-96 md:h-80 md:w-[24rem] lg:h-[24rem] lg:w-[32rem]"
                 />
               ))}
             </div>

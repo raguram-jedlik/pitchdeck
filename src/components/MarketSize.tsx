@@ -153,11 +153,11 @@ function MetricCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay: i * 0.08 }}
-      className="bg-paper-2 p-4 md:p-6"
+      className="bg-paper-2 p-3 md:p-4"
     >
       <MarketIcon kind={m.label} />
       <p className="eyebrow mt-3">{m.label}</p>
-      <p className="mt-3 font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">
+      <p className="mt-2 font-display text-xl font-bold tracking-tight text-ink md:text-2xl">
         <CountUpNumber
           value={m.numericValue}
           prefix={m.prefix ?? ""}
@@ -165,7 +165,7 @@ function MetricCard({
           decimals={m.numericValue % 1 !== 0 ? 1 : 0}
         />
       </p>
-      <p className="mt-2 max-w-[28ch] text-xs leading-relaxed text-muted md:text-sm">
+      <p className="mt-1.5 max-w-[28ch] text-xs leading-relaxed text-muted md:text-sm">
         {m.description}
       </p>
     </motion.div>
@@ -182,26 +182,26 @@ export default function MarketSize() {
         <h2 className="display-lg mt-4 max-w-[20ch] text-ink">
           Market potential.
         </h2>
-        <p className="mt-4 max-w-xl text-sm text-muted md:text-base">
+        <p className="mt-3 max-w-xl text-sm text-muted md:text-base">
           India: $517M SAM · World: $1.6B SAM · 2030 forecast.
         </p>
 
         {/* Funnel — icon + count + description, aligned like the India stats below.
             Mobile: 2 cards in a row, the 3rd centered below at the same
             card width. Desktop: all 3 in a row. */}
-        <div className="mt-10">
+        <div className="mt-5">
           <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Global
           </h3>
 
           {/* Mobile layout */}
-          <div className="mt-6 sm:hidden">
-            <div className="grid grid-cols-2 gap-px bg-rule">
+          <div className="mt-3 sm:hidden">
+            <div className="grid grid-cols-2 gap-px bg-rule snap-dense-3">
               {marketMetrics.slice(0, 2).map((m, i) => (
                 <MetricCard key={m.label} m={m} i={i} />
               ))}
             </div>
-            <div className="mt-px flex justify-center">
+            <div className="mt-px flex justify-center snap-dense-3-last">
               <div className="w-1/2 bg-paper">
                 <MetricCard m={marketMetrics[2]} i={2} />
               </div>
@@ -209,7 +209,7 @@ export default function MarketSize() {
           </div>
 
           {/* Desktop layout */}
-          <div className="mt-6 hidden grid-cols-3 gap-px bg-rule sm:grid">
+          <div className="mt-3 hidden grid-cols-3 gap-px bg-rule sm:grid">
             {marketMetrics.map((m, i) => (
               <MetricCard key={m.label} m={m} i={i} />
             ))}
@@ -217,11 +217,11 @@ export default function MarketSize() {
         </div>
 
         {/* India stats — iconified per stat */}
-        <div className="mt-10">
+        <div className="mt-5">
           <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             India
           </h3>
-          <div className="mt-6 grid grid-cols-2 gap-px bg-rule lg:grid-cols-4">
+          <div className="mt-3 grid grid-cols-2 gap-px bg-rule lg:grid-cols-4">
             {indiaStats.map((s, i) => (
               <motion.div
                 key={s.label}
@@ -229,13 +229,13 @@ export default function MarketSize() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="bg-paper-2 p-4 md:p-6"
+                className="bg-paper-2 p-3 md:p-4"
               >
                 <IndiaStatIcon label={s.label} />
-                <p className="mt-3 font-display text-2xl font-bold tracking-tight text-ink md:text-3xl">
+                <p className="mt-2 font-display text-xl font-bold tracking-tight text-ink md:text-2xl">
                   {s.value}
                 </p>
-                <p className="mt-2 text-xs leading-relaxed text-muted md:text-sm">
+                <p className="mt-1.5 text-xs leading-relaxed text-muted md:text-sm">
                   {s.label}
                 </p>
               </motion.div>
@@ -244,7 +244,7 @@ export default function MarketSize() {
         </div>
 
         {/* World map */}
-        <div className="mt-10">
+        <div className="mt-5">
           <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Where we go next
           </h3>
@@ -253,16 +253,26 @@ export default function MarketSize() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6 }}
-            className="relative mt-6 border border-rule"
+            className="relative mt-3 border border-rule"
           >
             {/* Image clipped to its own layer so pin labels that spill past
                 the edges on narrow screens aren't cut off by overflow-hidden. */}
             <div className="overflow-hidden">
+              {/*
+                * The map SVG is 950x620, so at full width it renders
+                * ~390px tall on a laptop — by itself more than half of
+                * the section's height budget, and the reason Section 09
+                * could only be shown by shrinking the whole section
+                * down (which made the numbers small).
+                *
+                * Capping the map's height keeps the shape and the pins
+                * legible while giving the section the room it needs.
+              */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/assets/world-map.svg"
                 alt="World map"
-                className="block h-auto w-full"
+                className="block h-auto max-h-[220px] w-full object-contain"
               />
             </div>
             <div className="absolute inset-0">
@@ -302,7 +312,7 @@ export default function MarketSize() {
             </div>
           </motion.div>
 
-          <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-5">
+          <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-5">
             {geoExpansion.map((g) => (
               <li
                 key={g.region}
