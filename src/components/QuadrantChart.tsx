@@ -96,8 +96,21 @@ export default function QuadrantChart() {
                     className="absolute bottom-full left-1/2 mb-0.5 h-5 w-8 max-w-none -translate-x-1/2 object-contain sm:h-8 sm:w-12 md:h-9 md:w-14"
                   />
                 )}
+                {/*
+                 * The name sits under its dot on tablet and up. On phones
+                 * the square is only ~248px wide and the two closest
+                 * rivals (Sina and Lit Motors) are 54px apart while their
+                 * names are ~76px wide — so they crash into each other.
+                 * Below sm the names move to the legend under the chart.
+                 *
+                 * The halo is not decoration: two labels (MG Comet and
+                 * Gensol EV/Ezio*) land on a neighbouring vehicle image,
+                 * because the image hangs above its dot and the label above
+                 * it hangs below its own. The paper-coloured outline keeps
+                 * the name readable where it crosses the artwork.
+                 */}
                 <span
-                  className={`absolute top-full mt-1 whitespace-nowrap font-display text-[0.7rem] font-semibold leading-tight text-ink ${
+                  className={`absolute top-full mt-1 hidden whitespace-nowrap font-display text-[0.7rem] font-semibold leading-tight text-ink [text-shadow:0_0_3px_var(--color-paper),0_0_6px_var(--color-paper)] sm:block ${
                     p.name === "Gensol EV/Ezio*"
                       ? "right-1/2 mr-[-6px] text-right"
                       : p.name === "T-Shell Bad Boy"
@@ -142,7 +155,7 @@ export default function QuadrantChart() {
                 ?
               </span>
             </div>
-            <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.7rem] font-bold uppercase text-red md:text-sm">
+            <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 hidden whitespace-nowrap text-center font-display text-[0.7rem] font-bold uppercase text-red sm:block md:text-sm">
               {jedlik.name}
             </span>
           </motion.div>
@@ -174,8 +187,15 @@ export default function QuadrantChart() {
           <span className="absolute left-full top-1/2 ml-2 hidden -translate-y-1/2 whitespace-nowrap font-display text-[0.75rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] lg:block md:text-xs">
             Higher Comfort
           </span>
-          {/* +y : higher maneuverability, above the top arrow tip */}
-          <span className="absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap text-center font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] md:text-xs">
+          {/* +y : higher maneuverability, above the top arrow tip.
+
+              On phones the label is left-aligned against the square's top
+              edge instead of centred. Centred, it runs 83px→237px at
+              320px, and Jedlik's silhouette — which hangs above the dot
+              in the top-right corner — occupies 220px→300px. They overlap
+              by 17px. Anchored left, the label stops at 190px and the
+              two never touch. Tablet and up keeps it centred. */}
+          <span className="absolute bottom-full left-0 mb-2 whitespace-nowrap text-left font-display text-[0.7rem] font-bold uppercase tracking-[0.06em] text-[#C2660C] sm:left-1/2 sm:-translate-x-1/2 sm:text-center md:text-xs">
             Higher Maneuverability
           </span>
           {/* -y : lower maneuverability, below the bottom arrow tip */}
@@ -211,6 +231,32 @@ export default function QuadrantChart() {
           </span>
           </div>
         </div>
+
+        {/*
+         * Phone legend. At 320px the plot square is only ~248px wide and
+         * the rival names are ~76px each — the closest pair (Sina Version-E
+         * and Lit Motors C-1) is only 54px apart on the chart, so names
+         * pinned under their dots cannot both fit. On phones the names
+         * live here instead, in a tidy two-column key; from tablet up the
+         * labels go back under their dots on the chart and this list hides.
+         */}
+        <ul className="mx-auto mt-2 grid max-w-[420px] grid-cols-2 gap-x-4 gap-y-2 px-2 sm:hidden">
+          {quadrantPoints.map((p) => (
+            <li key={p.name} className="flex items-center gap-2">
+              <span
+                className="h-2.5 w-2.5 shrink-0 rounded-full border border-paper"
+                style={{ backgroundColor: p.color }}
+              />
+              <span
+                className={`font-display text-[0.75rem] font-semibold leading-tight ${
+                  p.isJedlik ? "text-red" : "text-ink"
+                }`}
+              >
+                {p.name}
+              </span>
+            </li>
+          ))}
+        </ul>
 
         <p className="mx-auto mt-5 max-w-xl px-2 text-center text-sm text-muted sm:px-0 md:text-base">
           Seven serious attempts at an enclosed commuter. None of them sit in the
