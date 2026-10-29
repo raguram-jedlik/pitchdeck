@@ -256,6 +256,16 @@ function fitSection(section: HTMLElement): () => void {
       }
     }
 
+    /*
+     * On a phone the brief deck is not a slide deck at all — it is a
+     * normal scrolling page. Fitting each section into one screen is
+     * what cropped the photos and made the text overlap on mobile, so
+     * below `sm` we opt out entirely: no scaling, no compressed rhythm.
+     * The section takes the height its content needs instead.
+     */
+    const narrow = window.innerWidth < 640;
+    if (narrow) next = 1;
+
     inner.style.scale = String(next);
     section.style.setProperty("--snap-fit-scale", String(next));
 
@@ -277,7 +287,7 @@ function fitSection(section: HTMLElement): () => void {
      * vertical rhythm, which is nearly invisible and keeps the
      * one-section-per-stop promise intact.
      */
-    const stillOverflows = natural * next > available + 1;
+    const stillOverflows = !narrow && natural * next > available + 1;
     const wasDense = section.classList.contains("snap-fit-dense");
     /*
      * Dense mode is sticky in one direction only.
@@ -298,7 +308,7 @@ function fitSection(section: HTMLElement): () => void {
      * The compressed rhythm is visually almost identical — it just
      * closes up the gaps between blocks — and it keeps the fit stable.
      */
-    const needsDense = stillOverflows || wasDense;
+    const needsDense = narrow ? false : stillOverflows || wasDense;
     section.classList.toggle("snap-fit-dense", needsDense);
 
     /*

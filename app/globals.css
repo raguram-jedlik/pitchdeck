@@ -663,6 +663,32 @@ html:has(.deck-shell):not(:has(.deck-detail)) .deck-snap-target {
 }
 
 /*
+ * Below `sm` the brief deck is a plain scrolling page, not a slide deck:
+ * each section grows to fit its content, nothing is clipped, and there
+ * is no one-section-per-page snapping.
+ *
+ * Fitting every section into exactly one screen is what cropped the
+ * photos and made the text overlap on phones, so on mobile the fit is
+ * switched off entirely. The detail deck is unaffected — it keeps its
+ * fixed slides at every width.
+ */
+@media (max-width: 639px) {
+  html:has(.deck-shell):not(:has(.deck-detail)) {
+    scroll-snap-type: none;
+  }
+
+  .deck-shell > section.snap-fit-section {
+    height: auto;
+    overflow: visible;
+  }
+
+  .snap-fit-frame {
+    height: auto;
+    overflow: visible;
+  }
+}
+
+/*
  * A section whose content is still taller than the frame at the
  * legibility floor would otherwise have its overflow clipped away by
  * `overflow: hidden`.
