@@ -1,4 +1,8 @@
-const puppeteer = require("puppeteer");
+// Prefer puppeteer-core (no bundled browser) when PUPPETEER_CORE=1 is set,
+// pointing at a chromium binary supplied via CHROME_PATH. Falls back to the
+// full "puppeteer" package which downloads its own browser.
+const useCore = process.env.PUPPETEER_CORE === "1";
+const puppeteer = useCore ? require("puppeteer-core") : require("puppeteer");
 const path = require("path");
 const { PDFDocument } = require("pdf-lib");
 
@@ -10,7 +14,17 @@ const { PDFDocument } = require("pdf-lib");
   const PAGE_W = 1920;
   const PAGE_H = 1080;
 
-  const browser = await puppeteer.launch({ headless: "new" });
+  const launchOpts = { headless: "new" };
+  if (process.env.CHROME_PATH) launchOpts.executablePath = process.env.CHROME_PATH;
+  // Chromium's sandbox needs kernel features unavailable in containers, and
+  // shm is typically tiny here — disable both so headless rendering works.
+  launchOpts.args = [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-gpu",
+  ];
+  const browser = await puppeteer.launch(launchOpts);
   const page = await browser.newPage();
   await page.setViewport({ width: contentViewportWidth, height: 900, deviceScaleFactor: 2 });
 
@@ -76,12 +90,22 @@ const { PDFDocument } = require("pdf-lib");
   await page.evaluate(() => document.fonts.ready);
   await new Promise((r) => setTimeout(r, 500));
 
-  // Build the page groups: each top-level block (<section> / <footer>) starts
-  // a new page unless it has no eyebrow label of its own (e.g. the E-POD
-  // reveal stage that immediately follows the "Unveil" tease) — those merge
-  // into the previous page. Section 11 (Feedback) is dropped entirely.
+  // Build the page groups: each top-level block starts a new page unless it
+  // has no eyebrow label of its own (e.g. the E-POD reveal stage that
+  // immediately follows the "Unveil" tease) — those merge into the previous
+  // page. Section 11 (Feedback) is dropped entirely.
+  //
+  // The deck's sections live inside <div class="deck-shell"> (a wrapper added
+  // when the deck was rebuilt), so they are no longer direct children of
+  // <main>. Select the shell's sections plus the footer so page grouping still
+  // matches the deck's visual sections.
   const groupCount = await page.evaluate(() => {
-    const blocks = Array.from(document.querySelectorAll("main > section, main > footer"));
+    const shell = document.querySelector("main .deck-shell");
+    const sections = shell
+      ? Array.from(shell.querySelectorAll(":scope > section"))
+      : Array.from(document.querySelectorAll("main > section"));
+    const footer = document.querySelector("main > footer");
+    const blocks = footer ? [...sections, footer] : sections;
     const feedback = blocks.find((el) => /Section 11/i.test(el.textContent || ""));
     if (feedback) feedback.style.display = "none";
     const kept = blocks.filter((el) => el !== feedback);
