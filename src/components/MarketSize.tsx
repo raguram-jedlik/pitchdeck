@@ -243,74 +243,10 @@ export default function MarketSize() {
           </div>
         </div>
 
-        {/* World map */}
         <div className="mt-5">
           <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
             Where we go next
           </h3>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6 }}
-            className="relative mt-3 border border-rule"
-          >
-            {/* Image clipped to its own layer so pin labels that spill past
-                the edges on narrow screens aren't cut off by overflow-hidden. */}
-            <div className="overflow-hidden">
-              {/*
-                * The map SVG is 950x620, so at full width it renders
-                * ~390px tall on a laptop — by itself more than half of
-                * the section's height budget, and the reason Section 09
-                * could only be shown by shrinking the whole section
-                * down (which made the numbers small).
-                *
-                * Capping the map's height keeps the shape and the pins
-                * legible while giving the section the room it needs.
-              */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/world-map.svg"
-                alt="World map"
-                className="block h-auto max-h-[220px] w-full object-contain"
-              />
-            </div>
-            <div className="absolute inset-0">
-              {geoExpansion.map((g, i) => {
-                // sqrt-scaled radius: 6–16px so India dominates but small
-                // markets stay legible without crowding neighbours.
-                const size = 6 + Math.sqrt(g.value / maxGeo) * 10;
-                // The dot itself is the true data marker and is anchored
-                // exactly at {mapX, mapY}; the label is positioned
-                // relative to the dot (not the reverse), otherwise
-                // centering the dot+label stack as one unit shifts the
-                // visible dot away from its real coordinate.
-                return (
-                  <motion.div
-                    key={g.region}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, margin: "-40px" }}
-                    transition={{
-                      duration: 0.4,
-                      delay: 0.2 + i * 0.08,
-                      type: "spring",
-                      stiffness: 240,
-                    }}
-                    className="absolute -translate-x-1/2 -translate-y-1/2"
-                    style={{ left: `${g.mapX}%`, top: `${g.mapY}%`, width: size, height: size }}
-                  >
-                    <span
-                      className="block h-full w-full rounded-full border-2 border-paper bg-red shadow-sm"
-                    />
-                    <span className="absolute top-full left-1/2 mt-1 max-w-[22vw] -translate-x-1/2 whitespace-normal text-center rounded bg-paper/95 px-1 py-0.5 font-display text-[0.7rem] font-bold leading-tight text-ink shadow-sm sm:max-w-none sm:whitespace-nowrap sm:px-1.5 sm:py-0.5">
-                      {g.display}
-                    </span>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
 
           <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-5">
             {geoExpansion.map((g) => (
