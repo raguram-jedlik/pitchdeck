@@ -55,6 +55,17 @@ export default function Feedback() {
     setStep(v === "up" ? "email" : "done");
   }
 
+  // Let a returning visitor revise their answer. Clearing the stored vote
+  // drops the section back to the vote step, so the deck never locks a
+  // reader into the first click they made.
+  function handleChangeVote() {
+    updateState({ vote: undefined });
+    setVote(null);
+    setEmail("");
+    setError(null);
+    setStep("vote");
+  }
+
   async function handleEmail(e: React.FormEvent) {
     e.preventDefault();
     const trimmed = email.trim();
@@ -217,7 +228,19 @@ export default function Feedback() {
                 <h2 className="display-lg max-w-[18ch] text-ink">
                   {thanksMessage}
                 </h2>
-                <span className="dot mt-6 block" />
+                {/* The dot reads as a bullet for the line beside it, so it
+                    sits inline with the copy rather than alone on a row. */}
+                <p className="mt-5 flex max-w-xl items-start gap-3 text-base text-muted md:text-lg">
+                  <span className="dot mt-2 shrink-0" aria-hidden="true" />
+                  <span>{feedbackCopy.doneSub}</span>
+                </p>
+                <button
+                  type="button"
+                  onClick={handleChangeVote}
+                  className="mt-6 border border-rule px-8 py-4 font-display text-xs font-semibold uppercase tracking-[0.16em] text-muted transition-colors hover:border-ink hover:text-ink"
+                >
+                  {feedbackCopy.changeVote}
+                </button>
               </motion.div>
             )}
           </AnimatePresence>

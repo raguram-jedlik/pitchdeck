@@ -459,6 +459,10 @@ export const feedbackCopy = {
   thanksUp: "Thank you — we'll be in touch.",
   thanksDown: "Thank you for the honest answer.",
   thanksEmail: "Noted. You'll hear from us.",
+  // Shown under the thank-you heading so the closing state says what
+  // happens next instead of leaving the section looking half-empty.
+  doneSub: "We've logged your response and will follow up.",
+  changeVote: "Change my answer",
   invalidEmail: "That address doesn't look right.",
   privacy:
     "We record your response and, if you give it, your email. Nothing else.",
