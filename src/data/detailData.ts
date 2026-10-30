@@ -86,6 +86,16 @@ export interface ValidationTile {
    * without measuring anything on screen.
    */
   ratio: number;
+  /**
+   * When true the tile is laid out on its own full-width row instead of
+   * inside a masonry column.
+   *
+   * A very wide screenshot (a long LinkedIn comment) cannot be read inside
+   * a narrow masonry column: the box height works out to a few dozen pixels
+   * and the text shrinks to an illegible strip. Giving those tiles the full
+   * width of the collage lets the image render at close to its natural size.
+   */
+  wide?: boolean;
 }
 
 export const validationTiles: ValidationTile[] = [
@@ -159,19 +169,21 @@ export const validationTiles: ValidationTile[] = [
     src: "/assets/validation/linkedin-14.png",
     alt: "LinkedIn comment saying the team was expected to build something like this ten years back and is finally doing it, and that if it works well the markets of Bangalore, Mumbai, Delhi and Chennai are wide open",
     group: "social",
-    ratio: 1331 / 150,
+    ratio: 660 / 74,
+    wide: true,
   },
   {
     src: "/assets/validation/linkedin-15.png",
     alt: "LinkedIn comment saying they would really like to buy the vehicle",
     group: "social",
-    ratio: 1340 / 180,
+    ratio: 300 / 180,
   },
   {
     src: "/assets/validation/linkedin-16.png",
     alt: "LinkedIn comment saying it is great to see someone attempting to solve this problem in India",
     group: "social",
-    ratio: 1347 / 141,
+    ratio: 660 / 122,
+    wide: true,
   },
   {
     src: "/assets/validation/mail-10.png",

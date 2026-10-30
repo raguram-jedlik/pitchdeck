@@ -116,13 +116,55 @@ export default function ValidationCollage({
   }, []);
 
   const columns = columnsFor(containerWidth);
+  // Tiles flagged `wide` are too long to read inside a narrow masonry
+  // column, so they are pulled out and given their own full-width row.
+  const wideTiles = tiles.filter((t) => t.wide);
+  const narrowTiles = tiles.filter((t) => !t.wide);
   const laidOut =
-    containerWidth > 0 ? balance(tiles, columns, containerWidth) : [];
+    containerWidth > 0 ? balance(narrowTiles, columns, containerWidth) : [];
 
   return (
     <div id="validation-collage" className="w-full">
       {containerWidth > 0 && (
-        <div className="flex items-start" style={{ gap: GAP }}>
+        <>
+          {/* Wide tiles first, each on its own full-width row. The
+              screenshot keeps its own aspect ratio, so the box is exactly
+              as tall as the picture needs and the text stays at full size
+              instead of being shrunk into a column. */}
+          {wideTiles.map((tile, wi) => (
+            <motion.figure
+              key={tile.src}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{
+                duration: 0.4,
+                delay: (wi % 4) * 0.05,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="group relative mb-[12px] overflow-hidden border border-rule bg-paper-2"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 z-10 h-[3px] origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+                style={{ background: RED }}
+              />
+              <div
+                style={{ aspectRatio: `${tile.ratio}` }}
+                className="w-full overflow-hidden"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={tile.src}
+                  alt={tile.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="block h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.015]"
+                />
+              </div>
+            </motion.figure>
+          ))}
+          <div className="flex items-start" style={{ gap: GAP }}>
           {laidOut.map((col, ci) => (
             <div
               key={ci}
@@ -171,7 +213,8 @@ export default function ValidationCollage({
               ))}
             </div>
           ))}
-        </div>
+          </div>
+        </>
       )}
     </div>
   );
