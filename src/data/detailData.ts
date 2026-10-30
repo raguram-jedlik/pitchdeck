@@ -51,6 +51,7 @@ export const vehicleSpecs = [
   { spec: "Vehicle category", value: "M category or L2+ Amendment category" },
   { spec: "Charging time", value: "15 mins (0%–100% in 1.5 hrs)" },
   { spec: "Steer-by-wire", value: "Yes — granted patent" },
+  { spec: "Autonomous vehicle", value: "Yes — drives itself, no rider at the handlebars" },
   { spec: "Autonomous standing", value: "Yes — safety redundancy" },
   { spec: "Localisation", value: "90%" },
   { spec: "Subsidy scheme", value: "PM E-DRIVE" },

@@ -346,10 +346,6 @@ export default function DetailPage() {
         title="Technical specifications"
         lede="The measured and targeted specifications of the e-POD."
       >
-        <p className="max-w-2xl text-sm leading-relaxed text-muted">
-          The e-POD is an autonomous vehicle, built to hold itself stable and to be
-          controlled without a rider at the handlebars.
-        </p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {vehicleSpecs.map((s, i) => (
             <SpecTile key={s.spec} spec={s.spec} value={s.value} index={i} />
