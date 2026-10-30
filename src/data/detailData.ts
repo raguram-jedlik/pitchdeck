@@ -156,6 +156,24 @@ export const validationTiles: ValidationTile[] = [
     ratio: 972 / 204,
   },
   {
+    src: "/assets/validation/linkedin-14.png",
+    alt: "LinkedIn comment saying the team was expected to build something like this ten years back and is finally doing it, and that if it works well the markets of Bangalore, Mumbai, Delhi and Chennai are wide open",
+    group: "social",
+    ratio: 1331 / 150,
+  },
+  {
+    src: "/assets/validation/linkedin-15.png",
+    alt: "LinkedIn comment saying they would really like to buy the vehicle",
+    group: "social",
+    ratio: 1340 / 180,
+  },
+  {
+    src: "/assets/validation/linkedin-16.png",
+    alt: "LinkedIn comment saying it is great to see someone attempting to solve this problem in India",
+    group: "social",
+    ratio: 1347 / 141,
+  },
+  {
     src: "/assets/validation/mail-10.png",
     alt: "Inbound email congratulating the team on the product and looking forward to the launch, with the sender's address blurred",
     group: "email",
