@@ -17,6 +17,8 @@ interface StoredState {
   vote?: "up" | "down";
   emailGiven?: boolean;
   invested?: boolean;
+  /** Epoch ms of the moment the vote was cast. */
+  votedAt?: number;
 }
 
 function read(): StoredState {
@@ -64,6 +66,27 @@ export function getSessionId(): string {
 
 /** Shared client-side check. The server validates independently. */
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+/**
+ * How long a cast vote keeps the closing state on screen.
+ *
+ * The thank-you panel should greet the person who just voted, but it must not
+ * lock the section shut: a visitor who comes back days later has to be able
+ * to answer again, otherwise the deck shows a dead end on every visit.
+ */
+export const VOTE_REMEMBERED_MS = 12 * 60 * 60 * 1000; // 12 hours
+
+/**
+ * Whether a previously cast vote should still show the closing state.
+ *
+ * Older records with no timestamp are treated as stale, since they were
+ * written before votes carried a time and can only be from an earlier visit.
+ */
+export function shouldShowClosingState(state: StoredState, now = Date.now()): boolean {
+  if (!state.vote) return false;
+  if (typeof state.votedAt !== "number") return false;
+  return now - state.votedAt < VOTE_REMEMBERED_MS;
+}
 
 /**
  * Post a capture event. Never throws and never rejects: callers advance their

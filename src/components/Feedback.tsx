@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { feedbackCopy } from "@/data/jedlikData";
-import { getSessionId, getState, updateState, postCapture, EMAIL_RE } from "@/lib/visitor";
+import { getSessionId, getState, updateState, postCapture, EMAIL_RE, shouldShowClosingState } from "@/lib/visitor";
 import KnowMoreCta from "@/components/KnowMoreCta";
 
 /**
@@ -39,17 +39,23 @@ export default function Feedback() {
   // hydration, since the server has no idea whether this visitor has voted.
   useEffect(() => {
     setSessionId(getSessionId());
-    const prior = getState().vote;
-    if (prior) {
-      setVote(prior);
+    const stored = getState();
+    // A vote only keeps the closing state on screen for as long as it is
+    // fresh. A visitor returning later gets the question asked again rather
+    // than a dead thank-you panel.
+    if (shouldShowClosingState(stored)) {
+      setVote(stored.vote ?? null);
       setStep("done");
+    } else if (stored.vote) {
+      // Stale vote: clear it so the stored record matches what is on screen.
+      updateState({ vote: undefined, votedAt: undefined });
     }
     setReady(true);
   }, []);
 
   function handleVote(v: Vote) {
     setVote(v);
-    updateState({ vote: v });
+    updateState({ vote: v, votedAt: Date.now() });
     void postCapture({ intent: "verdict", vote: v, sessionId, honeypot });
     // A negative voter is never asked for anything further.
     setStep(v === "up" ? "email" : "done");
