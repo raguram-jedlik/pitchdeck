@@ -12,7 +12,6 @@ import SteerByWire from "@/components/SteerByWire";
 import MarketSize from "@/components/MarketSize";
 import Personas from "@/components/Personas";
 import Feedback from "@/components/Feedback";
-import KnowMoreCta from "@/components/KnowMoreCta";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -40,7 +39,6 @@ export default function Home() {
         <MarketSize />
         <Personas />
         <Feedback />
-        <KnowMoreCta />
       </DeckShell>
       <Footer />
     </main>

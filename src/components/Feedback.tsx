@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { feedbackCopy } from "@/data/jedlikData";
 import { getSessionId, getState, updateState, postCapture, EMAIL_RE } from "@/lib/visitor";
+import KnowMoreCta from "@/components/KnowMoreCta";
 
 /**
  * Section 11 — the only place the deck asks the investor for anything.
@@ -111,7 +112,7 @@ export default function Feedback() {
                   {feedbackCopy.sub}
                 </p>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <button
                     type="button"
                     onClick={() => handleVote("up")}
@@ -221,6 +222,11 @@ export default function Feedback() {
             )}
           </AnimatePresence>
         </div>
+
+        {/* The "Know more" link closes the deck from inside this
+            section, so the reader votes and then follows the link
+            onward without an empty screen in between. */}
+        <KnowMoreCta />
       </div>
     </section>
   );
