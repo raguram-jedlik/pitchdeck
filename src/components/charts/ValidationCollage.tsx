@@ -44,18 +44,22 @@ const HAIRLINE = 3;
 /**
  * Number of masonry columns at each breakpoint. The component measures the
  * container so it can rebalance on resize.
+ *
+ * Two columns on desktop, not four: a comment screenshot shrunk into a
+ * narrow column renders its text at only a few pixels tall, which is
+ * unreadable. Two columns give each tile roughly double the width.
  */
 const COLUMN_COUNTS: { minWidth: number; columns: number }[] = [
-  { minWidth: 1024, columns: 4 },
-  { minWidth: 640, columns: 3 },
-  { minWidth: 0, columns: 2 },
+  { minWidth: 1024, columns: 2 },
+  { minWidth: 640, columns: 2 },
+  { minWidth: 0, columns: 1 },
 ];
 
 function columnsFor(width: number): number {
   for (const c of COLUMN_COUNTS) {
     if (width >= c.minWidth) return c.columns;
   }
-  return 2;
+  return 1;
 }
 
 /**
