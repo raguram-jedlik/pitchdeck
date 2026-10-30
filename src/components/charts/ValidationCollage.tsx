@@ -65,7 +65,7 @@ export default function ValidationCollage({
             <motion.figure
               key={tile.src}
               initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{
                 duration: 0.4,
@@ -93,7 +93,7 @@ export default function ValidationCollage({
                 <img
                   src={tile.src}
                   alt={tile.alt}
-                  loading="lazy"
+                  loading="eager"
                   decoding="async"
                   className="block h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.015]"
                 />
