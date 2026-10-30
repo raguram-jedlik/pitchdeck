@@ -36,15 +36,36 @@ export interface QuadrantPoint {
   isJedlik?: boolean;
   image?: string;
   color: string;
+  /**
+   * Where the name is written relative to the dot.
+   *
+   * The vehicle picture hangs above its own dot and the name hangs below
+   * it by default, so a name can land straight on a neighbouring
+   * vehicle's picture. Each point is given an explicit side so that
+   * every name sits in clear space:
+   *
+   *   "below" — name under the dot, centred
+   *   "above" — name over the dot, between the dot and its own picture
+   *   "left"  — name to the left of the dot
+   *   "right" — name to the right of the dot
+   */
+  labelSide?: "below" | "above" | "left" | "right";
 }
 
 export const quadrantPoints: QuadrantPoint[] = [
-  { name: "MG Comet",         comfort: 22, maneuverability: 78, image: "/assets/rival-mg-comet.webp",        color: "#7C3AED" },
+  // MG Comet sits up and to the left of PMV Eas-E. Its picture hangs
+  // above its own dot, so the name goes to the left instead of under
+  // the dot, where it would land on PMV's picture.
+  { name: "MG Comet",         comfort: 22, maneuverability: 78, image: "/assets/rival-mg-comet.webp",        color: "#7C3AED", labelSide: "left" },
   { name: "PMV Eas-E",        comfort: 30, maneuverability: 70, image: "/assets/rival-pmv-ease.webp",        color: "#D946EF" },
-  { name: "Gensol EV/Ezio*",  comfort: 45, maneuverability: 50, image: "/assets/rival-gensol-ezio.webp",     color: "#93C5FD" },
+  // Gensol's dot sits up and to the right of Wings Robin's picture and
+  // just left of Sina's. Its name goes to the left of the dot, where
+  // the clear space is, rather than under it (which landed on Wings
+  // Robin's picture) or to the right (which clipped Sina's).
+  { name: "Gensol EV/Ezio*",  comfort: 45, maneuverability: 50, image: "/assets/rival-gensol-ezio.webp",     color: "#93C5FD", labelSide: "left" },
   { name: "Wings Robin",      comfort: 35, maneuverability: 38, image: "/assets/rival-wings-robin.webp",     color: "#B45309" },
   { name: "Sina Version-E",   comfort: 58, maneuverability: 44, image: "/assets/rival-sina-version-e.webp",  color: "#60A5FA" },
-  { name: "T-Shell Bad Boy",  comfort: 52, maneuverability: 14, image: "/assets/rival-tshell-badboy.webp",   color: "#7F1D1D" },
+  { name: "T-Shell Bad Boy",  comfort: 52, maneuverability: 14, image: "/assets/rival-tshell-badboy.webp",   color: "#7F1D1D", labelSide: "right" },
   { name: "Lit Motors C-1",   comfort: 80, maneuverability: 42, image: "/assets/rival-lit-motors-c1.webp",   color: "#1E3A8A" },
   { name: "Jedlik",           comfort: 88, maneuverability: 88, isJedlik: true,                              color: "#059669" },
 ];

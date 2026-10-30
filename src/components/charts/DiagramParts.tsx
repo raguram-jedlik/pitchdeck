@@ -6,6 +6,84 @@ import { useRef, useState } from "react";
 const RED = "#C8023B";
 const INK = "#000000";
 
+/*
+ * Business-model wheel label geometry.
+ *
+ * The wheel is drawn in a 360-unit viewBox. Each block sits in a circle
+ * of radius BLOCK_R and its title is set in a bold display face. Text
+ * has to be measured rather than counted, because a line that fits
+ * comfortably between the left and right of the circle at its own
+ * vertical offset can still poke out of the curve near the top or
+ * bottom of the block.
+ */
+const BLOCK_R = 38;
+const LABEL_FONT_SIZE = 10;
+const LABEL_LINE_HEIGHT = 11;
+const MAX_LINES = 3;
+
+/**
+ * Short forms used only on the radial wheel.
+ *
+ * "relationships" needs about 81 units of width at the label size and
+ * the block circle only offers 69, so that one title uses a shorter
+ * form on the wheel. Breaking the word across lines ("relations /
+ * hips") looks like a typo. The full title still appears on the
+ * detail cards, where there is room for it.
+ */
+const SHORT_LABELS: Record<string, string> = {
+  "Customer relationships": "Customer relations",
+};
+
+/**
+ * Rough advance width of the bold display face at the label size.
+ *
+ * The display face is a wide grotesque, so the average glyph is close
+ * to 0.62em. Measuring with a canvas would be exact but the SVG has to
+ * stay deterministic for server rendering, and this estimate is
+ * deliberately conservative so text errs on the side of fitting.
+ */
+const CHAR_W = LABEL_FONT_SIZE * 0.62;
+
+/** Width of a line of text in viewBox units. */
+function measureText(line: string): number {
+  return line.length * CHAR_W;
+}
+
+/**
+ * The widest a line of text can be at a given vertical offset from the
+ * circle's centre and still sit inside the circle's edge.
+ *
+ * For a circle of radius r whose centre is at (cx, cy), a line drawn at
+ * y = cy + dy is bounded by the chord of the circle at that height:
+ * half-width = sqrt(r^2 - dy^2). A little of that is given up as
+ * padding so the glyphs never touch the stroke.
+ */
+function chordWidth(dy: number, r = BLOCK_R): number {
+  const usable = Math.max(0, r - 2);
+  return 2 * Math.sqrt(Math.max(0, usable * usable - dy * dy));
+}
+
+/**
+ * Break a single word into chunks that each fit the given width, so a
+ * long word like "relationships" is split rather than allowed to bleed
+ * outside the circle.
+ */
+function splitWord(word: string, budget: number): string[] {
+  const chunks: string[] = [];
+  let current = "";
+  for (const ch of word) {
+    const candidate = current + ch;
+    if (current && measureText(candidate) > budget) {
+      chunks.push(current);
+      current = ch;
+    } else {
+      current = candidate;
+    }
+  }
+  if (current) chunks.push(current);
+  return chunks;
+}
+
 /**
  * CanvasWheel — the nine-block business model canvas drawn as a radial
  * diagram rather than a flat grid. Blocks sit around a circle with a
@@ -30,10 +108,14 @@ export function CanvasWheel({
   const [active, setActive] = useState<number | null>(null);
 
   const n = blocks.length;
-  const R = 132;
-  const C = 180;
-  const cx = 180;
-  const cy = 180;
+  // Ring radius and viewBox are sized so nine circles of BLOCK_R fit
+  // around the hub with clear air between neighbours. Circumference
+  // spacing at R=152 is about 106 units, comfortably more than the
+  // 76-unit diameter of a block circle.
+  const R = 152;
+  const C = 190;
+  const cx = 190;
+  const cy = 190;
 
   const pos = (i: number) => {
     const a = (i / n) * Math.PI * 2 - Math.PI / 2;
@@ -41,20 +123,35 @@ export function CanvasWheel({
   };
 
   /**
-   * Split a block title into at most two lines that each fit inside a
-   * 30px-radius circle. Words longer than the line budget are kept whole
-   * rather than chopped, so no label ever shows an ellipsis.
+   * Split a block title into lines that genuinely fit inside the circle.
+   *
+   * The previous version wrapped on a character count alone, which let
+   * lines like "relationships" (14 characters) run well past the circle
+   * edge. Instead we measure each candidate line against the chord
+   * available at that line's own vertical offset, so a line near the
+   * top or bottom of the block is held to a narrower width than one
+   * running through the middle.
+   *
+   * Words are never broken across lines. A title that cannot be laid
+   * out on word boundaries at a readable size uses the short form in
+   * `SHORT_LABELS` instead — splitting "relationships" into "relations
+   * hips" reads as a mistake.
    */
   const wrap = (title: string): string[] => {
-    const words = title.split(" ");
-    if (words.length === 1) return [title];
+    const label = SHORT_LABELS[title] ?? title;
+    const words = label.split(" ");
+
+    // Width allowed for the widest line, at the vertical offset the
+    // first line will actually sit at. The centre line has the most
+    // room, and later lines sit further down where the chord narrows.
+    const firstDy = -((MAX_LINES - 1) * LABEL_LINE_HEIGHT) / 2;
+    const budget = Math.min(chordWidth(firstDy), chordWidth(0));
 
     const lines: string[] = [];
     let current = "";
     for (const w of words) {
       const candidate = current ? `${current} ${w}` : w;
-      // ~10 characters per line at the rendered size keeps text inside.
-      if (candidate.length > 11 && current) {
+      if (current && measureText(candidate) > budget) {
         lines.push(current);
         current = w;
       } else {
@@ -62,12 +159,17 @@ export function CanvasWheel({
       }
     }
     if (current) lines.push(current);
-    return lines.slice(0, 2);
+
+    // A single word too wide to sit on one line is the only case where
+    // characters are broken, and only as a last resort.
+    return lines.flatMap((l) =>
+      measureText(l) > budget ? splitWord(l, budget) : [l]
+    );
   };
 
   return (
     <div ref={ref} className="mx-auto w-full max-w-[min(520px,52vh)]">
-      <svg viewBox="0 0 360 360" className="w-full" role="img" aria-label="Business model canvas">
+      <svg viewBox="0 0 380 380" className="w-full" role="img" aria-label="Business model canvas">
           {/* spokes */}
           {blocks.map((b, i) => {
             const p = pos(i);
@@ -127,8 +229,8 @@ export function CanvasWheel({
             const p = pos(i);
             const isActive = active === i;
             const lines = wrap(b.title);
-            const lineHeight = 10;
-            const startY = p.y - ((lines.length - 1) * lineHeight) / 2;
+            // Centre the actual stack of lines on the circle's centre.
+            const startY = p.y - ((lines.length - 1) * LABEL_LINE_HEIGHT) / 2;
             return (
               <motion.g
                 key={b.title}
@@ -142,7 +244,7 @@ export function CanvasWheel({
                 <circle
                   cx={p.x}
                   cy={p.y}
-                  r={isActive ? 32 : 28}
+                  r={isActive ? 32 : BLOCK_R}
                   fill={isActive ? RED : "#FFFFFF"}
                   stroke={isActive ? RED : INK}
                   strokeWidth="1.5"
@@ -151,11 +253,11 @@ export function CanvasWheel({
                   <text
                     key={line + li}
                     x={p.x}
-                    y={startY + li * lineHeight}
+                    y={startY + li * LABEL_LINE_HEIGHT}
                     textAnchor="middle"
                     dominantBaseline="middle"
                     className="font-display"
-                    fontSize="12"
+                    fontSize={LABEL_FONT_SIZE}
                     fontWeight="700"
                     fill={isActive ? "#FFFFFF" : INK}
                   >

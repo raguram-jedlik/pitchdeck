@@ -97,29 +97,38 @@ export default function QuadrantChart() {
                   />
                 )}
                 {/*
-                 * The name sits under its dot on tablet and up. On phones
-                 * the square is only ~248px wide and the two closest
-                 * rivals (Sina and Lit Motors) are 54px apart while their
-                 * names are ~76px wide — so they crash into each other.
-                 * Below sm the names move to the legend under the chart.
-                 *
-                 * The halo is not decoration: two labels (MG Comet and
-                 * Gensol EV/Ezio*) land on a neighbouring vehicle image,
-                 * because the image hangs above its dot and the label above
-                 * it hangs below its own. The paper-coloured outline keeps
-                 * the name readable where it crosses the artwork.
-                 */}
-                <span
-                  className={`absolute top-full mt-1 hidden whitespace-nowrap font-display text-[0.75rem] font-semibold leading-tight text-ink [text-shadow:0_0_3px_var(--color-paper),0_0_6px_var(--color-paper)] sm:block ${
-                    p.name === "Gensol EV/Ezio*"
-                      ? "right-1/2 mr-[-6px] text-right"
-                      : p.name === "T-Shell Bad Boy"
-                        ? "left-1/2 ml-[-6px] text-left"
-                        : "left-1/2 -translate-x-1/2 text-center"
-                  }`}
-                >
-                  {p.name}
-                </span>
+                 {/* The name sits under its dot on tablet and up, unless the
+                  * data assigns it another side. On phones the square is
+                  * only ~248px wide and the two closest rivals (Sina and
+                  * Lit Motors) are 54px apart while their names are ~76px
+                  * wide — so they crash into each other. Below sm the names
+                  * move to the legend under the chart.
+                  *
+                  * The halo is not decoration: a name that crosses a
+                  * neighbouring vehicle picture stays readable because the
+                  * paper-coloured outline separates the two.
+                  *
+                  * The side comes from the data. Each point declares where
+                  * its name belongs, chosen so no name lands on a
+                  * neighbouring vehicle's picture:
+                  *   below — under the dot, centred
+                  *   above — over the dot, clear of its own picture
+                  *   left  — to the left of the dot, right-aligned
+                  *   right — to the right of the dot, left-aligned
+                  */}
+                 <span
+                   className={`absolute hidden whitespace-nowrap font-display text-[0.75rem] font-semibold leading-tight text-ink [text-shadow:0_0_3px_var(--color-paper),0_0_6px_var(--color-paper)] sm:block ${
+                     p.labelSide === "left"
+                       ? "right-full top-1/2 mr-1.5 -translate-y-1/2 text-right"
+                       : p.labelSide === "right"
+                         ? "left-full top-1/2 ml-1.5 -translate-y-1/2 text-left"
+                         : p.labelSide === "above"
+                           ? "bottom-full left-1/2 mb-1 -translate-x-1/2 text-center"
+                           : "top-full left-1/2 mt-1 -translate-x-1/2 text-center"
+                   }`}
+                 >
+                   {p.name}
+                 </span>
               </motion.div>
             );
           })}
@@ -151,7 +160,12 @@ export default function QuadrantChart() {
                 alt="E-POD silhouette"
                 className="h-full w-full object-contain"
               />
-              <span className="absolute inset-0 flex items-center justify-center font-display text-2xl font-extrabold text-paper drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] md:text-4xl">
+              {/* The question mark rides above the silhouette rather than
+               * sitting on the bodywork. Centred over the dark shape it
+               * was unreadable — the white glyph and the black body
+               * fought each other and the mark looked like a smudge on
+               * the vehicle instead of a question about it. */}
+              <span className="absolute -top-1 left-1/2 -translate-x-1/2 font-display text-3xl font-extrabold leading-none text-paper drop-shadow-[0_2px_4px_rgba(0,0,0,0.55)] md:text-5xl">
                 ?
               </span>
             </div>
