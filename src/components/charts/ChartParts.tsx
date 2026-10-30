@@ -97,12 +97,25 @@ export function DonutChart({
   thickness = 34,
   centreLabel,
   centreValue,
+  showLegend = true,
+  bare = false,
 }: {
   slices: { label: string; value: number; color: "red" | "ink" | "muted" }[];
   size?: number;
   thickness?: number;
   centreLabel?: string;
   centreValue?: string;
+  /**
+   * Set false when the surrounding layout already spells the slices out
+   * as labelled rows. The built-in legend would then duplicate that
+   * content and push the chart out of alignment with it.
+   */
+  showLegend?: boolean;
+  /**
+   * Set true when the chart sits beside its own labelled list: the panel
+   * padding is dropped so the artwork lines up with the list.
+   */
+  bare?: boolean;
 }) {
   const ref = useRef<SVGSVGElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -127,7 +140,11 @@ export function DonutChart({
   });
 
   return (
-    <div className="chart-panel flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:gap-8">
+    <div
+      className={`chart-panel flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:gap-8 ${
+        showLegend ? "" : "sm:justify-center"
+      } ${bare ? "chart-panel-bare" : ""}`}
+    >
       <div className="relative shrink-0" style={{ width: size, height: size }}>
         <svg
           ref={ref}
@@ -197,23 +214,25 @@ export function DonutChart({
         </div>
       </div>
 
-      <ul className="w-full space-y-2.5">
-        {arcs.map((a, i) => (
-          <li
-            key={a.label}
-            onMouseEnter={() => setHover(i)}
-            onMouseLeave={() => setHover(null)}
-            className="flex items-center gap-3 text-sm"
-          >
-            <span
-              className="h-2.5 w-2.5 shrink-0"
-              style={{ backgroundColor: colorOf(a.color) }}
-            />
-            <span className="flex-1 text-ink">{a.label}</span>
-            <span className="font-display font-bold text-ink">{a.value}%</span>
-          </li>
-        ))}
-      </ul>
+      {showLegend ? (
+        <ul className="w-full space-y-2.5">
+          {arcs.map((a, i) => (
+            <li
+              key={a.label}
+              onMouseEnter={() => setHover(i)}
+              onMouseLeave={() => setHover(null)}
+              className="flex items-center gap-3 text-sm"
+            >
+              <span
+                className="h-2.5 w-2.5 shrink-0"
+                style={{ backgroundColor: colorOf(a.color) }}
+              />
+              <span className="flex-1 text-ink">{a.label}</span>
+              <span className="font-display font-bold text-ink">{a.value}%</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }

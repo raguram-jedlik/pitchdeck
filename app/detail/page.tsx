@@ -35,6 +35,7 @@ import {
 import { SpecTile } from "@/components/charts/SpecVisuals";
 import {
   CanvasWheel,
+  CanvasBlockGrid,
   CompareBars,
   StageTimeline,
 } from "@/components/charts/DiagramParts";
@@ -353,15 +354,40 @@ export default function DetailPage() {
       </Section>
 
       {/* ---------- 06 Business model ---------- */}
-      <Section
+      <SectionPages
         id="model"
         index="06"
         eyebrow="Business model"
         title="How the business is put together"
         lede="The nine blocks of the business model canvas, as the founders have framed them."
-      >
-        <CanvasWheel blocks={canvasBlocks} />
-      </Section>
+        blocks={[
+          {
+            key: "wheel",
+            label: "The nine blocks",
+            node: <CanvasWheel blocks={canvasBlocks} />,
+          },
+          {
+            key: "blocks-1",
+            label: "Key partners and key activities",
+            node: <CanvasBlockGrid blocks={canvasBlocks.slice(0, 2)} columns={2} />,
+          },
+          {
+            key: "blocks-2",
+            label: "Key resources and the value proposition",
+            node: <CanvasBlockGrid blocks={canvasBlocks.slice(2, 4)} columns={2} />,
+          },
+          {
+            key: "blocks-3",
+            label: "Customer relationships and channels",
+            node: <CanvasBlockGrid blocks={canvasBlocks.slice(4, 6)} columns={2} />,
+          },
+          {
+            key: "blocks-4",
+            label: "Customer segments, costs and revenue",
+            node: <CanvasBlockGrid blocks={canvasBlocks.slice(6)} columns={2} />,
+          },
+        ]}
+      />
 
       {/* ---------- 07 Revenue mix ---------- */}
       <Section
@@ -662,58 +688,77 @@ export default function DetailPage() {
       </Section>
 
       {/* ---------- 11 The round ---------- */}
-      <Section
+      <SectionPages
         id="round"
         index="12"
         eyebrow="The round"
         title="₹7 crore, and exactly what it buys"
         lede="Every rupee is assigned to a named milestone. This is the plan, not the intention."
-      >
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-center">
-          <DonutChart
-            slices={fundUse.map((f, i) => ({
-              label: f.bucket,
-              value: f.percent,
-              color: i === 0 ? "red" : i === 1 ? "ink" : "muted",
-            }))}
-            centreLabel="Total round"
-            centreValue="₹7 Cr"
-          />
-
-          <div className="space-y-6">
-            {fundUse.map((f, i) => (
-              <div key={f.bucket} className="border border-rule bg-paper-2 p-6">
-                <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <h3 className="font-display text-lg font-bold tracking-tight text-ink">
-                    {f.bucket}
-                  </h3>
-                  <p className="font-display text-lg font-bold text-red">
-                    {f.amount}
-                    <span className="ml-2 text-sm font-semibold text-muted">{f.percent}%</span>
-                  </p>
+        blocks={[
+          {
+            key: "allocation",
+            label: "How the round is split",
+            node: (
+              <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-start">
+                <div className="lg:sticky lg:top-0">
+                  <DonutChart
+                    size={260}
+                    slices={fundUse.map((f, i) => ({
+                      label: f.bucket,
+                      value: f.percent,
+                      color: i === 0 ? "red" : i === 1 ? "ink" : "muted",
+                    }))}
+                    centreLabel="Total round"
+                    centreValue="₹7 Cr"
+                    showLegend={false}
+                    bare
+                  />
                 </div>
-                <AnimatedBar
-                  percent={f.percent}
-                  color="red"
-                  delay={i * 0.1}
-                  height="h-1.5"
-                  className="mt-3"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="mt-10">
-          <p className="eyebrow">Burn and runway</p>
-          <div className="mt-5 grid gap-px border border-rule bg-rule md:grid-cols-3">
-            <Stat label="Monthly burn" value={burn.monthly} accent />
-            <Stat label="Runway" value={burn.runway} />
-            <Stat label="Capital at current burn" value={burn.implied} />
-          </div>
-          <Note>{burn.note}</Note>
-        </div>
-      </Section>
+                <div className="space-y-5">
+                  {fundUse.map((f, i) => (
+                    <div key={f.bucket} className="border border-rule bg-paper-2 p-6">
+                      <div className="flex flex-wrap items-baseline justify-between gap-3">
+                        <h3 className="font-display text-lg font-bold tracking-tight text-ink">
+                          {f.bucket}
+                        </h3>
+                        <p className="font-display text-lg font-bold text-red">
+                          {f.amount}
+                          <span className="ml-2 text-sm font-semibold text-muted">
+                            {f.percent}%
+                          </span>
+                        </p>
+                      </div>
+                      <AnimatedBar
+                        percent={f.percent}
+                        color="red"
+                        delay={i * 0.1}
+                        height="h-1.5"
+                        className="mt-3"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ),
+          },
+          {
+            key: "burn",
+            label: "Burn and runway",
+            node: (
+              <div>
+                <p className="eyebrow">Burn and runway</p>
+                <div className="mt-5 grid gap-px border border-rule bg-rule md:grid-cols-3">
+                  <Stat label="Monthly burn" value={burn.monthly} accent />
+                  <Stat label="Runway" value={burn.runway} />
+                  <Stat label="Capital at current burn" value={burn.implied} />
+                </div>
+                <Note>{burn.note}</Note>
+              </div>
+            ),
+          },
+        ]}
+      />
 
       {/* ---------- 12 Cap table ---------- */}
       <Section
@@ -725,6 +770,7 @@ export default function DetailPage() {
       >
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
           <DonutChart
+            size={280}
             slices={capTable.map((h) => ({
               label: h.name,
               value: h.percent,
@@ -732,6 +778,8 @@ export default function DetailPage() {
             }))}
             centreLabel="Founders hold"
             centreValue="87%"
+            showLegend={false}
+            bare
           />
 
           <div className="space-y-4">

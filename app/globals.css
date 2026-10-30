@@ -188,6 +188,17 @@ body::after {
 }
 
 /*
+ * A chart that sits beside its own labelled list. The panel padding would
+ * push the artwork down and out of line with the list beside it, so the
+ * padding is dropped and the background removed entirely — the list already
+ * provides the framing.
+ */
+.chart-panel-bare {
+  background-color: transparent;
+  padding: 0;
+}
+
+/*
  * Narrow screens. The desktop scrim works because the copy runs in a column
  * to the LEFT of the vehicle. At phone width the copy is full-bleed and the
  * car sits directly behind it, so the treatment changes: the photo is pushed
@@ -356,11 +367,49 @@ hr.rule {
 }
 
 /*
+ * The header's horizontal gutter — at EVERY breakpoint.
+ *
+ * The header is fixed and spans the full viewport width, so without side
+ * padding its right-hand control (the "Invest in Us" CTA on the brief
+ * deck, the "Contents" button on the detail deck) lands exactly on the
+ * viewport edge. The button's right border and rounded corner are then
+ * clipped away by the viewport, which reads as a rendering fault rather
+ * than a deliberate edge-to-edge layout.
+ *
+ * This used to be a mobile-only rule, so the clipping appeared only on
+ * desktop — the one place it was most visible, because the CTA is large
+ * and sits directly beside the scrollbar.
+ *
+ * The gutter now applies everywhere, and its values follow the deck's own
+ * section rhythm: sections use `px-6` (1.5rem) on mobile and `md:px-10`
+ * (2.5rem) on desktop, so the header lines up with the content below it.
+ *
+ * NOTE: the fixed header is sized to the *document* scroll width, not the
+ * viewport. If the document ever overflows horizontally the header grows
+ * with it and feeds the overflow back — a loop documented further down
+ * next to `.deck-shell, .deck-detail { overflow-x: hidden; }`. Adding
+ * padding to a header whose container is wider than the viewport would
+ * make that worse, not better, so the gutter is pure padding inside a
+ * box-sizing: border-box element: it never widens the header.
+ */
+.deck-header {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .deck-header {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+/*
  * A compact, mobile-only header treatment. On a phone the deck header
  * carries the logo, the progress hairline and the "Invest in Us" CTA.
  * The CTA used to sit flush against the right edge of the viewport and
- * was clipped, so the header now has real side padding on small
- * screens and the CTA is allowed to shrink its label.
+ * was clipped, so the header has real side padding on small screens and
+ * the CTA is allowed to shrink its label.
  */
 @media (max-width: 767px) {
   .deck-header {

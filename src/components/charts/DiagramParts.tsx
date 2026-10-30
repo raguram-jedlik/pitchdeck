@@ -13,6 +13,12 @@ const INK = "#000000";
  *
  * Labels are wrapped onto short lines and set inside generous circles so
  * nothing ever bleeds past the circle edge. Titles are never truncated.
+ *
+ * The radial diagram is deliberately its own component, separate from
+ * `CanvasBlockGrid`, so the two halves of section 06 can live on
+ * separate pages. Fitting the wheel and all nine detail cards onto one
+ * screen forced the whole section down to the 0.5 scale floor, which
+ * rendered the body copy at about 6px on a desktop.
  */
 export function CanvasWheel({
   blocks,
@@ -60,9 +66,8 @@ export function CanvasWheel({
   };
 
   return (
-    <div ref={ref} className="grid gap-8 lg:grid-cols-[auto_1fr] lg:items-center">
-      <div className="relative mx-auto w-full max-w-[380px] shrink-0">
-        <svg viewBox="0 0 360 360" className="w-full" role="img" aria-label="Business model canvas">
+    <div ref={ref} className="mx-auto w-full max-w-[min(520px,52vh)]">
+      <svg viewBox="0 0 360 360" className="w-full" role="img" aria-label="Business model canvas">
           {/* spokes */}
           {blocks.map((b, i) => {
             const p = pos(i);
@@ -161,31 +166,54 @@ export function CanvasWheel({
             );
           })}
         </svg>
-      </div>
+    </div>
+  );
+}
 
-      <div className="grid gap-px border border-rule bg-rule sm:grid-cols-2">
-        {blocks.map((b, i) => (
-          <div
-            key={b.title}
-            onMouseEnter={() => setActive(i)}
-            onMouseLeave={() => setActive(null)}
-            className={`bg-paper-2 p-4 transition-colors ${
-              active === i ? "outline outline-1 outline-red" : ""
-            }`}
-          >
-            <p className="font-display text-[0.75rem] font-bold uppercase tracking-[0.16em] text-red">
-              {b.title}
-            </p>
-            <ul className="mt-2.5 space-y-1">
-              {b.items.map((it) => (
-                <li key={it} className="text-sm leading-relaxed text-muted">
-                  {it}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+/**
+ * CanvasBlockGrid — the nine business-model blocks written out in full.
+ *
+ * Split out of `CanvasWheel` so the detail cards can be paginated
+ * independently of the radial diagram. The cards keep the hover link to
+ * the wheel, so hovering a block here still highlights it on the
+ * diagram page.
+ */
+export function CanvasBlockGrid({
+  blocks,
+  columns = 3,
+}: {
+  blocks: { title: string; items: string[] }[];
+  columns?: 2 | 3;
+}) {
+  const [active, setActive] = useState<string | null>(null);
+
+  return (
+    <div
+      className={`grid gap-px border border-rule bg-rule ${
+        columns === 3 ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2"
+      }`}
+    >
+      {blocks.map((b) => (
+        <div
+          key={b.title}
+          onMouseEnter={() => setActive(b.title)}
+          onMouseLeave={() => setActive(null)}
+          className={`bg-paper-2 p-5 transition-colors ${
+            active === b.title ? "outline outline-1 outline-red" : ""
+          }`}
+        >
+          <p className="font-display text-sm font-bold uppercase tracking-[0.16em] text-red">
+            {b.title}
+          </p>
+          <ul className="mt-3 space-y-1.5">
+            {b.items.map((it) => (
+              <li key={it} className="text-[0.9375rem] leading-relaxed text-muted">
+                {it}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 }
