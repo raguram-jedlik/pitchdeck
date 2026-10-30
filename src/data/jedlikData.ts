@@ -191,6 +191,10 @@ export const productSpecs = {
   // plain-language note for each so the bullets read on their own.
   features: [
     {
+      label: "Autonomous Vehicle",
+      note: "An autonomous vehicle that drives itself, on steer-by-wire control with no rigid steering column.",
+    },
+    {
       label: "Fully Enclosed",
       note: "A closed cabin with a roof and glass — all-weather protection.",
     },

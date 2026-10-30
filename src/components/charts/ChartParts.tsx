@@ -145,11 +145,20 @@ export function DonutChart({
         showLegend ? "" : "sm:justify-center"
       } ${bare ? "chart-panel-bare" : ""}`}
     >
-      <div className="relative shrink-0" style={{ width: size, height: size }}>
+      {/*
+       * The holder is fluid: it takes the width of its column but never
+       * exceeds `size`, so the donut scales down on narrow phones instead of
+       * overflowing its container. `mx-auto` keeps it centred in the column.
+       * The svg itself is width/height 100% over a fixed viewBox, so the
+       * artwork scales with the box.
+       */}
+      <div
+        className="relative mx-auto w-full shrink-0 sm:shrink"
+        style={{ maxWidth: size, aspectRatio: "1 / 1" }}
+      >
         <svg
           ref={ref}
-          width={size}
-          height={size}
+          className="h-full w-full"
           viewBox={`0 0 ${size} ${size}`}
           role="img"
           aria-label="Chart"
