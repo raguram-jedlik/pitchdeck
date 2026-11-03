@@ -7,7 +7,7 @@ import Link from "next/link";
  * KnowMoreCta — the closing call to action of the brief deck.
  *
  * It carries the single "Know more" button that opens the detailed
- * information page. It now lives INSIDE Section 11 (Feedback), so the
+ * information page. It now lives INSIDE Section 12 (Feedback), so the
  * deck has one fewer top-level section: the reader votes, then — in the
  * same frame — follows the link onward. A separate closing section left
  * a large empty screen between the verdict and the button, and pushed the

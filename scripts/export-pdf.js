@@ -71,8 +71,8 @@ const { PDFDocument } = require("pdf-lib");
   // inline style to its resolved end-state so nothing is left invisible.
   //
   // Also strip the PDF-only exclusions: the red "Invest in us" button in
-  // the header, and Section 11 (the interactive verdict/feedback block),
-  // which doesn't make sense as a static page.
+  // the header, and the verdict section (Section 12, the interactive
+  // feedback block), which doesn't make sense as a static page.
   await page.addStyleTag({
     content: `
       *, *::before, *::after {
@@ -93,7 +93,7 @@ const { PDFDocument } = require("pdf-lib");
   // Build the page groups: each top-level block starts a new page unless it
   // has no eyebrow label of its own (e.g. the E-POD reveal stage that
   // immediately follows the "Unveil" tease) — those merge into the previous
-  // page. Section 11 (Feedback) is dropped entirely.
+  // page. The verdict section (Feedback) is dropped entirely.
   //
   // The deck's sections live inside <div class="deck-shell"> (a wrapper added
   // when the deck was rebuilt), so they are no longer direct children of
@@ -106,7 +106,7 @@ const { PDFDocument } = require("pdf-lib");
       : Array.from(document.querySelectorAll("main > section"));
     const footer = document.querySelector("main > footer");
     const blocks = footer ? [...sections, footer] : sections;
-    const feedback = blocks.find((el) => /Section 11/i.test(el.textContent || ""));
+    const feedback = blocks.find((el) => /Your Verdict/i.test(el.textContent || ""));
     if (feedback) feedback.style.display = "none";
     const kept = blocks.filter((el) => el !== feedback);
 

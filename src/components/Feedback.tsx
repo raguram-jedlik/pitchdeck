@@ -7,7 +7,7 @@ import { getSessionId, getState, updateState, postCapture, EMAIL_RE, shouldShowC
 import KnowMoreCta from "@/components/KnowMoreCta";
 
 /**
- * Section 11 — the only place the deck asks the investor for anything.
+ * Section 12 — the only place the deck asks the investor for anything.
  *
  * Two steps on purpose. The vote is one click with no typing, so nearly
  * everyone answers it; the email is asked only after a positive vote, when

@@ -11,6 +11,7 @@ import BuildingEPod from "@/components/BuildingEPod";
 import SteerByWire from "@/components/SteerByWire";
 import MarketSize from "@/components/MarketSize";
 import Personas from "@/components/Personas";
+import MediaCoverage from "@/components/MediaCoverage";
 import Feedback from "@/components/Feedback";
 import Footer from "@/components/Footer";
 
@@ -38,6 +39,7 @@ export default function Home() {
         <BuildingEPod />
         <MarketSize />
         <Personas />
+        <MediaCoverage />
         <Feedback />
       </DeckShell>
       <Footer />

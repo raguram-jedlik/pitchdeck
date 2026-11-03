@@ -447,9 +447,105 @@ export const close = {
   tail: "from here.",
 };
 
-// ---------- Section 09: Feedback ----------
+// ---------- Section 11: Media Coverage ----------
+export interface MediaCoverageItem {
+  outlet: string
+  title: string
+  url: string
+  image?: string
+  fit?: "cover" | "contain"
+  kind: "article" | "podcast" | "social"
+}
+
+// Carried over from the jedlik-tron-drive website's Media Coverage page.
+export const mediaCoverage: MediaCoverageItem[] = [
+  {
+    outlet: "FounderVox",
+    title:
+      "Jedlik Motors Develops e-POD Electric Two-Wheeler With Car-Like Comfort",
+    url: "https://foundervox.org/startups/jedlik-motors-develops-e-pod-electric-two-wheeler-with-car-like-comfort",
+    image: "/assets/media/foundervox-article.webp",
+    fit: "cover",
+    kind: "article",
+  },
+  {
+    outlet: "Electronics For You",
+    title: "E-Pod: Engineering an Enclosed Electric Two-Wheeler",
+    url: "https://www.electronicsforu.com/news/e-pod-engineering-an-enclosed-electric-two-wheeler",
+    image: "/assets/media/efu-article.jpg",
+    fit: "cover",
+    kind: "article",
+  },
+  {
+    outlet: "CMR India Podcast",
+    title: "From Vision to Wheels: The Jedlik Motors Journey",
+    url: "https://cmrindia.com/cmr_media/from-vision-to-wheels-the-jedlik-motors-journey/",
+    kind: "podcast",
+  },
+  {
+    outlet: "Entrackr",
+    title:
+      "Jedlik Motors Founder Raguram SK on Building an Electric POD for Urban Commuters",
+    url: "https://entrackr.com/interview/jedlik-motors-founder-raguram-sk-on-building-electric-pod-for-urban-commuters-12590845",
+    image: "/assets/media/entrackr-article.jpg",
+    fit: "cover",
+    kind: "article",
+  },
+  {
+    outlet: "Startuppedia",
+    title:
+      "Jedlik Motors Develops Prototype of its e-POD, a Fully Enclosed Electric Two-Wheeler",
+    url: "https://startuppedia.in/trending/startup-news/jedlik-motors-develops-prototype-of-its-e-pod-a-fully-enclosed-electric-two-wheeler-12629665",
+    image: "/assets/media/startuppedia-article.jpg",
+    fit: "cover",
+    kind: "article",
+  },
+  {
+    outlet: "Startup News Tamil",
+    title:
+      "இருசக்கர வாகனத்தின் வேகம் + காரின் பாதுகாப்பு: 'ஜெட்லிக் மோட்டார்ஸ்'-ன் புரட்சிகரமான e-POD!",
+    url: "https://startupnewstamil.com/news/jedlik-motors-electric-vehicle/",
+    image: "/assets/media/startup-news-tamil.jpg",
+    fit: "contain",
+    kind: "article",
+  },
+  {
+    outlet: "EV Update",
+    title: "Jedlik Motors Featured in EV Update Media E-Magazine",
+    url: "https://lnkd.in/gtw7zF2W",
+    image: "/assets/media/ev-update.jpg",
+    fit: "contain",
+    kind: "social",
+  },
+  {
+    outlet: "Tamil Nadu EV Summit",
+    title: "EV, Electric Mobility & Tamil Nadu",
+    url: "https://www.linkedin.com/posts/varun-rk_ev-electricmobility-tamilnadu-activity-7432388470595084288-gXrV",
+    image: "/assets/media/varun-tn-summit.jpg",
+    fit: "cover",
+    kind: "social",
+  },
+  {
+    outlet: "AIC Anna Incubator",
+    title: "10 Years of Startup India — Anna Incubator",
+    url: "https://www.linkedin.com/posts/aic-anna-incubator_10yearsofstartupindia-startupindia-annaincubator-ugcPost-7418539328378769408-hun7",
+    image: "/assets/media/anna-incubator.jpg",
+    fit: "contain",
+    kind: "social",
+  },
+  {
+    outlet: "Skyful",
+    title: "World EV Day — Jedlik Motors Startup Story",
+    url: "https://www.linkedin.com/posts/sky-ful_worldevday-jedlik-startupstories-ugcPost-7238793805900955649-z9Y2",
+    image: "/assets/media/skyful.jpg",
+    fit: "contain",
+    kind: "social",
+  },
+]
+
+// ---------- Section 12: Feedback ----------
 export const feedbackCopy = {
-  eyebrow: "Section 11 — Your Verdict",
+  eyebrow: "Section 12 — Your Verdict",
   heading: "Did this land for you?",
   sub: "One click. We read every response.",
   voteUp: "Yes, I'm interested",

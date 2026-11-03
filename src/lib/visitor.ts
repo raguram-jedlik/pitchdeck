@@ -1,7 +1,7 @@
 /**
  * The visitor's identity, shared by every capture surface on the deck.
  *
- * Both the Section 09 verdict and the header Invest button write against the
+ * Both the Section 12 verdict and the header Invest button write against the
  * same id, so one person's actions join into a single story rather than looking
  * like two strangers. Phase 2 (per-section dwell time) will reuse this key
  * again, which is why it lives here rather than inside a component.

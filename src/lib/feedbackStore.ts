@@ -16,7 +16,7 @@ import { neon } from "@neondatabase/serverless";
 export type Vote = "up" | "down";
 
 /**
- * What the person did. "verdict" is the Section 09 thumbs up/down; "invest" is
+ * What the person did. "verdict" is the Section 12 thumbs up/down; "invest" is
  * the header button, which is a far stronger signal and is kept separate so the
  * two are never averaged together in a query.
  */
