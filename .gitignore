@@ -5,6 +5,7 @@ dist
 .next-verify
 .next-sh
 .next-dbg
+.shots/
 .mobile-audit/
 .DS_Store
 *.local
