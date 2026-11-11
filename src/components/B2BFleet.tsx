@@ -63,32 +63,22 @@ export default function B2BFleet() {
             transition={{ duration: 0.5 }}
             className="group relative"
           >
-            {/* The diagram is a wide annotated plate. On a phone its
-                callouts are unreadable at full-page width, so it gets a
-                horizontal scroll instead of being shrunk to illegibility.
-                The frame stays the page width; only the image inside it
-                scrolls. */}
+            {/* The diagram fills its frame at every width and never
+                scrolls sideways — the page width is the frame width. */}
             <div className="relative overflow-hidden border border-rule bg-black">
               <span
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 z-10 h-1 bg-red"
               />
-              <div className="snap-x snap-mandatory overflow-x-auto overscroll-x-contain">
-                <Image
-                  src={b2bFleet.configImage}
-                  alt={b2bFleet.configImageAlt}
-                  width={2279}
-                  height={1556}
-                  className="h-auto w-[1100px] max-w-none snap-center sm:w-full"
-                  priority
-                />
-              </div>
+              <Image
+                src={b2bFleet.configImage}
+                alt={b2bFleet.configImageAlt}
+                width={2279}
+                height={1556}
+                className="h-auto w-full"
+                priority
+              />
             </div>
-            {/* Only shown when the image actually overflows. */}
-            <p className="mt-2 flex items-center gap-1.5 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-muted sm:hidden">
-              <span aria-hidden="true">↔</span>
-              Swipe the diagram to see every callout
-            </p>
             <figcaption className="mt-2.5 text-xs leading-relaxed text-muted">
               <span className="font-display font-semibold uppercase tracking-[0.14em] text-ink">
                 {b2bFleet.config}
@@ -210,30 +200,6 @@ export default function B2BFleet() {
             </div>
           </div>
         </div>
-
-        {/* The vehicle itself anchors the base of the slide. */}
-        <motion.figure
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.5 }}
-          className="relative mt-6 overflow-hidden border border-rule bg-black"
-        >
-          <span
-            aria-hidden="true"
-            className="absolute inset-x-0 top-0 z-10 h-1 bg-red"
-          />
-          <Image
-            src={b2bFleet.renderImage}
-            alt={b2bFleet.renderImageAlt}
-            width={749}
-            height={581}
-            className="mx-auto h-auto max-h-[40vh] w-full max-w-[520px] object-contain"
-          />
-          <figcaption className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/85 to-transparent px-4 pb-3 pt-8 text-xs font-display font-semibold uppercase tracking-[0.14em] text-paper">
-            The Jedlik e-POD
-          </figcaption>
-        </motion.figure>
       </Block>
     </>
   );
