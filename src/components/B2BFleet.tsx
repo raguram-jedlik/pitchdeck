@@ -63,26 +63,39 @@ export default function B2BFleet() {
             transition={{ duration: 0.5 }}
             className="group relative"
           >
-            {/* The red rule picks up the one accent in the deck system. */}
+            {/* The diagram is a wide annotated plate. On a phone its
+                callouts are unreadable at full-page width, so it gets a
+                horizontal scroll instead of being shrunk to illegibility.
+                The frame stays the page width; only the image inside it
+                scrolls. */}
             <div className="relative overflow-hidden border border-rule bg-black">
               <span
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 z-10 h-1 bg-red"
               />
-              <Image
-                src={b2bFleet.configImage}
-                alt={b2bFleet.configImageAlt}
-                width={2279}
-                height={1556}
-                className="h-auto w-full"
-                priority
-              />
+              <div className="snap-x snap-mandatory overflow-x-auto overscroll-x-contain">
+                <Image
+                  src={b2bFleet.configImage}
+                  alt={b2bFleet.configImageAlt}
+                  width={2279}
+                  height={1556}
+                  className="h-auto w-[1100px] max-w-none snap-center sm:w-full"
+                  priority
+                />
+              </div>
             </div>
-            <figcaption className="mt-2.5 flex items-baseline gap-2 text-xs leading-relaxed text-muted">
-              <span className="shrink-0 font-display font-semibold uppercase tracking-[0.14em] text-ink">
+            {/* Only shown when the image actually overflows. */}
+            <p className="mt-2 flex items-center gap-1.5 text-[0.65rem] font-medium uppercase tracking-[0.14em] text-muted sm:hidden">
+              <span aria-hidden="true">↔</span>
+              Swipe the diagram to see every callout
+            </p>
+            <figcaption className="mt-2.5 text-xs leading-relaxed text-muted">
+              <span className="font-display font-semibold uppercase tracking-[0.14em] text-ink">
                 {b2bFleet.config}
               </span>
-              <span className="min-w-0">{b2bFleet.configNote}</span>
+              <span className="mt-0.5 block sm:mt-0 sm:ml-2 sm:inline">
+                {b2bFleet.configNote}
+              </span>
             </figcaption>
           </motion.figure>
 
@@ -158,7 +171,7 @@ export default function B2BFleet() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.4, delay: i * 0.06 }}
-                  className="border-l-2 border-red bg-paper-2/70 px-3.5 py-3"
+                  className="border-l-2 border-red bg-paper-2/70 px-3 py-2.5 sm:px-3.5 sm:py-3"
                 >
                   <p className="font-display text-[0.8rem] font-bold leading-snug tracking-tight text-ink md:text-[0.9rem]">
                     {p.title}
@@ -176,7 +189,9 @@ export default function B2BFleet() {
             <h3 className="font-display text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-ink">
               Vehicle specifications
             </h3>
-            <div className="mt-2 grid grid-cols-1 gap-px border border-rule bg-rule sm:grid-cols-2">
+            {/* Two columns even on a phone: the cards are short, and a
+                single column would stretch the slide to six stacked rows. */}
+            <div className="mt-2 grid grid-cols-2 gap-px border border-rule bg-rule">
               {b2bSpecs.map((s, i) => (
                 <motion.div
                   key={s.spec}
@@ -184,7 +199,7 @@ export default function B2BFleet() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.4, delay: i * 0.05 }}
-                  className="bg-paper p-3.5 md:p-4"
+                  className="bg-paper p-3 md:p-4"
                 >
                   <p className="eyebrow">{s.spec}</p>
                   <p className="mt-1.5 font-display text-[0.85rem] font-bold leading-snug tracking-tight text-ink md:text-[0.95rem]">
@@ -213,7 +228,7 @@ export default function B2BFleet() {
             alt={b2bFleet.renderImageAlt}
             width={749}
             height={581}
-            className="mx-auto h-auto max-h-[40vh] w-auto object-contain"
+            className="mx-auto h-auto max-h-[40vh] w-full max-w-[520px] object-contain"
           />
           <figcaption className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/85 to-transparent px-4 pb-3 pt-8 text-xs font-display font-semibold uppercase tracking-[0.14em] text-paper">
             The Jedlik e-POD
