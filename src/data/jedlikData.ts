@@ -294,13 +294,6 @@ export const b2bSpecs: B2BSpec[] = [
   { spec: "Vehicle width", value: "~800 mm — two-wheeler corridor access" },
 ];
 
-export const b2bAdas: string[] = [
-  "Forward collision warning",
-  "Blind-spot monitoring",
-  "Lane-departure alert",
-  "Reverse camera",
-];
-
 export const b2bFleet = {
   eyebrow: "Section 07 — B2B Fleet Solutions",
   heading: "Fleet-grade last-mile delivery.",
@@ -326,8 +319,6 @@ export const b2bFleet = {
       body: "Navigates narrow lanes faster than a two-wheeler. More deliveries per shift.",
     },
   ],
-  trailer:
-    "Five serious global attempts. None reached mass production.",
 };
 
 // ---------- Section 8: Steer by Wire ----------

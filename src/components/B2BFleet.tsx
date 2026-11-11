@@ -6,7 +6,6 @@ import {
   b2bFleet,
   b2bFeatures,
   b2bSpecs,
-  b2bAdas,
 } from "@/data/jedlikData";
 
 /**
@@ -22,7 +21,7 @@ import {
  * fit-to-viewport shell never crushes the picture or the feature lists:
  *
  *   Block A: the vehicle picture + the feature callouts it carries
- *   Block B: specifications, ADAS and the trailer line
+ *   Block B: the vehicle specifications
  */
 
 function Block({
@@ -114,7 +113,7 @@ export default function B2BFleet() {
         </div>
       </Block>
 
-      {/* ---------------- Block B — specs, ADAS and the trailer ---------------- */}
+      {/* ---------------- Block B — the vehicle specifications ---------------- */}
       <Block>
         <p className="eyebrow">
           {b2bFleet.eyebrow}
@@ -150,35 +149,6 @@ export default function B2BFleet() {
             ))}
           </div>
         </div>
-
-        {/* ADAS */}
-        <div className="mt-4">
-          <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-            ADAS
-          </h3>
-          <ul className="mt-2 grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
-            {b2bAdas.map((a, i) => (
-              <motion.li
-                key={a}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="flex items-baseline gap-2.5"
-              >
-                <span className="dot mt-1.5 shrink-0" aria-hidden="true" />
-                <span className="text-sm leading-relaxed text-ink md:text-base">
-                  {a}
-                </span>
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-
-        {/* The trailer line — competitors have all tried, none shipped */}
-        <p className="mt-5 border-l-2 border-red bg-red-soft/40 px-4 py-3 text-sm leading-relaxed text-ink md:text-base">
-          {b2bFleet.trailer}
-        </p>
       </Block>
     </>
   );
