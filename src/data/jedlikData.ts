@@ -299,7 +299,7 @@ export const b2bFleet = {
   heading: "Fleet-grade last-mile delivery.",
   sub: "Built for India's fleet operators.",
   lede:
-    "India's first enclosed, ADAS-enabled electric fleet vehicle — configured for temperature-sensitive, multi-stop urban last-mile fleet operations.",
+    "India's first enclosed electric fleet vehicle — configured for temperature-sensitive, multi-stop urban last-mile fleet operations.",
   configImage: "/assets/epod-fleet-config.jpg",
   configImageAlt:
     "e-POD fleet delivery configuration — cutaway view showing the climate-controlled cabin, tablet navigation, multi-zone secure cargo hold, heated parcels, thermally insulated rack and refrigerated storage.",
@@ -308,11 +308,11 @@ export const b2bFleet = {
     "The Jedlik e-POD — enclosed electric fleet vehicle in silver, three-quarter front view.",
   config: "e-POD: Fleet Delivery Configuration",
   configNote:
-    "Configured for temperature-sensitive, multi-stop urban last-mile fleet operations.",
+    "Configured for temperature-sensitive, multi-stop urban last-mile operations.",
   pillars: [
     {
       title: "Safety-first cabin",
-      body: "Enclosed cabin · Airbags · ADAS. Zero weather downtime, dramatically lower accident liability.",
+      body: "Fully enclosed, climate-controlled cabin. Zero weather downtime for the rider.",
     },
     {
       title: "Crab-walk steering",
