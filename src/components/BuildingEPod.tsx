@@ -87,7 +87,7 @@ export default function BuildingEPod() {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <p className="eyebrow text-ink/60">Section 08 — Building the E-POD</p>
+          <p className="eyebrow text-ink/60">Section 09 — Building the E-POD</p>
           <div className="relative mt-4 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
             <div
               ref={trackRef}

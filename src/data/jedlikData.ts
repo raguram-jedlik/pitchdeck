@@ -224,7 +224,150 @@ export const productSpecs = {
   blurImage: "/assets/epod-blur.jpg",
 };
 
-// ---------- Section 7: Steer by Wire ----------
+// ---------- Section 07: B2B Fleet Solutions ----------
+// Carried over from the "B2B Deck" — the fleet-operator facing cut of the
+// pitch. Every figure here is the fleet operator's own P&L: what a petrol
+// scooter costs per kilometre, what the e-POD costs per kilometre, and
+// what the difference is worth over five years.
+
+export interface B2BProblem {
+  label: string;
+  headline: string;
+  detail: string;
+}
+
+export const b2bProblems: B2BProblem[] = [
+  {
+    label: "Safety liability",
+    headline: "₹15–50L per fatality claim",
+    detail:
+      "Police cases, family compensation and fleet reputation damage. Every time.",
+  },
+  {
+    label: "Weather downtime",
+    headline: "₹600–1,400 lost output per rider, per rain day",
+    detail:
+      "Open-air riders stop in rain. Deliveries don't happen. SLAs get broken.",
+  },
+  {
+    label: "Fuel + attrition",
+    headline: "Both rising. Neither under your control.",
+    detail:
+      "₹2.46/km fuel cost. 60–70% annual rider turnover.",
+  },
+  {
+    label: "Cost centres",
+    headline: "Your fleet absorbs these costs today",
+    detail:
+      "Every incident, rain day, refuel stop and lost rider lands on your books.",
+  },
+];
+
+export interface B2BSpec {
+  spec: string;
+  value: string;
+}
+
+export const b2bSpecs: B2BSpec[] = [
+  { spec: "Range", value: "200 km per charge, real-world city cycle" },
+  { spec: "Payload", value: "200 kg, excl. rider and battery pack" },
+  { spec: "Charging", value: "Standard AC · 1.5 hr DC fast charge" },
+  { spec: "Top speed", value: "80 km/h, mixed urban & arterial routes" },
+  { spec: "Cargo volume", value: "600 L, lockable and weatherproof" },
+  { spec: "Vehicle width", value: "~800 mm — two-wheeler corridor access" },
+];
+
+export const b2bAdas: string[] = [
+  "Forward collision warning",
+  "Blind-spot monitoring",
+  "Lane-departure alert",
+  "Reverse camera",
+];
+
+export interface B2BCostRow {
+  line: string;
+  scooter: string;
+  epod: string;
+}
+
+export const b2bCostRows: B2BCostRow[] = [
+  { line: "Fuel / electricity", scooter: "₹1.66/km", epod: "₹0.28/km" },
+  { line: "Servicing", scooter: "₹0.25/km", epod: "₹0.10/km" },
+  { line: "Rider attrition", scooter: "₹1.25/km", epod: "₹0.40/km" },
+  { line: "Accident liability (est.)", scooter: "₹0.50/km", epod: "₹0.06/km" },
+];
+
+export const b2bEconomics = {
+  scooterTotal: "₹3.66 /km",
+  epodTotal: "₹0.84 /km",
+  savingPercent: 76,
+  epodOnRoad: "₹2.34L on-road after FAME II subsidy",
+  savingPerVehicle: "₹3.36L",
+  savingPerVehiclePerYear: "₹67,200",
+  fleetTen: "₹33.6L",
+  payback: "22 months",
+  basis: "5-year saving per vehicle · 24,000 km/yr · 80 km/day · 300 days",
+};
+
+export interface B2BPilotOption {
+  tag: string;
+  title: string;
+  points: string[];
+}
+
+export const b2bPilot: B2BPilotOption[] = [
+  {
+    tag: "Option A · Paid pilot",
+    title: "10-vehicle operational trial",
+    points: [
+      "90 days of live fleet operation on your routes",
+      "Dedicated on-ground Jedlik support team",
+      "Weekly performance and TCO data reports",
+      "Pilot cost credited against full fleet purchase",
+    ],
+  },
+  {
+    tag: "Option B · No-binding LOI",
+    title: "Reserve early fleet allocation",
+    points: [
+      "Non-binding — no financial commitment today",
+      "Locks in pre-production pricing",
+      "Priority Q3 2026 delivery slot",
+      "Co-design input on cargo compartment configuration",
+    ],
+  },
+];
+
+export const b2bFleet = {
+  eyebrow: "Section 07 — B2B Fleet Solutions",
+  heading: "Fleet-grade last-mile delivery.",
+  sub: "Built for India's fleet operators.",
+  lede:
+    "India's first enclosed, ADAS-enabled electric fleet vehicle. Car-grade safety at two-wheeler economics.",
+  config: "e-POD: Fleet Delivery Configuration",
+  configNote:
+    "Configured for temperature-sensitive, multi-stop urban last-mile fleet operations.",
+  pillars: [
+    {
+      title: "Safety-first cabin",
+      body: "Enclosed cabin · Airbags · ADAS. Zero weather downtime, dramatically lower accident liability.",
+    },
+    {
+      title: "Crab-walk steering",
+      body: "Navigates narrow lanes faster than a two-wheeler. More deliveries per shift.",
+    },
+  ],
+  pilot: {
+    title: "The pilot programme",
+    sub: "10 vehicles. 90 days. Zero upfront commitment.",
+    closing:
+      "Fleet operators signing an LOI today lock in pre-production pricing and reserve their 2027 pilot allocation.",
+  },
+  trailer:
+    "Five serious global attempts. None reached mass production.",
+};
+
+// ---------- Section 8: Steer by Wire ----------
 export const steerByWire = {
   heading: "Steer-by-wire",
   description:
@@ -447,7 +590,7 @@ export const close = {
   tail: "from here.",
 };
 
-// ---------- Section 11: Media Coverage ----------
+// ---------- Section 12: Media Coverage ----------
 export interface MediaCoverageItem {
   outlet: string
   title: string
@@ -543,9 +686,9 @@ export const mediaCoverage: MediaCoverageItem[] = [
   },
 ]
 
-// ---------- Section 12: Feedback ----------
+// ---------- Section 13: Feedback ----------
 export const feedbackCopy = {
-  eyebrow: "Section 12 — Your Verdict",
+  eyebrow: "Section 13 — Your Verdict",
   heading: "Did this land for you?",
   sub: "One click. We read every response.",
   voteUp: "Yes, I'm interested",

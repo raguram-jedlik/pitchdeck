@@ -5,7 +5,7 @@ import { ExternalLink } from "lucide-react";
 import { mediaCoverage, type MediaCoverageItem } from "@/data/jedlikData";
 
 /**
- * Section 11 — the press wall: every article, podcast and community feature
+ * Section 12 — the press wall: every article, podcast and community feature
  * the e-POD has earned so far, carried over from the jedlik-tron-drive
  * website's Media Coverage page. Sits just before the closing verdict
  * section so the deck ends on proof, then the ask.
@@ -68,7 +68,7 @@ export default function MediaCoverage() {
   return (
     <section className="relative px-6 py-8 md:px-10 md:py-12">
       <div className="mx-auto max-w-deck">
-        <p className="eyebrow">Section 11 — In The News</p>
+        <p className="eyebrow">Section 12 — In The News</p>
         <h2 className="display-lg mt-3 max-w-[18ch] text-ink">
           The press noticed.
         </h2>
