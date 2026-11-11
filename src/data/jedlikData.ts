@@ -226,40 +226,57 @@ export const productSpecs = {
 
 // ---------- Section 07: B2B Fleet Solutions ----------
 // Carried over from the "B2B Deck" — the fleet-operator facing cut of the
-// pitch. Every figure here is the fleet operator's own P&L: what a petrol
-// scooter costs per kilometre, what the e-POD costs per kilometre, and
-// what the difference is worth over five years.
+// pitch. This section is deliberately the product story only: the vehicle
+// picture and the features a fleet operator buys. No cost-per-km tables,
+// no savings figures, no pilot commercials — those live in the operator
+// conversation, not in the investor brief.
 
-export interface B2BProblem {
+export interface B2BFeature {
   label: string;
-  headline: string;
   detail: string;
+  group: "Cabin" | "Cargo";
 }
 
-export const b2bProblems: B2BProblem[] = [
+export const b2bFeatures: B2BFeature[] = [
   {
-    label: "Safety liability",
-    headline: "₹15–50L per fatality claim",
-    detail:
-      "Police cases, family compensation and fleet reputation damage. Every time.",
+    label: "Integrated cabin air conditioning unit",
+    detail: "A dedicated A/C unit for the driver's cabin.",
+    group: "Cabin",
   },
   {
-    label: "Weather downtime",
-    headline: "₹600–1,400 lost output per rider, per rain day",
-    detail:
-      "Open-air riders stop in rain. Deliveries don't happen. SLAs get broken.",
+    label: "Drivers-view tablet display (NAV)",
+    detail: "Tablet-mounted navigation for the driver's line of sight.",
+    group: "Cabin",
   },
   {
-    label: "Fuel + attrition",
-    headline: "Both rising. Neither under your control.",
-    detail:
-      "₹2.46/km fuel cost. 60–70% annual rider turnover.",
+    label: "Driving cabin A/C unit",
+    detail: "Separate cooling for the driving cabin.",
+    group: "Cabin",
   },
   {
-    label: "Cost centres",
-    headline: "Your fleet absorbs these costs today",
-    detail:
-      "Every incident, rain day, refuel stop and lost rider lands on your books.",
+    label: "Integrated climate control system (A/C, cold/hot)",
+    detail: "Full climate control across the whole vehicle.",
+    group: "Cabin",
+  },
+  {
+    label: "Secure cargo hold (multi-zone)",
+    detail: "Lockable, multi-zone cargo compartment.",
+    group: "Cargo",
+  },
+  {
+    label: "Heated parcels",
+    detail: "Dedicated heated parcel storage.",
+    group: "Cargo",
+  },
+  {
+    label: "Thermally insulated rack (cold)",
+    detail: "Insulated racking that holds cold-chain cargo.",
+    group: "Cargo",
+  },
+  {
+    label: "Refrigerated parcels",
+    detail: "Refrigerated storage for temperature-sensitive goods.",
+    group: "Cargo",
   },
 ];
 
@@ -284,66 +301,18 @@ export const b2bAdas: string[] = [
   "Reverse camera",
 ];
 
-export interface B2BCostRow {
-  line: string;
-  scooter: string;
-  epod: string;
-}
-
-export const b2bCostRows: B2BCostRow[] = [
-  { line: "Fuel / electricity", scooter: "₹1.66/km", epod: "₹0.28/km" },
-  { line: "Servicing", scooter: "₹0.25/km", epod: "₹0.10/km" },
-  { line: "Rider attrition", scooter: "₹1.25/km", epod: "₹0.40/km" },
-  { line: "Accident liability (est.)", scooter: "₹0.50/km", epod: "₹0.06/km" },
-];
-
-export const b2bEconomics = {
-  scooterTotal: "₹3.66 /km",
-  epodTotal: "₹0.84 /km",
-  savingPercent: 76,
-  epodOnRoad: "₹2.34L on-road after FAME II subsidy",
-  savingPerVehicle: "₹3.36L",
-  savingPerVehiclePerYear: "₹67,200",
-  fleetTen: "₹33.6L",
-  payback: "22 months",
-  basis: "5-year saving per vehicle · 24,000 km/yr · 80 km/day · 300 days",
-};
-
-export interface B2BPilotOption {
-  tag: string;
-  title: string;
-  points: string[];
-}
-
-export const b2bPilot: B2BPilotOption[] = [
-  {
-    tag: "Option A · Paid pilot",
-    title: "10-vehicle operational trial",
-    points: [
-      "90 days of live fleet operation on your routes",
-      "Dedicated on-ground Jedlik support team",
-      "Weekly performance and TCO data reports",
-      "Pilot cost credited against full fleet purchase",
-    ],
-  },
-  {
-    tag: "Option B · No-binding LOI",
-    title: "Reserve early fleet allocation",
-    points: [
-      "Non-binding — no financial commitment today",
-      "Locks in pre-production pricing",
-      "Priority Q3 2026 delivery slot",
-      "Co-design input on cargo compartment configuration",
-    ],
-  },
-];
-
 export const b2bFleet = {
   eyebrow: "Section 07 — B2B Fleet Solutions",
   heading: "Fleet-grade last-mile delivery.",
   sub: "Built for India's fleet operators.",
   lede:
-    "India's first enclosed, ADAS-enabled electric fleet vehicle. Car-grade safety at two-wheeler economics.",
+    "India's first enclosed, ADAS-enabled electric fleet vehicle — configured for temperature-sensitive, multi-stop urban last-mile fleet operations.",
+  configImage: "/assets/epod-fleet-config.jpg",
+  configImageAlt:
+    "e-POD fleet delivery configuration — cutaway view showing the climate-controlled cabin, tablet navigation, multi-zone secure cargo hold, heated parcels, thermally insulated rack and refrigerated storage.",
+  renderImage: "/assets/epod-b2b-render.jpg",
+  renderImageAlt:
+    "The Jedlik e-POD — enclosed electric fleet vehicle in silver, three-quarter front view.",
   config: "e-POD: Fleet Delivery Configuration",
   configNote:
     "Configured for temperature-sensitive, multi-stop urban last-mile fleet operations.",
@@ -357,12 +326,6 @@ export const b2bFleet = {
       body: "Navigates narrow lanes faster than a two-wheeler. More deliveries per shift.",
     },
   ],
-  pilot: {
-    title: "The pilot programme",
-    sub: "10 vehicles. 90 days. Zero upfront commitment.",
-    closing:
-      "Fleet operators signing an LOI today lock in pre-production pricing and reserve their 2027 pilot allocation.",
-  },
   trailer:
     "Five serious global attempts. None reached mass production.",
 };

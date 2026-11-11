@@ -1,30 +1,28 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   b2bFleet,
-  b2bProblems,
+  b2bFeatures,
   b2bSpecs,
   b2bAdas,
-  b2bCostRows,
-  b2bEconomics,
-  b2bPilot,
 } from "@/data/jedlikData";
 
 /**
  * Section 07 — the B2B fleet cut.
  *
- * The brief deck is written for investors. This section is the same story
- * told in the fleet operator's language: what a petrol scooter costs them
- * per kilometre, what the e-POD costs them per kilometre, and what the
- * difference is worth over five years.
+ * The brief deck is written for investors. This section is the product
+ * story only: the vehicle picture from the B2B Deck and the features a
+ * fleet operator buys. No cost-per-km tables, no savings figures, no
+ * pilot commercials — those belong in the operator conversation, not in
+ * the investor brief.
  *
- * Split into three blocks, each its own full-viewport section so the
- * fit-to-viewport shell never crushes the tables:
+ * Split into two blocks, each its own full-viewport section so the
+ * fit-to-viewport shell never crushes the picture or the feature lists:
  *
- *   Block A: the problem + the two solution pillars
- *   Block B: fleet configuration, specs and ADAS
- *   Block C: unit economics (the CFO's case) + the pilot programme
+ *   Block A: the vehicle picture + the feature callouts it carries
+ *   Block B: specifications, ADAS and the trailer line
  */
 
 function Block({
@@ -42,9 +40,12 @@ function Block({
 }
 
 export default function B2BFleet() {
+  const cabin = b2bFeatures.filter((f) => f.group === "Cabin");
+  const cargo = b2bFeatures.filter((f) => f.group === "Cargo");
+
   return (
     <>
-      {/* ---------------- Block A — the problem + the pillars ---------------- */}
+      {/* ---------------- Block A — the picture + its features ---------------- */}
       <Block>
         <p className="eyebrow">{b2bFleet.eyebrow}</p>
         <h2 className="display-lg mt-3 max-w-[16ch] text-ink">
@@ -53,65 +54,77 @@ export default function B2BFleet() {
         <p className="mt-3 max-w-[52ch] text-base text-muted md:text-lg">
           {b2bFleet.sub}
         </p>
-        <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-ink md:text-base">
-          {b2bFleet.lede}
-        </p>
 
-        {/* The problem, stated as the operator's own cost lines */}
-        <div className="mt-5 grid grid-cols-1 gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
-          {b2bProblems.map((p, i) => (
-            <motion.div
-              key={p.label}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: i * 0.06 }}
-              className="bg-paper-2 p-3 md:p-4"
-            >
-              <p className="eyebrow">{p.label}</p>
-              <p className="mt-2 font-display text-base font-bold leading-tight tracking-tight text-red md:text-lg">
-                {p.headline}
-              </p>
-              <p className="mt-2 text-xs leading-relaxed text-muted md:text-sm">
-                {p.detail}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+        {/* The uploaded picture, with the features it carries */}
+        <div className="mt-5 grid grid-cols-1 items-start gap-6 lg:grid-cols-[1.25fr_1fr]">
+          <motion.figure
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5 }}
+            className="relative"
+          >
+            <div className="relative overflow-hidden border border-rule bg-black">
+              <Image
+                src={b2bFleet.configImage}
+                alt={b2bFleet.configImageAlt}
+                width={2279}
+                height={1556}
+                className="h-auto w-full"
+                priority
+              />
+            </div>
+            <figcaption className="mt-2 text-xs leading-relaxed text-muted">
+              {b2bFleet.config} — {b2bFleet.configNote}
+            </figcaption>
+          </motion.figure>
 
-        {/* The two pillars */}
-        <div className="mt-5 grid grid-cols-1 gap-px border border-rule bg-rule sm:grid-cols-2">
-          {b2bFleet.pillars.map((pillar, i) => (
-            <motion.div
-              key={pillar.title}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: 0.12 + i * 0.06 }}
-              className="bg-paper p-4 md:p-5"
-            >
-              <p className="font-display text-base font-bold uppercase tracking-tight text-ink md:text-lg">
-                {pillar.title}
-              </p>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted md:text-base">
-                {pillar.body}
-              </p>
-            </motion.div>
-          ))}
+          {/* The features, split into cabin and cargo */}
+          <div className="space-y-5">
+            {[
+              { title: "Cabin", items: cabin },
+              { title: "Cargo", items: cargo },
+            ].map((group, gi) => (
+              <div key={group.title}>
+                <h3 className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+                  {group.title}
+                </h3>
+                <ul className="mt-2 space-y-2">
+                  {group.items.map((f, i) => (
+                    <motion.li
+                      key={f.label}
+                      initial={{ opacity: 0, x: 12 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.4, delay: gi * 0.08 + i * 0.05 }}
+                      className="border-l-2 border-rule pl-3"
+                    >
+                      <p className="font-display text-sm font-bold leading-snug tracking-tight text-ink md:text-base">
+                        {f.label}
+                      </p>
+                      <p className="mt-0.5 text-xs leading-relaxed text-muted md:text-sm">
+                        {f.detail}
+                      </p>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </Block>
 
-      {/* ---------------- Block B — fleet configuration ---------------- */}
+      {/* ---------------- Block B — specs, ADAS and the trailer ---------------- */}
       <Block>
         <p className="eyebrow">
           {b2bFleet.eyebrow}
           <span className="text-muted"> · continued</span>
         </p>
         <h2 className="mt-2 font-display text-xl font-bold tracking-tight text-ink md:text-2xl">
-          {b2bFleet.config}
+          Built to work, all day, in any weather
         </h2>
         <p className="mt-1.5 max-w-[62ch] text-sm leading-relaxed text-muted md:text-base">
-          {b2bFleet.configNote}
+          {b2bFleet.lede}
         </p>
 
         {/* Vehicle specifications */}
@@ -166,152 +179,6 @@ export default function B2BFleet() {
         <p className="mt-5 border-l-2 border-red bg-red-soft/40 px-4 py-3 text-sm leading-relaxed text-ink md:text-base">
           {b2bFleet.trailer}
         </p>
-      </Block>
-
-      {/* ---------------- Block C — unit economics + pilot ---------------- */}
-      <Block>
-        <p className="eyebrow">
-          {b2bFleet.eyebrow}
-          <span className="text-muted"> · continued</span>
-        </p>
-        <h2 className="mt-2 font-display text-xl font-bold tracking-tight text-ink md:text-2xl">
-          Unit economics — the fleet operator&rsquo;s case
-        </h2>
-        <p className="mt-1.5 max-w-[62ch] text-sm leading-relaxed text-muted md:text-base">
-          Per-km total cost of ownership at an 80 km/day workload — the numbers
-          a CFO will sign off on.
-        </p>
-
-        {/* The headline saving */}
-        <div className="mt-4 flex flex-wrap items-end gap-x-6 gap-y-2 border border-rule bg-paper-2 px-4 py-3">
-          <span className="font-display text-3xl font-bold leading-none tracking-tight text-red md:text-4xl">
-            {b2bEconomics.savingPercent}% cheaper
-          </span>
-          <span className="text-sm text-muted">
-            {b2bEconomics.scooterTotal} today → {b2bEconomics.epodTotal} with the
-            e-POD
-          </span>
-          <span className="text-xs text-muted md:text-sm">{b2bEconomics.epodOnRoad}</span>
-        </div>
-
-        {/* The cost breakdown, side by side */}
-        <div className="mt-3 -mx-6 overflow-x-auto px-6 md:mx-0 md:px-0">
-          <table className="w-full min-w-[520px] border-collapse bg-paper-2 text-left">
-            <thead>
-              <tr>
-                <th className="border-b-2 border-ink pb-2.5 pr-4 font-display text-[0.7rem] font-bold uppercase tracking-[0.16em] text-ink">
-                  Cost per km
-                </th>
-                <th className="border-b-2 border-ink pb-2.5 pr-4 text-right font-display text-[0.7rem] font-bold uppercase tracking-[0.16em] text-muted">
-                  Petrol scooter
-                </th>
-                <th className="border-b-2 border-ink pb-2.5 text-right font-display text-[0.7rem] font-bold uppercase tracking-[0.16em] text-red">
-                  e-POD
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {b2bCostRows.map((r, i) => (
-                <motion.tr
-                  key={r.line}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.4, delay: i * 0.05 }}
-                  className="border-b border-rule"
-                >
-                  <td className="py-2.5 pr-4 text-sm leading-relaxed text-ink md:text-base">
-                    {r.line}
-                  </td>
-                  <td className="py-2.5 pr-4 text-right font-display text-sm text-muted md:text-base">
-                    {r.scooter}
-                  </td>
-                  <td className="py-2.5 text-right font-display text-sm font-bold text-red md:text-base">
-                    {r.epod}
-                  </td>
-                </motion.tr>
-              ))}
-              <tr>
-                <td className="py-3 pr-4 font-display text-sm font-bold uppercase tracking-tight text-ink md:text-base">
-                  All-in cost per km
-                </td>
-                <td className="py-3 pr-4 text-right font-display text-sm font-bold text-ink md:text-base">
-                  {b2bEconomics.scooterTotal}
-                </td>
-                <td className="py-3 text-right font-display text-base font-bold text-red md:text-lg">
-                  {b2bEconomics.epodTotal}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {/* What the saving is worth */}
-        <div className="mt-3 grid grid-cols-2 gap-px border border-rule bg-rule lg:grid-cols-4">
-          <div className="bg-paper-2 p-3 md:p-4">
-            <p className="eyebrow">5-year saving / vehicle</p>
-            <p className="mt-1.5 font-display text-lg font-bold tracking-tight text-red md:text-xl">
-              {b2bEconomics.savingPerVehicle}
-            </p>
-          </div>
-          <div className="bg-paper-2 p-3 md:p-4">
-            <p className="eyebrow">Per vehicle / year</p>
-            <p className="mt-1.5 font-display text-lg font-bold tracking-tight text-ink md:text-xl">
-              {b2bEconomics.savingPerVehiclePerYear}
-            </p>
-          </div>
-          <div className="bg-paper-2 p-3 md:p-4">
-            <p className="eyebrow">Fleet of 10</p>
-            <p className="mt-1.5 font-display text-lg font-bold tracking-tight text-ink md:text-xl">
-              {b2bEconomics.fleetTen}
-            </p>
-          </div>
-          <div className="bg-paper-2 p-3 md:p-4">
-            <p className="eyebrow">Payback</p>
-            <p className="mt-1.5 font-display text-lg font-bold tracking-tight text-ink md:text-xl">
-              {b2bEconomics.payback}
-            </p>
-          </div>
-        </div>
-        <p className="mt-1.5 text-xs text-muted md:text-sm">{b2bEconomics.basis}</p>
-
-        {/* The pilot programme */}
-        <div className="mt-5">
-          <h3 className="font-display text-base font-bold uppercase tracking-tight text-ink md:text-lg">
-            {b2bFleet.pilot.title}
-          </h3>
-          <p className="mt-1 text-sm text-red md:text-base">{b2bFleet.pilot.sub}</p>
-
-          <div className="mt-3 grid grid-cols-1 gap-px border border-rule bg-rule sm:grid-cols-2">
-            {b2bPilot.map((opt, i) => (
-              <motion.div
-                key={opt.tag}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.45, delay: i * 0.06 }}
-                className="bg-paper p-4"
-              >
-                <p className="eyebrow text-red">{opt.tag}</p>
-                <p className="mt-1.5 font-display text-sm font-bold uppercase tracking-tight text-ink md:text-base">
-                  {opt.title}
-                </p>
-                <ul className="mt-2.5 space-y-1.5">
-                  {opt.points.map((pt) => (
-                    <li key={pt} className="flex gap-2.5 text-sm leading-relaxed text-muted">
-                      <span className="dot mt-1.5 shrink-0" aria-hidden="true" />
-                      <span>{pt}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-
-          <p className="mt-3 text-sm leading-relaxed text-ink md:text-base">
-            {b2bFleet.pilot.closing}
-          </p>
-        </div>
       </Block>
     </>
   );
