@@ -101,7 +101,7 @@ export const mentors: TeamMember[] = [
   {
     name: "Swathi Thombarappu",
     role: "Mechanical Mentor",
-    detail: "EE-Chassis Electronics & ADAS Expert, VinFast",
+    detail: "Technologist, EV Projects — Royal Enfield · EE System Integration for EV projects",
     image: "/assets/team-swathi.jpg",
   },
   {

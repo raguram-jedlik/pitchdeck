@@ -117,10 +117,10 @@ Band: *Combined 15+ years experience in automotive design across TVS, Samsung,
 Daimler Trucks and Sertel.*
 
 Mentors — Srikanthan Sridharan (Electrical Mentor; Assistant Professor, Dept of
-Engineering Design, IIT-M) · Swathi Thombarappu (Mechanical Mentor; EE-Chassis
-Electronics & ADAS Expert, VinFast) · Shankar Subramanian (Business Mentor;
-Strategic Advisor & Independent Director — Governance, Growth & Business
-Advisory).
+Engineering Design, IIT-M) · Swathi Thombarappu (Mechanical Mentor;
+Technologist, EV Projects — Royal Enfield; EE System Integration for EV
+projects) · Shankar Subramanian (Business Mentor; Strategic Advisor &
+Independent Director — Governance, Growth & Business Advisory).
 
 Portraits open via an expanding circle mask as each enters view.
 
